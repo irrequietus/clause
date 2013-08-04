@@ -1,0 +1,12 @@
+2013-08-04 George Makrydakis <irrequietus@gmail.com>
+
+    * Just a series of files for the autotools based build system for the
+    odreex C++ libraries.
+    
+    * autogen.sh checks whether ltmain.sh can be patched for --as-needed to work
+    as expected (known ltmain.sh bug) and applies the patch.
+    
+    * autogen.sh -d runs everything up to make distcheck provides a series of
+    tarballs with the long sha1 hash of the current git rev-parse HEAD and make
+    dist follows the same convention.
+    
