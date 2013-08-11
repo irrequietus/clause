@@ -33,11 +33,15 @@ int main() {
     std::for_each( check_all_pass::begin()
                  , check_all_pass::end()
                  , check_all_pass::println );
-    
+    check_all_pass
+        ::println_foot("test block completed.");
+        
+    check_all_natural
+        ::println_head("all of the following are supposed to be a pass.");
     std::for_each( check_all_natural::begin()
                  , check_all_natural::end()
                  , check_all_natural::println );
-    check_all_pass
+    check_all_natural
         ::println_foot("test block completed.");
         
     check_all_fail

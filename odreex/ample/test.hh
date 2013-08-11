@@ -428,6 +428,12 @@ public:
         printf("* %s\n", s);
 #endif
     }
+    
+    static void deploy() {
+        println_head("all of the following are supposed to be a pass.");
+        std::for_each(begin(), end(), println);
+        println_foot("test block completed.");
+    }
 };
 
 
