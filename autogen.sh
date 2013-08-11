@@ -9,8 +9,6 @@
 # files required for autotools to work with odreex and it is written in GNU/bash
 # because of conveniency.
 
-export ODREEX_AUTOGEN_GITHASH=$(git rev-parse HEAD)
-
 function odreexgen_help() {
     printf "\n=============================================================\n"
     printf "odreex libraries autogen.sh implementation\n"
@@ -30,6 +28,7 @@ function odreexgen_makefile() {
     
     while read fl; do
         case "$fl" in
+            */ample/test/*.cc)           ;;
             *.hh) fheaders+=("${fl#*/}") ;;
             *.cc) fsources+=("${fl#*/}") ;;
         esac
@@ -54,6 +53,8 @@ function odreexgen_makefile() {
       done
       printf "\t$fs\n\n"
     } > "fsources.mk"
+    
+    printf "ODREEX_GITHASH = %s\n" $(git rev-parse HEAD) > githash.mk
 }
 
 #

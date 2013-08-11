@@ -5,7 +5,9 @@
 ## since pretty much the entire library set is a work in progress!
 ##
 
-distdir = $(PACKAGE).$(VERSION)-$(ODREEX_AUTOGEN_GITHASH)
+include $(top_srcdir)/githash.mk
+
+distdir = $(PACKAGE).$(VERSION)-$(ODREEX_GITHASH)
 AUTOMAKE_OPTIONS = subdir-objects
 AM_LDFLAGS = -L/usr/local/lib -L/usr/lib
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
