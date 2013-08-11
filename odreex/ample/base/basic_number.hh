@@ -72,16 +72,16 @@ struct basic_number {
 };
 
 template<uint64_t N>
-using num64u_t = basic_number<uint64_t, N>;
+using num64u = basic_number<uint64_t, N>;
 
 template<uint32_t N>
-using num32u_t = basic_number<uint32_t, N>;
+using num32u = basic_number<uint32_t, N>;
 
 template<int64_t N>
-using num64_t = basic_number<int64_t, N>;
+using num64 = basic_number<int64_t, N>;
 
 template<int32_t N>
-using num32_t = basic_number<int32_t, N>;
+using num32 = basic_number<int32_t, N>;
 
 template<uint64_t N>
 using natural = basic_number<uint64_t, N>;
