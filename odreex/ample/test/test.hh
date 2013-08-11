@@ -142,6 +142,11 @@ struct validating_next_natural
      ample_vldt_("vldt_values<next<natural<5>>, natural<6>, true>")
 };
 
+struct validating_prev_natural
+     : vldt_values<prev<natural<5>>, natural<4>, true> {
+     ample_vldt_("vldt_values<prev<natural<5>>, natural<4>, true>")
+};
+
 /* validating check_all for all "pass" cases */
 struct check_all_pass
     : check< true
@@ -176,7 +181,8 @@ struct check_all_natural
                        , validating_sub_natural
                        , validating_div_natural
                        , validating_mod_natural
-                       , validating_next_natural >>
+                       , validating_next_natural
+                       , validating_prev_natural >>
 {};
 
 } /* test */
