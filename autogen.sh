@@ -53,8 +53,6 @@ function odreexgen_makefile() {
       done
       printf "\t$fs\n\n"
     } > "fsources.mk"
-    
-    printf "ODREEX_GITHASH = %s\n" $(git rev-parse HEAD) > githash.mk
 }
 
 #

@@ -5,9 +5,7 @@
 ## since pretty much the entire library set is a work in progress!
 ##
 
-include $(top_srcdir)/githash.mk
-
-distdir = $(PACKAGE).$(VERSION)-$(ODREEX_GITHASH)
+distdir = $(PACKAGE).$(VERSION)-$(shell git rev-parse HEAD)
 AUTOMAKE_OPTIONS = subdir-objects
 AM_LDFLAGS = -L/usr/local/lib -L/usr/lib
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
