@@ -109,18 +109,20 @@ struct validating_values_false_true_not
     ample_vldt_("vldt_values<std::false_type, std::true_type, true>")
 };
 
+/* validating check_all for all "pass" cases */
 struct check_all_pass
     : check< true
-    , check_all< validating_types_true_true
-               , validating_types_true_false
-               , validating_types_false_false
-               , validating_types_false_true
-               , validating_values_true_true
-               , validating_values_true_false
-               , validating_values_false_false
-               , validating_values_false_true > >
+           , check_all< validating_types_true_true
+                      , validating_types_true_false
+                      , validating_types_false_false
+                      , validating_types_false_true
+                      , validating_values_true_true
+                      , validating_values_true_false
+                      , validating_values_false_false
+                      , validating_values_false_true >>
 {};
 
+/* validating check_all for all "fail" cases */
 struct check_all_fail
     : check< false
            , check_all< validating_types_true_true_not
