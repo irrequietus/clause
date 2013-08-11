@@ -132,6 +132,10 @@ struct validating_div_natural
      ample_vldt_("vldt_values<div<natural<5>, natural<5>>, natural<1>, true>")
 };
 
+struct validating_mod_natural
+     : vldt_values<mod<natural<6>, natural<5>>, natural<1>, true> {
+     ample_vldt_("vldt_values<mod<natural<5>, natural<5>>, natural<1>, true>")
+};
 
 /* validating check_all for all "pass" cases */
 struct check_all_pass
@@ -165,7 +169,8 @@ struct check_all_natural
             , check_all< validating_add_natural
                        , validating_mul_natural
                        , validating_sub_natural
-                       , validating_div_natural >>
+                       , validating_div_natural
+                       , validating_mod_natural >>
 {};
 
 } /* test */
