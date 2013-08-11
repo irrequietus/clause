@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef _ODREEX_AMPLE_BASIC_NUMBER_HH_
-#define _ODREEX_AMPLE_BASIC_NUMBER_HH_
+#ifndef _ODREEX_AMPLE_BASE_BASIC_NUMBER_HH_
+#define _ODREEX_AMPLE_BASE_BASIC_NUMBER_HH_
 
 #include <cinttypes>
 
@@ -89,4 +89,4 @@ using natural = basic_number<uint64_t, N>;
 } /* ample */
 } /* odreex */
 
-#endif /* _ODREEX_AMPLE_BASIC_NUMBER_HH_ */
+#endif /* _ODREEX_AMPLE_BASE_BASIC_NUMBER_HH_ */
