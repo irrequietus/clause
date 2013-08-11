@@ -412,7 +412,24 @@ public:
         ample_printf_(i, cz, AMPLE_PRINTLN_LIM);
         return result[i];
     }
+    
+    static void println_head(char const *s) {
+#ifdef USE_ANSI_COLORS
+        printf("\n\033[1;37m* %s\033[0m\n", s);
+#else
+        printf("\n* %s\n", s);
+#endif
+    }
+    
+    static void println_foot(char const *s) {
+#ifdef USE_ANSI_COLORS
+        printf("\033[1;37m* %s\033[0m\n", s);
+#else
+        printf("* %s\n", s);
+#endif
+    }
 };
+
 
 } /* test */
 } /* ample */

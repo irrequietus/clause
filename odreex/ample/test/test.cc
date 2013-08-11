@@ -28,7 +28,8 @@
 using namespace odreex::ample::test;
 
 int main() {
-    printf("*** all of the following are supposed to be a pass.\n");
+    check_all_pass
+        ::println_head("all of the following are supposed to be a pass.");
     std::for_each( check_all_pass::begin()
                  , check_all_pass::end()
                  , check_all_pass::println );
@@ -36,10 +37,16 @@ int main() {
     std::for_each( check_all_natural::begin()
                  , check_all_natural::end()
                  , check_all_natural::println );
-    
-    printf("*** all of the following are supposed to be a fail.\n");
+    check_all_pass
+        ::println_foot("test block completed.");
+        
+    check_all_fail
+        ::println_head("all of the following are supposed to be a fail.");
     std::for_each( check_all_fail::begin()
                  , check_all_fail::end()
                  , check_all_fail::println );
+    check_all_fail
+        ::println_foot("test block completed.");
+        
     return {};
 }
