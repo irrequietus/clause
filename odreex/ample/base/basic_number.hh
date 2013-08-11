@@ -52,7 +52,7 @@ struct basic_number {
     template<typename Number_T>
     struct oprt_div {
         static_assert(Number_T::value, "cannot divide by zero");
-        typedef basic_number< Number_T
+        typedef basic_number< Type_T
                             , N / static_cast<Type_T>(Number_T::value)> type;
     };
 
