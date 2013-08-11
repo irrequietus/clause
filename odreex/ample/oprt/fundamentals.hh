@@ -44,6 +44,11 @@ struct div
      : Type_T::template oprt_div<Type_Q>::type
 {};
 
+template<typename Type_T, typename Type_Q>
+struct mod
+     : Type_T::template oprt_mod<Type_Q>::type
+{};
+
 template<typename Type_T>
 struct next
      : Type_T::oprt_next::type
