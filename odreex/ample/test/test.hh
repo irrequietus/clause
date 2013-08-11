@@ -137,4 +137,4 @@ struct check_all_fail
 } /* ample */
 } /* odreex */
 
-#endif /* _ODREEX_AMPLE_TEST_TEST_TEST_HH_ */
+#endif /* _ODREEX_AMPLE_TEST_TEST_HH_ */
