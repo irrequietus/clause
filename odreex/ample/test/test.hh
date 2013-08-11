@@ -124,7 +124,7 @@ struct validating_mul_natural
 
 struct validating_sub_natural
      : vldt_values<sub<natural<5>, natural<5>>, natural<0>, true> {
-     ample_vldt_("vldt_values<mul<natural<5>, natural<5>>, natural<0>, true>")
+     ample_vldt_("vldt_values<sub<natural<5>, natural<5>>, natural<0>, true>")
 };
 
 struct validating_div_natural
@@ -134,7 +134,7 @@ struct validating_div_natural
 
 struct validating_mod_natural
      : vldt_values<mod<natural<6>, natural<5>>, natural<1>, true> {
-     ample_vldt_("vldt_values<mod<natural<5>, natural<5>>, natural<1>, true>")
+     ample_vldt_("vldt_values<mod<natural<6>, natural<5>>, natural<1>, true>")
 };
 
 /* validating check_all for all "pass" cases */
