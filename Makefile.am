@@ -30,7 +30,7 @@ dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit
 
 distcheck-hook:
-	tstamp=$(PACKAGE_VERSION).$(ODREEX_AUTOGEN_GITHASH); \
+	tstamp=$(PACKAGE_VERSION).$(shell git rev-parse HEAD); \
 	rm -rf dist; \
 	mkdir dist; \
 	for pkged___item in xz bz2 gz ; do \
