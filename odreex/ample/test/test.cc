@@ -33,6 +33,10 @@ int main() {
                  , check_all_pass::end()
                  , check_all_pass::println );
     
+    std::for_each( check_all_natural::begin()
+                 , check_all_natural::end()
+                 , check_all_natural::println );
+    
     printf("*** all of the following are supposed to be a fail.\n");
     std::for_each( check_all_fail::begin()
                  , check_all_fail::end()

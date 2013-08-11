@@ -21,6 +21,8 @@
 #define _ODREEX_AMPLE_TEST_TEST_HH_
 
 #include <odreex/ample/test.hh>
+#include <odreex/ample/oprt/fundamentals.hh>
+#include <odreex/ample/base/basic_number.hh>
 
 /* NOTE: some default tests */
 namespace odreex {
@@ -109,6 +111,28 @@ struct validating_values_false_true_not
     ample_vldt_("vldt_values<std::false_type, std::true_type, true>")
 };
 
+/* Some oprt_* tests temporarily added in the master ample/test/test.hh */
+struct validating_add_natural
+     : vldt_values<add<natural<5>, natural<5>>, natural<10>, true> {
+     ample_vldt_("vldt_values<add<natural<5>, natural<5>>, natural<10>, true>")
+};
+
+struct validating_mul_natural
+     : vldt_values<mul<natural<5>, natural<5>>, natural<25>, true> {
+     ample_vldt_("vldt_values<mul<natural<5>, natural<5>>, natural<25>, true>")
+};
+
+struct validating_sub_natural
+     : vldt_values<sub<natural<5>, natural<5>>, natural<0>, true> {
+     ample_vldt_("vldt_values<mul<natural<5>, natural<5>>, natural<0>, true>")
+};
+
+struct validating_div_natural
+     : vldt_values<div<natural<5>, natural<5>>, natural<1>, true> {
+     ample_vldt_("vldt_values<div<natural<5>, natural<5>>, natural<1>, true>")
+};
+
+
 /* validating check_all for all "pass" cases */
 struct check_all_pass
     : check< true
@@ -133,6 +157,15 @@ struct check_all_fail
                       , validating_values_true_false_not
                       , validating_values_false_false_not
                       , validating_values_false_true_not >>
+{};
+
+
+struct check_all_natural
+     : check< true
+            , check_all< validating_add_natural
+                       , validating_mul_natural
+                       , validating_sub_natural
+                       , validating_div_natural >>
 {};
 
 } /* test */
