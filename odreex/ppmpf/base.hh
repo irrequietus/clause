@@ -445,13 +445,12 @@
 #        endif
             
 #        define PPMPF_REPEATS(f,s) \
-#                PPMPF_REPEAT( f \
-#                            , s \
-#                            , PPMPF_WSPC \
-#                            , PPMPF_SD4 \
-#                            , PPMPF_SD3 \
-#                            , PPMPF_SD2 \
-#                            , PPMPF_SD1 )
+                PPMPF_REPEAT( f \
+                            , s \
+                            , PPMPF_SD4 \
+                            , PPMPF_SD3 \
+                            , PPMPF_SD2 \
+                            , PPMPF_SD1 )
 #   endif
 #else
 #   define PPMPF_HRMAX 64
