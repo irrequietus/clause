@@ -1,4 +1,4 @@
-/*
+/* --
  * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
