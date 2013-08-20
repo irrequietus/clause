@@ -337,6 +337,9 @@
 #define PPMPF_RPTHP1(t,h,d,u) \
     PPMPF_NOT(PPMPF_IS(0,u))
 
+/* NOTE: f is the macro to which a decimal number is passed, s is the separator,
+ * t stand for thousands, h stand for hundreds, d for decades, u for units.
+ */
 #define PPMPF_REPEAT(f,s,t,h,d,u) \
     PPMPF_RPTH(3,t)(f,s,    PPMPF_IFELSE(PPMPF_RPTHP3(t,h,d,u),s,PPMPF_WSPC)) \
     PPMPF_RPTH(2,h)(t,f,s,  PPMPF_IFELSE(PPMPF_RPTHP2(t,h,d,u),s,PPMPF_WSPC)) \
