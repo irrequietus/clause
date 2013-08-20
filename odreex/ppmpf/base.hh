@@ -347,119 +347,119 @@
  * to expand to, while it defines PPMPF_SD* macros as well.
  */
 #ifdef PPMPF_HRMAX
-    #if PPMPF_HRMAX > 10000
-        #error Requesting a PPMPF_HRMAX beyond 10000 is not supported.
-    #elif PPMPF_HRMAX == 10000
-        #define PPMPF_SD4 9
-        #define PPMPF_SD3 9
-        #define PPMPF_SD2 9
-        #define PPMPF_SD1 9
-        #define PPMPF_REPEATS(f,s) PPMPF_REPEAT(f,s,9,9,9,9) f(9999)
-    #else
-        #if (PPMPF_HRMAX / 1000) % 10 == 0
-            #define PPMPF_SD4 0
-        #elif (PPMPF_HRMAX / 1000) % 10 == 1
-            #define PPMPF_SD4 1
-        #elif (PPMPF_HRMAX / 1000) % 10 == 2
-            #define PPMPF_SD4 2
-        #elif (PPMPF_HRMAX / 1000) % 10 == 3
-            #define PPMPF_SD4 3
-        #elif (PPMPF_HRMAX / 1000) % 10 == 4
-            #define PPMPF_SD4 4
-        #elif (PPMPF_HRMAX / 1000) % 10 == 5
-            #define PPMPF_SD4 5
-        #elif (PPMPF_HRMAX / 1000) % 10 == 6
-            #define PPMPF_SD4 6
-        #elif (PPMPF_HRMAX / 1000) % 10 == 7
-            #define PPMPF_SD4 7
-        #elif (PPMPF_HRMAX / 1000) % 10 == 8
-            #define PPMPF_SD4 8
-        #elif (PPMPF_HRMAX / 1000) % 10 == 9
-            #define PPMPF_SD4 9
-        #endif
+#    if PPMPF_HRMAX > 10000
+#        error Requesting a PPMPF_HRMAX beyond 10000 is not supported.
+#    elif PPMPF_HRMAX == 10000
+#        define PPMPF_SD4 9
+#        define PPMPF_SD3 9
+#        define PPMPF_SD2 9
+#        define PPMPF_SD1 9
+#        define PPMPF_REPEATS(f,s) PPMPF_REPEAT(f,s,9,9,9,9) f(9999)
+#    else
+#        if (PPMPF_HRMAX / 1000) % 10 == 0
+#            define PPMPF_SD4 0
+#        elif (PPMPF_HRMAX / 1000) % 10 == 1
+#            define PPMPF_SD4 1
+#        elif (PPMPF_HRMAX / 1000) % 10 == 2
+#            define PPMPF_SD4 2
+#        elif (PPMPF_HRMAX / 1000) % 10 == 3
+#            define PPMPF_SD4 3
+#        elif (PPMPF_HRMAX / 1000) % 10 == 4
+#            define PPMPF_SD4 4
+#        elif (PPMPF_HRMAX / 1000) % 10 == 5
+#            define PPMPF_SD4 5
+#        elif (PPMPF_HRMAX / 1000) % 10 == 6
+#            define PPMPF_SD4 6
+#        elif (PPMPF_HRMAX / 1000) % 10 == 7
+#            define PPMPF_SD4 7
+#        elif (PPMPF_HRMAX / 1000) % 10 == 8
+#            define PPMPF_SD4 8
+#        elif (PPMPF_HRMAX / 1000) % 10 == 9
+#            define PPMPF_SD4 9
+#        endif
         
-        #if (PPMPF_HRMAX / 100) % 10 == 0
-            #define PPMPF_SD3 0
-        #elif (PPMPF_HRMAX / 100) % 10 == 1
-            #define PPMPF_SD3 1
-        #elif (PPMPF_HRMAX / 100) % 10 == 2
-            #define PPMPF_SD3 2
-        #elif (PPMPF_HRMAX / 100) % 10 == 3
-            #define PPMPF_SD3 3
-        #elif (PPMPF_HRMAX / 100) % 10 == 4
-            #define PPMPF_SD3 4
-        #elif (PPMPF_HRMAX / 100) % 10 == 5
-            #define PPMPF_SD3 5
-        #elif (PPMPF_HRMAX / 100) % 10 == 6
-            #define PPMPF_SD3 6
-        #elif (PPMPF_HRMAX / 100) % 10 == 7
-            #define PPMPF_SD3 7
-        #elif (PPMPF_HRMAX / 100) % 10 == 8
-            #define PPMPF_SD3 8
-        #elif (PPMPF_HRMAX / 100) % 10 == 9
-            #define PPMPF_SD3 9
-        #endif
+#        if (PPMPF_HRMAX / 100) % 10 == 0
+#            define PPMPF_SD3 0
+#        elif (PPMPF_HRMAX / 100) % 10 == 1
+#            define PPMPF_SD3 1
+#        elif (PPMPF_HRMAX / 100) % 10 == 2
+#            define PPMPF_SD3 2
+#        elif (PPMPF_HRMAX / 100) % 10 == 3
+#            define PPMPF_SD3 3
+#        elif (PPMPF_HRMAX / 100) % 10 == 4
+#            define PPMPF_SD3 4
+#        elif (PPMPF_HRMAX / 100) % 10 == 5
+#            define PPMPF_SD3 5
+#        elif (PPMPF_HRMAX / 100) % 10 == 6
+#            define PPMPF_SD3 6
+#        elif (PPMPF_HRMAX / 100) % 10 == 7
+#            define PPMPF_SD3 7
+#        elif (PPMPF_HRMAX / 100) % 10 == 8
+#            define PPMPF_SD3 8
+#        elif (PPMPF_HRMAX / 100) % 10 == 9
+#            define PPMPF_SD3 9
+#        endif
         
-        #if (PPMPF_HRMAX / 10) % 10 == 0
-            #define PPMPF_SD2 0
-        #elif (PPMPF_HRMAX / 10) % 10 == 1
-            #define PPMPF_SD2 1
-        #elif (PPMPF_HRMAX / 10) % 10 == 2
-            #define PPMPF_SD2 2
-        #elif (PPMPF_HRMAX / 10) % 10 == 3
-            #define PPMPF_SD2 3
-        #elif (PPMPF_HRMAX / 10) % 10 == 4
-            #define PPMPF_SD2 4
-        #elif (PPMPF_HRMAX / 10) % 10 == 5
-            #define PPMPF_SD2 5
-        #elif (PPMPF_HRMAX / 10) % 10 == 6
-            #define PPMPF_SD2 6
-        #elif (PPMPF_HRMAX / 10) % 10 == 7
-            #define PPMPF_SD2 7
-        #elif (PPMPF_HRMAX / 10) % 10 == 8
-            #define PPMPF_SD2 8
-        #elif (PPMPF_HRMAX / 10) % 10 == 9
-            #define PPMPF_SD2 9
-        #endif
+#        if (PPMPF_HRMAX / 10) % 10 == 0
+#            define PPMPF_SD2 0
+#        elif (PPMPF_HRMAX / 10) % 10 == 1
+#            define PPMPF_SD2 1
+#        elif (PPMPF_HRMAX / 10) % 10 == 2
+#            define PPMPF_SD2 2
+#        elif (PPMPF_HRMAX / 10) % 10 == 3
+#            define PPMPF_SD2 3
+#        elif (PPMPF_HRMAX / 10) % 10 == 4
+#            define PPMPF_SD2 4
+#        elif (PPMPF_HRMAX / 10) % 10 == 5
+#            define PPMPF_SD2 5
+#        elif (PPMPF_HRMAX / 10) % 10 == 6
+#            define PPMPF_SD2 6
+#        elif (PPMPF_HRMAX / 10) % 10 == 7
+#            define PPMPF_SD2 7
+#        elif (PPMPF_HRMAX / 10) % 10 == 8
+#            define PPMPF_SD2 8
+#        elif (PPMPF_HRMAX / 10) % 10 == 9
+#            define PPMPF_SD2 9
+#        endif
         
-        #if PPMPF_HRMAX % 10 == 0
-            #define PPMPF_SD1 0
-        #elif PPMPF_HRMAX % 10 == 1
-            #define PPMPF_SD1 1
-        #elif PPMPF_HRMAX % 10 == 2
-            #define PPMPF_SD1 2
-        #elif PPMPF_HRMAX % 10 == 3
-            #define PPMPF_SD1 3
-        #elif PPMPF_HRMAX % 10 == 4
-            #define PPMPF_SD1 4
-        #elif PPMPF_HRMAX % 10 == 5
-            #define PPMPF_SD1 5
-        #elif PPMPF_HRMAX % 10 == 6
-            #define PPMPF_SD1 6
-        #elif PPMPF_HRMAX % 10 == 7
-            #define PPMPF_SD1 7
-        #elif PPMPF_HRMAX % 10 == 8
-            #define PPMPF_SD1 8
-        #elif PPMPF_HRMAX % 10 == 9
-            #define PPMPF_SD1 9
-        #endif
+#        if PPMPF_HRMAX % 10 == 0
+#            define PPMPF_SD1 0
+#        elif PPMPF_HRMAX % 10 == 1
+#            define PPMPF_SD1 1
+#        elif PPMPF_HRMAX % 10 == 2
+#            define PPMPF_SD1 2
+#        elif PPMPF_HRMAX % 10 == 3
+#            define PPMPF_SD1 3
+#        elif PPMPF_HRMAX % 10 == 4
+#            define PPMPF_SD1 4
+#        elif PPMPF_HRMAX % 10 == 5
+#            define PPMPF_SD1 5
+#        elif PPMPF_HRMAX % 10 == 6
+#            define PPMPF_SD1 6
+#        elif PPMPF_HRMAX % 10 == 7
+#            define PPMPF_SD1 7
+#        elif PPMPF_HRMAX % 10 == 8
+#            define PPMPF_SD1 8
+#        elif PPMPF_HRMAX % 10 == 9
+#            define PPMPF_SD1 9
+#        endif
             
-        #define PPMPF_REPEATS(f,s) \
-                PPMPF_REPEAT( f \
-                            , s \
-                            , PPMPF_WSPC \
-                            , PPMPF_SD4 \
-                            , PPMPF_SD3 \
-                            , PPMPF_SD2 \
-                            , PPMPF_SD1 )
-    #endif
+#        define PPMPF_REPEATS(f,s) \
+#                PPMPF_REPEAT( f \
+#                            , s \
+#                            , PPMPF_WSPC \
+#                            , PPMPF_SD4 \
+#                            , PPMPF_SD3 \
+#                            , PPMPF_SD2 \
+#                            , PPMPF_SD1 )
+#   endif
 #else
-    #define PPMPF_HRMAX 64
-    #define PPMPF_SD4 0
-    #define PPMPF_SD3 0
-    #define PPMPF_SD2 6
-    #define PPMPF_SD1 4
-    #define PPMPF_REPEATS(f,s) PPMPF_REPEAT(f,s,0,0,6,4)
+#   define PPMPF_HRMAX 64
+#   define PPMPF_SD4 0
+#   define PPMPF_SD3 0
+#   define PPMPF_SD2 6
+#   define PPMPF_SD1 4
+#   define PPMPF_REPEATS(f,s) PPMPF_REPEAT(f,s,0,0,6,4)
 #endif
 
 #endif /* _ODREEX_PPMPF_BASE_HH_ */
