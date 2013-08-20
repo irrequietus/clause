@@ -354,7 +354,7 @@
         #define PPMPF_SD3 9
         #define PPMPF_SD2 9
         #define PPMPF_SD1 9
-        #define PPMPF_REPEATS(f,s) PPMPF_REPEAT(f,s,s,9,9,9,9) f(9999)
+        #define PPMPF_REPEATS(f,s) PPMPF_REPEAT(f,s,9,9,9,9) f(9999)
     #else
         #if (PPMPF_HRMAX / 1000) % 10 == 0
             #define PPMPF_SD4 0
@@ -444,8 +444,14 @@
             #define PPMPF_SD1 9
         #endif
             
-        #define PPMPF_REPEATS(f,s,e) \
-                PPMPF_REPEAT(f,s,e,PPMPF_SD4,PPMPF_SD3,PPMPF_SD2,PPMPF_SD1)
+        #define PPMPF_REPEATS(f,s) \
+                PPMPF_REPEAT( f \
+                            , s \
+                            , PPMPF_WSPC \
+                            , PPMPF_SD4 \
+                            , PPMPF_SD3 \
+                            , PPMPF_SD2 \
+                            , PPMPF_SD1 )
     #endif
 #else
     #define PPMPF_HRMAX 64
