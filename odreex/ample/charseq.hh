@@ -46,7 +46,7 @@ template<char... Chars_C>
 struct charseq {
 
     static char const value[sizeof...(Chars_C)];
-    static std::size_t size = sizeof...(Chars_C);
+    static std::size_t const size = sizeof...(Chars_C);
 
     template<std::size_t Z>
     static constexpr uint16_t intfy_at(char const (&a)[Z], std::size_t N) {
