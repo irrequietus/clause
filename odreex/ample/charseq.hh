@@ -45,7 +45,7 @@ namespace ample {
 template<char... Chars_C>
 struct charseq {
 
-    static char const value[sizeof...(Chars_C)];
+    static char const value[(sizeof...(Chars_C) != 0) ? sizeof...(Chars_C) : 1];
     static std::size_t const size = sizeof...(Chars_C);
 
     template<std::size_t Z>
@@ -76,9 +76,9 @@ struct charseq {
 };
 
 template<char... X>
-char const charseq<X...>::value[] = {
-    X...
-};
+char const charseq<X...>::value[(sizeof...(X) != 0) ? sizeof...(X) : 1] =
+{ X... };
+
 
 } /* ample */
 } /* odreex */
