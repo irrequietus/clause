@@ -29,7 +29,7 @@
 #define _ODREEX_PPMPF_BASE_HH_
 
 /* NOTE: PPMPF_QUOTE - Double quote enclosing macro. */
-#define PPMPF_QUOTE(x...) # x
+#define PPMPF_QUOTE(...) # __VA_ARGS__
 
 /* NOTE: PPMPF_COMMA and PPMPF_WSPC are just , and whitespace accordingly. */
 #define PPMPF_COMMA() ,
@@ -264,86 +264,96 @@
 #define PPMPF_IFELSE(n,t,e) PPMPF_CAT(PPMPF_IFELSE_,n)(t,e)
 
 /* NOTE: PPMPF_0H* - macro framework component for repeats (0) */
-#define PPMPF_0HZ(x,y,z,f,b,e,args...)
-#define PPMPF_0H0(x,y,z,f,b,e,args...) \
-        f(PPMPF_ZFY(x,y,z,0),args) e()
-#define PPMPF_0H1(x,y,z,f,b,e,args...) \
-        PPMPF_0H0(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,1),args) e()
-#define PPMPF_0H2(x,y,z,f,b,e,args...) \
-        PPMPF_0H1(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,2),args) e()
-#define PPMPF_0H3(x,y,z,f,b,e,args...) \
-        PPMPF_0H2(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,3),args) e()
-#define PPMPF_0H4(x,y,z,f,b,e,args...) \
-        PPMPF_0H3(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,4),args) e()
-#define PPMPF_0H5(x,y,z,f,b,e,args...) \
-        PPMPF_0H4(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,5),args) e()
-#define PPMPF_0H6(x,y,z,f,b,e,args...) \
-        PPMPF_0H5(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,6),args) e()
-#define PPMPF_0H7(x,y,z,f,b,e,args...) \
-        PPMPF_0H6(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,7),args) e()
-#define PPMPF_0H8(x,y,z,f,b,e,args...) \
-        PPMPF_0H7(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,8),args) e()
-#define PPMPF_0H9(x,y,z,f,b,e,args...) \
-        PPMPF_0H8(x,y,z,f,b,b,args) f(PPMPF_ZFY(x,y,z,9),args) e()
+#define PPMPF_0HZ(x,y,z,f,b,e,...)
+#define PPMPF_0H0(x,y,z,f,b,e,...) \
+        f(PPMPF_ZFY(x,y,z,0),__VA_ARGS__) e()
+#define PPMPF_0H1(x,y,z,f,b,e,...) \
+        PPMPF_0H0(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,1),__VA_ARGS__) e()
+#define PPMPF_0H2(x,y,z,f,b,e,...) \
+        PPMPF_0H1(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,2),__VA_ARGS__) e()
+#define PPMPF_0H3(x,y,z,f,b,e,...) \
+        PPMPF_0H2(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,3),__VA_ARGS__) e()
+#define PPMPF_0H4(x,y,z,f,b,e,...) \
+        PPMPF_0H3(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,4),__VA_ARGS__) e()
+#define PPMPF_0H5(x,y,z,f,b,e,...) \
+        PPMPF_0H4(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,5),__VA_ARGS__) e()
+#define PPMPF_0H6(x,y,z,f,b,e,...) \
+        PPMPF_0H5(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,6),__VA_ARGS__) e()
+#define PPMPF_0H7(x,y,z,f,b,e,...) \
+        PPMPF_0H6(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,7),__VA_ARGS__) e()
+#define PPMPF_0H8(x,y,z,f,b,e,...) \
+        PPMPF_0H7(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,8),__VA_ARGS__) e()
+#define PPMPF_0H9(x,y,z,f,b,e,...) \
+        PPMPF_0H8(x,y,z,f,b,b,__VA_ARGS__) f(PPMPF_ZFY(x,y,z,9),__VA_ARGS__) e()
 
 /* NOTE: PPMPF_1H* - macro framework component for repeats (1) */
-#define PPMPF_1HZ(x,y,f,b,e,args...)
-#define PPMPF_1H0(x,y,f,b,e,args...) \
-        PPMPF_0H9(x,y,0,f,b,e,args)
-#define PPMPF_1H1(x,y,f,b,e,args...) \
-        PPMPF_1H0(x,y,f,b,b,args) PPMPF_0H9(x,y,1,f,b,e,args)
-#define PPMPF_1H2(x,y,f,b,e,args...) \
-        PPMPF_1H1(x,y,f,b,b,args) PPMPF_0H9(x,y,2,f,b,e,args)
-#define PPMPF_1H3(x,y,f,b,e,args...) \
-        PPMPF_1H2(x,y,f,b,b,args) PPMPF_0H9(x,y,3,f,b,e,args)
-#define PPMPF_1H4(x,y,f,b,e,args...) \
-        PPMPF_1H3(x,y,f,b,b,args) PPMPF_0H9(x,y,4,f,b,e,args)
-#define PPMPF_1H5(x,y,f,b,e,args...) \
-        PPMPF_1H4(x,y,f,b,b,args) PPMPF_0H9(x,y,5,f,b,e,args)
-#define PPMPF_1H6(x,y,f,b,e,args...) \
-        PPMPF_1H5(x,y,f,b,b,args) PPMPF_0H9(x,y,6,f,b,e,args)
-#define PPMPF_1H7(x,y,f,b,e,args...) \
-        PPMPF_1H6(x,y,f,b,b,args) PPMPF_0H9(x,y,7,f,b,e,args)
-#define PPMPF_1H8(x,y,f,b,e,args...) \
-        PPMPF_1H7(x,y,f,b,b,args) PPMPF_0H9(x,y,8,f,b,e,args)
-#define PPMPF_1H9(x,y,f,b,e,args...) \
-        PPMPF_1H8(x,y,f,b,b,args) PPMPF_0H9(x,y,9,f,b,e,args)
+#define PPMPF_1HZ(x,y,f,b,e,...)
+#define PPMPF_1H0(x,y,f,b,e,...) \
+        PPMPF_0H9(x,y,0,f,b,e,__VA_ARGS__)
+#define PPMPF_1H1(x,y,f,b,e,...) \
+        PPMPF_1H0(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,1,f,b,e,__VA_ARGS__)
+#define PPMPF_1H2(x,y,f,b,e,...) \
+        PPMPF_1H1(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,2,f,b,e,__VA_ARGS__)
+#define PPMPF_1H3(x,y,f,b,e,...) \
+        PPMPF_1H2(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,3,f,b,e,__VA_ARGS__)
+#define PPMPF_1H4(x,y,f,b,e,...) \
+        PPMPF_1H3(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,4,f,b,e,__VA_ARGS__)
+#define PPMPF_1H5(x,y,f,b,e,...) \
+        PPMPF_1H4(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,5,f,b,e,__VA_ARGS__)
+#define PPMPF_1H6(x,y,f,b,e,...) \
+        PPMPF_1H5(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,6,f,b,e,__VA_ARGS__)
+#define PPMPF_1H7(x,y,f,b,e,...) \
+        PPMPF_1H6(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,7,f,b,e,__VA_ARGS__)
+#define PPMPF_1H8(x,y,f,b,e,...) \
+        PPMPF_1H7(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,8,f,b,e,__VA_ARGS__)
+#define PPMPF_1H9(x,y,f,b,e,...) \
+        PPMPF_1H8(x,y,f,b,b,__VA_ARGS__) PPMPF_0H9(x,y,9,f,b,e,__VA_ARGS__)
 
 /* NOTE: PPMPF_2H* - macro framework component for repeats (2) */
-#define PPMPF_2HZ(x,f,b,e,args...)
-#define PPMPF_2H0(x,f,b,e,args...) \
-        PPMPF_1H9(x,0,f,b,e,args)
-#define PPMPF_2H1(x,f,b,e,args...) \
-        PPMPF_2H0(x,f,b,b,args) PPMPF_1H9(x,1,f,b,e,args)
-#define PPMPF_2H2(x,f,b,e,args...) \
-        PPMPF_2H1(x,f,b,b,args) PPMPF_1H9(x,2,f,b,e,args)
-#define PPMPF_2H3(x,f,b,e,args...) \
-        PPMPF_2H2(x,f,b,b,args) PPMPF_1H9(x,3,f,b,e,args)
-#define PPMPF_2H4(x,f,b,e,args...) \
-        PPMPF_2H3(x,f,b,b,args) PPMPF_1H9(x,4,f,b,e,args)
-#define PPMPF_2H5(x,f,b,e,args...) \
-        PPMPF_2H4(x,f,b,b,args) PPMPF_1H9(x,5,f,b,e,args)
-#define PPMPF_2H6(x,f,b,e,args...) \
-        PPMPF_2H5(x,f,b,b,args) PPMPF_1H9(x,6,f,b,e,args)
-#define PPMPF_2H7(x,f,b,e,args...) \
-        PPMPF_2H6(x,f,b,b,args) PPMPF_1H9(x,7,f,b,e,args)
-#define PPMPF_2H8(x,f,b,e,args...) \
-        PPMPF_2H7(x,f,b,b,args) PPMPF_1H9(x,8,f,b,e,args)
-#define PPMPF_2H9(x,f,b,e,args...) \
-        PPMPF_2H8(x,f,b,b,args) PPMPF_1H9(x,9,f,b,e,args)
+#define PPMPF_2HZ(x,f,b,e,...)
+#define PPMPF_2H0(x,f,b,e,...) \
+        PPMPF_1H9(x,0,f,b,e,__VA_ARGS__)
+#define PPMPF_2H1(x,f,b,e,...) \
+        PPMPF_2H0(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,1,f,b,e,__VA_ARGS__)
+#define PPMPF_2H2(x,f,b,e,...) \
+        PPMPF_2H1(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,2,f,b,e,__VA_ARGS__)
+#define PPMPF_2H3(x,f,b,e,...) \
+        PPMPF_2H2(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,3,f,b,e,__VA_ARGS__)
+#define PPMPF_2H4(x,f,b,e,...) \
+        PPMPF_2H3(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,4,f,b,e,__VA_ARGS__)
+#define PPMPF_2H5(x,f,b,e,...) \
+        PPMPF_2H4(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,5,f,b,e,__VA_ARGS__)
+#define PPMPF_2H6(x,f,b,e,...) \
+        PPMPF_2H5(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,6,f,b,e,__VA_ARGS__)
+#define PPMPF_2H7(x,f,b,e,...) \
+        PPMPF_2H6(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,7,f,b,e,__VA_ARGS__)
+#define PPMPF_2H8(x,f,b,e,...) \
+        PPMPF_2H7(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,8,f,b,e,__VA_ARGS__)
+#define PPMPF_2H9(x,f,b,e,...) \
+        PPMPF_2H8(x,f,b,b,__VA_ARGS__) PPMPF_1H9(x,9,f,b,e,__VA_ARGS__)
 
 /* NOTE: PPMPF_3H* - macro framework component for repeats (3) */
-#define PPMPF_3HZ(f,b,e,args...)
-#define PPMPF_3H0(f,b,e,args...) PPMPF_2H9(0,f,b,e,args)
-#define PPMPF_3H1(f,b,e,args...) PPMPF_3H0(f,b,b,args) PPMPF_2H9(1,f,b,e,args)
-#define PPMPF_3H2(f,b,e,args...) PPMPF_3H1(f,b,b,args) PPMPF_2H9(2,f,b,e,args)
-#define PPMPF_3H3(f,b,e,args...) PPMPF_3H2(f,b,b,args) PPMPF_2H9(3,f,b,e,args)
-#define PPMPF_3H4(f,b,e,args...) PPMPF_3H3(f,b,b,args) PPMPF_2H9(4,f,b,e,args)
-#define PPMPF_3H5(f,b,e,args...) PPMPF_3H4(f,b,b,args) PPMPF_2H9(5,f,b,e,args)
-#define PPMPF_3H6(f,b,e,args...) PPMPF_3H5(f,b,b,args) PPMPF_2H9(6,f,b,e,args)
-#define PPMPF_3H7(f,b,e,args...) PPMPF_3H6(f,b,b,args) PPMPF_2H9(7,f,b,e,args)
-#define PPMPF_3H8(f,b,e,args...) PPMPF_3H7(f,b,b,args) PPMPF_2H9(8,f,b,e,args)
-#define PPMPF_3H9(f,b,e,args...) PPMPF_3H8(f,b,b,args) PPMPF_2H9(9,f,b,e,args)
+#define PPMPF_3HZ(f,b,e,...)
+#define PPMPF_3H0(f,b,e,...) \
+        PPMPF_2H9(0,f,b,e,__VA_ARGS__)
+#define PPMPF_3H1(f,b,e,...) \
+        PPMPF_3H0(f,b,b,__VA_ARGS__) PPMPF_2H9(1,f,b,e,__VA_ARGS__)
+#define PPMPF_3H2(f,b,e,...) \
+        PPMPF_3H1(f,b,b,__VA_ARGS__) PPMPF_2H9(2,f,b,e,__VA_ARGS__)
+#define PPMPF_3H3(f,b,e,...) \
+        PPMPF_3H2(f,b,b,__VA_ARGS__) PPMPF_2H9(3,f,b,e,__VA_ARGS__)
+#define PPMPF_3H4(f,b,e,...) \
+        PPMPF_3H3(f,b,b,__VA_ARGS__) PPMPF_2H9(4,f,b,e,__VA_ARGS__)
+#define PPMPF_3H5(f,b,e,...) \
+        PPMPF_3H4(f,b,b,__VA_ARGS__) PPMPF_2H9(5,f,b,e,__VA_ARGS__)
+#define PPMPF_3H6(f,b,e,...) \
+        PPMPF_3H5(f,b,b,__VA_ARGS__) PPMPF_2H9(6,f,b,e,__VA_ARGS__)
+#define PPMPF_3H7(f,b,e,...) \
+        PPMPF_3H6(f,b,b,__VA_ARGS__) PPMPF_2H9(7,f,b,e,__VA_ARGS__)
+#define PPMPF_3H8(f,b,e,...) \
+        PPMPF_3H7(f,b,b,__VA_ARGS__) PPMPF_2H9(8,f,b,e,__VA_ARGS__)
+#define PPMPF_3H9(f,b,e,...) \
+        PPMPF_3H8(f,b,b,__VA_ARGS__) PPMPF_2H9(9,f,b,e,__VA_ARGS__)
 
 /* NOTE: PPMPF_REPEAT -  Pattern generator through recursive macro expansion,
  * works for range 0 - 9999 (10000) items. This is a trivial implementation for
@@ -371,11 +381,11 @@
 /* NOTE: f is the macro to which a decimal number is passed, s is the separator,
  * t stand for thousands, h stand for hundreds, d for decades, u for units.
  */
-#define PPMPF_REPEAT(f,s,t,h,d,u,args...) \
-    PPMPF_RPTH(3,t)(f,s,        PPMPF_RPTHP3(s,t,h,d,u), args) \
-    PPMPF_RPTH(2,h)(t,f,s,      PPMPF_RPTHP2(s,t,h,d,u), args) \
-    PPMPF_RPTH(1,d)(t,h,f,s,    PPMPF_RPTHP2(s,t,h,d,u), args) \
-    PPMPF_RPTH(0,u)(t,h,d,f,s,  PPMPF_WSPC, args)
+#define PPMPF_REPEAT(f,s,t,h,d,u,...) \
+    PPMPF_RPTH(3,t)(f,s,        PPMPF_RPTHP3(s,t,h,d,u), __VA_ARGS__) \
+    PPMPF_RPTH(2,h)(t,f,s,      PPMPF_RPTHP2(s,t,h,d,u), __VA_ARGS__) \
+    PPMPF_RPTH(1,d)(t,h,f,s,    PPMPF_RPTHP2(s,t,h,d,u), __VA_ARGS__) \
+    PPMPF_RPTH(0,u)(t,h,d,f,s,  PPMPF_WSPC, __VA_ARGS__)
 
 /* NOTE: PPMPF_HRMAX is the default maximum to which PPMPF_REPEATS is defined
  * to expand to, while it defines PPMPF_SD* macros as well.
@@ -479,14 +489,14 @@
 #            define PPMPF_SD1 9
 #        endif
             
-#        define PPMPF_REPEATS(f,s,args...) \
+#        define PPMPF_REPEATS(f,s,...) \
                 PPMPF_REPEAT( f \
                             , s \
                             , PPMPF_SD4 \
                             , PPMPF_SD3 \
                             , PPMPF_SD2 \
                             , PPMPF_SD1 \
-                            , args )
+                            , __VA_ARGS__ )
 #   endif
 #else
 #   define PPMPF_HRMAX 64
@@ -494,7 +504,7 @@
 #   define PPMPF_SD3 0
 #   define PPMPF_SD2 6
 #   define PPMPF_SD1 4
-#   define PPMPF_REPEATS(f,s,args...) PPMPF_REPEAT(f,s,0,0,6,4,args)
+#   define PPMPF_REPEATS(f,s,...) PPMPF_REPEAT(f,s,0,0,6,4,__VA_ARGS__)
 #endif
 
 #endif /* _ODREEX_PPMPF_BASE_HH_ */
