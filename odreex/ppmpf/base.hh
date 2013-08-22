@@ -257,6 +257,32 @@
                                        , PPMPF_CAT( PPMPF_IS(0,c) \
                                                   , PPMPF_IS(0,d)))))(a,b,c,d)
 
+/* NOTE: PPMPF_DIGNM - convert from a 4 digit number represented as a
+ * (3)(2)(1)(0) "sequence" to a standard 3210 one, trimming leading zeros.
+ */
+#define PPMPF_DIGIT_00(x) x
+#define PPMPF_DIGIT_10(x) PPMPF_DIGIT_00 
+#define PPMPF_DIGIT_20(x) PPMPF_DIGIT_10
+#define PPMPF_DIGIT_30(x) PPMPF_DIGIT_20
+#define PPMPF_DIGIT_01(x)
+#define PPMPF_DIGIT_11(x) x PPMPF_DIGIT_01
+#define PPMPF_DIGIT_21(x) PPMPF_DIGIT_11
+#define PPMPF_DIGIT_31(x) PPMPF_DIGIT_21
+#define PPMPF_DIGIT_02(x)
+#define PPMPF_DIGIT_12(x) PPMPF_DIGIT_02 
+#define PPMPF_DIGIT_22(x) x PPMPF_DIGIT_12
+#define PPMPF_DIGIT_32(x) PPMPF_DIGIT_22
+#define PPMPF_DIGIT_03(x) 
+#define PPMPF_DIGIT_13(x) PPMPF_DIGIT_03
+#define PPMPF_DIGIT_23(x) PPMPF_DIGIT_13
+#define PPMPF_DIGIT_33(x) x PPMPF_DIGIT_23
+#define PPMPF_DIGIT(n,s) PPMPF_CAT(PPMPF_DIGIT_3,n) s
+#define PPMPF_DIGNM(n) \
+        PPMPF_ZFY( PPMPF_DIGIT(3,n) \
+                 , PPMPF_DIGIT(2,n) \
+                 , PPMPF_DIGIT(1,n) \
+                 , PPMPF_DIGIT(0,n))
+
 /* NOTE: PPMPF_IFELSE - An if - then - else macro construct.
  */
 #define PPMPF_IFELSE_0(t,e) e
