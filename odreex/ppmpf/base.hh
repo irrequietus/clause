@@ -29,9 +29,10 @@
 #define _ODREEX_PPMPF_BASE_HH_
 
 /* NOTE: PPMPF_QUOTE - Double quote enclosing macro. */
-#define PPMPF_QUOTE(...) # __VA_ARGS__
+#define PPMPF_QUOTE(...) PPMPF_QUOTE_(__VA_ARGS__)
+#define PPMPF_QUOTE_(...) # __VA_ARGS__
 
-/* NOTE: PPMPF_COMMA and PPMPF_WSPC are just , and whitespace accordingly. */
+/* NOTE: PPMPF_COMMA and PPMPF_WSPC are just , and whitespace respectively. */
 #define PPMPF_COMMA() ,
 #define PPMPF_WSPC() /**/
 
