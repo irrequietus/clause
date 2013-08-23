@@ -35,10 +35,10 @@ namespace ample {
  * of a third party dependency. Null characters can be introduced in this
  * "metastring" called charseq from now on. In a few words this macro expands
  * as follows:
- * 
+ *
  * Given : ample_charseq("hello, world")
  * Equals: charseq<'h', 'e', 'l', 'l', 'o', ',', ' ', 'w', 'o', 'r', 'l', 'd'>
- * 
+ *
  * And this is a regular type that can be used as a type parameter wherever this
  * is applicable.
  */
@@ -84,7 +84,7 @@ char const charseq<X...>::value[(sizeof...(X) != 0) ? sizeof...(X) : 1] =
 } /* odreex */
 
 /* NOTE: ample_charseq(x) where x is a quoted string is the function macro doing
- * the generation of the charsec<char...> equivalent type from the x string. The
+ * the generation of the charseq<char...> equivalent type from the x string. The
  * ample_charseq_intfy_at is left as a macro to use during generation. The
  * PPMPF_HRMAX value is used for the time being as indicating the maximum string
  * "length" allowed, which right now defaults to 64.

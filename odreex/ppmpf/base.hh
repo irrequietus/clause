@@ -262,7 +262,7 @@
  * (3)(2)(1)(0) "sequence" to a standard 3210 one, trimming leading zeros.
  */
 #define PPMPF_DIGIT_00(x) x
-#define PPMPF_DIGIT_10(x) PPMPF_DIGIT_00 
+#define PPMPF_DIGIT_10(x) PPMPF_DIGIT_00
 #define PPMPF_DIGIT_20(x) PPMPF_DIGIT_10
 #define PPMPF_DIGIT_30(x) PPMPF_DIGIT_20
 #define PPMPF_DIGIT_01(x)
@@ -270,10 +270,10 @@
 #define PPMPF_DIGIT_21(x) PPMPF_DIGIT_11
 #define PPMPF_DIGIT_31(x) PPMPF_DIGIT_21
 #define PPMPF_DIGIT_02(x)
-#define PPMPF_DIGIT_12(x) PPMPF_DIGIT_02 
+#define PPMPF_DIGIT_12(x) PPMPF_DIGIT_02
 #define PPMPF_DIGIT_22(x) x PPMPF_DIGIT_12
 #define PPMPF_DIGIT_32(x) PPMPF_DIGIT_22
-#define PPMPF_DIGIT_03(x) 
+#define PPMPF_DIGIT_03(x)
 #define PPMPF_DIGIT_13(x) PPMPF_DIGIT_03
 #define PPMPF_DIGIT_23(x) PPMPF_DIGIT_13
 #define PPMPF_DIGIT_33(x) x PPMPF_DIGIT_23
@@ -449,7 +449,7 @@
 #        elif (PPMPF_HRMAX / 1000) % 10 == 9
 #            define PPMPF_SD4 9
 #        endif
-        
+
 #        if (PPMPF_HRMAX / 100) % 10 == 0
 #            define PPMPF_SD3 0
 #        elif (PPMPF_HRMAX / 100) % 10 == 1
@@ -471,7 +471,7 @@
 #        elif (PPMPF_HRMAX / 100) % 10 == 9
 #            define PPMPF_SD3 9
 #        endif
-        
+
 #        if (PPMPF_HRMAX / 10) % 10 == 0
 #            define PPMPF_SD2 0
 #        elif (PPMPF_HRMAX / 10) % 10 == 1
@@ -493,7 +493,7 @@
 #        elif (PPMPF_HRMAX / 10) % 10 == 9
 #            define PPMPF_SD2 9
 #        endif
-        
+
 #        if PPMPF_HRMAX % 10 == 0
 #            define PPMPF_SD1 0
 #        elif PPMPF_HRMAX % 10 == 1
@@ -515,7 +515,7 @@
 #        elif PPMPF_HRMAX % 10 == 9
 #            define PPMPF_SD1 9
 #        endif
-            
+
 #        define PPMPF_REPEATS(f,s,...) \
                 PPMPF_REPEAT( f \
                             , s \
@@ -539,9 +539,9 @@
  * arguments and return in either 4 digit "sequences" or regular numbers
  * respectively. In Annex B of ISO/IEC 14882:2011 (the C++11 standard) macros
  * can be defined with a minimum of 256 parameters and invoked with the same
- * quantity and this constitutes a reccomendation not a strict requirement
+ * quantity and this constitutes a recommendation not a strict requirement
  * for compliance. "Empty" macro arguments in C++11 are allowed as per 16.3/4
- * where it references explicitely of arguments consisting of no preprocessing
+ * where it references explicitly of arguments consisting of no preprocessing
  * tokens, which is exactly this case - of an empty preprocessor token. The
  * counting macros are implemented in such a way as to allow the detection of
  * the empty token during macro invocation, which means that -pedantic flags

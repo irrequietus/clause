@@ -27,4 +27,5 @@ Session.vim
 *~
 */.deps/*
 .cproject
+.project
 
