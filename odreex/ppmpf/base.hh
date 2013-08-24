@@ -671,8 +671,8 @@
 #define PPMPF_SEQGET(s) PPMPF_SEQGET__(PPMPF_SEQGET_ s)
 #define PPMPF_SEQPOP(s) PPMPF_EMPTY s
 
-/* NOTE: PPMPF_SEQGET - Get the first element of a tuple, enclosed in ()
- * 		 PPMPF_SEGPOP - Remove the first element, get the rest.
+/* NOTE: PPMPF_TUPGET - Get the first element of a tuple, enclosed in ()
+ * 		 PPMPF_TUPPOP - Remove the first element, get the rest.
  * Should be clear now, a tuple is a () enclosed list of comma separated tokens,
  * while a sequence is a list of tuples separated by whitespace. A tuple with
  * no commas is referred to as "unit".
