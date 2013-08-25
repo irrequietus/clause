@@ -642,28 +642,28 @@
 
 #define PPMPF_NARGS(...) PPMPF_DIGNM(PPMPF_VARGS(__VA_ARGS__))
 
-/* NOTE: PPMPF_SEQ_IS_EMPTY, PPMPF_TUP_IS_EMTPY - Adding macros for "tuple"
+/* NOTE: PPMPF_SEQEMPTY, PPMPF_TUPEMTPY - Adding macros for "tuple"
  * and "sequence" empty detection
  */
 #define PPMPF_TUP_EXPAND(...) __VA_ARGS__
 
 #define PPMPF_IS_EMPTY___(...) ,
 #define PPMPF_IS_EMPTY__(s) \
-		PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(3,s)) \
-				 , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(2,s)) \
-						 	, PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(1,s)) \
-								       , PPMPF_IS(0,PPMPF_DIGIT(0,s)))))
+        PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(3,s)) \
+                 , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(2,s)) \
+                            , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(1,s)) \
+                                       , PPMPF_IS(0,PPMPF_DIGIT(0,s)))))
 #define PPMPF_IS_EMPTY_(...) \
-		PPMPF_IS_EMPTY__(PPMPF_VARGS(__VA_ARGS__))
+        PPMPF_IS_EMPTY__(PPMPF_VARGS(__VA_ARGS__))
 
-#define PPMPF_TUP_IS_EMPTY(t) \
-		PPMPF_IS_EMPTY_(PPMPF_TUP_EXPAND t)
+#define PPMPF_TUPEMPTY(t) \
+        PPMPF_IS_EMPTY_(PPMPF_TUP_EXPAND t)
 
-#define PPMPF_SEQ_IS_EMPTY(s) \
-		PPMPF_IS_EMPTY__(PPMPF_VARGS(PPMPF_IS_EMPTY___ s))
+#define PPMPF_SEQEMPTY(s) \
+        PPMPF_IS_EMPTY__(PPMPF_VARGS(PPMPF_IS_EMPTY___ s))
 
 /* NOTE: PPMPF_SEQGET - Get the first element of a sequence, enclosed in ()
- * 		 PPMPF_SEGPOP - Remove the first element, get the rest.
+ * PPMPF_SEGPOP - Remove the first element, get the rest.
  */
 #define PPMPF_SEQGET___(x,...) x
 #define PPMPF_SEQGET__(...) PPMPF_SEQGET___(__VA_ARGS__)
@@ -672,7 +672,7 @@
 #define PPMPF_SEQPOP(s) PPMPF_EMPTY s
 
 /* NOTE: PPMPF_TUPGET - Get the first element of a tuple, enclosed in ()
- * 		 PPMPF_TUPPOP - Remove the first element, get the rest.
+ *       PPMPF_TUPPOP - Remove the first element, get the rest.
  * Should be clear now, a tuple is a () enclosed list of comma separated tokens,
  * while a sequence is a list of tuples separated by whitespace. A tuple with
  * no commas is referred to as "unit".
