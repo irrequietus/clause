@@ -666,7 +666,7 @@
  * 		 PPMPF_SEGPOP - Remove the first element, get the rest.
  */
 #define PPMPF_SEQGET___(x,...) x
-#define PPMPF_SEQGET__(x,...) PPMPF_SEQGET___(x)
+#define PPMPF_SEQGET__(...) PPMPF_SEQGET___(__VA_ARGS__)
 #define PPMPF_SEQGET_(...) (__VA_ARGS__) ,
 #define PPMPF_SEQGET(s) PPMPF_SEQGET__(PPMPF_SEQGET_ s)
 #define PPMPF_SEQPOP(s) PPMPF_EMPTY s
@@ -679,7 +679,7 @@
  */
 #define PPMPF_TUPGET__(x,...) (__VA_ARGS__)
 #define PPMPF_TUPGET_(x,...) x
-#define PPMPF_TUPGET(t) (PPMPF_TUPGET_(PPMPF_TUPGET_ t))
+#define PPMPF_TUPGET(t) (PPMPF_TUPGET_(PPMPF_TUPGET_ t,))
 #define PPMPF_TUPPOP(t) PPMPF_TUPGET__ t
 
 
