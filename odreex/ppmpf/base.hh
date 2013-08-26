@@ -682,5 +682,9 @@
 #define PPMPF_TUPGET(t) (PPMPF_TUPGET_(PPMPF_TUPGET_ t,))
 #define PPMPF_TUPPOP(t) PPMPF_TUPGET__ t
 
+/* NOTE: Since most "items" we use are enclosed in parentheses, there should
+ * be a macro removing those where applicable, so here it goes.
+ */
+#define PPMPF_DREF(x) PPMPF_TUP_EXPAND x
 
 #endif /* _ODREEX_PPMPF_BASE_HH_ */
