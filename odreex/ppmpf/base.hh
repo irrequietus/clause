@@ -653,9 +653,19 @@
                  , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(2,s)) \
                             , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(1,s)) \
                                        , PPMPF_IS(0,PPMPF_DIGIT(0,s)))))
+#define PPMPF_HAS_ONE___(...) ,
+#define PPMPF_HAS_ONE__(s) \
+        PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(3,s)) \
+                 , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(2,s)) \
+                            , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(1,s)) \
+                                       , PPMPF_IS(1,PPMPF_DIGIT(0,s)))))
+                                       
 #define PPMPF_IS_EMPTY_(...) \
         PPMPF_IS_EMPTY__(PPMPF_VARGS(__VA_ARGS__))
 
+#define PPMPF_HAS_ONE_(...) \
+        PPMPF_HAS_ONE__(PPMPF_VARGS(__VA_ARGS__))
+        
 #define PPMPF_TUPEMPTY(t) \
         PPMPF_IS_EMPTY_(PPMPF_TUP_EXPAND t)
 
@@ -688,7 +698,8 @@
 #define PPMPF_TUPPOP___(...) ()
 #define PPMPF_TUPPOP__(x,...) (__VA_ARGS__)
 #define PPMPF_TUPPOP_(...) \
-        PPMPF_IFELSE( PPMPF_TUPEMPTY((__VA_ARGS__)) \
+        PPMPF_IFELSE( PPMPF_OR( PPMPF_HAS_ONE_(__VA_ARGS__) \
+                              , PPMPF_TUPEMPTY((__VA_ARGS__))) \
                     , PPMPF_TUPPOP___, PPMPF_TUPPOP__)(__VA_ARGS__)
 #define PPMPF_TUPPOP(x) PPMPF_TUPPOP_ x
 
