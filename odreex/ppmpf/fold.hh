@@ -167,7 +167,7 @@
 #define PPMPF_FOLD_(f,s,l,g,p,h,d,m,x0,x1,x2,x3) \
         x3(f,x2(f,x1(f,x0(f,(s)(l),g,p,h,d,m),g,p,h,d,m),g,p,h,d,m),g,p,h,d,m)
 
-#define PPMPF_SEQ_FOLDL(f,s,l) \
+#define PPMPF_SEQ_FOLDL_(f,s,l) \
         PPMPF_FOLD_( f \
                    , s \
                    , l \
@@ -181,7 +181,10 @@
                    , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(2)) \
                    , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(8)) )
 
-#define PPMPF_TUP_FOLDL(f,s,l) \
+#define PPMPF_SEQ_FOLDL(f,s,l) \
+        PPMPF_DREF(PPMPF_SEQGET(PPMPF_SEQ_FOLDL_(f,s,l)))
+
+#define PPMPF_TUP_FOLDL_(f,s,l) \
         PPMPF_FOLD_( f \
                    , s \
                    , l \
@@ -194,5 +197,8 @@
                    , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(1)) \
                    , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(2)) \
                    , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(8)) )
-        
+
+#define PPMPF_TUP_FOLDL(f,s,l) \
+        PPMPF_DREF(PPMPF_SEQGET(PPMPF_TUP_FOLDL_(f,s,l)))
+
 #endif /* _ODREEX_PPMPF_FOLD_HH_ */
