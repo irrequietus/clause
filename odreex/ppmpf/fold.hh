@@ -184,6 +184,9 @@
 #define PPMPF_SEQ_FOLDL(f,s,l) \
         PPMPF_DREF(PPMPF_SEQGET(PPMPF_SEQ_FOLDL_(f,s,l)))
 
+#define PPMPF_SEQ_FOLDL_OF(f,l) \
+        PPMPF_SEQ_FOLDL(f,,l)
+
 #define PPMPF_TUP_FOLDL_(f,s,l) \
         PPMPF_FOLD_( f \
                    , s \
@@ -200,5 +203,8 @@
 
 #define PPMPF_TUP_FOLDL(f,s,l) \
         PPMPF_DREF(PPMPF_SEQGET(PPMPF_TUP_FOLDL_(f,s,l)))
+
+#define PPMPF_TUP_FOLDL_OF(f,l) \
+        PPMPF_TUP_FOLDL(f,,l)
 
 #endif /* _ODREEX_PPMPF_FOLD_HH_ */
