@@ -35,64 +35,65 @@
 #define PPMPF_0F0(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),Z,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F1(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),0,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F2(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),1,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F3(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),2,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F4(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),3,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F5(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),4,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F6(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),5,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F7(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),6,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F8(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),7,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 #define PPMPF_0F9(f,sl,g,p,h,d,m) \
         m(h(PPMPF_DREF(PPMPF_SEQPOP(sl))),8,sl)\
             (f,(f( d(PPMPF_SEQGET(sl)) \
-                 , d(PPMPF_SEQGET(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
-         (PPMPF_SEQPOP(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
+                 , d(g(PPMPF_DREF(PPMPF_SEQPOP(sl)))))) \
+         (p(PPMPF_DREF(PPMPF_SEQPOP(sl)))),g,p,h,d,m)
 
 /* NOTE: PPMPF_1F* - macro framework component for folding (1) */
+#define PPMPF_1FZ(f,sl,g,p,h,d,m) sl
 #define PPMPF_1F0(f,sl,g,p,h,d,m) \
         PPMPF_0F9(f,sl,g,p,h,d,m)
 #define PPMPF_1F1(f,sl,g,p,h,d,m) \
@@ -115,6 +116,7 @@
         PPMPF_1F8(f,PPMPF_0F9(f,sl,g,p,h,d,m),g,p,h,d,m)
 
 /* NOTE: PPMPF_2F* - macro framework component for folding (2) */
+#define PPMPF_2FZ(f,sl,g,p,h,d,m) sl
 #define PPMPF_2F0(f,sl,g,p,h,d,m) \
         PPMPF_1F9(f,sl,g,p,h,d,m)
 #define PPMPF_2F1(f,sl,g,p,h,d,m) \
@@ -137,6 +139,7 @@
         PPMPF_2F8(f,PPMPF_1F9(f,sl,g,p,h,d,m),g,p,h,d,m)
 
 /* NOTE: PPMPF_3F* - macro framework component for folding (3) */
+#define PPMPF_3FZ(f,sl,g,p,h,d,m) sl
 #define PPMPF_3F0(f,sl,g,p,h,d,m) \
         PPMPF_2F9(f,sl,g,p,h,d,m)
 #define PPMPF_3F1(f,sl,g,p,h,d,m) \

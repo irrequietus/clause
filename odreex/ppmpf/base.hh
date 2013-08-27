@@ -677,10 +677,20 @@
  * while a sequence is a list of tuples separated by whitespace. A tuple with
  * no commas is referred to as "unit".
  */
-#define PPMPF_TUPGET__(x,...) (__VA_ARGS__)
-#define PPMPF_TUPGET_(x,...) x
-#define PPMPF_TUPGET(t) (PPMPF_TUPGET_(PPMPF_TUPGET_ t,))
-#define PPMPF_TUPPOP(t) PPMPF_TUPGET__ t
+#define PPMPF_TUPGET____(x) x
+#define PPMPF_TUPGET___(x,...) PPMPF_TUPGET____(x)
+#define PPMPF_TUPGET__(...) PPMPF_TUPGET___(__VA_ARGS__,)
+#define PPMPF_TUPGET_(...) PPMPF_TUPGET__(__VA_ARGS__,)
+#define PPMPF_TUPGET(t) (PPMPF_TUPGET___(PPMPF_TUPGET_ t,))
+
+/* We are still (temporarily) limited by PPMPF_VARGS, but that will eventually
+ * change. This is why folds on "tuples" are to be locked to the same limit. */
+#define PPMPF_TUPPOP___(...) ()
+#define PPMPF_TUPPOP__(x,...) (__VA_ARGS__)
+#define PPMPF_TUPPOP_(...) \
+        PPMPF_IFELSE( PPMPF_TUPEMPTY((__VA_ARGS__)) \
+                    , PPMPF_TUPPOP___, PPMPF_TUPPOP__)(__VA_ARGS__)
+#define PPMPF_TUPPOP(x) PPMPF_TUPPOP_ x
 
 /* NOTE: Since most "items" we use are enclosed in parentheses, there should
  * be a macro removing those where applicable, so here it goes.
