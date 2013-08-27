@@ -427,8 +427,8 @@
 #        define PPMPF_SD3 9
 #        define PPMPF_SD2 9
 #        define PPMPF_SD1 9
-#        define PPMPF_REPEATS(f,s,args...) \
-                PPMPF_REPEAT(f,s,9,9,9,9,args) f(9999, args)
+#        define PPMPF_REPEATS(f,s,...) \
+                PPMPF_REPEAT(f,s,9,9,9,9,__VA_ARGS__) f(9999, __VA_ARGS__)
 #    else
 #        if (PPMPF_HRMAX / 1000) % 10 == 0
 #            define PPMPF_SD4 0
