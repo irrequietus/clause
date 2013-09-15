@@ -222,4 +222,17 @@
         , (1)(9),(1)(8),(1)(7),(1)(6),(1)(5) \
         , (1)(4),(1)(3),(1)(2),(1)(1) )
 
+/* NOTE: PPMPF_IOPC is an integer overflow protection checkpoint using the
+ * reserved sequence member in integer representation for deducing whether
+ * the upper limit (9999) or the lower limit (0) of integers usable in ppmpf
+ * should be the resolution of overflowed / underflowed integer operations.
+ */
+#define PPMPF_IOPC_(x) \
+        PPMPF_IFELSE( PPMPF_OR PPMPF_SEQGET(x) \
+                    , PPMPF_IFELSE( PPMPF_DREF(PPMPF_TUPGET(PPMPF_SEQGET(x))) \
+                                  , PPMPF_IMINV \
+                                  , PPMPF_IMAXV ) \
+                    , PPMPF_JUST )(PPMPF_SEQPOP(x))
+#define PPMPF_IOPC(x) PPMPF_IOPC_(x)
+
 #endif /* _ODREEX_PPMPF_ALU_HH_ */
