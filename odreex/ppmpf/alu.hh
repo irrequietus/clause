@@ -289,4 +289,46 @@
                     , PPMPF_JUST )(PPMPF_SEQPOP(x))
 #define PPMPF_IOPC(x) PPMPF_IOPC_(x)
 
+/* NOTE: PPMPF_IADD(x,y) adds two numbers represented as 4 member sequences of
+ * digits: (a)(b)(c)(d) and (e)(f)(g)(h). Integer overflow eventualities
+ * are capped using PPMPF_IOPC.
+ */
+#define PPMPF_IADD(x,y) \
+        PPMPF_IADDX_( PPMPF_IADD__(PPMPF_DIGIT(3,x),PPMPF_DIGIT(3,y)) \
+                    , PPMPF_IADD__(PPMPF_DIGIT(2,x),PPMPF_DIGIT(2,y)) \
+                    , PPMPF_IADD__(PPMPF_DIGIT(1,x),PPMPF_DIGIT(1,y)) \
+                    , PPMPF_IADD__(PPMPF_DIGIT(0,x),PPMPF_DIGIT(0,y)) )
+
+#define PPMPF_IADDX_(a,b,c,d) \
+        PPMPF_IADDX_1( PPMPF_DREF(PPMPF_SEQPOP(a)) \
+                     , PPMPF_DREF(PPMPF_SEQPOP(b)) \
+                     , PPMPF_DREF(PPMPF_SEQPOP(c)) \
+                     , PPMPF_DREF(PPMPF_SEQPOP(d)) \
+                     , PPMPF_DREF(PPMPF_SEQGET(a)) \
+                     , PPMPF_DREF(PPMPF_SEQGET(b)) \
+                     , PPMPF_DREF(PPMPF_SEQGET(c)) \
+                     , PPMPF_DREF(PPMPF_SEQGET(d)) )
+#define PPMPF_IADDX_1(a,b,c,d,e,f,g,h) \
+        PPMPF_IADDX_2(a,b,c,d,e,f,g,PPMPF_IADD__(h,c))
+#define PPMPF_IADDX_2(a,b,c,d,e,f,g,s) \
+        PPMPF_IADDX_3( a \
+                     , b \
+                     , PPMPF_DREF(PPMPF_SEQPOP(s)) \
+                     , d \
+                     , e \
+                     , f \
+                     , PPMPF_IADD__(PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),g),b))
+#define PPMPF_IADDX_3(a,b,c,d,e,f,s) \
+        PPMPF_IADDX_4( a \
+                     , PPMPF_DREF(PPMPF_SEQPOP(s)) \
+                     , c \
+                     , d \
+                     , e \
+                     , PPMPF_IADD__(PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),f),a))
+#define PPMPF_IADDX_4(a,b,c,d,e,s) \
+        PPMPF_IOPC( \
+            (0,PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),e)) \
+            PPMPF_SEQPOP(s)(b)(c)(d) \
+        )
+
 #endif /* _ODREEX_PPMPF_ALU_HH_ */
