@@ -374,7 +374,7 @@
             PPMPF_SEQPOP(s)(b)(c)(d) \
         )
 
-/* NOTE: PPMPF_ILTX is less - than comparison for two ppmpf positive integers.
+/* NOTE: PPMPF_ILTX is less - than comparison for two positive ppmpf integers.
  */
 #define PPMPF_ILTX(x,y) PPMPF_ILTX_(x,y)
 #define PPMPF_ILTX__(n,x,y) \
@@ -388,6 +388,17 @@
                                   , PPMPF_IFELSE( PPMPF_ILTX__(1,x,y) \
                                                 , 1 \
                                                 , PPMPF_ILTX__(0,x,y))))
-
-
+                                                
+/* NOTE: PPMPF_IEQL is comparing two positive ppmpf integers for equality.
+ */
+#define PPMPF_IEQL(x,y) PPMPF_IEQL_(x,y)
+#define PPMPF_IEQL_(x,y) \
+        PPMPF_AND( PPMPF_IS( PPMPF_DIGIT(3,x) \
+                           , PPMPF_DIGIT(3,y)) \
+                 , PPMPF_AND( PPMPF_IS( PPMPF_DIGIT(2,x) \
+                                      , PPMPF_DIGIT(2,y)) \
+                            , PPMPF_AND( PPMPF_IS( PPMPF_DIGIT(1,x) \
+                                                 , PPMPF_DIGIT(1,y)) \
+                                       , PPMPF_IS( PPMPF_DIGIT(0,x) \
+                                                 , PPMPF_DIGIT(0,y)))))
 #endif /* _ODREEX_PPMPF_ALU_HH_ */
