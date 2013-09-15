@@ -29,6 +29,8 @@
  * for overflow / signed purposes. For the time being only the positive integer
  * range of [0, 9999] is to be used in fundamental operations.
  */
+#define PPMPF_IMINV_(...) (0)(0)(0)(0)
+#define PPMPF_IMAXV_(...) (9)(9)(9)(9)
 #define PPMPF_IMINV(...) (0,0)(0)(0)(0)(0)
 #define PPMPF_IMAXV(...) (0,0)(9)(9)(9)(9)
 
@@ -284,8 +286,8 @@
 #define PPMPF_IOPC_(x) \
         PPMPF_IFELSE( PPMPF_OR PPMPF_SEQGET(x) \
                     , PPMPF_IFELSE( PPMPF_DREF(PPMPF_TUPGET(PPMPF_SEQGET(x))) \
-                                  , PPMPF_IMINV \
-                                  , PPMPF_IMAXV ) \
+                                  , PPMPF_IMINV_ \
+                                  , PPMPF_IMAXV_ ) \
                     , PPMPF_JUST )(PPMPF_SEQPOP(x))
 #define PPMPF_IOPC(x) PPMPF_IOPC_(x)
 
