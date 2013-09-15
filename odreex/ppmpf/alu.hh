@@ -405,4 +405,13 @@
 /* NOTE: PPMPF_INQL is comparing two positive ppmpf integers for inequality. */
 #define PPMPF_INQL(x,y) PPMPF_NOT(PPMPF_IEQL_(x,y))
 
+/* NOTE: PPMPF_ILTE is less than or equal comparison. */
+#define PPMPF_ILTE(x,y) PPMPF_OR(PPMPF_ILTX_(x,y),PPMPF_IEQL_(x,y))
+
+/* NOTE: PPMPF_IGTE is greater than or equal comparison. */
+#define PPMPF_IGTE(x,y) PPMPF_OR(PPMPF_ILTX_(y,x),PPMPF_IEQL_(x,y))
+
+/* NOTE: PPMPF_IGTX is greater than or equal comparison. */
+#define PPMPF_IGTX(x,y) PPMPF_ILTX_(y,x)
+
 #endif /* _ODREEX_PPMPF_ALU_HH_ */
