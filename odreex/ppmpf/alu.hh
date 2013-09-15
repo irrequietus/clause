@@ -266,6 +266,10 @@
 #define PPMPF_ITRSELM0(a,b,c,d,e,f,g,h,i,j,...) \
         (j,__VA_ARGS__,)
 
+#define PPMPF_IADDC___(x) PPMPF_TUPGET__ x
+#define PPMPF_IADDC__(x)  PPMPF_IADDC___(x)
+#define PPMPF_IADDC_(y,x) PPMPF_IADDC__(PPMPF_ITRSELP##y x)
+
 /* NOTE: PPMPF_IOPC is an integer overflow protection checkpoint using the
  * reserved sequence member in integer representation for deducing whether
  * the upper limit (9999) or the lower limit (0) of integers usable in ppmpf
