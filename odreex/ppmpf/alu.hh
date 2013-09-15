@@ -28,6 +28,16 @@
  * are represented as five member sequences, with the first being reserved
  * for overflow / signed purposes. For the time being only the positive integer
  * range of [0, 9999] is to be used in fundamental operations.
+ *
+ * The general format of a number as it is represented internally for PPMPF
+ * use is of the form: (X,Y)(A)(B)(C)(D) where:
+ *  - X : 0 or 1, signed or unsigned number..
+ *  - Y : 0 to 9, is a digit when unsigned or overflow when not.
+ * Currently, no negative numbers are allowed and overflow / underflow resolve
+ * to minimum and maximum value allowed respectively. The final representation
+ * ommits the first member since it has no purpose outside the arithmetic
+ * operations of addition and subtraction. Signed numbers are currently a
+ * reserved representation.
  */
 #define PPMPF_IMINV_(...) (0)(0)(0)(0)
 #define PPMPF_IMAXV_(...) (9)(9)(9)(9)
