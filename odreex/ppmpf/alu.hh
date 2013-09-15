@@ -270,6 +270,12 @@
 #define PPMPF_IADDC__(x)  PPMPF_IADDC___(x)
 #define PPMPF_IADDC_(y,x) PPMPF_IADDC__(PPMPF_ITRSELP##y x)
 
+/* NOTE: Addition and subtraction fundamentals, using tuple lookups. */
+#define PPMPF_IADD__(x,y) \
+        PPMPF_IADDC_(y, PPMPF_CAT(PPMPF_ITRSELP,x) PPMPF_ITRBASEP_())
+#define PPMPF_ISUB__(x,y) \
+        PPMPF_IADDC_(y, PPMPF_CAT(PPMPF_ITRSELM,x) PPMPF_ITRBASEM_())
+
 /* NOTE: PPMPF_IOPC is an integer overflow protection checkpoint using the
  * reserved sequence member in integer representation for deducing whether
  * the upper limit (9999) or the lower limit (0) of integers usable in ppmpf
