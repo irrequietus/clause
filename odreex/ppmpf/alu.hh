@@ -414,4 +414,8 @@
 /* NOTE: PPMPF_IGTX is greater than or equal comparison. */
 #define PPMPF_IGTX(x,y) PPMPF_ILTX_(y,x)
 
+/* NOTE: Providing ++ and -- operations for ppmpf positive integers. */
+#define PPMPF_NEXT(x) PPMPF_IADD(x,(0)(0)(0)(1))
+#define PPMPF_PREV(x) PPMPF_ISUB(x,(0)(0)(0)(1))
+
 #endif /* _ODREEX_PPMPF_ALU_HH_ */
