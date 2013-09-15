@@ -33,10 +33,13 @@
 #define PPMPF_QUOTE_(...) # __VA_ARGS__
 
 /* NOTE: PPMPF_COMMA and PPMPF_WSPC are just , and whitespace respectively.
- * The PPMPF_EMPTY macro expands to nothing. */
+ * The PPMPF_EMPTY macro expands to nothing, PPMPF_JUST to its arguments and
+ * PPMPF_UNIT() to a unit i.e. (). */
 #define PPMPF_COMMA(...) ,
 #define PPMPF_WSPC(...) /**/
 #define PPMPF_EMPTY(...)
+#define PPMPF_UNIT(...) ()
+#define PPMPF_JUST(...) __VA_ARGS__
 
 /* NOTE: PPMPF_CAT - Binary Concatenation macro */
 #define PPMPF_CAT_1(x, y) PPMPF_CAT_2( x , y )
@@ -642,35 +645,32 @@
 
 #define PPMPF_NARGS(...) PPMPF_DIGNM(PPMPF_VARGS(__VA_ARGS__))
 
-/* NOTE: PPMPF_SEQEMPTY, PPMPF_TUPEMTPY - Adding macros for "tuple"
- * and "sequence" empty detection
+/* NOTE: PPMPF_EMPTY_ Checking whether __VA_ARGS__ is the empty token or not
+ * can be done without needing to count the individual number of arguments each
+ * time, but by just using this macro.
  */
-#define PPMPF_TUP_EXPAND(...) __VA_ARGS__
+#define PPMPF_EMPTY_0(...) (,)
+#define PPMPF_EMPTY_1(...) (,) ,
+#define PPMPF_EMPTY_2(...) ()
+#define PPMPF_EMPTY_3(...) PPMPF_EMPTY_4(PPMPF_EMPTY_1 __VA_ARGS__ (,),)
+#define PPMPF_EMPTY_4(a,...) PPMPF_EMPTY_5(PPMPF_EMPTY_0  a)
+#define PPMPF_EMPTY_5(...) PPMPF_EMPTY_6(PPMPF_COMMA __VA_ARGS__)
+#define PPMPF_EMPTY_6(...) PPMPF_EMPTY_7(__VA_ARGS__)
+#define PPMPF_EMPTY_7(...) PPMPF_EMPTY_8(__VA_ARGS__,1,,0,)
+#define PPMPF_EMPTY_8(...) PPMPF_EMPTY_9(__VA_ARGS__)
+#define PPMPF_EMPTY_9(a,b,c,n,...) n
+#define PPMPF_EMPTY_(...) \
+        PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \
+                 , PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__) )
 
-#define PPMPF_IS_EMPTY___(...) ,
-#define PPMPF_IS_EMPTY__(s) \
-        PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(3,s)) \
-                 , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(2,s)) \
-                            , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(1,s)) \
-                                       , PPMPF_IS(0,PPMPF_DIGIT(0,s)))))
-#define PPMPF_HAS_ONE___(...) ,
-#define PPMPF_HAS_ONE__(s) \
-        PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(3,s)) \
-                 , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(2,s)) \
-                            , PPMPF_AND( PPMPF_IS(0,PPMPF_DIGIT(1,s)) \
-                                       , PPMPF_IS(1,PPMPF_DIGIT(0,s)))))
-                                       
-#define PPMPF_IS_EMPTY_(...) \
-        PPMPF_IS_EMPTY__(PPMPF_VARGS(__VA_ARGS__))
+#define PPMPF_IS_EMPTY(...) \
+        PPMPF_EMPTY_(__VA_ARGS__)
 
-#define PPMPF_HAS_ONE_(...) \
-        PPMPF_HAS_ONE__(PPMPF_VARGS(__VA_ARGS__))
-        
 #define PPMPF_TUPEMPTY(t) \
-        PPMPF_IS_EMPTY_(PPMPF_TUP_EXPAND t)
+        PPMPF_EMPTY_(PPMPF_JUST t)
 
 #define PPMPF_SEQEMPTY(s) \
-        PPMPF_IS_EMPTY__(PPMPF_VARGS(PPMPF_IS_EMPTY___ s))
+        PPMPF_EMPTY_(s)
 
 /* NOTE: PPMPF_SEQGET - Get the first element of a sequence, enclosed in ()
  * PPMPF_SEGPOP - Remove the first element, get the rest.
@@ -693,19 +693,18 @@
 #define PPMPF_TUPGET_(...) PPMPF_TUPGET__(__VA_ARGS__,)
 #define PPMPF_TUPGET(t) (PPMPF_TUPGET___(PPMPF_TUPGET_ t,))
 
-/* We are still (temporarily) limited by PPMPF_VARGS, but that will eventually
- * change. This is why folds on "tuples" are to be locked to the same limit. */
-#define PPMPF_TUPPOP___(...) ()
-#define PPMPF_TUPPOP__(x,...) (__VA_ARGS__)
+/* NOTE: PMPF_TUPPOP will remove the first element of a tuple. */
+#define PPMPF_TUPPOP___(x,...) (__VA_ARGS__)
+#define PPMPF_TUPPOP__(...) PPMPF_TUPPOP___(__VA_ARGS__)
 #define PPMPF_TUPPOP_(...) \
-        PPMPF_IFELSE( PPMPF_OR( PPMPF_HAS_ONE_(__VA_ARGS__) \
-                              , PPMPF_TUPEMPTY((__VA_ARGS__))) \
-                    , PPMPF_TUPPOP___, PPMPF_TUPPOP__)(__VA_ARGS__)
+        PPMPF_IFELSE( PPMPF_JUST(PPMPF_EMPTY_ PPMPF_TUPPOP___(__VA_ARGS__,)) \
+                    , PPMPF_UNIT \
+                    , PPMPF_TUPPOP__)(__VA_ARGS__)
 #define PPMPF_TUPPOP(x) PPMPF_TUPPOP_ x
 
 /* NOTE: Since most "items" we use are enclosed in parentheses, there should
  * be a macro removing those where applicable, so here it goes.
  */
-#define PPMPF_DREF(x) PPMPF_TUP_EXPAND x
+#define PPMPF_DREF(x) PPMPF_JUST x
 
 #endif /* _ODREEX_PPMPF_BASE_HH_ */
