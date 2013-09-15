@@ -23,9 +23,25 @@
 
 #include <odreex/ppmpf/base.hh>
 #include <odreex/ppmpf/fold.hh>
+#include <odreex/ppmpf/sizeof.hh>
 
 /* NOTE: PPMPF_VCAT - A variadic version of PPMPF_CAT */
 #define PPMPF_VCAT(x,...) \
         PPMPF_TUP_FOLDL_OF(PPMPF_CAT,(x,__VA_ARGS__))
+
+/* NOTE: PPMPF_IARGS - Counting n arbirtrary size of arguments in __VA_ARGS__.
+ * This will work within a range of 0 to 9999 macro arguments passed to
+ * PPMPF_IARGS and that is the only limit. Returns positive ppmpf integer
+ * representation (4 member sequence of digit tokens), PPMPF_IMINV_() if
+ * __VA_ARGS__ length is 0.
+ */
+#define PPMPF_IARGS(...) PPMPF_TUP_SIZEOF((__VA_ARGS__))
+
+/* NOTE: PPMPF_NARGS - Counting an arbirtrary size of arguments in __VA_ARGS__.
+ * This will work within a range of 0 to 9999 macro arguments passed to
+ * PPMPF_NARGS and that is the only limit. Returns a human readable positive
+ * integer, 0 if __VA_ARGS__ length is 0.
+ */
+#define PPMPF_NARGS(...) PPMPF_DIGNM(PPMPF_IARGS(__VA_ARGS__))
 
 #endif /* _ODREEX_PPMPF_PPFK_HH_ */
