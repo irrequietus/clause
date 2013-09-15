@@ -208,19 +208,63 @@
                  , PPMPF_DIGIT(1,n) \
                  , PPMPF_DIGIT(0,n))
 
-/*NOTE: Basic addition algorithm lookup tuple. */
+/* NOTE: Basic addition algorithm lookup tuple. */
 #define PPMPF_ITRBASEP_() \
         ( (0)(0),(0)(1),(0)(2),(0)(3),(0)(4) \
         , (0)(5),(0)(6),(0)(7),(0)(8),(0)(9) \
         , (1)(0),(1)(1),(1)(2),(1)(3),(1)(4) \
         , (1)(5),(1)(6),(1)(7),(1)(8) )
 
-/*NOTE: Basic subtraction algorithm lookup tuple. */
+/* NOTE: Basic subtraction algorithm lookup tuple. */
 #define PPMPF_ITRBASEM_() \
         ( (0)(9),(0)(8),(0)(7),(0)(6),(0)(5) \
         , (0)(4),(0)(3),(0)(2),(0)(1),(0)(0) \
         , (1)(9),(1)(8),(1)(7),(1)(6),(1)(5) \
         , (1)(4),(1)(3),(1)(2),(1)(1) )
+
+/* NOTE: Addition lookup selection macros */
+#define PPMPF_ITRSELP0(a,b,c,d,e,f,g,h,i,j,...) \
+        (a,b,c,d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP1(a,b,c,d,e,f,g,h,i,j,...) \
+        (b,c,d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP2(a,b,c,d,e,f,g,h,i,j,...) \
+        (c,d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP3(a,b,c,d,e,f,g,h,i,j,...) \
+        (d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP4(a,b,c,d,e,f,g,h,i,j,...) \
+        (e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP5(a,b,c,d,e,f,g,h,i,j,...) \
+        (f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP6(a,b,c,d,e,f,g,h,i,j,...) \
+        (g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP7(a,b,c,d,e,f,g,h,i,j,...) \
+        (h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP8(a,b,c,d,e,f,g,h,i,j,...) \
+        (i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELP9(a,b,c,d,e,f,g,h,i,j,...) \
+        (j,__VA_ARGS__,)
+
+/* NOTE: Subtraction lookup selection macros */
+#define PPMPF_ITRSELM9(a,b,c,d,e,f,g,h,i,j,...) \
+        (a,b,c,d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM8(a,b,c,d,e,f,g,h,i,j,...) \
+        (b,c,d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM7(a,b,c,d,e,f,g,h,i,j,...) \
+        (c,d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM6(a,b,c,d,e,f,g,h,i,j,...) \
+        (d,e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM5(a,b,c,d,e,f,g,h,i,j,...) \
+        (e,f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM4(a,b,c,d,e,f,g,h,i,j,...) \
+        (f,g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM3(a,b,c,d,e,f,g,h,i,j,...) \
+        (g,h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM2(a,b,c,d,e,f,g,h,i,j,...) \
+        (h,i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM1(a,b,c,d,e,f,g,h,i,j,...) \
+        (i,j,__VA_ARGS__,)
+#define PPMPF_ITRSELM0(a,b,c,d,e,f,g,h,i,j,...) \
+        (j,__VA_ARGS__,)
 
 /* NOTE: PPMPF_IOPC is an integer overflow protection checkpoint using the
  * reserved sequence member in integer representation for deducing whether
