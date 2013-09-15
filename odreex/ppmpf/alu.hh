@@ -388,7 +388,7 @@
                                   , PPMPF_IFELSE( PPMPF_ILTX__(1,x,y) \
                                                 , 1 \
                                                 , PPMPF_ILTX__(0,x,y))))
-                                                
+
 /* NOTE: PPMPF_IEQL is comparing two positive ppmpf integers for equality.
  */
 #define PPMPF_IEQL(x,y) PPMPF_IEQL_(x,y)
@@ -401,4 +401,8 @@
                                                  , PPMPF_DIGIT(1,y)) \
                                        , PPMPF_IS( PPMPF_DIGIT(0,x) \
                                                  , PPMPF_DIGIT(0,y)))))
+
+/* NOTE: PPMPF_INQL is comparing two positive ppmpf integers for inequality. */
+#define PPMPF_INQL(x,y) PPMPF_NOT(PPMPF_IEQL_(x,y))
+
 #endif /* _ODREEX_PPMPF_ALU_HH_ */
