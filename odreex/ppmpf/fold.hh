@@ -21,7 +21,9 @@
 #ifndef _ODREEX_PPMPF_FOLD_HH_
 #define _ODREEX_PPMPF_FOLD_HH_
 
-#include <odreex/ppmpf/base.hh>
+#include <odreex/ppmpf/core.hh>
+#include <odreex/ppmpf/alu.hh>
+#include <odreex/ppmpf/tupseq.hh>
 
 /* Assistive macro */
 #define PPMPF_FLDT(b,n,sl) PPMPF_IFELSE(b,sl PPMPF_EMPTY, PPMPF_0F ## n)
