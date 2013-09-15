@@ -24,6 +24,14 @@
 #include <odreex/ppmpf/core.hh>
 #include <odreex/ppmpf/tupseq.hh>
 
+/* NOTE: Minimum and Maximum integer value internal representation. Numbers
+ * are represented as five member sequences, with the first being reserved
+ * for overflow / signed purposes. For the time being only the positive integer
+ * range of [0, 9999] is to be used in fundamental operations.
+ */
+#define PPMPF_IMINV(...) (0,0)(0)(0)(0)(0)
+#define PPMPF_IMAXV(...) (0,0)(9)(9)(9)(9)
+
 /* NOTE: PPMPF_IS - Digit detector, mainly for use on repeats. */
 #define PPMPF_IS_ZZ() 1
 #define PPMPF_IS_Z0() 0
