@@ -22,64 +22,7 @@
 #define _ODREEX_PPMPF_ALU_HH_
 
 #include <odreex/ppmpf/core.hh>
-
-/* NOTE: PPMPF_IFELSE - An if - then - else macro construct.
- */
-#define PPMPF_IFELSE_0(t,e) e
-#define PPMPF_IFELSE_1(t,e) t
-#define PPMPF_IFELSE(n,t,e) PPMPF_CAT(PPMPF_IFELSE_,n)(t,e)
-
-/* NOTE: Implementations for AND, OR, NOR, XOR, XNOR, NAND, NOT could have been
- * introduced using the universal NOR / NAND combinations but it was decided to
- * implement each one separately for the time being.
- */
-
-/* NOTE: PPMPF_AND - Logical AND */
-#define PPMPF_AND_11() 1
-#define PPMPF_AND_00() 0
-#define PPMPF_AND_10() 0
-#define PPMPF_AND_01() 0
-#define PPMPF_AND(x,y) PPMPF_CAT(PPMPF_CAT(PPMPF_AND_, x), y)()
-
-/* NOTE: PPMPF_NAND - Logical NAND */
-#define PPMPF_NAND_11() 0
-#define PPMPF_NAND_00() 1
-#define PPMPF_NAND_10() 1
-#define PPMPF_NAND_01() 1
-#define PPMPF_NAND(x,y) PPMPF_CAT(PPMPF_CAT(PPMPF_NAND_, x), y)()
-
-/* NOTE: PPMPF_OR - Logical OR */
-#define PPMPF_OR_11() 1
-#define PPMPF_OR_00() 0
-#define PPMPF_OR_10() 1
-#define PPMPF_OR_01() 1
-#define PPMPF_OR(x,y) PPMPF_CAT(PPMPF_CAT(PPMPF_OR_, x), y)()
-
-/* NOTE: PPMPF_NOR - Logical NOR */
-#define PPMPF_NOR_11() 0
-#define PPMPF_NOR_00() 1
-#define PPMPF_NOR_10() 0
-#define PPMPF_NOR_01() 0
-#define PPMPF_NOR(x,y) PPMPF_CAT(PPMPF_CAT(PPMPF_NOR_, x), y)()
-
-/* NOTE: PPMPF_XOR - Logical XOR */
-#define PPMPF_XOR_11() 0
-#define PPMPF_XOR_00() 0
-#define PPMPF_XOR_10() 1
-#define PPMPF_XOR_01() 1
-#define PPMPF_XOR(x,y) PPMPF_CAT(PPMPF_CAT(PPMPF_XOR_, x), y)()
-
-/* NOTE: PPMPF_XNOR - Logical XNOR */
-#define PPMPF_XNOR_11() 1
-#define PPMPF_XNOR_00() 1
-#define PPMPF_XNOR_10() 0
-#define PPMPF_XNOR_01() 0
-#define PPMPF_XNOR(x,y) PPMPF_CAT(PPMPF_CAT(PPMPF_XNOR_, x), y)()
-
-/* NOTE: PPMPF_NOT - Logical NOT */
-#define PPMPF_NOT_1() 0
-#define PPMPF_NOT_0() 1
-#define PPMPF_NOT(x) PPMPF_CAT(PPMPF_NOT_, x)()
+#include <odreex/ppmpf/tupseq.hh>
 
 /* NOTE: PPMPF_IS - Digit detector, mainly for use on repeats. */
 #define PPMPF_IS_ZZ() 1
@@ -256,5 +199,19 @@
                  , PPMPF_DIGIT(2,n) \
                  , PPMPF_DIGIT(1,n) \
                  , PPMPF_DIGIT(0,n))
+
+/*NOTE: Basic addition algorithm lookup tuple. */
+#define PPMPF_ITRBASEP_() \
+        ( (0)(0),(0)(1),(0)(2),(0)(3),(0)(4) \
+        , (0)(5),(0)(6),(0)(7),(0)(8),(0)(9) \
+        , (1)(0),(1)(1),(1)(2),(1)(3),(1)(4) \
+        , (1)(5),(1)(6),(1)(7),(1)(8) )
+
+/*NOTE: Basic subtraction algorithm lookup tuple. */
+#define PPMPF_ITRBASEM_() \
+        ( (0)(9),(0)(8),(0)(7),(0)(6),(0)(5) \
+        , (0)(4),(0)(3),(0)(2),(0)(1),(0)(0) \
+        , (1)(9),(1)(8),(1)(7),(1)(6),(1)(5) \
+        , (1)(4),(1)(3),(1)(2),(1)(1) )
 
 #endif /* _ODREEX_PPMPF_ALU_HH_ */

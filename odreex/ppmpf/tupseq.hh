@@ -22,7 +22,6 @@
 #define _ODREEX_PPMPF_TUPSEQ_HH_
 
 #include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/alu.hh>
 
 /* NOTE: PPMPF_EMPTY_ Checking whether __VA_ARGS__ is the empty token or not
  * can be done without needing to count the individual number of arguments each
