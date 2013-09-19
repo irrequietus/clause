@@ -278,7 +278,7 @@
 #define PPMPF_ITRSELM0(a,b,c,d,e,f,g,h,i,j,...) \
         (j,__VA_ARGS__,)
 
-#define PPMPF_IADDC___(x) PPMPF_TUPGET__ x
+#define PPMPF_IADDC___(x) PPMPF_TUP_GET__ x
 #define PPMPF_IADDC__(x)  PPMPF_IADDC___(x)
 #define PPMPF_IADDC_(y,x) PPMPF_IADDC__(PPMPF_ITRSELP##y x)
 
@@ -294,11 +294,11 @@
  * should be the resolution of overflowed / underflowed integer operations.
  */
 #define PPMPF_IOPC_(x) \
-        PPMPF_IFELSE( PPMPF_OR PPMPF_SEQGET(x) \
-                    , PPMPF_IFELSE( PPMPF_DREF(PPMPF_TUPGET(PPMPF_SEQGET(x))) \
+        PPMPF_IFELSE( PPMPF_OR PPMPF_SEQ_GET(x) \
+                    , PPMPF_IFELSE( PPMPF_DREF(PPMPF_TUP_GET(PPMPF_SEQ_GET(x)))\
                                   , PPMPF_IMINV_ \
                                   , PPMPF_IMAXV_ ) \
-                    , PPMPF_JUST )(PPMPF_SEQPOP(x))
+                    , PPMPF_JUST )(PPMPF_SEQ_POP(x))
 #define PPMPF_IOPC(x) PPMPF_IOPC_(x)
 
 /* NOTE: PPMPF_IADD(x,y) adds two numbers represented as 4 member sequences of
@@ -311,35 +311,35 @@
                     , PPMPF_IADD__(PPMPF_DIGIT(1,x),PPMPF_DIGIT(1,y)) \
                     , PPMPF_IADD__(PPMPF_DIGIT(0,x),PPMPF_DIGIT(0,y)) )
 #define PPMPF_IADDX_(a,b,c,d) \
-        PPMPF_IADDX_1( PPMPF_DREF(PPMPF_SEQPOP(a)) \
-                     , PPMPF_DREF(PPMPF_SEQPOP(b)) \
-                     , PPMPF_DREF(PPMPF_SEQPOP(c)) \
-                     , PPMPF_DREF(PPMPF_SEQPOP(d)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(a)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(b)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(c)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(d)) )
+        PPMPF_IADDX_1( PPMPF_DREF(PPMPF_SEQ_POP(a)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(b)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(c)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(d)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(a)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(b)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(c)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(d)) )
 #define PPMPF_IADDX_1(a,b,c,d,e,f,g,h) \
         PPMPF_IADDX_2(a,b,c,d,e,f,g,PPMPF_IADD__(h,c))
 #define PPMPF_IADDX_2(a,b,c,d,e,f,g,s) \
         PPMPF_IADDX_3( a \
                      , b \
-                     , PPMPF_DREF(PPMPF_SEQPOP(s)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(s)) \
                      , d \
                      , e \
                      , f \
-                     , PPMPF_IADD__(PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),g),b))
+                     , PPMPF_IADD__(PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),g),b))
 #define PPMPF_IADDX_3(a,b,c,d,e,f,s) \
         PPMPF_IADDX_4( a \
-                     , PPMPF_DREF(PPMPF_SEQPOP(s)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(s)) \
                      , c \
                      , d \
                      , e \
-                     , PPMPF_IADD__(PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),f),a))
+                     , PPMPF_IADD__(PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),f),a))
 #define PPMPF_IADDX_4(a,b,c,d,e,s) \
         PPMPF_IOPC( \
-            (0,PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),e)) \
-            PPMPF_SEQPOP(s)(b)(c)(d) \
+            (0,PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),e)) \
+            PPMPF_SEQ_POP(s)(b)(c)(d) \
         )
 
 /* NOTE: PPMPF_ISUB(x,y) subtracts two numbers represented as 4 member
@@ -352,43 +352,43 @@
                     , PPMPF_ISUB__(PPMPF_DIGIT(1,x),PPMPF_DIGIT(1,y)) \
                     , PPMPF_ISUB__(PPMPF_DIGIT(0,x),PPMPF_DIGIT(0,y)) )
 #define PPMPF_ISUBX_(a,b,c,d) \
-        PPMPF_ISUBX_1( PPMPF_DREF(PPMPF_SEQPOP(a)) \
-                     , PPMPF_DREF(PPMPF_SEQPOP(b)) \
-                     , PPMPF_DREF(PPMPF_SEQPOP(c)) \
-                     , PPMPF_DREF(PPMPF_SEQPOP(d)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(a)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(b)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(c)) \
-                     , PPMPF_DREF(PPMPF_SEQGET(d)) )
+        PPMPF_ISUBX_1( PPMPF_DREF(PPMPF_SEQ_POP(a)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(b)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(c)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(d)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(a)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(b)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(c)) \
+                     , PPMPF_DREF(PPMPF_SEQ_GET(d)) )
 #define PPMPF_ISUBX_1(a,b,c,d,e,f,g,h) \
         PPMPF_ISUBX_2(a,b,c,d,e,f,g,PPMPF_ISUB__(c,h))
 #define PPMPF_ISUBX_2(a,b,c,d,e,f,g,s) \
         PPMPF_ISUBX_3( a \
                      , b \
-                     , PPMPF_DREF(PPMPF_SEQPOP(s)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(s)) \
                      , d \
                      , e \
                      , f \
-                     , PPMPF_ISUB__(b,PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),g)))
+                     , PPMPF_ISUB__(b,PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),g)))
 #define PPMPF_ISUBX_3(a,b,c,d,e,f,s) \
         PPMPF_ISUBX_4( a \
-                     , PPMPF_DREF(PPMPF_SEQPOP(s)) \
+                     , PPMPF_DREF(PPMPF_SEQ_POP(s)) \
                      , c \
                      , d \
                      , e \
-                     , PPMPF_ISUB__(a,PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),f)))
+                     , PPMPF_ISUB__(a,PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),f)))
 #define PPMPF_ISUBX_4(a,b,c,d,e,s) \
         PPMPF_IOPC( \
-            ( PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),e) \
-            , PPMPF_OR(PPMPF_DREF(PPMPF_SEQGET(s)),e) ) \
-            PPMPF_SEQPOP(s)(b)(c)(d) \
+            ( PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),e) \
+            , PPMPF_OR(PPMPF_DREF(PPMPF_SEQ_GET(s)),e) ) \
+            PPMPF_SEQ_POP(s)(b)(c)(d) \
         )
 
 /* NOTE: PPMPF_ILTX is less - than comparison for two positive ppmpf integers.
  */
 #define PPMPF_ILTX(x,y) PPMPF_ILTX_(x,y)
 #define PPMPF_ILTX__(n,x,y) \
-        PPMPF_DREF(PPMPF_SEQGET(PPMPF_ISUB__( PPMPF_DIGIT(n,x) \
+        PPMPF_DREF(PPMPF_SEQ_GET(PPMPF_ISUB__( PPMPF_DIGIT(n,x) \
                                             , PPMPF_DIGIT(n,y))))
 #define PPMPF_ILTX_(x,y) \
         PPMPF_IFELSE( PPMPF_ILTX__(3,x,y) \
