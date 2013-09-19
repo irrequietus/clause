@@ -21,6 +21,10 @@
 #ifndef _ODREEX_PPMPF_CORE_HH_
 #define _ODREEX_PPMPF_CORE_HH_
 
+/* NOTE: PPMPF_TRUE, PPMPF_FALSE: When deployed, resolving to either 1 or 0. */
+#define PPMPF_TRUE(...) 1
+#define PPMPF_FALSE(...) 0
+
 /* NOTE: PPMPF_QUOTE - Double quote enclosing macro. */
 #define PPMPF_QUOTE(...) PPMPF_QUOTE_(__VA_ARGS__)
 #define PPMPF_QUOTE_(...) # __VA_ARGS__
