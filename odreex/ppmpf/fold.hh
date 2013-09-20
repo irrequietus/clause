@@ -44,6 +44,10 @@
                      , PPMPF_FLDA)(f,sl,g)) \
         (p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
 
+#define PPMPF_FLDRS_(a,b) PPMPF_JUST(b)PPMPF_DREF(a)
+#define PPMPF_FLDRT_(a,b) \
+        PPMPF_DREF(b),PPMPF_DREF(a)
+
 /* NOTE: Macro infrastructure for implementing preprocessor based "folding".
  * As with repeats, recursion depth internals are implemented in such a manner
  * as to allow for folding over 10000 elements as a maximum limit. */
@@ -183,5 +187,15 @@
 
 #define PPMPF_TUP_FOLDL_OF(f,l) \
         PPMPF_TUP_FOLDL(f,,l)
+/*
+ * NOTE: PPMPF_TUP_REVERSE, PPMPF_SEQ_REVERSE: transform ppmpf item lists into
+ * their reverses.
+ */
+#define PPMPF_TUP_REVERSE(tup) \
+        (PPMPF_TUP_FOLDL_OF( PPMPF_FLDRT_ \
+                          , PPMPF_TUP_POP(tup))PPMPF_DREF(PPMPF_TUP_GET(tup)))
+
+#define PPMPF_SEQ_REVERSE(seq) \
+        PPMPF_SEQ_FOLDL_OF(PPMPF_FLDRS_,seq)
 
 #endif /* _ODREEX_PPMPF_FOLD_HH_ */
