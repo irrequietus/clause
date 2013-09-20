@@ -27,7 +27,7 @@
 #include <odreex/ppmpf/fold.hh>
 
 /* Assistive macro for integer incrementation during folding. */
-#define PPMPF_PLUS__(x,y) PPMPF_NEXT(x)
+#define PPMPF_PLUS__(x,y) PPMPF_NEXT(PPMPF_DREF(x))
 
 /* NOTE: PPMPF_TUP_SIZEOF(tup) returns the number of tuple members existing
  * in a given tuple (tup), which is a parenthesis enclosed comma separated
