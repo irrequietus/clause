@@ -34,13 +34,13 @@
  * series of preprocessor tokens.
  */
 #define PPMPF_TUP_SIZEOF(tup) \
-        PPMPF_TUP_FOLDL(PPMPF_PLUS__,PPMPF_IMINV_(),tup)
+        PPMPF_DREF(PPMPF_TUP_FOLDL(PPMPF_PLUS__,PPMPF_IMINV_(),tup))
 
 /* NOTE: PPMPF_SEQ_SIZEOF(seq) returns the number of sequence members existing
  * in a given sequence (seq), whitespace separated series of parenthesis
  * enclosed preprocessor tokens.
  */
 #define PPMPF_SEQ_SIZEOF(seq) \
-        PPMPF_SEQ_FOLDL(PPMPF_PLUS__,PPMPF_IMINV_(),seq)
+        PPMPF_DREF(PPMPF_SEQ_FOLDL(PPMPF_PLUS__,PPMPF_IMINV_(),seq))
 
 #endif /* _ODREEX_PPMPF_SIZEOF_HH_ */
