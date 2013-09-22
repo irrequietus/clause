@@ -38,14 +38,16 @@
 #define PPMPF_EMPTY_7(...) PPMPF_EMPTY_8(__VA_ARGS__,1,1,0,)
 #define PPMPF_EMPTY_8(...) PPMPF_EMPTY_9(__VA_ARGS__)
 #define PPMPF_EMPTY_9(a,b,c,n,...) n
+#define PPMPF_EMPTY_10(...) PPMPF_EMPTY_11(__VA_ARGS__,1,0,0)
+#define PPMPF_EMPTY_11(a,b,n,...) n
+#define PPMPF_EMPTY_12(x) PPMPF_EMPTY_10(PPMPF_COMMA x)
+#define PPMPF_EMPTY_13(x) PPMPF_EMPTY_10(PPMPF_COMMA x(),1,0,0)
+#define PPMPF_EMPTY_B(x) \
+        PPMPF_IFELSE(PPMPF_EMPTY_12(x),PPMPF_FALSE,PPMPF_EMPTY_13)(x)
 #define PPMPF_EMPTY_A(x,y) \
         PPMPF_IFELSE( PPMPF_EMPTY_C(PPMPF_DREF(x)) \
                     , PPMPF_EMPTY_B \
                     , PPMPF_FALSE )(y)
-#define PPMPF_EMPTY_B(y) \
-        PPMPF_EMPTY_7(PPMPF_IFELSE( PPMPF_EMPTY_7(PPMPF_EMPTY y) \
-                                  , PPMPF_EMPTY \
-                                  , PPMPF_CAT )(PPMPF_COMMA,y)())
 #define PPMPF_EMPTY_C(...) \
         PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \
                  , PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__) )

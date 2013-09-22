@@ -45,7 +45,6 @@
                      , PPMPF_FLDB \
                      , i )(f,sl,g)) \
         (p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
-
 #define PPMPF_FLDRS_(a,b) PPMPF_JUST(b)PPMPF_DREF(a)
 #define PPMPF_FLDRT_(a,b) \
         PPMPF_DREF(b),PPMPF_DREF(a)
@@ -150,7 +149,12 @@
  * for up to 10000 ppmpf tuple / sequence items efficiently.
  */
 #define PPMPF_FOLD_(f,s,l,g,p,h,i,m,x0,x1,x2,x3) \
-        x3(f,x2(f,x1(f,x0(f,(s)(l),g,p,h,i,m),g,p,h,i,m),g,p,h,i,m),g,p,h,i,m)
+        x3( f \
+          , x2(f \
+              , x1( f \
+                  , x0(f,(PPMPF_DREF(s))(l),g,p,h,i,m), g,p,h,i,m) \
+              , g, p, h, i, m) \
+          , g, p, h, i, m )
 
 #define PPMPF_SEQ_FOLD_(f,s,l,i) \
         PPMPF_FOLD_( f \
@@ -170,7 +174,7 @@
         PPMPF_SEQ_GET(PPMPF_SEQ_FOLD_(f,s,l,PPMPF_FLDAL))
 
 #define PPMPF_SEQ_FOLDL_OF(f,l) \
-        PPMPF_SEQ_FOLDL(f,,l)
+        PPMPF_SEQ_FOLDL(f,PPMPF_SEQ_GET(l),PPMPF_SEQ_POP(l))
 
 #define PPMPF_TUP_FOLD_(f,s,l,i) \
         PPMPF_FOLD_( f \
@@ -190,29 +194,50 @@
         PPMPF_SEQ_GET(PPMPF_TUP_FOLD_(f,s,l,PPMPF_FLDAL))
 
 #define PPMPF_TUP_FOLDL_OF(f,l) \
-        PPMPF_TUP_FOLDL(f,,l)
+        PPMPF_TUP_FOLDL(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l))
 /*
- * NOTE: PPMPF_TUP_REVERSE, PPMPF_SEQ_REVERSE: transform ppmpf item lists into
- * their reverses.
+ * NOTE: PPMPF_TUP_REVERSE, PPMPF_SEQ_REVERSE: reversing ppmpf collections.
  */
-#define PPMPF_TUP_REVERSE(tup) \
+#define PPMPF_TUP_REVERSE_(tup) \
         (PPMPF_DREF(PPMPF_TUP_FOLDL_OF(PPMPF_FLDRT_, \
-                    PPMPF_TUP_POP(tup)))PPMPF_DREF(PPMPF_TUP_GET(tup)))
+                    PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_TUP_GET(tup)))
+
+#define PPMPF_TUP_REVERSE(tup) \
+        PPMPF_IFELSE( PPMPF_OR( PPMPF_TUP_EMPTY(PPMPF_TUP_POP(tup)) \
+                              , PPMPF_TUP_EMPTY(tup) ) \
+                    , PPMPF_JUST \
+                    , PPMPF_TUP_REVERSE_)(tup)
 
 #define PPMPF_SEQ_REVERSE(seq) \
-        PPMPF_DREF(PPMPF_SEQ_FOLDL_OF(PPMPF_FLDRS_,seq))
+        PPMPF_DREF( PPMPF_SEQ_FOLDL(PPMPF_FLDRS_ \
+                  , (PPMPF_SEQ_GET(seq)) \
+                  , PPMPF_SEQ_POP(seq)))
+
+/* Assistive macros */
+#define PPMPF_TUP_FOLDR__(f,l) \
+        PPMPF_TUP_FOLD_(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l),PPMPF_FLDAR)
+
+#define PPMPF_SEQ_FOLDR__(f,l) \
+        PPMPF_SEQ_GET( PPMPF_SEQ_FOLD_( f \
+                                      , PPMPF_SEQ_GET(l) \
+                                      , PPMPF_SEQ_POP(l) \
+                                      , PPMPF_FLDAR ) )
 /*
  * NOTE: PPMPF_TUP_FOLDR*,PPMPF_SEQ_FOLDR* : providing right folds for ppmpf
  * tuples and sequences.
  */
 #define PPMPF_TUP_FOLDR(f,s,l) \
-        PPMPF_SEQ_GET( PPMPF_TUP_FOLD_(f,s,PPMPF_TUP_REVERSE(l) \
-                     , PPMPF_FLDAR) )
-#define PPMPF_SEQ_FOLDR(f,s,l) \
-        PPMPF_SEQ_GET( PPMPF_SEQ_FOLD_(f,s,PPMPF_SEQ_REVERSE(l) \
-                     , PPMPF_FLDAR) )
+        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__( f \
+                                       , ( PPMPF_DREF(s) \
+                                         , PPMPF_DREF(PPMPF_TUP_REVERSE(l)))))
 
-#define PPMPF_TUP_FOLDR_OF(f,l) PPMPF_TUP_FOLDR(f,,l)
-#define PPMPF_SEQ_FOLDR_OF(f,l) PPMPF_SEQ_FOLDR(f,,l)
+#define PPMPF_TUP_FOLDR_OF(f,l) \
+        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__(f,PPMPF_TUP_REVERSE(l)))
+
+#define PPMPF_SEQ_FOLDR(f,s,l) \
+        PPMPF_SEQ_FOLDR__(f,PPMPF_JUST(s)PPMPF_SEQ_REVERSE(l))
+
+#define PPMPF_SEQ_FOLDR_OF(f,l) \
+        PPMPF_SEQ_FOLDR__(f,PPMPF_SEQ_REVERSE(l))
 
 #endif /* _ODREEX_PPMPF_FOLD_HH_ */

@@ -39,10 +39,10 @@
  * operations of addition and subtraction. Signed numbers are currently a
  * reserved representation.
  */
-#define PPMPF_IMINV_(...) (0)(0)(0)(0)
-#define PPMPF_IMAXV_(...) (9)(9)(9)(9)
-#define PPMPF_IMINV(...) (0,0)(0)(0)(0)(0)
-#define PPMPF_IMAXV(...) (0,0)(9)(9)(9)(9)
+#define PPMPF_IMINV(...) (0)(0)(0)(0)
+#define PPMPF_IMAXV(...) (9)(9)(9)(9)
+#define PPMPF_IMINV_(...) (0,0)(0)(0)(0)(0)
+#define PPMPF_IMAXV_(...) (0,0)(9)(9)(9)(9)
 
 /* NOTE: PPMPF_IS - Digit detector, mainly for use on repeats. */
 #define PPMPF_IS_ZZ() 1
@@ -296,8 +296,8 @@
 #define PPMPF_IOPC_(x) \
         PPMPF_IFELSE( PPMPF_OR PPMPF_SEQ_GET(x) \
                     , PPMPF_IFELSE( PPMPF_DREF(PPMPF_TUP_GET(PPMPF_SEQ_GET(x)))\
-                                  , PPMPF_IMINV_ \
-                                  , PPMPF_IMAXV_ ) \
+                                  , PPMPF_IMINV \
+                                  , PPMPF_IMAXV ) \
                     , PPMPF_JUST )(PPMPF_SEQ_POP(x))
 #define PPMPF_IOPC(x) PPMPF_IOPC_(x)
 
