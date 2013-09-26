@@ -28,6 +28,7 @@
  * sequences and PPMPF_TUP_EMPTY and PPMPF_SEQ_EMPTY make extensive use
  * of these macros.
  */
+#define PPMPF__PPMPF_EMPTY____ /**/
 #define PPMPF_EMPTY_0(...) (,)
 #define PPMPF_EMPTY_1(...) (,) ,
 #define PPMPF_EMPTY_2(...) ()
@@ -41,7 +42,11 @@
 #define PPMPF_EMPTY_10(...) PPMPF_EMPTY_11(__VA_ARGS__,1,0,0)
 #define PPMPF_EMPTY_11(a,b,n,...) n
 #define PPMPF_EMPTY_12(x) PPMPF_EMPTY_10(PPMPF_COMMA x)
-#define PPMPF_EMPTY_13(x) PPMPF_EMPTY_10(PPMPF_COMMA x(),1,0,0)
+#define PPMPF_EMPTY_13(x) \
+        PPMPF_EMPTY_10( PPMPF_JUST(\
+                            PPMPF_COMMA \
+                                PPMPF_CAT(PPMPF_ x,_PPMPF_EMPTY____) ()) \
+                      , 1, 0, 0 )
 #define PPMPF_EMPTY_B(x) \
         PPMPF_IFELSE(PPMPF_EMPTY_12(x),PPMPF_FALSE,PPMPF_EMPTY_13)(x)
 #define PPMPF_EMPTY_A(x,y) \
