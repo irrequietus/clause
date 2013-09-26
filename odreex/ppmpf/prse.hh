@@ -23,6 +23,15 @@
 
 #include <odreex/ppmpf/ppfk.hh>
 
+/*
+ * Some ppmpf placeholders like _1,_2,__1,__2. The double underscore ones are
+ * mark a placeholder for a value that is to be passed to PPMPF_DREF first.
+ */
+#define PPMPF_PLH_1() ,
+#define PPMPF_PLH_2() ,
+#define PPMPF_PLH__1() ,
+#define PPMPF_PLH__2() ,
+
 /* NOTE: PPMPF_PRSE_IZER: resolves to 1 if only empty token, 0 otherwise. */
 #define PPMPF_PRSE_IZER(...) \
         PPMPF_IEQL(PPMPF_IARGS(__VA_ARGS__),PPMPF_IMINV())
@@ -45,5 +54,11 @@
 #define PPMPF_PRSE_ITOK(x) \
         PPMPF_NOR( PPMPF_PRSE_IZER(x) \
                  , PPMPF_PRSE_IPRN(x) )
+
+/* NOTE: PPMPF_PRSE_IPLH: Detect _1,_2,__1,__2 placeholders. */
+#define PPMPF_PRSE_IPLH(x) \
+        PPMPF_IFELSE( PPMPF_PRSE_ITOK(x) \
+                    , PPMPF_EMPTY_7 \
+                    , PPMPF_FALSE)(PPMPF_CAT(PPMPF_PLH,x)())
 
 #endif /* _ODREEX_PPMPF_PRSE_HH_ */
