@@ -61,4 +61,23 @@
                     , PPMPF_EMPTY_7 \
                     , PPMPF_FALSE)(PPMPF_CAT(PPMPF_PLH,x)())
 
+/* NOTE: PPMPF_PRSE_PLHF: a primitive placeholder binding function macro. */
+#define PPMPF_PRSE_PLHF_1_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF__1_2(f,a,b) f(a,PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF_1__2(f,a,b) f(PPMPF_DREF(a),b)
+#define PPMPF_PRSE_PLHF__2__1(f,a,b) f(a,b)
+#define PPMPF_PRSE_PLHF_2_1(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF__2_1(f,a,b) f(a,PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF_2__1(f,a,b) f(PPMPF_DREF(a),b)
+#define PPMPF_PRSE_PLHF__2__1(f,a,b) f(a,b)
+#define PPMPF_PRSE_PLHF_1_1(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF__1_1(f,a,b) f(a,PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF_1__1(f,a,b) f(PPMPF_DREF(a),b)
+#define PPMPF_PRSE_PLHF__1__1(f,a,b) f(a,b)
+#define PPMPF_PRSE_PLHF_2_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF__2_2(f,a,b) f(a,PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF_2__2(f,a,b) f(PPMPF_DREF(a),b)
+#define PPMPF_PRSE_PLHF__2__2(f,a,b) f(a,b)
+#define PPMPF_PRSE_PLHF(f,p1,p2,a,b) PPMPF_PRSE_PLHF##p1##p2(f,a,b)
+
 #endif /* _ODREEX_PPMPF_PRSE_HH_ */
