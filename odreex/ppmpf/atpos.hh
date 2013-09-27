@@ -31,8 +31,7 @@
  */
 
 #define PPMPF_TUP_AUX(f,x) f x
-#define PPMPF_TUP_A(n,x) PPMPF_TUP_A##n(PPMPF_DREF(x))
-#define PPMPF_TUP_A_(...) (,,,,,,,,,)
+#define PPMPF_TUP_A_(...) ,,,,,,,,,
 
 #define PPMPF_TUP_A00(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,...) x0
 #define PPMPF_TUP_A01(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,...) x1
@@ -45,7 +44,6 @@
 #define PPMPF_TUP_A08(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,...) x8
 #define PPMPF_TUP_A09(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,...) x9
 
-#define PPMPF_TUP_A0Z(x,...) x
 #define PPMPF_TUP_A1Z(...) (__VA_ARGS__)
 #define PPMPF_TUP_A2Z(...) (__VA_ARGS__)
 #define PPMPF_TUP_A3Z(...) (__VA_ARGS__)
@@ -94,7 +92,7 @@
     f0,f1,f2,f3,f4,f5,f6,f7,f8,f9, \
     g0,g1,g2,g3,g4,g5,g6,g7,g8,g9, ... ) (__VA_ARGS__)
 
-#define PPMPF_TUP_AX17( \
+#define PPMPF_TUP_A17( \
     a0,a1,a2,a3,a4,a5,a6,a7,a8,a9, \
     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9, \
     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9, \
@@ -104,7 +102,7 @@
     g0,g1,g2,g3,g4,g5,g6,g7,g8,g9, \
     h0,h1,h2,h3,h4,h5,h6,h7,h8,h9, ... ) (__VA_ARGS__)
 
-#define PPMPF_TUP_AX18( \
+#define PPMPF_TUP_A18( \
     a0,a1,a2,a3,a4,a5,a6,a7,a8,a9, \
     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9, \
     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9, \
@@ -177,27 +175,45 @@
   W0,W1,W2,W3,W4,W5,W6,W7,W8,W9,W10,W11,W12,W13,W14,W15,W16,W17,W18,W19,\
   X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,\
   Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7,Y8,Y9,Y10,Y11,Y12,Y13,Y14,Y15,Y16,Y17,Y18,Y19,\
-  Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11,Z12,Z13,Z14,Z15,Z16,Z17,Z18,Z19, \
+  Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11,Z12,Z13,Z14,Z15,Z16,Z17,Z18,Z19,\
   ... ) (__VA_ARGS__)
 
-#define PPMPF_TUP_A21(...) PPMPF_TUP_A(20,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A22(...) PPMPF_TUP_A(21,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A23(...) PPMPF_TUP_A(22,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A24(...) PPMPF_TUP_A(23,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A25(...) PPMPF_TUP_A(24,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A26(...) PPMPF_TUP_A(25,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A27(...) PPMPF_TUP_A(26,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A28(...) PPMPF_TUP_A(27,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A29(...) PPMPF_TUP_A(28,PPMPF_TUP_A19(__VA_ARGS__))
-#define PPMPF_TUP_A31(...) PPMPF_TUP_A(30,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A32(...) PPMPF_TUP_A(31,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A33(...) PPMPF_TUP_A(32,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A34(...) PPMPF_TUP_A(33,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A35(...) PPMPF_TUP_A(34,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A36(...) PPMPF_TUP_A(35,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A37(...) PPMPF_TUP_A(36,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A38(...) PPMPF_TUP_A(37,PPMPF_TUP_A3X(__VA_ARGS__))
-#define PPMPF_TUP_A39(...) PPMPF_TUP_A(38,PPMPF_TUP_A3X(__VA_ARGS__))
+#define PPMPF_TUP_A21(...) \
+        PPMPF_TUP_A20(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A22(...) \
+        PPMPF_TUP_A21(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A23(...) \
+        PPMPF_TUP_A22(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A24(...) \
+        PPMPF_TUP_A23(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A25(...) \
+        PPMPF_TUP_A24(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A26(...) \
+        PPMPF_TUP_A25(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A27(...) \
+        PPMPF_TUP_A26(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A28(...) \
+        PPMPF_TUP_A27(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A29(...) \
+        PPMPF_TUP_A28(PPMPF_DREF(PPMPF_TUP_A19(__VA_ARGS__)))
+#define PPMPF_TUP_A31(...) \
+        PPMPF_TUP_A30(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A32(...) \
+        PPMPF_TUP_A31(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A33(...) \
+        PPMPF_TUP_A32(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A34(...) \
+        PPMPF_TUP_A33(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A35(...) \
+        PPMPF_TUP_A34(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A36(...) \
+        PPMPF_TUP_A35(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A37(...) \
+        PPMPF_TUP_A36(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A38(...) \
+        PPMPF_TUP_A37(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
+#define PPMPF_TUP_A39(...) \
+        PPMPF_TUP_A38(PPMPF_DREF(PPMPF_TUP_A3X(__VA_ARGS__)))
 
 /*
  * NOTE: PPMPF_TUP_ATPOS: Given a ppmpf tuple, return token in position n, with
@@ -205,18 +221,12 @@
  */
 #define PPMPF_TUP_ATPOS(n,tup) \
         PPMPF_TUP_AUX( \
-            PPMPF_CAT( PPMPF_TUP_A0 \
-                     , PPMPF_PNX(PPMPF_DIGIT(0,n))) \
-         , (PPMPF_DREF( \
-                PPMPF_TUP_AUX( \
-                    PPMPF_CAT( PPMPF_TUP_A1 \
-                             , PPMPF_PNX(PPMPF_DIGIT(1,n))) \
-                  , PPMPF_TUP_AUX( \
-                        PPMPF_CAT( PPMPF_TUP_A2 \
-                                 , PPMPF_PNX(PPMPF_DIGIT(2,n))) \
-                      , PPMPF_TUP_AUX(PPMPF_CAT( PPMPF_TUP_A3 \
-                                              , PPMPF_PNX(PPMPF_DIGIT(3,n))) \
-                                      ,(PPMPF_DREF(tup)))))) \
-            , PPMPF_DREF(PPMPF_TUP_A_())))
+            PPMPF_CAT(PPMPF_TUP_A0, PPMPF_DIGIT(0,n)) \
+        ,   ( PPMPF_DREF( \
+                 PPMPF_TUP_AUX( \
+                   PPMPF_CAT( PPMPF_TUP_A1,PPMPF_PNX(PPMPF_DIGIT(1,n))) \
+                 , PPMPF_CAT(PPMPF_TUP_A2,PPMPF_PNX(PPMPF_DIGIT(2,n))) \
+                   PPMPF_CAT(PPMPF_TUP_A3, PPMPF_PNX(PPMPF_DIGIT(3,n)))tup)) \
+            , PPMPF_TUP_A_() ) )
 
 #endif /*_ODREEX_PPMPF_ATPOS_HH_ */
