@@ -25,7 +25,35 @@
 #include <odreex/ppmpf/alu.hh>
 #include <odreex/ppmpf/tupseq.hh>
 
+
 /* Assistive macros */
+
+#define PPMPF_FOLD_DFUNC(x) \
+        PPMPF_DREF(PPMPF_TUP_GET(PPMPF_DREF(PPMPF_TUP_GET(x))))
+
+#define PPMPF_FOLD_DWRAP(x) \
+        PPMPF_CAT( \
+            PPMPF_FOLD_PLHF \
+        ,   PPMPF_CAT( PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_TUP_GET(x))))\
+                     , PPMPF_DREF(PPMPF_TUP_GET(PPMPF_TUP_POP(x)))) )
+
+#define PPMPF_FOLD_PLHF_1_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
+#define PPMPF_FOLD_PLHF__1_2(f,a,b) f(a,PPMPF_DREF(b))
+#define PPMPF_FOLD_PLHF_1__2(f,a,b) f(PPMPF_DREF(a),b)
+#define PPMPF_FOLD_PLHF__2__1(f,a,b) f(b,a)
+#define PPMPF_FOLD_PLHF_2_1(f,a,b) f(PPMPF_DREF(b),PPMPF_DREF(a))
+#define PPMPF_FOLD_PLHF__2_1(f,a,b) f(b,PPMPF_DREF(a))
+#define PPMPF_FOLD_PLHF_2__1(f,a,b) f(PPMPF_DREF(b),a)
+#define PPMPF_FOLD_PLHF__2__1(f,a,b) f(b,a)
+#define PPMPF_FOLD_PLHF_1_1(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(a))
+#define PPMPF_FOLD_PLHF__1_1(f,a,b) f(a,PPMPF_DREF(a))
+#define PPMPF_FOLD_PLHF_1__1(f,a,b) f(PPMPF_DREF(a),a)
+#define PPMPF_FOLD_PLHF__1__1(f,a,b) f(a,a)
+#define PPMPF_FOLD_PLHF_2_2(f,a,b) f(PPMPF_DREF(b),PPMPF_DREF(b))
+#define PPMPF_FOLD_PLHF__2_2(f,a,b) f(b,PPMPF_DREF(b))
+#define PPMPF_FOLD_PLHF_2__2(f,a,b) f(PPMPF_DREF(b),b)
+#define PPMPF_FOLD_PLHF__2__2(f,a,b) f(b,b)
+
 #define PPMPF_FLDT(h,n,sl) \
         PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
                     , sl PPMPF_EMPTY \
@@ -34,6 +62,10 @@
         f(PPMPF_SEQ_GET(sl),g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
 #define PPMPF_FLDAR(f,sl,g,...) \
         f(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))),PPMPF_SEQ_GET(sl))
+#define PPMPF_FLDAL_(f,sl,g,c,...) \
+        c(f,PPMPF_SEQ_GET(sl),g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+#define PPMPF_FLDAR_(f,sl,g,c,...) \
+        c(f,g(PPMPF_DREF(PPMPF_SEQ_POP(sl))),PPMPF_SEQ_GET(sl))
 #define PPMPF_FLDB(f,sl,g,...) \
         PPMPF_DREF(sl)
 #define PPMPF_FLDC(h,sl,z) \
@@ -175,7 +207,7 @@
 /* NOTE: Implementation of PPMPF_SEQ_FOLDL, PPMPF_TUP_FOLDL, folding can occur
  * for up to 10000 ppmpf tuple / sequence items efficiently.
  */
-#define PPMPF_FOLD_(f,s,l,g,p,h,i,m,x0,x1,x2,x3,...) \
+#define PPMPF_FOLD_(f,s,l,g,p,h,m,x0,x1,x2,x3,i,...) \
         x3( f \
           , x2(f \
               , x1( f \
@@ -185,19 +217,25 @@
           , g, p, h, i, m, __VA_ARGS__ )
 
 #define PPMPF_SEQ_FOLD_(f,s,l,i) \
-        PPMPF_FOLD_( f \
+        PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , PPMPF_FOLD_DFUNC \
+                                 , PPMPF_JUST )(f) \
                    , s \
                    , l \
                    , PPMPF_SEQ_GET \
                    , PPMPF_SEQ_POP \
                    , PPMPF_SEQ_EMPTY \
-                   , i \
                    , PPMPF_FLDT \
                    , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
                    , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
                    , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
                    , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
-                   , )
+                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , i##_ \
+                                 , i ) \
+                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , PPMPF_FOLD_DWRAP \
+                                 , PPMPF_JUST )(f), )
 
 #define PPMPF_SEQ_FOLDL(f,s,l) \
         PPMPF_SEQ_GET(PPMPF_SEQ_FOLD_(f,s,l,PPMPF_FLDAL))
@@ -206,19 +244,25 @@
         PPMPF_SEQ_FOLDL(f,PPMPF_SEQ_GET(l),PPMPF_SEQ_POP(l))
 
 #define PPMPF_TUP_FOLD_(f,s,l,i) \
-        PPMPF_FOLD_( f \
+        PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , PPMPF_FOLD_DFUNC \
+                                 , PPMPF_JUST )(f) \
                    , s \
                    , l \
                    , PPMPF_TUP_GET \
                    , PPMPF_TUP_POP \
                    , PPMPF_TUP_EMPTY \
-                   , i \
                    , PPMPF_FLDT \
                    , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
                    , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
                    , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
                    , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
-                   , )
+                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , i##_ \
+                                 , i )\
+                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , PPMPF_FOLD_DWRAP \
+                                 , PPMPF_JUST )(f), )
 
 #define PPMPF_TUP_FOLDL(f,s,l) \
         PPMPF_SEQ_GET(PPMPF_TUP_FOLD_(f,s,l,PPMPF_FLDAL))
