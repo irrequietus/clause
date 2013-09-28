@@ -61,23 +61,72 @@
                     , PPMPF_EMPTY_7 \
                     , PPMPF_FALSE)(PPMPF_CAT(PPMPF_PLH,x)())
 
+/* NOTE: PPMPF_PRSE_IBND: checks whether "binding" is compliant. */
+#define PPMPF_PRSE_IBND1(x) \
+        PPMPF_PRSE_IPRT(x)
+
+#define PPMPF_PRSE_IBND2(x) \
+        PPMPF_IEQL( PPMPF_TUP_SIZEOF(x) \
+                  , (0)(0)(0)(2) )
+
+#define PPMPF_PRSE_IBND3(x) \
+        PPMPF_PRSE_IPRT(PPMPF_DREF(PPMPF_TUP_GET(x)))
+
+#define PPMPF_PRSE_IBND4(x) \
+        PPMPF_AND( PPMPF_PRSE_IBND2(PPMPF_DREF(PPMPF_TUP_GET(x))) \
+                 , PPMPF_PRSE_ITOK( \
+                    PPMPF_DREF( \
+                        PPMPF_TUP_GET( \
+                            PPMPF_DREF(PPMPF_TUP_GET(x)) \
+                        ) ) ) )
+
+#define PPMPF_PRSE_IBND5(x) \
+        PPMPF_AND( PPMPF_PRSE_ITOK(x) \
+                 , PPMPF_NOT(PPMPF_PRSE_IPLH(x)))
+
+#define PPMPF_PRSE_IBND6(tup) \
+        PPMPF_AND( \
+            PPMPF_PRSE_IBND5(PPMPF_TUP_ATPOS((0)(0)(0)(0),tup)) \
+        ,   PPMPF_AND( \
+                PPMPF_PRSE_IPLH(PPMPF_TUP_ATPOS((0)(0)(0)(1),tup)) \
+            ,   PPMPF_PRSE_IPLH(PPMPF_TUP_ATPOS((0)(0)(0)(2),tup))))
+
+#define PPMPF_PRSE_IBND7(x) \
+        ( PPMPF_DREF(PPMPF_TUP_GET(PPMPF_DREF(PPMPF_TUP_GET(x)))) \
+        , PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_TUP_GET(x)))) \
+        , PPMPF_DREF(PPMPF_TUP_GET(PPMPF_TUP_POP(x))) )
+
+#define PPMPF_PRSE_IBND(f) \
+        PPMPF_IFELSE( \
+            PPMPF_IFELSE( \
+                PPMPF_IFELSE( \
+                    PPMPF_IFELSE( PPMPF_PRSE_IBND1(f) \
+                                , PPMPF_PRSE_IBND2 \
+                                , PPMPF_FALSE )(f) \
+                ,   PPMPF_PRSE_IBND3 \
+                ,   PPMPF_FALSE )(f) \
+            , PPMPF_PRSE_IBND4 \
+            , PPMPF_FALSE)(f) \
+        , PPMPF_PRSE_IBND7 \
+        , PPMPF_UNIT)(f)
+
 /* NOTE: PPMPF_PRSE_PLHF: a primitive placeholder binding function macro. */
 #define PPMPF_PRSE_PLHF_1_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
 #define PPMPF_PRSE_PLHF__1_2(f,a,b) f(a,PPMPF_DREF(b))
 #define PPMPF_PRSE_PLHF_1__2(f,a,b) f(PPMPF_DREF(a),b)
-#define PPMPF_PRSE_PLHF__2__1(f,a,b) f(a,b)
-#define PPMPF_PRSE_PLHF_2_1(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
-#define PPMPF_PRSE_PLHF__2_1(f,a,b) f(a,PPMPF_DREF(b))
-#define PPMPF_PRSE_PLHF_2__1(f,a,b) f(PPMPF_DREF(a),b)
-#define PPMPF_PRSE_PLHF__2__1(f,a,b) f(a,b)
-#define PPMPF_PRSE_PLHF_1_1(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
-#define PPMPF_PRSE_PLHF__1_1(f,a,b) f(a,PPMPF_DREF(b))
-#define PPMPF_PRSE_PLHF_1__1(f,a,b) f(PPMPF_DREF(a),b)
-#define PPMPF_PRSE_PLHF__1__1(f,a,b) f(a,b)
-#define PPMPF_PRSE_PLHF_2_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
-#define PPMPF_PRSE_PLHF__2_2(f,a,b) f(a,PPMPF_DREF(b))
-#define PPMPF_PRSE_PLHF_2__2(f,a,b) f(PPMPF_DREF(a),b)
-#define PPMPF_PRSE_PLHF__2__2(f,a,b) f(a,b)
+#define PPMPF_PRSE_PLHF__2__1(f,a,b) f(b,a)
+#define PPMPF_PRSE_PLHF_2_1(f,a,b) f(PPMPF_DREF(b),PPMPF_DREF(a))
+#define PPMPF_PRSE_PLHF__2_1(f,a,b) f(b,PPMPF_DREF(a))
+#define PPMPF_PRSE_PLHF_2__1(f,a,b) f(PPMPF_DREF(b),a)
+#define PPMPF_PRSE_PLHF__2__1(f,a,b) f(b,a)
+#define PPMPF_PRSE_PLHF_1_1(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(a))
+#define PPMPF_PRSE_PLHF__1_1(f,a,b) f(a,PPMPF_DREF(a))
+#define PPMPF_PRSE_PLHF_1__1(f,a,b) f(PPMPF_DREF(a),a)
+#define PPMPF_PRSE_PLHF__1__1(f,a,b) f(a,a)
+#define PPMPF_PRSE_PLHF_2_2(f,a,b) f(PPMPF_DREF(b),PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF__2_2(f,a,b) f(b,PPMPF_DREF(b))
+#define PPMPF_PRSE_PLHF_2__2(f,a,b) f(PPMPF_DREF(b),b)
+#define PPMPF_PRSE_PLHF__2__2(f,a,b) f(b,b)
 #define PPMPF_PRSE_PLHF(f,p1,p2,a,b) PPMPF_PRSE_PLHF##p1##p2(f,a,b)
 
 #endif /* _ODREEX_PPMPF_PRSE_HH_ */
