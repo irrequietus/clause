@@ -44,6 +44,10 @@
 #define PPMPF_DREF_(...) PPMPF_JUST __VA_ARGS__
 #define PPMPF_DREF(x) PPMPF_DREF_(x)
 
+/* NOTE: PPMPF_APPLY: deploy function macro f on __VA_ARGS__ */
+#define PPMPF_APPLY_(f,...) f(__VA_ARGS__)
+#define PPMPF_APPLY(f,...) PPMPF_APPLY_(f,__VA_ARGS__)
+
 /* NOTE: PPMPF_CAT - Binary Concatenation macro */
 #define PPMPF_CAT_1(x, y) PPMPF_CAT_2( x , y )
 #define PPMPF_CAT_2(x, y) PPMPF_CAT_3( x ## y )
