@@ -33,4 +33,18 @@
                            , (PPMPF_TUP_GET(tup)) \
                            , PPMPF_TUP_POP(tup) ) )
 
+/* NOTE: PPMPF_TUP_JOIN: Join two ppmpf tuples together.*/
+#define PPMPF_TUP_JOIN(z,x) \
+    (PPMPF_DREF(z)PPMPF_IFELSE( PPMPF_NOR( PPMPF_TUP_EMPTY(z) \
+                                         , PPMPF_TUP_EMPTY(x)) \
+                              , PPMPF_COMMA \
+                              , PPMPF_EMPTY)()PPMPF_DREF(x))
+
+/* This performs the same task as PPMPF_TUP_JOIN_ but on a "raw" tuple. */
+#define PPMPF_TUP_JOIN_(z,...) \
+    (PPMPF_DREF(z)PPMPF_IFELSE( PPMPF_NOR( PPMPF_TUP_EMPTY(z) \
+                                         , PPMPF_TUP_EMPTY((__VA_ARGS__))) \
+                              , PPMPF_COMMA \
+                              , PPMPF_EMPTY)()__VA_ARGS__)
+
 #endif /* _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_ */
