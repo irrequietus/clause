@@ -57,6 +57,9 @@
         PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \
                  , PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__) )
 
+/* Assistive macro for tuple -> sequence conversion. */
+#define PPMPF_T2S_(a,b) PPMPF_DREF(a)b
+
 /* NOTE: PPMPF_SEQ_GET - Get the first element of a sequence, enclosed in ()
  * PPMPF_SEQ_POP - Remove the first element, get the rest.
  */
