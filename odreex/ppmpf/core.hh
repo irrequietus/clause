@@ -41,7 +41,8 @@
 /* NOTE: Since most "items" we use are enclosed in parentheses, there should
  * be a macro removing those where applicable, so here it goes.
  */
-#define PPMPF_DREF(x) PPMPF_JUST x
+#define PPMPF_DREF_(...) PPMPF_JUST __VA_ARGS__
+#define PPMPF_DREF(x) PPMPF_DREF_(x)
 
 /* NOTE: PPMPF_CAT - Binary Concatenation macro */
 #define PPMPF_CAT_1(x, y) PPMPF_CAT_2( x , y )
