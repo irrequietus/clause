@@ -52,6 +52,24 @@
                        (PPMPF_CAT(PPMPF_TUP_A2,PPMPF_PNX(PPMPF_DIGIT(2,n)))) \
                        (PPMPF_CAT(PPMPF_TUP_A3,PPMPF_PNX(PPMPF_DIGIT(3,n)))))
 
+/* NOTE: PPMPF_TUP_SPLITL: Split a ppmpf tuple into pair of two tuples at a
+ * given position n and return the first of the two (left) */
+#define PPMPF_TUP_SPLITL(n,tup) \
+        PPMPF_COMPOSE( PPMPF_TUP_SPLIT(PPMPF_PREV(n),tup) \
+                     , (PPMPF_DPAR)    \
+                       (PPMPF_DPAR)    \
+                       (PPMPF_TUP_GET) \
+                       (PPMPF_ENCLOSE) )
+
+/* NOTE: PPMPF_TUP_SPLITR: Split a ppmpf tuple into pair of two tuples at a
+ * given position n and return the second of the two (right) */
+#define PPMPF_TUP_SPLITR(n,tup) \
+        PPMPF_COMPOSE( PPMPF_TUP_SPLIT(PPMPF_PREV(n),tup) \
+                     , (PPMPF_DPAR)    \
+                       (PPMPF_DPAR)    \
+                       (PPMPF_TUP_POP) \
+                       (PPMPF_ENCLOSE) )
+
 /* NOTE: PPMPF_TUP_ATPOS: return ppmpf element at position n */
 #define PPMPF_TUP_ATPOS(n,tup) \
         PPMPF_COMPOSE( PPMPF_TUP_SPLIT(PPMPF_PREV(n),tup) \
