@@ -44,6 +44,9 @@
 #define PPMPF_DREF_(...) PPMPF_JUST __VA_ARGS__
 #define PPMPF_DREF(x) PPMPF_DREF_(x)
 
+/* A wrapper function for PPMPF_DREF that is composition - friendly. */
+#define PPMPF_DPAR(x) PPMPF_DREF(x)
+
 /* NOTE: PPMPF_APPLY: deploy function macro f on __VA_ARGS__ */
 #define PPMPF_APPLY_(f,...) f(__VA_ARGS__)
 #define PPMPF_APPLY(f,...) PPMPF_APPLY_(f,__VA_ARGS__)

@@ -21,12 +21,14 @@
 #ifndef _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
 #define _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
 
+#include <odreex/ppmpf/base.hh>
 #include <odreex/ppmpf/core.hh>
 #include <odreex/ppmpf/tupseq.hh>
 #include <odreex/ppmpf/fold.hh>
+#include <odreex/ppmpf/tuple/atpos.hh>
 
 /* NOTE: PPMPF_TUP2SEQ: convert a ppmpf tuple to a ppmpf sequence, preserving
- * the original order of elements */
+ * the original order of elements. */
 #define PPMPF_TUP2SEQ(tup) \
         PPMPF_DREF( \
             PPMPF_TUP_FOLDL( PPMPF_T2S_ \
@@ -40,11 +42,26 @@
                               , PPMPF_COMMA \
                               , PPMPF_EMPTY)()PPMPF_DREF(x))
 
-/* This performs the same task as PPMPF_TUP_JOIN_ but on a "raw" tuple. */
-#define PPMPF_TUP_JOIN_(z,...) \
-    (PPMPF_DREF(z)PPMPF_IFELSE( PPMPF_NOR( PPMPF_TUP_EMPTY(z) \
-                                         , PPMPF_TUP_EMPTY((__VA_ARGS__))) \
-                              , PPMPF_COMMA \
-                              , PPMPF_EMPTY)()__VA_ARGS__)
+/* NOTE: PPMPF_TUP_SPLIT: Split a ppmpf tuple into pair of two tuples at a
+ * given position n */
+#define PPMPF_TUP_SPLIT(n,tup) \
+        PPMPF_COMPOSE( ((), PPMPF_DREF(tup)) \
+                     , (PPMPF_TUP_SPLIT_)    \
+                       (PPMPF_CAT(PPMPF_TUP_A0,PPMPF_DIGIT(0,n))) \
+                       (PPMPF_CAT(PPMPF_TUP_A1,PPMPF_PNX(PPMPF_DIGIT(1,n)))) \
+                       (PPMPF_CAT(PPMPF_TUP_A2,PPMPF_PNX(PPMPF_DIGIT(2,n)))) \
+                       (PPMPF_CAT(PPMPF_TUP_A3,PPMPF_PNX(PPMPF_DIGIT(3,n)))))
+
+/* NOTE: PPMPF_TUP_ATPOS: return ppmpf element at position n */
+#define PPMPF_TUP_ATPOS(n,tup) \
+        PPMPF_COMPOSE( PPMPF_TUP_SPLIT(PPMPF_PREV(n),tup) \
+                     , (PPMPF_DPAR)    \
+                       PPMPF_IFELSE( PPMPF_IEQL(n,PPMPF_IMINV()) \
+                                   , (PPMPF_DPAR)                \
+                                     (PPMPF_TUP_GET)             \
+                                   , (PPMPF_TUP_GET)             \
+                                     (PPMPF_DPAR)                \
+                                     (PPMPF_TUP_POP) )           \
+                       (PPMPF_ENCLOSE))
 
 #endif /* _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_ */
