@@ -27,6 +27,17 @@
 #include <odreex/ppmpf/fold.hh>
 #include <odreex/ppmpf/tuple/atpos.hh>
 
+/* Section for internally used macros. */
+
+// PPMPF_DREF() applied by default, aka _1 is default
+#define PPMPF_FLDMT_(f,sl,g,...) \
+        PPMPF_TUP_JOIN( \
+            PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
+        ,   (PPMPF_APPLY( f \
+                        , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl)))))))
+
+/* Section for externally used macros. */
+
 /* NOTE: PPMPF_TUP2SEQ: convert a ppmpf tuple to a ppmpf sequence, preserving
  * the original order of elements. */
 #define PPMPF_TUP2SEQ(tup) \
@@ -81,5 +92,29 @@
                                      (PPMPF_DPAR)                \
                                      (PPMPF_TUP_POP) )           \
                        (PPMPF_ENCLOSE))
+
+/* NOTE: PPMPF_TUP_MAP: An implementation of the map high order function for
+ * ppmpf tuple constructs.
+ */
+#define PPMPF_TUP_MAP(f,t) \
+        PPMPF_DREF( \
+            PPMPF_SEQ_GET( \
+                PPMPF_FOLD_( f \
+                           , ( PPMPF_IFELSE( PPMPF_TUP_EMPTY(t) \
+                                           , () \
+                                           , (PPMPF_APPLY( f \
+                                                         , PPMPF_DREF( \
+                                                            PPMPF_TUP_GET(t) \
+                                                           ) ) ) ) ) \
+                           , PPMPF_TUP_POP(t) \
+                           , PPMPF_TUP_GET \
+                           , PPMPF_TUP_POP \
+                           , PPMPF_TUP_EMPTY \
+                           , PPMPF_FLDT \
+                           , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
+                           , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
+                           , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
+                           , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
+                           , PPMPF_FLDMT_, )))
 
 #endif /* _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_ */
