@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_TUPSEQ_HH_
-#define _ODREEX_PPMPF_TUPSEQ_HH_
+#ifndef _ODREEX_PPMPF_EMPTY_HH_
+#define _ODREEX_PPMPF_EMPTY_HH_
 
 #include <odreex/ppmpf/kernel/cpro/core.hh>
 
@@ -57,46 +57,4 @@
         PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \
                  , PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__) )
 
-/* Assistive macro for tuple -> sequence conversion. */
-#define PPMPF_T2S_(a,b) PPMPF_DREF(a)b
-
-/* NOTE: PPMPF_SEQ_GET - Get the first element of a sequence, enclosed in ()
- * PPMPF_SEQ_POP - Remove the first element, get the rest.
- */
-#define PPMPF_SEQ_GET___(x,...) x
-#define PPMPF_SEQ_GET__(...) PPMPF_SEQ_GET___(__VA_ARGS__)
-#define PPMPF_SEQ_GET_(...) (__VA_ARGS__) ,
-#define PPMPF_SEQ_GET(s) PPMPF_SEQ_GET__(PPMPF_SEQ_GET_ s)
-#define PPMPF_SEQ_POP(s) PPMPF_EMPTY s
-
-/* NOTE: PPMPF_TUP_GET - Get the first element of a tuple, enclosed in ()
- *       PPMPF_TUP_POP - Remove the first element, get the rest.
- * Should be clear now, a tuple is a () enclosed list of comma separated tokens,
- * while a sequence is a list of tuples separated by whitespace. A tuple with
- * no commas is referred to as "unit".
- */
-#define PPMPF_TUP_GET____(x) x
-#define PPMPF_TUP_GET___(x,...) PPMPF_TUP_GET____(x)
-#define PPMPF_TUP_GET__(...) PPMPF_TUP_GET___(__VA_ARGS__,)
-#define PPMPF_TUP_GET_(...) PPMPF_TUP_GET__(__VA_ARGS__,)
-#define PPMPF_TUP_GET(t) (PPMPF_TUP_GET___(PPMPF_TUP_GET_ t,))
-
-/* NOTE: PMPF_TUP_POP will remove the first element of a tuple. */
-#define PPMPF_TUP_POP___(x,...) (__VA_ARGS__)
-#define PPMPF_TUP_POP__(...) PPMPF_TUP_POP___(__VA_ARGS__)
-#define PPMPF_TUP_POP_(...) \
-        PPMPF_IFELSE( PPMPF_JUST(PPMPF_EMPTY_C PPMPF_TUP_POP___(__VA_ARGS__,))\
-                    , PPMPF_UNIT \
-                    , PPMPF_TUP_POP__)(__VA_ARGS__)
-#define PPMPF_TUP_POP(x) PPMPF_TUP_POP_ x
-
-/* NOTE: Checking for empty ppmpf tuple or sequence. */
-#define PPMPF_TUP_EMPTY(t) \
-        PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
-                     , PPMPF_JUST PPMPF_TUP_GET((PPMPF_DREF(t),~)) )
-
-#define PPMPF_SEQ_EMPTY(s) \
-        PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 s,) \
-                 , PPMPF_EMPTY_3(PPMPF_EMPTY_2 s) )
-
-#endif /* _ODREEX_PPMPF_TUPSEQ_HH_ */
+#endif /* _ODREEX_PPMPF_EMPTY_HH_ */

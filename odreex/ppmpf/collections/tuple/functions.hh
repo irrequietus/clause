@@ -21,9 +21,73 @@
 #ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
 #define _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
 
+#include <odreex/ppmpf/kernel/cpro/empty.hh>
 #include <odreex/ppmpf/collections/tuple/essence.hh>
 #include <odreex/ppmpf/algorithms/fold.hh>
+#include <odreex/ppmpf/algorithms/functional.hh>
 #include <odreex/ppmpf/collections/tuple/atpos.hh>
+
+/* NOTE: PPMPF_TUP_GET - Get the first element of a tuple, enclosed in ()
+ *       PPMPF_TUP_POP - Remove the first element, get the rest.
+ * Should be clear now, a tuple is a () enclosed list of comma separated tokens,
+ * while a sequence is a list of tuples separated by whitespace. A tuple with
+ * no commas is referred to as "unit".
+ */
+#define PPMPF_TUP_GET____(x) x
+#define PPMPF_TUP_GET___(x,...) PPMPF_TUP_GET____(x)
+#define PPMPF_TUP_GET__(...) PPMPF_TUP_GET___(__VA_ARGS__,)
+#define PPMPF_TUP_GET_(...) PPMPF_TUP_GET__(__VA_ARGS__,)
+#define PPMPF_TUP_GET(t) (PPMPF_TUP_GET___(PPMPF_TUP_GET_ t,))
+
+/* NOTE: PMPF_TUP_POP: will remove the first element of a tuple. */
+#define PPMPF_TUP_POP___(x,...) (__VA_ARGS__)
+#define PPMPF_TUP_POP__(...) PPMPF_TUP_POP___(__VA_ARGS__)
+#define PPMPF_TUP_POP_(...) \
+        PPMPF_IFELSE( PPMPF_JUST(PPMPF_EMPTY_C PPMPF_TUP_POP___(__VA_ARGS__,))\
+                    , PPMPF_UNIT \
+                    , PPMPF_TUP_POP__)(__VA_ARGS__)
+#define PPMPF_TUP_POP(x) PPMPF_TUP_POP_ x
+
+/* NOTE: PPMPF_TUP_EMPTY: Checking for empty ppmpf tuple. */
+#define PPMPF_TUP_EMPTY(t) \
+        PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
+                     , PPMPF_JUST PPMPF_TUP_GET((PPMPF_DREF(t),~)) )
+
+/* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
+ *       ppmpf tuple. */
+#define PPMPF_TUP_FOLDL(f,s,l) \
+        PPMPF_SEQ_GET(PPMPF_TUP_FOLD_(f,s,l,PPMPF_FLDAL))
+
+/* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
+ *       ppmpf tuple. */
+#define PPMPF_TUP_FOLDL_OF(f,l) \
+        PPMPF_TUP_FOLDL(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l))
+
+/* NOTE: PPMPF_TUP_REVERSE: reverses a ppmpf tuple. */
+#define PPMPF_TUP_REVERSE(tup) \
+        PPMPF_IFELSE( PPMPF_OR( PPMPF_TUP_EMPTY(PPMPF_TUP_POP(tup)) \
+                              , PPMPF_TUP_EMPTY(tup) ) \
+                    , PPMPF_JUST \
+                    , PPMPF_TUP_REVERSE_)(tup)
+
+/* NOTE: PPMPF_TUP_FOLDR: high order function performing a rifht fold over a
+ *       ppmpf tuple. */
+#define PPMPF_TUP_FOLDR(f,s,l) \
+        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__( f \
+                                       , ( PPMPF_DREF(s) \
+                                         , PPMPF_DREF(PPMPF_TUP_REVERSE(l)))))
+
+/* NOTE: PPMPF_TUP_FOLDR_OF: high order function performing a right fold over a
+ *       ppmpf tuple. */
+#define PPMPF_TUP_FOLDR_OF(f,l) \
+        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__(f,PPMPF_TUP_REVERSE(l)))
+
+/* NOTE: PPMPF_TUP_SIZEOF(tup) returns the number of tuple members existing
+ * in a given tuple (tup), which is a parenthesis enclosed comma separated
+ * series of preprocessor tokens.
+ */
+#define PPMPF_TUP_SIZEOF(tup) \
+        PPMPF_DREF(PPMPF_TUP_FOLDL(PPMPF_PLUS__,(PPMPF_IMINV()),tup))
 
 /* NOTE: PPMPF_TUP2SEQ: convert a ppmpf tuple to a ppmpf sequence, preserving
  * the original order of elements. */

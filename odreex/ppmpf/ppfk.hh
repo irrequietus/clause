@@ -23,7 +23,7 @@
 
 #include <odreex/ppmpf/kernel/cpro/base.hh>
 #include <odreex/ppmpf/algorithms/fold.hh>
-#include <odreex/ppmpf/collections/sizeof.hh>
+#include <odreex/ppmpf/collections/tuple/functions.hh>
 
 /* NOTE: PPMPF_VCAT - A variadic version of PPMPF_CAT */
 #define PPMPF_VCAT(x,...) \

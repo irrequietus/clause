@@ -18,10 +18,10 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_HH_
-#define _ODREEX_PPMPF_COLLECTIONS_TUPLE_HH_
+#ifndef _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_HH_
+#define _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_HH_
 
-#include <odreex/ppmpf/collections/tuple/functions.hh>
+#include <odreex/ppmpf/collections/sequence/functions.hh>
 
 
-#endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_HH_ */
+#endif /* _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_HH_ */

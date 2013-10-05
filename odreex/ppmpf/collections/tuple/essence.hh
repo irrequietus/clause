@@ -27,7 +27,10 @@
 
 #include <odreex/ppmpf/kernel/cpro/base.hh>
 #include <odreex/ppmpf/kernel/cpro/core.hh>
-#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
+#include <odreex/ppmpf/kernel/cpro/empty.hh>
+
+/* Assistive macro for tuple -> sequence conversion. */
+#define PPMPF_T2S_(a,b) PPMPF_DREF(a)b
 
 /* This performs the same task as PPMPF_TUP_JOIN but on a "raw" tuple. */
 #define PPMPF_TUP_JOIN_(z,...) PPMPF_TUP_JOIN(z,(__VA_ARGS__))
@@ -49,5 +52,34 @@
             PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
         ,   ((PPMPF_APPLY( f \
                          , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))))
+
+#define PPMPF_TUP_FOLD_(f,s,l,i) \
+        PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , PPMPF_FOLD_DFUNC \
+                                 , PPMPF_JUST )(f) \
+                   , s \
+                   , l \
+                   , PPMPF_TUP_GET \
+                   , PPMPF_TUP_POP \
+                   , PPMPF_TUP_EMPTY \
+                   , PPMPF_FLDT \
+                   , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
+                   , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
+                   , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
+                   , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
+                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , i##_ \
+                                 , i )\
+                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
+                                 , PPMPF_FOLD_DWRAP \
+                                 , PPMPF_JUST )(f), )
+
+#define PPMPF_TUP_REVERSE_(tup) \
+        (PPMPF_DREF(PPMPF_TUP_FOLDL_OF(PPMPF_FLDRT_, \
+                    PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_TUP_GET(tup)))
+
+#define PPMPF_TUP_FOLDR__(f,l) \
+        PPMPF_TUP_FOLD_(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l),PPMPF_FLDAR)
+
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_ESSENCE_HH_ */

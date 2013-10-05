@@ -22,7 +22,9 @@
 #define _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_
 
 #include <odreex/ppmpf/kernel/cpro/core.hh>
-#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
+#include <odreex/ppmpf/kernel/cpro/empty.hh>
+#include <odreex/ppmpf/collections/tuple/functions.hh>
+#include <odreex/ppmpf/collections/sequence/functions.hh>
 
 /* NOTE: Minimum and Maximum integer value internal representation. Numbers
  * are represented as five member sequences, with the first being reserved
@@ -427,5 +429,8 @@
 /* NOTE: Providing ++ and -- operations for ppmpf positive integers. */
 #define PPMPF_NEXT(x) PPMPF_IADD(x,(0)(0)(0)(1))
 #define PPMPF_PREV(x) PPMPF_ISUB(x,(0)(0)(0)(1))
+
+/* Assistive macro for integer incrementation during folding. */
+#define PPMPF_PLUS__(x,y) PPMPF_NEXT(PPMPF_DREF(x))
 
 #endif /* _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_ */

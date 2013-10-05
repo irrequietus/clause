@@ -23,7 +23,8 @@
 
 #include <odreex/ppmpf/kernel/cpro/core.hh>
 #include <odreex/ppmpf/kernel/logic/alu.hh>
-#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
+#include <odreex/ppmpf/collections/tuple/functions.hh>
+#include <odreex/ppmpf/collections/sequence/functions.hh>
 
 
 /* Assistive macros */
@@ -204,8 +205,8 @@
         PPMPF_FLDC(h,sl,3F8,__VA_ARGS__) \
             (f,PPMPF_2F9(f,sl,g,p,h,i,m,__VA_ARGS__),g,p,h,i,m,__VA_ARGS__)
 
-/* NOTE: Implementation of PPMPF_SEQ_FOLDL, PPMPF_TUP_FOLDL, folding can occur
- * for up to 10000 ppmpf tuple / sequence items efficiently.
+/* NOTE: Core implementation of fold iterations, allowing efficient folding and
+ *       other repetitive operations upon ppmpf collections up to 10000 items.
  */
 #define PPMPF_FOLD_(f,s,l,g,p,h,m,x0,x1,x2,x3,i,...) \
         x3( f \
@@ -215,103 +216,5 @@
                   , g, p, h, i, m, __VA_ARGS__ ) \
               , g, p, h, i, m, __VA_ARGS__) \
           , g, p, h, i, m, __VA_ARGS__ )
-
-#define PPMPF_SEQ_FOLD_(f,s,l,i) \
-        PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , PPMPF_FOLD_DFUNC \
-                                 , PPMPF_JUST )(f) \
-                   , s \
-                   , l \
-                   , PPMPF_SEQ_GET \
-                   , PPMPF_SEQ_POP \
-                   , PPMPF_SEQ_EMPTY \
-                   , PPMPF_FLDT \
-                   , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
-                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , i##_ \
-                                 , i ) \
-                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , PPMPF_FOLD_DWRAP \
-                                 , PPMPF_JUST )(f), )
-
-#define PPMPF_SEQ_FOLDL(f,s,l) \
-        PPMPF_SEQ_GET(PPMPF_SEQ_FOLD_(f,s,l,PPMPF_FLDAL))
-
-#define PPMPF_SEQ_FOLDL_OF(f,l) \
-        PPMPF_SEQ_FOLDL(f,PPMPF_SEQ_GET(l),PPMPF_SEQ_POP(l))
-
-#define PPMPF_TUP_FOLD_(f,s,l,i) \
-        PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , PPMPF_FOLD_DFUNC \
-                                 , PPMPF_JUST )(f) \
-                   , s \
-                   , l \
-                   , PPMPF_TUP_GET \
-                   , PPMPF_TUP_POP \
-                   , PPMPF_TUP_EMPTY \
-                   , PPMPF_FLDT \
-                   , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
-                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , i##_ \
-                                 , i )\
-                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , PPMPF_FOLD_DWRAP \
-                                 , PPMPF_JUST )(f), )
-
-#define PPMPF_TUP_FOLDL(f,s,l) \
-        PPMPF_SEQ_GET(PPMPF_TUP_FOLD_(f,s,l,PPMPF_FLDAL))
-
-#define PPMPF_TUP_FOLDL_OF(f,l) \
-        PPMPF_TUP_FOLDL(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l))
-/*
- * NOTE: PPMPF_TUP_REVERSE, PPMPF_SEQ_REVERSE: reversing ppmpf collections.
- */
-#define PPMPF_TUP_REVERSE_(tup) \
-        (PPMPF_DREF(PPMPF_TUP_FOLDL_OF(PPMPF_FLDRT_, \
-                    PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_TUP_GET(tup)))
-
-#define PPMPF_TUP_REVERSE(tup) \
-        PPMPF_IFELSE( PPMPF_OR( PPMPF_TUP_EMPTY(PPMPF_TUP_POP(tup)) \
-                              , PPMPF_TUP_EMPTY(tup) ) \
-                    , PPMPF_JUST \
-                    , PPMPF_TUP_REVERSE_)(tup)
-
-#define PPMPF_SEQ_REVERSE(seq) \
-        PPMPF_DREF( PPMPF_SEQ_FOLDL(PPMPF_FLDRS_ \
-                  , (PPMPF_SEQ_GET(seq)) \
-                  , PPMPF_SEQ_POP(seq)))
-
-/* Assistive macros */
-#define PPMPF_TUP_FOLDR__(f,l) \
-        PPMPF_TUP_FOLD_(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l),PPMPF_FLDAR)
-
-#define PPMPF_SEQ_FOLDR__(f,l) \
-        PPMPF_SEQ_GET( PPMPF_SEQ_FOLD_( f \
-                                      , PPMPF_SEQ_GET(l) \
-                                      , PPMPF_SEQ_POP(l) \
-                                      , PPMPF_FLDAR ) )
-/*
- * NOTE: PPMPF_TUP_FOLDR*,PPMPF_SEQ_FOLDR* : providing right folds for ppmpf
- * tuples and sequences.
- */
-#define PPMPF_TUP_FOLDR(f,s,l) \
-        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__( f \
-                                       , ( PPMPF_DREF(s) \
-                                         , PPMPF_DREF(PPMPF_TUP_REVERSE(l)))))
-
-#define PPMPF_TUP_FOLDR_OF(f,l) \
-        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__(f,PPMPF_TUP_REVERSE(l)))
-
-#define PPMPF_SEQ_FOLDR(f,s,l) \
-        PPMPF_SEQ_FOLDR__(f,PPMPF_JUST(s)PPMPF_SEQ_REVERSE(l))
-
-#define PPMPF_SEQ_FOLDR_OF(f,l) \
-        PPMPF_SEQ_FOLDR__(f,PPMPF_SEQ_REVERSE(l))
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_ */
