@@ -21,22 +21,9 @@
 #ifndef _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
 #define _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
 
-#include <odreex/ppmpf/base.hh>
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/tupseq.hh>
+#include <odreex/ppmpf/tuple/essence.hh>
 #include <odreex/ppmpf/fold.hh>
 #include <odreex/ppmpf/tuple/atpos.hh>
-
-/* Section for internally used macros. */
-
-// PPMPF_DREF() applied by default, aka _1 is default
-#define PPMPF_FLDMT_(f,sl,g,...) \
-        PPMPF_TUP_JOIN( \
-            PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
-        ,   (PPMPF_APPLY( f \
-                        , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl)))))))
-
-/* Section for externally used macros. */
 
 /* NOTE: PPMPF_TUP2SEQ: convert a ppmpf tuple to a ppmpf sequence, preserving
  * the original order of elements. */
@@ -102,10 +89,7 @@
                 PPMPF_FOLD_( f \
                            , ( PPMPF_IFELSE( PPMPF_TUP_EMPTY(t) \
                                            , () \
-                                           , (PPMPF_APPLY( f \
-                                                         , PPMPF_DREF( \
-                                                            PPMPF_TUP_GET(t) \
-                                                           ) ) ) ) ) \
+                                           , ((PPMPF_TMAP_AUX1(f,t) ) ) ) ) \
                            , PPMPF_TUP_POP(t) \
                            , PPMPF_TUP_GET \
                            , PPMPF_TUP_POP \

@@ -21,59 +21,38 @@
 #ifndef _ODREEX_PPMPF_ATPOS_HH_
 #define _ODREEX_PPMPF_ATPOS_HH_
 
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/alu.hh>
-#include <odreex/ppmpf/tupseq.hh>
-
-/*
- * The purpose of this header is to provide an efficient random access method
- * for individual ppmpf tuple members. Thus, a dedicated sequence of macros
- * form the the accessing construct in order for PPMPF_TUP_ATPOS to exist.
- */
-
-/* This performs the same task as PPMPF_TUP_JOIN but on a "raw" tuple. */
-#define PPMPF_TUP_JOIN_(z,...) \
-    (PPMPF_DREF(z)PPMPF_IFELSE( PPMPF_NOR( PPMPF_TUP_EMPTY(z) \
-                                         , PPMPF_TUP_EMPTY((__VA_ARGS__))) \
-                              , PPMPF_COMMA \
-                              , PPMPF_EMPTY)()__VA_ARGS__)
-
-/* Assistive macro function, for raw tuple macro "splitting" */
-#define PPMPF_TUP_SPLIT__(x,...) x,(__VA_ARGS__)
-#define PPMPF_TUP_SPLIT___(...) __VA_ARGS__()
-#define PPMPF_TUP_SPLIT_(...) \
-        PPMPF_IFELSE( PPMPF_TUP_EMPTY(PPMPF_TUP_POP((__VA_ARGS__))) \
-                    , PPMPF_TUP_SPLIT___ \
-                    , PPMPF_TUP_SPLIT__)(__VA_ARGS__)
+#ifndef _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
+#error ppmpf warning: header <odreex/ppmpf/tuple/functions.hh> must precede.
+#endif
 
 #define PPMPF_TUP_A00(z,x0,...) \
-        PPMPF_TUP_JOIN_(z,x0),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0)),__VA_ARGS__
 #define PPMPF_TUP_A01(z,x0,x1,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1)),__VA_ARGS__
 #define PPMPF_TUP_A02(z,x0,x1,x2,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2)),__VA_ARGS__
 #define PPMPF_TUP_A03(z,x0,x1,x2,x3,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3)),__VA_ARGS__
 #define PPMPF_TUP_A04(z,x0,x1,x2,x3,x4,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3,x4),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3,x4)),__VA_ARGS__
 #define PPMPF_TUP_A05(z,x0,x1,x2,x3,x4,x5,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3,x4,x5),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3,x4,x5)),__VA_ARGS__
 #define PPMPF_TUP_A06(z,x0,x1,x2,x3,x4,x5,x6,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3,x4,x5,x6),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3,x4,x5,x6)),__VA_ARGS__
 #define PPMPF_TUP_A07(z,x0,x1,x2,x3,x4,x5,x6,x7,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3,x4,x5,x6,x7),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3,x4,x5,x6,x7)),__VA_ARGS__
 #define PPMPF_TUP_A08(z,x0,x1,x2,x3,x4,x5,x6,x7,x8,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3,x4,x5,x6,x7,x8),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3,x4,x5,x6,x7,x8)),__VA_ARGS__
 #define PPMPF_TUP_A09(z,x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,...) \
-        PPMPF_TUP_JOIN_(z,x0,x1,x2,x3,x4,x5,x6,x7,x8,x9),__VA_ARGS__
+        PPMPF_TUP_JOIN(z,(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9)),__VA_ARGS__
 
 #define PPMPF_TUP_A11( \
     z, \
     a0,a1,a2,a3,a4,a5,a6,a7,a8,a9, \
     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
-      , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 ) \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+      , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A12( \
@@ -81,10 +60,10 @@
     a0,a1,a2,a3,a4,a5,a6,a7,a8,a9, \
     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9, \
     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
-      , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 ) \
+      , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 ) ) \
     , __VA_ARGS__
 
 
@@ -94,11 +73,11 @@
     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9, \
     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9, \
     d0,d1,d2,d3,d4,d5,d6,d7,d8,d9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
-      , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 ) \
+      , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 ) ) \
     , __VA_ARGS__
 
 
@@ -109,12 +88,12 @@
     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9, \
     d0,d1,d2,d3,d4,d5,d6,d7,d8,d9, \
     e0,e1,e2,e3,e4,e5,e6,e7,e8,e9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
       , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 \
-      , e0,e1,e2,e3,e4,e5,e6,e7,e8,e9 ) \
+      , e0,e1,e2,e3,e4,e5,e6,e7,e8,e9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A15( \
@@ -125,13 +104,13 @@
     d0,d1,d2,d3,d4,d5,d6,d7,d8,d9, \
     e0,e1,e2,e3,e4,e5,e6,e7,e8,e9, \
     f0,f1,f2,f3,f4,f5,f6,f7,f8,f9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
       , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 \
       , e0,e1,e2,e3,e4,e5,e6,e7,e8,e9 \
-      , f0,f1,f2,f3,f4,f5,f6,f7,f8,f9 ) \
+      , f0,f1,f2,f3,f4,f5,f6,f7,f8,f9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A16( \
@@ -143,14 +122,14 @@
     e0,e1,e2,e3,e4,e5,e6,e7,e8,e9, \
     f0,f1,f2,f3,f4,f5,f6,f7,f8,f9, \
     g0,g1,g2,g3,g4,g5,g6,g7,g8,g9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
       , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 \
       , e0,e1,e2,e3,e4,e5,e6,e7,e8,e9 \
       , f0,f1,f2,f3,f4,f5,f6,f7,f8,f9 \
-      , g0,g1,g2,g3,g4,g5,g6,g7,g8,g9 ) \
+      , g0,g1,g2,g3,g4,g5,g6,g7,g8,g9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A17( \
@@ -163,15 +142,15 @@
     f0,f1,f2,f3,f4,f5,f6,f7,f8,f9, \
     g0,g1,g2,g3,g4,g5,g6,g7,g8,g9, \
     h0,h1,h2,h3,h4,h5,h6,h7,h8,h9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
       , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 \
       , e0,e1,e2,e3,e4,e5,e6,e7,e8,e9 \
       , f0,f1,f2,f3,f4,f5,f6,f7,f8,f9 \
       , g0,g1,g2,g3,g4,g5,g6,g7,g8,g9 \
-      , h0,h1,h2,h3,h4,h5,h6,h7,h8,h9 ) \
+      , h0,h1,h2,h3,h4,h5,h6,h7,h8,h9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A18( \
@@ -185,8 +164,8 @@
     g0,g1,g2,g3,g4,g5,g6,g7,g8,g9, \
     h0,h1,h2,h3,h4,h5,h6,h7,h8,h9, \
     i0,i1,i2,i3,i4,i5,i6,i7,i8,i9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
       , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 \
@@ -194,7 +173,7 @@
       , f0,f1,f2,f3,f4,f5,f6,f7,f8,f9 \
       , g0,g1,g2,g3,g4,g5,g6,g7,g8,g9 \
       , h0,h1,h2,h3,h4,h5,h6,h7,h8,h9 \
-      , i0,i1,i2,i3,i4,i5,i6,i7,i8,i9 ) \
+      , i0,i1,i2,i3,i4,i5,i6,i7,i8,i9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A19( \
@@ -209,8 +188,8 @@
     h0,h1,h2,h3,h4,h5,h6,h7,h8,h9, \
     i0,i1,i2,i3,i4,i5,i6,i7,i8,i9, \
     j0,j1,j2,j3,j4,j5,j6,j7,j8,j9, ... ) \
-    PPMPF_TUP_JOIN_( z \
-      , a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
+    PPMPF_TUP_JOIN( z ,\
+      ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9 \
       , b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 \
       , c0,c1,c2,c3,c4,c5,c6,c7,c8,c9 \
       , d0,d1,d2,d3,d4,d5,d6,d7,d8,d9 \
@@ -219,7 +198,7 @@
       , g0,g1,g2,g3,g4,g5,g6,g7,g8,g9 \
       , h0,h1,h2,h3,h4,h5,h6,h7,h8,h9 \
       , i0,i1,i2,i3,i4,i5,i6,i7,i8,i9 \
-      , j0,j1,j2,j3,j4,j5,j6,j7,j8,j9 ) \
+      , j0,j1,j2,j3,j4,j5,j6,j7,j8,j9 ) ) \
     , __VA_ARGS__
 
 #define PPMPF_TUP_A1Z(...) __VA_ARGS__
@@ -282,8 +261,8 @@
   Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7,Y8,Y9,Y10,Y11,Y12,Y13,Y14,Y15,Y16,Y17,Y18,Y19,\
   Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11,Z12,Z13,Z14,Z15,Z16,Z17,Z18,Z19,\
   ... ) \
-  PPMPF_TUP_JOIN_( z, \
-    a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,\
+  PPMPF_TUP_JOIN( z, \
+  ( a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,\
     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,\
     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,\
     d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12,d13,d14,d15,d16,d17,d18,d19,\
@@ -332,7 +311,7 @@
     W0,W1,W2,W3,W4,W5,W6,W7,W8,W9,W10,W11,W12,W13,W14,W15,W16,W17,W18,W19,\
     X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X18,X19,\
     Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7,Y8,Y9,Y10,Y11,Y12,Y13,Y14,Y15,Y16,Y17,Y18,Y19,\
-    Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11,Z12,Z13,Z14,Z15,Z16,Z17,Z18,Z19 ) \
+    Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11,Z12,Z13,Z14,Z15,Z16,Z17,Z18,Z19 ) ) \
   , __VA_ARGS__
 
 #define PPMPF_TUP_A21(...) \
