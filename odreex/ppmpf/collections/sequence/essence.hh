@@ -25,6 +25,8 @@
 #error ppmpf: <odreex/ppmpf/collections/sequence/functions.hh> must precede.
 #endif
 
+#define PPMPF_S2T_(a,b) PPMPF_DREF(a),PPMPF_DREF(b)
+
 #define PPMPF_SEQ_FOLD_(f,s,l,i) \
         PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
                                  , PPMPF_FOLD_DFUNC \

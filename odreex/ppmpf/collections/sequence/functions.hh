@@ -73,6 +73,12 @@
 #define PPMPF_SEQ_SIZEOF(seq) \
         PPMPF_DREF(PPMPF_SEQ_FOLDL(PPMPF_PLUS__,(PPMPF_IMINV()),seq))
 
+/* NOTE: PPMPF_SEQ2TUP: Convert a ppmpf sequence to a ppmpf tuple. */
+#define PPMPF_SEQ2TUP(seq) \
+        PPMPF_SEQ_FOLDL( PPMPF_S2T_ \
+                       , PPMPF_SEQ_GET(seq) \
+                       , PPMPF_SEQ_POP(seq) )
+
 /* NOTE: PPMPF_SEQ_MAP: An implementation of the map high order function for
  *       ppmpf sequence constructs.
  */
