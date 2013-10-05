@@ -18,11 +18,11 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_ALU_HH_
-#define _ODREEX_PPMPF_ALU_HH_
+#ifndef _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_
+#define _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_
 
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/tupseq.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
 
 /* NOTE: Minimum and Maximum integer value internal representation. Numbers
  * are represented as five member sequences, with the first being reserved
@@ -428,4 +428,4 @@
 #define PPMPF_NEXT(x) PPMPF_IADD(x,(0)(0)(0)(1))
 #define PPMPF_PREV(x) PPMPF_ISUB(x,(0)(0)(0)(1))
 
-#endif /* _ODREEX_PPMPF_ALU_HH_ */
+#endif /* _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_ */

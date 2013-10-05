@@ -18,11 +18,11 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_FUNCTIONAL_HH_
-#define _ODREEX_PPMPF_FUNCTIONAL_HH_
+#ifndef _ODREEX_PPMPF_ALGORITHMS_FUNCTIONAL_HH_
+#define _ODREEX_PPMPF_ALGORITHMS_FUNCTIONAL_HH_
 
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/fold.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/algorithms/fold.hh>
 
 /* 
  * NOTE: PPMPF_COMPOSE: given a ppmpf sequence of macro functions in the form
@@ -36,4 +36,4 @@
 #define PPMPF_COMPOSE(x,fseq) \
         PPMPF_SEQ_FOLDR(((PPMPF_APPLY,_1),_2),x,fseq)
 
-#endif /* _ODREEX_PPMPF_FUNCTIONAL_HH_ */
+#endif /* _ODREEX_PPMPF_ALGORITHMS_FUNCTIONAL_HH_ */

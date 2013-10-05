@@ -25,11 +25,11 @@
  * producing ordered sets with size up to 10000 (4th power of 10) are available.
  */
 
-#ifndef _ODREEX_PPMPF_BASE_HH_
-#define _ODREEX_PPMPF_BASE_HH_
+#ifndef _ODREEX_PPMPF_KERNEL_CPRO_BASE_HH_
+#define _ODREEX_PPMPF_KERNEL_CPRO_BASE_HH_
 
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/alu.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/kernel/logic/alu.hh>
 
 /* NOTE: PPMPF_PNX - Previous digit identifier for repeats. */
 #define PPMPF_NX0()  Z
@@ -289,4 +289,4 @@
 #   define PPMPF_REPEATS(f,s,...) PPMPF_REPEAT(f,s,0,0,6,4,__VA_ARGS__)
 #endif
 
-#endif /* _ODREEX_PPMPF_BASE_HH_ */
+#endif /* _ODREEX_PPMPF_KERNEL_CPRO_BASE_HH_ */

@@ -18,11 +18,11 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_ATPOS_HH_
-#define _ODREEX_PPMPF_ATPOS_HH_
+#ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH_
+#define _ODREEX_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH_
 
-#ifndef _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
-#error ppmpf warning: header <odreex/ppmpf/tuple/functions.hh> must precede.
+#ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
+#error ppmpf: <odreex/ppmpf/collections/tuple/functions.hh> must precede.
 #endif
 
 #define PPMPF_TUP_A00(z,x0,...) \
@@ -351,4 +351,4 @@
 #define PPMPF_TUP_A39(...) \
         PPMPF_TUP_A38(PPMPF_TUP_A3X(__VA_ARGS__))
 
-#endif /*_ODREEX_PPMPF_ATPOS_HH_ */
+#endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH_ */

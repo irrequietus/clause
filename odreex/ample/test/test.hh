@@ -24,6 +24,7 @@
 #include <odreex/ample/test.hh>
 #include <odreex/ample/oprt/fundamentals.hh>
 #include <odreex/ample/base/basic_number.hh>
+#include <odreex/ample/charseq.hh>
 
 /* NOTE: some default tests */
 namespace odreex {
@@ -148,6 +149,17 @@ struct validating_prev_natural
      ample_vldt_("vldt_values<prev<natural<5>>, natural<4>, true>")
 };
 
+// A test for the charseq class template.
+
+struct validating_charseq
+    : vldt_types< ample_charseq("hello, world")
+                , odreex::ample::charseq< 'h', 'e', 'l', 'l', 'o'
+                                        , ','
+                                        , ' '
+                                        , 'w', 'o', 'r', 'l', 'd'>, true> {
+    ample_vldt_("charseq<'h','e','l','l','o',',',' ','w','o','r','l','d'>")
+};
+
 /* validating check_all for all "pass" cases */
 struct check_all_pass
     : check< true
@@ -184,6 +196,11 @@ struct check_all_natural
                        , validating_mod_natural
                        , validating_next_natural
                        , validating_prev_natural >>
+{};
+
+struct check_charseq
+     : check< true
+            , check_all<validating_charseq>>
 {};
 
 } /* test */

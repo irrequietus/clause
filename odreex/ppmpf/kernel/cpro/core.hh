@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_CORE_HH_
-#define _ODREEX_PPMPF_CORE_HH_
+#ifndef _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_
+#define _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_
 
 /* NOTE: PPMPF_TRUE, PPMPF_FALSE: When deployed, resolving to either 1 or 0. */
 #define PPMPF_TRUE(...) 1
@@ -119,4 +119,4 @@
 #define PPMPF_NOT_0() 1
 #define PPMPF_NOT(x) PPMPF_CAT(PPMPF_NOT_, x)()
 
-#endif /* _ODREEX_PPMPF_CORE_HH_ */
+#endif /* _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_ */

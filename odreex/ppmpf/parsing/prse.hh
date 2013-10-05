@@ -18,11 +18,11 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_PRSE_HH_
-#define _ODREEX_PPMPF_PRSE_HH_
+#ifndef _ODREEX_PPMPF_PARSING_PRSE_HH_
+#define _ODREEX_PPMPF_PARSING_PRSE_HH_
 
 #include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/plh.hh>
+#include <odreex/ppmpf/algorithms/plh.hh>
 
 /* NOTE: PPMPF_PRSE_IZER: resolves to 1 if only empty token, 0 otherwise. */
 #define PPMPF_PRSE_IZER(...) \
@@ -53,4 +53,4 @@
                     , PPMPF_EMPTY_7 \
                     , PPMPF_FALSE)(PPMPF_CAT(PPMPF_PLH,x)())
 
-#endif /* _ODREEX_PPMPF_PRSE_HH_ */
+#endif /* _ODREEX_PPMPF_PARSING_PRSE_HH_ */

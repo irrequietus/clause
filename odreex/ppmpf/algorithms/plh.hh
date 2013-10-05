@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_PLH_HH_
-#define _ODREEX_PPMPF_PLH_HH_
+#ifndef _ODREEX_PPMPF_ALGORITHMS_PLH_HH_
+#define _ODREEX_PPMPF_ALGORITHMS_PLH_HH_
 
 /*
  * Some ppmpf placeholders like _1,_2,__1,__2. The double underscore ones are
@@ -30,4 +30,4 @@
 #define PPMPF_PLH__1() ,
 #define PPMPF_PLH__2() ,
 
-#endif /* _ODREEX_PPMPF_PLH_HH_ */
+#endif /* _ODREEX_PPMPF_ALGORITHMS_PLH_HH_ */

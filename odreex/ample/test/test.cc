@@ -31,6 +31,7 @@ using namespace odreex::ample::test;
 int main() {
     check_all_pass::deploy();
     check_all_natural::deploy();
-    check_all_fail::deploy();
+    check_all_fail::deploy("all of the following are supposed to be a FAIL (ok).");
+    check_charseq::deploy("checking for charseq metastring!");
     return {};
 }

@@ -18,12 +18,12 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_FOLD_HH_
-#define _ODREEX_PPMPF_FOLD_HH_
+#ifndef _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_
+#define _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_
 
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/alu.hh>
-#include <odreex/ppmpf/tupseq.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/kernel/logic/alu.hh>
+#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
 
 
 /* Assistive macros */
@@ -314,4 +314,4 @@
 #define PPMPF_SEQ_FOLDR_OF(f,l) \
         PPMPF_SEQ_FOLDR__(f,PPMPF_SEQ_REVERSE(l))
 
-#endif /* _ODREEX_PPMPF_FOLD_HH_ */
+#endif /* _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_ */

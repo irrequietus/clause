@@ -23,7 +23,7 @@
 
 #include <cstdint>
 #include <type_traits>
-#include <odreex/ppmpf/base.hh>
+#include <odreex/ppmpf/kernel/cpro/base.hh>
 
 namespace odreex {
 namespace ample {

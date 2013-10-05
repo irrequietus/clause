@@ -21,9 +21,9 @@
 #ifndef _ODREEX_PPMPF_PPFK_HH_
 #define _ODREEX_PPMPF_PPFK_HH_
 
-#include <odreex/ppmpf/base.hh>
-#include <odreex/ppmpf/fold.hh>
-#include <odreex/ppmpf/sizeof.hh>
+#include <odreex/ppmpf/kernel/cpro/base.hh>
+#include <odreex/ppmpf/algorithms/fold.hh>
+#include <odreex/ppmpf/collections/sizeof.hh>
 
 /* NOTE: PPMPF_VCAT - A variadic version of PPMPF_CAT */
 #define PPMPF_VCAT(x,...) \

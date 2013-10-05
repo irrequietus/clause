@@ -18,12 +18,12 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
-#define _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
+#ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
+#define _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
 
-#include <odreex/ppmpf/tuple/essence.hh>
-#include <odreex/ppmpf/fold.hh>
-#include <odreex/ppmpf/tuple/atpos.hh>
+#include <odreex/ppmpf/collections/tuple/essence.hh>
+#include <odreex/ppmpf/algorithms/fold.hh>
+#include <odreex/ppmpf/collections/tuple/atpos.hh>
 
 /* NOTE: PPMPF_TUP2SEQ: convert a ppmpf tuple to a ppmpf sequence, preserving
  * the original order of elements. */
@@ -101,4 +101,4 @@
                            , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
                            , PPMPF_FLDMT_, )))
 
-#endif /* _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_ */
+#endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_ */

@@ -18,13 +18,13 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_SIZEOF_HH_
-#define _ODREEX_PPMPF_SIZEOF_HH_
+#ifndef _ODREEX_PPMPF_COLLECTIONS_SIZEOF_HH_
+#define _ODREEX_PPMPF_COLLECTIONS_SIZEOF_HH_
 
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/alu.hh>
-#include <odreex/ppmpf/tupseq.hh>
-#include <odreex/ppmpf/fold.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/kernel/logic/alu.hh>
+#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
+#include <odreex/ppmpf/algorithms/fold.hh>
 
 /* Assistive macro for integer incrementation during folding. */
 #define PPMPF_PLUS__(x,y) PPMPF_NEXT(PPMPF_DREF(x))
@@ -43,4 +43,4 @@
 #define PPMPF_SEQ_SIZEOF(seq) \
         PPMPF_DREF(PPMPF_SEQ_FOLDL(PPMPF_PLUS__,(PPMPF_IMINV()),seq))
 
-#endif /* _ODREEX_PPMPF_SIZEOF_HH_ */
+#endif /* _ODREEX_PPMPF_COLLECTIONS_SIZEOF_HH_ */

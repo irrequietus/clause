@@ -18,10 +18,10 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_IBND_HH_
-#define _ODREEX_PPMPF_IBND_HH_
+#ifndef _ODREEX_PPMPF_PARSING_IBND_HH_
+#define _ODREEX_PPMPF_PARSING_IBND_HH_
 
-#include <odreex/ppmpf/prse.hh>
+#include <odreex/ppmpf/parsing/prse.hh>
 
 /* NOTE: PPMPF_IBND: checks whether "binding" is compliant. */
 #define PPMPF_IBND1(x) \
@@ -72,4 +72,4 @@
         , PPMPF_IBND7 \
         , PPMPF_UNIT)(f)
 
-#endif /* _ODREEX_PPMPF_IBND_HH_ */
+#endif /* _ODREEX_PPMPF_PARSING_IBND_HH_ */

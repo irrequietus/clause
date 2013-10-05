@@ -18,16 +18,16 @@
  *
  */
 
-#ifndef _ODREEX_PPMPF_TUPLE_ESSENCE_HH_
-#define _ODREEX_PPMPF_TUPLE_ESSENCE_HH_
+#ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_ESSENCE_HH_
+#define _ODREEX_PPMPF_COLLECTIONS_TUPLE_ESSENCE_HH_
 
-#ifndef _ODREEX_PPMPF_TUPLE_FUNCTIONS_HH_
-#error ppmpf warning: header <odreex/ppmpf/tuple/functions.hh> must precede.
+#ifndef _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
+#error ppmpf: <odreex/ppmpf/collections/tuple/functions.hh> must precede.
 #endif
 
-#include <odreex/ppmpf/base.hh>
-#include <odreex/ppmpf/core.hh>
-#include <odreex/ppmpf/tupseq.hh>
+#include <odreex/ppmpf/kernel/cpro/base.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/kernel/cpro/tupseq.hh>
 
 /* This performs the same task as PPMPF_TUP_JOIN but on a "raw" tuple. */
 #define PPMPF_TUP_JOIN_(z,...) PPMPF_TUP_JOIN(z,(__VA_ARGS__))
@@ -50,4 +50,4 @@
         ,   ((PPMPF_APPLY( f \
                          , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))))
 
-#endif /* _ODREEX_PPMPF_TUPLE_ESSENCE_HH_ */
+#endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_ESSENCE_HH_ */

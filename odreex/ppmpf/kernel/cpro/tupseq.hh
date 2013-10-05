@@ -21,7 +21,7 @@
 #ifndef _ODREEX_PPMPF_TUPSEQ_HH_
 #define _ODREEX_PPMPF_TUPSEQ_HH_
 
-#include <odreex/ppmpf/core.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
 
 /* NOTE: The PPMPF_EMPTY_* family of macros is the framework for detecting
  * whether empty tokens are the sole arguments or not in ppmpf tuples and

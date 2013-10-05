@@ -40,7 +40,7 @@
           , result[ i ] ? "\033[36mpass\033[0m" : "\033[31mfail\033[0m" \
           , output[ i ] ? "\033[1;36mpass\033[0m" : "\033[1;31mfail\033[0m" \
           , cbuf \
-          , sz <= N ? "" : "..." )
+          , sz < N ? "" : "..." )
 #else
 #define ample_printf_(i, sz, N) \
     printf( "[%06zu]: %s | %s |: %s%s\n" \
@@ -48,7 +48,7 @@
           , result[ i ] ? "pass" : "fail" \
           , output[ i ] ? "pass" : "fail" \
           , cbuf \
-          , sz <= N ? "" : "..." )
+          , sz < N ? "" : "..." )
 #endif
 
 /**
@@ -430,8 +430,8 @@ public:
 #endif
     }
     
-    static void deploy() {
-        println_head("all of the following are supposed to be a pass.");
+    static void deploy(char const *s = nullptr) {
+        println_head(!s ? "all of the following are supposed be a PASS." : s);
         std::for_each(begin(), end(), println);
         println_foot("test block completed.");
     }
