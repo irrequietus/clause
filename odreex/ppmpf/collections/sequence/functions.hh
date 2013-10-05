@@ -73,4 +73,29 @@
 #define PPMPF_SEQ_SIZEOF(seq) \
         PPMPF_DREF(PPMPF_SEQ_FOLDL(PPMPF_PLUS__,(PPMPF_IMINV()),seq))
 
+/* NOTE: PPMPF_SEQ_MAP: An implementation of the map high order function for
+ *       ppmpf sequence constructs.
+ */
+#define PPMPF_SEQ_MAP(f,s) \
+        PPMPF_DREF( \
+            PPMPF_SEQ_GET( \
+                PPMPF_FOLD_( f \
+                           , ( PPMPF_IFELSE( PPMPF_SEQ_EMPTY(s) \
+                                           , () \
+                                           , (PPMPF_APPLY( f \
+                                                         , PPMPF_DREF( \
+                                                             PPMPF_SEQ_GET(s) \
+                                                           )  \
+                                                         )))) \
+                           , PPMPF_SEQ_POP(s) \
+                           , PPMPF_SEQ_GET \
+                           , PPMPF_SEQ_POP \
+                           , PPMPF_SEQ_EMPTY \
+                           , PPMPF_FLDT \
+                           , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
+                           , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
+                           , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
+                           , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
+                           , PPMPF_FLDMS_, )))
+
 #endif /* _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_FUNCTIONS_HH_ */

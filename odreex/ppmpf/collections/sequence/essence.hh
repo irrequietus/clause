@@ -51,5 +51,9 @@
                                       , PPMPF_SEQ_GET(l) \
                                       , PPMPF_SEQ_POP(l) \
                                       , PPMPF_FLDAR ) )
+#define PPMPF_FLDMS_(f,sl,g,...) \
+            PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
+            (PPMPF_APPLY( f \
+                        , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH_ */
