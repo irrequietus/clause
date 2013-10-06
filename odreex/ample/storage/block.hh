@@ -36,9 +36,6 @@ template<typename...>
 struct storage_push_front
 {};
 
-template<typename, typename>
-struct storage_sequential;
-
 template<typename... Types_T>
 struct storage_sequence {
     struct oprt_size_of
