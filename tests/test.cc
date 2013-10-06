@@ -23,13 +23,15 @@
  */
 
 #include "test.hh"
+#include "ample.hh"
 
 using namespace odreex::ample::test;
 
 int main() {
     check_all_pass::deploy();
     check_all_natural::deploy();
-    check_all_fail::deploy("all of the following are supposed to be a FAIL (ok).");
-    check_charseq::deploy("checking for charseq metastring!");
+    check_all_fail::deploy("all of the following are supposed to be a FAIL");
+    check_charseq::deploy("testing odreex::ample::charseq metastring");
+    check_ample_vector::deploy("testing odreex::ample::vector");
     return {};
 }
