@@ -81,6 +81,11 @@ struct front_of
      : atpos<Collection_T, natural<>>
 {};
 
+template<typename Collection_T>
+struct clear
+     : Collection_T::template oprt_clear<>::type
+{};
+
 } /* ample */
 } /* odreex */
 

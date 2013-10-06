@@ -115,6 +115,16 @@ struct validating_vector_10
     )
 };
 
+struct validating_vector_11
+    : vldt_types< typename size_of<clear<vector<int,long,float> > >::type
+                , natural<>
+                , true> {
+    ample_vldt_(
+      "clear<vector<int,long,float>"
+    )
+};
+
+
 /* tests for odreex::ample::vector */
 struct check_ample_vector
      : check< true
@@ -128,7 +138,8 @@ struct check_ample_vector
                        , validating_vector_7
                        , validating_vector_8
                        , validating_vector_9
-                       , validating_vector_10 >>
+                       , validating_vector_10
+                       , validating_vector_11 >>
 {};
 
 } /* test */
