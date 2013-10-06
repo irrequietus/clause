@@ -22,9 +22,7 @@
  * the one bearing the fundamental constructs for testing itself.
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ample/test/test.hh>
-#include <algorithm>
+#include "test.hh"
 
 using namespace odreex::ample::test;
 
