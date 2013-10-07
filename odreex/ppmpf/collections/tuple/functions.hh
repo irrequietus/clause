@@ -153,7 +153,7 @@
                 PPMPF_FOLD_( f \
                            , ( PPMPF_IFELSE( PPMPF_TUP_EMPTY(t) \
                                            , () \
-                                           , ((PPMPF_TMAP_AUX1(f,t) ) ) ) ) \
+                                           , ((PPMPF_TMAP_AUX1(f,t)) ) ) ) \
                            , PPMPF_TUP_POP(t) \
                            , PPMPF_TUP_GET \
                            , PPMPF_TUP_POP \

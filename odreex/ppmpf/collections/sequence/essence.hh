@@ -27,6 +27,11 @@
 
 #define PPMPF_S2T_(a,b) PPMPF_DREF(a),PPMPF_DREF(b)
 
+#define PPMPF_SMAP_AUX1(f,s) \
+        PPMPF_IFELSE( PPMPF_SEQ_EMPTY(s) \
+                    , ()\
+                    , (PPMPF_APPLY(f,PPMPF_DREF(PPMPF_SEQ_GET(s)))))
+
 #define PPMPF_SEQ_FOLD_(f,s,l,i) \
         PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
                                  , PPMPF_FOLD_DFUNC \
@@ -54,8 +59,7 @@
                                       , PPMPF_SEQ_POP(l) \
                                       , PPMPF_FLDAR ) )
 #define PPMPF_FLDMS_(f,sl,g,...) \
-            PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
-            (PPMPF_APPLY( f \
-                        , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
+        PPMPF_DREF(PPMPF_SEQ_GET(sl))\
+(PPMPF_APPLY(f, PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH_ */

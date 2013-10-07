@@ -86,13 +86,7 @@
         PPMPF_DREF( \
             PPMPF_SEQ_GET( \
                 PPMPF_FOLD_( f \
-                           , ( PPMPF_IFELSE( PPMPF_SEQ_EMPTY(s) \
-                                           , () \
-                                           , (PPMPF_APPLY( f \
-                                                         , PPMPF_DREF( \
-                                                             PPMPF_SEQ_GET(s) \
-                                                           )  \
-                                                         )))) \
+                           , (PPMPF_SMAP_AUX1(f,s)) \
                            , PPMPF_SEQ_POP(s) \
                            , PPMPF_SEQ_GET \
                            , PPMPF_SEQ_POP \
