@@ -28,9 +28,11 @@
 using namespace odreex::ample::test;
 
 int main() {
+    check<true,check_all<>>::deploy("this is an empty (pass) test");
+    check<false,check_all<>>::deploy("this is an empty (fail) test");
     check_all_pass::deploy();
     check_all_natural::deploy();
-    check_all_fail::deploy("all of the following are supposed to be a FAIL");
+    check_all_fail::deploy("all of the following tests are supposed to fail");
     check_charseq::deploy("testing odreex::ample::charseq metastring");
     check_ample_vector::deploy("testing odreex::ample::vector");
     return {};

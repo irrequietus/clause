@@ -435,9 +435,9 @@ public:
     }
     
     static void deploy(char const *s = nullptr) {
-        println_head(!s ? "all of the following are supposed be a PASS." : s);
+        println_head(!s ? "test block initiating" : s);
         std::for_each(begin(), end(), println);
-        println_foot("test block completed.");
+        println_foot("test block complete");
     }
 };
 
