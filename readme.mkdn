@@ -15,19 +15,23 @@ in order to ascertain proper library functionality. It is very important that
 you use a **fully C++11 compliant compiler**, like g++ 4.8.1. There are no other
 dependencies or requirements. Instructions for running tests are as follows:
 
-* If you wish to just run the tests available for odreex, simply clone the git
+1. If you wish to just run the tests available for odreex, simply clone the git
 repository and run make as follows in your terminal:
 
-    git clone git://github.com/irrequietus/odreex.git
-    cd odreex/tests
-    make test
+```bash
+        git clone git://github.com/irrequietus/odreex.git
+        cd odreex/tests
+        make test
+```
 
-* If you wish to get **ANSI** coloured output for the tests, do the following
+2. If you wish to get **ANSI** coloured output for the tests, do the following
 variation of the previously mentioned commands in your terminal:
 
-    git clone git://github.com/irrequietus/odreex.git
-    cd odreex/tests
-    make ctest
+```bash
+        git clone git://github.com/irrequietus/odreex.git
+        cd odreex/tests
+        make ctest
+```
 
 Since there is no bugtracker at this point, please report any bugs you may find
 by email and kindly remember that this is pretty much a work in progress!
