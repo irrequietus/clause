@@ -35,16 +35,16 @@
 
 #ifdef USE_ANSI_COLORS
 #define ample_printf_(i, sz, N) \
-    printf( "\033[1;37m[%06zu]\033[0m: %s | %s |: \033[34m%s%s\033[0m\n" \
-          , i \
+    printf( "\033[1;37m[%06llu]\033[0m: %s | %s |: \033[34m%s%s\033[0m\n" \
+          , static_cast<unsigned long long>(i) \
           , result[ i ] ? "\033[36mpass\033[0m" : "\033[31mfail\033[0m" \
           , output[ i ] ? "\033[1;36mpass\033[0m" : "\033[1;31mfail\033[0m" \
           , cbuf \
           , sz < N ? "" : "..." )
 #else
 #define ample_printf_(i, sz, N) \
-    printf( "[%06zu]: %s | %s |: %s%s\n" \
-          , i \
+    printf( "[%06llu]: %s | %s |: %s%s\n" \
+          , static_cast<unsigned long long>(i) \
           , result[ i ] ? "pass" : "fail" \
           , output[ i ] ? "pass" : "fail" \
           , cbuf \
