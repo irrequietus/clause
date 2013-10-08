@@ -131,6 +131,10 @@ template<std::size_t... N>
 struct wrap_
 {};
 
+constexpr std::size_t nozero_array(std::size_t n) {
+    return n == 0 ? 1 : n;
+}
+
 /* NOTE: constexpr arrays seem to be having some issues with clang++ (3.3.x) so
  * we will be using the "old" way of doing things until this thing gets fixed.
  * Notice that g++ has no problem with either style.
@@ -183,13 +187,13 @@ struct check_all {
         static std::size_t const    passed_total = sizeof...(A);
         static std::size_t const    failed_total = sizeof...(B);
         static std::size_t const    checks_total = sizeof...(T);
-        static std::size_t const    passed[sizeof...(A)];
-        static std::size_t const    failed[sizeof...(B)];
-        static std::size_t const    shnoop[sizeof...(C)];
-        static char const *         showln[sizeof...(T)];
-        static bool const           output[sizeof...(T)];
-        static bool const           result[sizeof...(T)];
-        static bool const           expect[sizeof...(T)];
+        static std::size_t const    passed[nozero_array(sizeof...(A))];
+        static std::size_t const    failed[nozero_array(sizeof...(B))];
+        static std::size_t const    shnoop[nozero_array(sizeof...(C))];
+        static char const *         showln[nozero_array(sizeof...(T))];
+        static bool const           output[nozero_array(sizeof...(T))];
+        static bool const           result[nozero_array(sizeof...(T))];
+        static bool const           expect[nozero_array(sizeof...(T))];
     };
     
 public:
