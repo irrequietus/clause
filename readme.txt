@@ -14,7 +14,10 @@ of sub - components of the odreex library:
  
 There are no third party library dependencies other than minimal C++11 standard
 library support for using this library. However, it is very important that you
-use a fully C++11 compliant compiler, like g++ 4.8.1.
+use a fully C++11 compliant compiler, like g++ 4.8.1. Kindly remember that
+C++11 compliance means C99 compliance for the parts of C99 that have been
+integrated into the standard, and that includes C99 standard library functions
+involved where applicable.
 
 Testing the code available
 --------------------------
