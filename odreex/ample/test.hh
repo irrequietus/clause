@@ -33,18 +33,52 @@
 #    define AMPLE_PRINTLN_LIM 52
 # endif
 
+/* ++
+ * Technical NOTE of importance: Using printf format specifiers is often a
+ * problem in code portability. One of the alternatives is to use C++ streams,
+ * but that is *not* the choice for this library. In the C++11 standard, there
+ * are very specific format specifiers that can be used with printf but that
+ * does not mean that certain compiler vendors decide to follow them to the
+ * letter. This happens a lot with people dealing with compilation on Microsoft
+ * Windows, where even with certain versions of MinGW, C++11 compliant printf
+ * format specifiers like %llu (brought from C99) and PRIu64 (brought from C99)
+ * may have inconsistent behaviour.
+ * 
+ * This means that if compilation with "C++11 compliant compiler" occurs on
+ * such platforms, -Wformat will issue warnings that should not issue because
+ * "some" of the C99 "parts" that are supposed to accompany the "C++11" parts
+ * are relatively incompatible even with C89 (eighty - nine). That is a very
+ * important issue to consider when using C library functions within C++11 that
+ * are of course supposed to be C99 compliant, but are not. printf is one of
+ * those cases, at times.
+ * 
+ * Notice that really compliant platforms, where these tests are compiled with
+ * -Wall -Wextra -pedantic, never issue any kind of warning. Because they are
+ * compliant in all the C99-ness of their C++11-ness. And that is a primary
+ * requisite for using odreex.
+ * 
+ * Often, the simplest choice is the best option. The right choice would be to
+ * implement a better, type - safe printf or use a ready made one. Since this
+ * library is to be void of dependencies outside what the standard(s) offer, it
+ * will eventually offer a better way to handle printf on its own merit. So,
+ * the best option (but not the "right" choice) right now, is downcasting to
+ * a C89 (eighty - nine) compatible integer for the case of std::size_t as is
+ * used when printf-ing test results where std::size_t is involved. That is
+ * going to be unsigned long, (%lu printf format specifier).
+ * 
+ */
 #ifdef USE_ANSI_COLORS
 #define ample_printf_(i, sz, N) \
-    printf( "\033[1;37m[%06llu]\033[0m: %s | %s |: \033[34m%s%s\033[0m\n" \
-          , static_cast<unsigned long long>(i) \
+    printf( "\033[1;37m[%06lu]\033[0m: %s | %s |: \033[34m%s%s\033[0m\n" \
+          , static_cast<unsigned long>(i) \
           , result[ i ] ? "\033[36mpass\033[0m" : "\033[31mfail\033[0m" \
           , output[ i ] ? "\033[1;36mpass\033[0m" : "\033[1;31mfail\033[0m" \
           , cbuf \
           , sz < N ? "" : "..." )
 #else
 #define ample_printf_(i, sz, N) \
-    printf( "[%06llu]: %s | %s |: %s%s\n" \
-          , static_cast<unsigned long long>(i) \
+    printf( "[%06lu]: %s | %s |: %s%s\n" \
+          , static_cast<unsigned long>(i) \
           , result[ i ] ? "pass" : "fail" \
           , output[ i ] ? "pass" : "fail" \
           , cbuf \
