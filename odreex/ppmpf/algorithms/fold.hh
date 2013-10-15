@@ -112,7 +112,7 @@
 /* NOTE: PPMPF_1F* - macro framework component for folding (1) */
 #define PPMPF_1FZ(f,sl,g,p,h,i,m,...) sl
 #define PPMPF_1F0(f,sl,g,p,h,i,m,...) \
-        PPMPF_0F9(f,sl,g,p,h,i,m,...)
+        PPMPF_0F9(f,sl,g,p,h,i,m,__VA_ARGS__)
 #define PPMPF_1F1(f,sl,g,p,h,i,m,...) \
         PPMPF_FLDC(h,sl,1F0) \
             (f,PPMPF_0F9(f,sl,g,p,h,i,m,__VA_ARGS__),g,p,h,i,m,__VA_ARGS__)
@@ -144,7 +144,7 @@
 /* NOTE: PPMPF_2F* - macro framework component for folding (2) */
 #define PPMPF_2FZ(f,sl,g,p,h,i,m,...) sl
 #define PPMPF_2F0(f,sl,g,p,h,i,m,...) \
-        PPMPF_1F9(f,sl,g,p,h,i,m,...)
+        PPMPF_1F9(f,sl,g,p,h,i,m,__VA_ARGS__)
 #define PPMPF_2F1(f,sl,g,p,h,i,m,...) \
         PPMPF_FLDC(h,sl,2F0) \
             (f,PPMPF_1F9(f,sl,g,p,h,i,m,__VA_ARGS__),g,p,h,i,m,__VA_ARGS__)
@@ -176,7 +176,7 @@
 /* NOTE: PPMPF_3F* - macro framework component for folding (3) */
 #define PPMPF_3FZ(f,sl,g,p,h,i,m,...) sl
 #define PPMPF_3F0(f,sl,g,p,h,i,m,...) \
-        PPMPF_2F9(f,sl,g,p,h,i,m,...)
+        PPMPF_2F9(f,sl,g,p,h,i,m,__VA_ARGS__)
 #define PPMPF_3F1(f,sl,g,p,h,i,m,...) \
         PPMPF_FLDC(h,sl,3F0) \
             (f,PPMPF_2F9(f,sl,g,p,h,i,m,__VA_ARGS__),g,p,h,i,m,__VA_ARGS__)
