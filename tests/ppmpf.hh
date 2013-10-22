@@ -23,6 +23,7 @@
 
 #include <odreex/ample/test.hh>
 #include <odreex/ppmpf/ppfk.hh>
+#include <odreex/ppmpf/range.hh>
 #include <odreex/ppmpf/test.hh>
 
 PPMPF_TEST( ppmpf_test
@@ -197,6 +198,17 @@ PPMPF_TEST( ppmpf_nargs8
                         ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
           , (256))
 
+PPMPF_TEST( ppmpf_irange_tup_0_140
+          , "PPMPF_IRANGE_TUP on [0,140], adding all numbers"
+          , PPMPF_TUP_FOLDL_OF( ((PPMPF_IADD,_1),_2)
+                              , PPMPF_IRANGE_TUP((0)(0)(0)(0),(0)(1)(4)(0)) )
+          , ((9)(8)(7)(0)))
+
+PPMPF_TEST( ppmpf_irange_seq_0_140
+          , "PPMPF_IRANGE_SEQ on [0,140], adding all numbers"
+          , PPMPF_SEQ_FOLDL_OF( ((PPMPF_IADD,_1),_2)
+                              , PPMPF_IRANGE_SEQ((0)(0)(0)(0),(0)(1)(4)(0)) )
+          , ((9)(8)(7)(0)))
 
 namespace odreex {
 namespace ample {
@@ -223,7 +235,9 @@ struct check_ppmpf
                        , PPMPF_TEST_TYPE(ppmpf_nargs6)
                        , PPMPF_TEST_TYPE(ppmpf_nargs7)
                        , PPMPF_TEST_TYPE(ppmpf_nargs8)
-                       , PPMPF_TEST_TYPE(ppmpf_tup_reverse) >>
+                       , PPMPF_TEST_TYPE(ppmpf_tup_reverse)
+                       , PPMPF_TEST_TYPE(ppmpf_irange_tup_0_140)
+                       , PPMPF_TEST_TYPE(ppmpf_irange_seq_0_140) >>
 {};
 
 } /* test */
