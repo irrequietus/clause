@@ -24,6 +24,7 @@
 
 #include "test.hh"
 #include "ample.hh"
+#include "ppmpf.hh"
 
 using namespace odreex::ample::test;
 
@@ -35,5 +36,6 @@ int main() {
     check_all_fail::deploy("all of the following tests are supposed to fail");
     check_charseq::deploy("testing odreex::ample::charseq metastring");
     check_ample_vector::deploy("testing odreex::ample::vector");
+    check_ppmpf::deploy("testing ppmpf macros");
     return {};
 }

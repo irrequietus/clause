@@ -79,6 +79,27 @@ template<char... X>
 char const charseq<X...>::value[(sizeof...(X) != 0) ? sizeof...(X) : 1] =
 { X... };
 
+/* NOTE: The charsops::match function is used in ppmpf tests, eventually fusion
+ * with the future version of charseq is planned.
+ */
+struct charsops {
+private:
+    template<std::size_t N, std::size_t K>
+    static constexpr bool impl( char const (&a)[N]
+                              , char const (&b)[K]
+                              , int c = 0 ) {
+        return (a[c] == b[c])
+             ? ( c + 1 == N ? true : impl(a,b,c+1) )
+             : false;
+    }
+
+public:
+    template<std::size_t N, std::size_t K>
+    static constexpr bool match( char const (&a)[N]
+                               , char const (&b)[K]) {
+        return (impl(a,b));
+    }
+};
 
 } /* ample */
 } /* odreex */
