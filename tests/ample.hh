@@ -120,7 +120,7 @@ struct validating_vector_11
                 , natural<>
                 , true> {
     ample_vldt_(
-      "clear<vector<int,long,float>"
+      "clear<vector<int,long,float>>"
     )
 };
 
