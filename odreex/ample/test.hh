@@ -21,9 +21,17 @@
 #ifndef _ODREEX_AMPLE_TEST_HH_
 #define _ODREEX_AMPLE_TEST_HH_
 
+#include <odreex/ample/base/start_types.hh>
+#include <odreex/ample/oprt/fundamentals.hh>
+#include <odreex/ample/base/basic_number.hh>
+#include <odreex/ample/charseq.hh>
+
 #define ample_vldt_(t) \
     static constexpr char const * showln() noexcept \
     { return t ; }
+
+#define AMPLE_TEST_RUN(name,text) \
+        odreex::ample::test::name::deploy(text);
 
 # ifdef AMPLE_PRINTLN_LIM
 #    if AMPLE_PRINTLN_LIM > 255

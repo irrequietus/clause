@@ -28,4 +28,9 @@ Session.vim
 */.deps/*
 .cproject
 .project
+*.mk
+*.directory
+*.test
+*.libs
+*.dirstamp
 

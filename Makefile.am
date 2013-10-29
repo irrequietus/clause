@@ -4,7 +4,6 @@
 ## This is the Makefile.am for the odreex libraries, it is a work in progress
 ## since pretty much the entire library set is a work in progress!
 ##
-
 distdir = $(PACKAGE).$(VERSION)-$(shell git rev-parse HEAD)
 AUTOMAKE_OPTIONS = subdir-objects
 AM_LDFLAGS = -L/usr/local/lib -L/usr/lib
@@ -27,14 +26,8 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = odreex-$(ODREEX_API_VERSION).pc
 
 dist_noinst_SCRIPTS = autogen.sh
-EXTRA_DIST = patch appkit
+EXTRA_DIST = patch appkit tests
 
-distcheck-hook:
-	tstamp=$(PACKAGE_VERSION).$(shell git rev-parse HEAD); \
-	rm -rf dist; \
-	mkdir dist; \
-	for pkged___item in xz bz2 gz ; do \
-		sha1sum libodreex-$$tstamp.tar.$$pkged___item \
-		      > libodreex-$$tstamp.tar.$$pkged___item.sha1; \
-	done ; \
-	mv *.tar.* dist/ ;
+dist-hook:
+	rm -f $(distdir)/tests/ample/*.test
+	rm -f $(distdir)/tests/ppmpf/*.test

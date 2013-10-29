@@ -28,14 +28,15 @@ function odreexgen_makefile() {
     
     while read fl; do
         case "$fl" in
-            */ample/test/*.cc)           ;;
+            */ample/test/*.cc)   ;;
+            */tests/*.hh)        ;;
+            */tests/*.cc)        ;;
             *.hh) fheaders+=("${fl#*/}") ;;
             *.cc) fsources+=("${fl#*/}") ;;
         esac
         fx+=("${fl#*/}")
     done < <(find . -regextype posix-extended -regex '.+\.(hh|cc)' \
                     -not -path '*/appkit/*' -type f )
-    
     fh="${fheaders[${#fheaders[@]}-1]}"
     fs="${fsources[${#fsources[@]}-1]}"
     unset fheaders[${#fheaders[@]}-1] fsources[${#fsources[@]}-1]
@@ -62,12 +63,14 @@ function odreexgen_makefile() {
 
 function odreexgen_cleanup() {
     find . -name '*~' | xargs rm -rf
+    find . -name '*.out' | xargs rm -rf
     rm -rf autom4te.cache aclocal.m4 compile \
            configure depcomp install-sh missing
     rm -rf stamp-h* dist ltmain.sh libtool ar-lib
     rm -rf autom4te.cache aclocal.m4 *.log *.status
     rm -rf Makefile Makefile.in missing stamp* *.sub
     rm -rf depcomp install-sh configure config.*
+    rm -rf *.mk odreexconfig.h* *.pc
 }
 
 #
@@ -79,9 +82,10 @@ function odreexgen_reconf() {
     odreexgen_makefile
     test -n "$srcdir" || srcdir="$(dirname "$0")"
     test -n "$srcdir" || srcdir=.
-    autoreconf --force --install --verbose "$srcdir"
+    touch odreexconfig.h.in
+    autoreconf --force --install --verbose "$srcdir" || exit 1
     if patch -s --dry-run < patch/ltmain-as-needed.patch; then
-        patch -s -p0 < patch/ltmain-as-needed.patch
+        patch -s -p0 < patch/ltmain-as-needed.patch || exit 1
         printf "ltmain.sh patched for --as-needed\n"
     else
         printf "ltmain.sh could not be patched for --as-needed\n"
@@ -98,6 +102,7 @@ function odreexgen_distcheck() {
     odreexgen_makefile
     test -n "$srcdir" || srcdir="$(dirname "$0")"
     test -n "$srcdir" || srcdir=.
+    touch odreexconfig.h.in
     autoreconf --force --install --verbose "$srcdir"
     if patch -s --dry-run < patch/ltmain-as-needed.patch; then
         patch -s -p0 < patch/ltmain-as-needed.patch
@@ -109,7 +114,7 @@ function odreexgen_distcheck() {
     rm -rf autom4te.cache
     find . -name '*~' | xargs rm -rf
     ./configure
-    make distcheck
+    make distcheck && odreexgen_cleanup
 }
 
 #
@@ -137,6 +142,14 @@ function odreexgen_getopts() {
             exit
             ;;
         d)  odreexgen_distcheck
+            rm -rf dist
+            mkdir dist
+            mv *.tar.* dist
+            cd dist
+            for x in *.tar.*; do
+                sha1sum $x > $x.sha1
+                md5sum  $x > $x.md5
+            done
             exit
             ;;
         *)  odreexgen_help

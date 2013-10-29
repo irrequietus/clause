@@ -14,7 +14,7 @@ AC_CANONICAL_HOST
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_PROGRAM([make])
 
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 dist-xz -Wall no-define foreign])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 dist-xz -Wall no-define foreign tar-ustar])
 
 m4_include([m4/ax_cxx_compile_stdcxx_11.m4])
 

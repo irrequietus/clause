@@ -18,9 +18,6 @@
  *
  */
 
-#ifndef _ODREEX_TESTS_AMPLE_HH_
-#define _ODREEX_TESTS_AMPLE_HH_
-
 #include <odreex/ample/test.hh>
 #include <odreex/ample/vector.hh>
 
@@ -146,4 +143,8 @@ struct check_ample_vector
 } /* ample */
 } /* odreex */
 
-#endif /* _ODREEX_TESTS_AMPLE_HH_ */
+int main() {
+    AMPLE_TEST_RUN( check_ample_vector
+                  , "testing odreex::ample::vector" );
+    return {};
+}

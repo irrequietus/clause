@@ -41,4 +41,25 @@ struct name \
 
 #define PPMPF_TEST_TYPE(...) odreex::ppmpf::test::__VA_ARGS__
 
+#define PPMPF_TEST_BLOCK____(x) odreex::ample::test::x
+#define PPMPF_TEST_BLOCK___(x) PPMPF_CAT(odreex::ample::test::,x)
+#define PPMPF_TEST_BLOCK__(a,b) \
+        PPMPF_DREF(a),PPMPF_DREF(PPMPF_DREF(b))
+
+#define PPMPF_TEST_BLOCK_(t) \
+        PPMPF_DREF(PPMPF_TUP_POP( \
+            PPMPF_TUP_FOLDL( PPMPF_TEST_BLOCK__, () \
+                           , PPMPF_TUP_MAP(PPMPF_TEST_TYPE, t))))
+
+#define PPMPF_TEST_BLOCK(nspace,name,tests,expected) \
+namespace odreex { namespace nspace { namespace test { \
+struct name \
+     : PPMPF_TEST_BLOCK____(check)< expected \
+            , PPMPF_TEST_BLOCK____(check_all)<PPMPF_TEST_BLOCK_(tests)>>  \
+{}; \
+} } }
+
+#define PPMPF_TEST_RUN(name, text) \
+        odreex::ppmpf::test::name::deploy(text);
+
 #endif /* _ODREEX_PPMPF_TEST_HH_ */
