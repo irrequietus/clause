@@ -64,6 +64,10 @@ function odreexgen_makefile() {
 function odreexgen_cleanup() {
     find . -name '*~' | xargs rm -rf
     find . -name '*.out' | xargs rm -rf
+    find . -name '*.deps' | xargs rm -rf
+    find . -name '*.test' | xargs rm -rf
+    find . -name '*.libs' | xargs rm -rf
+    find . -name '*.dirstamp' | xargs rm -rf
     rm -rf autom4te.cache aclocal.m4 compile \
            configure depcomp install-sh missing
     rm -rf stamp-h* dist ltmain.sh libtool ar-lib

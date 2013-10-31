@@ -30,15 +30,17 @@ If you wish to just run the tests available for odreex, simply clone the git
 repository and run make as follows in your terminal:
 
     git clone git://github.com/irrequietus/odreex.git
-    cd odreex/tests
+    cd odreex
+    ./configure
     make test
 
 If you wish to get ANSI coloured output for the tests, do the following
 variation of the previously mentioned commands in your terminal:
 
     git clone git://github.com/irrequietus/odreex.git
-    cd odreex/tests
-    make ctest
+    cd odreex
+    ./configure --enable-ansi-colors
+    make test
 
 Reporting bugs
 --------------

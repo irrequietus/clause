@@ -33,4 +33,5 @@ Session.vim
 *.test
 *.libs
 *.dirstamp
+*.deps
 
