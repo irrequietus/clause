@@ -47,6 +47,22 @@ PPMPF_TEST( ppmpf_tup_empty4
           , PPMPF_TUP_EMPTY((()))
           , 0 )
 
+PPMPF_TEST( ppmpf_tup_join
+          , "PPMPF_TUP_JOIN of 2 tuples with 2 items each"
+          , PPMPF_TUP_JOIN((a,a),(a,a))
+          , (a,a,a,a) )
+
+PPMPF_TEST( ppmpf_tup_join1
+          , "PPMPF_TUP_JOIN of 2 tuples with 4 items each"
+          , PPMPF_TUP_JOIN((a,a,a,a),(b,b,b,b))
+          , (a,a,a,a,b,b,b,b) )
+
+PPMPF_TEST( ppmpf_tup_join2
+          , "PPMPF_TUP_JOIN 4 tuples using PPMPF_TUP_FOLDL_OF"
+          , PPMPF_TUP_FOLDL_OF( ((PPMPF_TUP_JOIN,_1),_2)
+                              , ((a,a),(b,b),(c,c),(d,d)) )
+          , ((a,a,b,b,c,c,d,d)) )
+
 PPMPF_TEST( ppmpf_tup_reverse
           , "PPMPF_TUP_REVERSE with 128 arguments"
           , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
@@ -69,6 +85,9 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup_empty2
                   , ppmpf_tup_empty3
                   , ppmpf_tup_empty4
+                  , ppmpf_tup_join
+                  , ppmpf_tup_join1
+                  , ppmpf_tup_join2
                   , ppmpf_tup_reverse )
                 , true )
 
