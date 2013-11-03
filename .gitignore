@@ -34,4 +34,19 @@ Session.vim
 *.libs
 *.dirstamp
 *.deps
+Makefile
+Makefile.in
+ar-lib
+config.guess
+config.h
+config.h.in
+config.status
+libtool
+ltmain.sh
+odreex-0.1.pc
+odreexconfig.h
+odreexconfig.h.in
+*.tar.bz2
+*.tar.gz
+*.tar.xz
 

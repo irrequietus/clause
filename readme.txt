@@ -42,6 +42,15 @@ variation of the previously mentioned commands in your terminal:
     ./configure --enable-ansi-colors
     make test
 
+In order to run compile and run a single test within the subdirectories for ample
+and / or ppmpf, after properly configuring the package as above run something like
+the example below, properly substituting "testname1" and "testname2":
+
+    make just ample/testname1.cc
+    make just ppmpf/testname2.cc
+
+This will result in just compiling and running the test you are interested in.
+
 Reporting bugs
 --------------
 
