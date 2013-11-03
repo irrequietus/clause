@@ -22,6 +22,31 @@
 #include <odreex/ppmpf/ppfk.hh>
 #include <odreex/ppmpf/test.hh>
 
+PPMPF_TEST( ppmpf_tup_empty
+          , "PPMPF_TUP_EMPTY with an empty tuple"
+          , PPMPF_TUP_EMPTY(())
+          , 1 )
+
+PPMPF_TEST( ppmpf_tup_empty1
+          , "PPMPF_TUP_EMPTY with a single argument"
+          , PPMPF_TUP_EMPTY((a single argument))
+          , 0 )
+
+PPMPF_TEST( ppmpf_tup_empty2
+          , "PPMPF_TUP_EMPTY with a single comma"
+          , PPMPF_TUP_EMPTY((,))
+          , 0 )
+
+PPMPF_TEST( ppmpf_tup_empty3
+          , "PPMPF_TUP_EMPTY with a macro as argument"
+          , PPMPF_TUP_EMPTY((PPMPF_TEST))
+          , 0 )
+
+PPMPF_TEST( ppmpf_tup_empty4
+          , "PPMPF_TUP_EMPTY with a balanced parenthesis"
+          , PPMPF_TUP_EMPTY((()))
+          , 0 )
+
 PPMPF_TEST( ppmpf_tup_reverse
           , "PPMPF_TUP_REVERSE with 128 arguments"
           , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
@@ -39,7 +64,12 @@ f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_tuple
-                , ( ppmpf_tup_reverse )
+                , ( ppmpf_tup_empty
+                  , ppmpf_tup_empty1
+                  , ppmpf_tup_empty2
+                  , ppmpf_tup_empty3
+                  , ppmpf_tup_empty4
+                  , ppmpf_tup_reverse )
                 , true )
 
 int main() {
