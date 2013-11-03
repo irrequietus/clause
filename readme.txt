@@ -31,6 +31,7 @@ repository and run make as follows in your terminal:
 
     git clone git://github.com/irrequietus/odreex.git
     cd odreex
+    ./autogen.sh
     ./configure
     make test
 
@@ -39,8 +40,12 @@ variation of the previously mentioned commands in your terminal:
 
     git clone git://github.com/irrequietus/odreex.git
     cd odreex
+    ./autogen.sh
     ./configure --enable-ansi-colors
     make test
+
+Do remember that autogen.sh needs to run once for creating the necessary
+boilerplate for autotools to run for in a freshly cloned repository.
 
 In order to run compile and run a single test within the subdirectories for ample
 and / or ppmpf, after properly configuring the package as above run something like
