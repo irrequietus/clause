@@ -34,22 +34,45 @@ pkgconfig_DATA = odreex-$(ODREEX_API_VERSION).pc
 dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit tests
 
+define println_building
+    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m building: \x1b[39;01m%s\x1b[0m\n"\
+           $1
+endef
 
-CXX_TMSG=printf \
-	"\x1b[34;01m[*]\x1b[0m:\x1b[36;01m building: \x1b[39;01m%s\x1b[0m\n"
+define make_just
+    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m makejust: \x1b[39;01m%s\x1b[0m\n"\
+           $1
 
-CXX_FAST=printf \
-	"\x1b[39;01m[!]\x1b[0m:\x1b[36;01m just: \x1b[39;01m%s\x1b[0m\n"
+    $(foreach, x, \
+        "test case : tests/$1" \
+        "compiler  : $(CXX)" \
+        "flags used: $(CXXFLAGS) $(CPPFLAGS)", \
+        $(call println_fast,$(x)))
 
-CXX_TEST=$(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . -Wall -Werror -Wextra -pedantic
+    $(CXX) $(CXXFLAGS) $(CPPFLAGS) \
+        -I . -Wall -Werror -Wextra -pedantic tests/$1 \
+        -o $(patsubst %.cc,tests/%.test,$1);
+endef
 
-CXX_TEST_FLAGS=printf \
-	"\x1b[34;01m[+]\x1b[0m:\x1b[36;01m cxxflags: \x1b[39;01m%s\x1b[0m\n"
+define println_cxxflags
+    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m cxxflags: \x1b[39;01m%s\x1b[0m\n"\
+           $1
+endef
 
+define println_cppflags
+    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m cppflags: \x1b[39;01m%s\x1b[0m\n"\
+           $1
+endef
 
-CPP_TEST_FLAGS=printf \
-	"\x1b[34;01m[+]\x1b[0m:\x1b[36;01m cxxflags: \x1b[39;01m%s\x1b[0m\n"
+define println_compiler
+    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m compiler: \x1b[39;01m%s\x1b[0m\n"\
+           $(CXX)
+endef
 
+define compile_test
+    $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . -Wall -Werror -Wextra -pedantic \
+    $1 -o $2 || exit 1;
+endef
 
 .PHONY: tests test clean clean-local just \
 	$(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS))
@@ -62,14 +85,12 @@ dist-hook:
 	rm -f $(distdir)/tests/ppmpf/*.test
 
 tests:
-	@$(CXX_TEST_FLAGS) "$(CXXFLAGS) -I . -Wall -Werror -Wextra -pedantic"
-	@$(CPP_TEST_FLAGS) "$(CPPFLAGS)"
 	@$(foreach x, \
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
-		$(CXX_TMSG) "$(patsubst tests/%.cc,%.test,$(x))"; \
-		$(CXX_TEST) "$(x)" -o "$(patsubst %.cc,%.test,$(x))" || exit 1;)
+		$(call println_building,"$(patsubst tests/%.cc,%.test,$(x))");\
+		$(call compile_test,"$(x)","$(patsubst %.cc,%.test,$(x))"))
 
 test: tests
 	@$(foreach x, \
@@ -90,10 +111,9 @@ $(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS)):
 	@:
 	
 just:
+	@$(call println_compiler)
+	@$(call println_cxxflags,"$(CXXFLAGS) -Wall -Werror -Wextra -pedantic")
+	@$(call println_cppflags,"$(CPPFLAGS)")
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
-		$(CXX_FAST) "test case : tests/$(s)"; \
-		$(CXX_FAST) "compiler  : $(CXX)"; \
-		$(CXX_FAST) "flags used: $(CXXFLAGS) $(CPPFLAGS)"; \
-		$(CXX_TEST) tests/$(s) \
-				-o $(patsubst %.cc,tests/%.test,$(s));)
+		$(call make_just,$(s)))
