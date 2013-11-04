@@ -83,10 +83,8 @@ struct check_all_pass
 } /* odreex */
 
 int main() {
-
-    AMPLE_TEST_RUN( check_all_pass
-                  , "all of the following tests are supposed to pass" );
-
-    return {};
+    return
+        AMPLE_TEST_RUN( check_all_pass
+                    , "all of the following tests are supposed to pass" );
 }
 

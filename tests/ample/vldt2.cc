@@ -85,10 +85,8 @@ struct check_all_fail
 } /* odreex */
 
 int main() {
-
-    AMPLE_TEST_RUN( check_all_fail
-                  , "all of the following tests are supposed to fail" );
-
-    return {};
+    return
+        AMPLE_TEST_RUN( check_all_fail
+                      , "all of the following tests are supposed to fail" );
 }
 

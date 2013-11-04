@@ -92,7 +92,7 @@ PPMPF_TEST_BLOCK( ppmpf
                 , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_tuple
-                  , "testing ppmpf tuples" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_tuple
+                    , "testing ppmpf tuples" );
 }

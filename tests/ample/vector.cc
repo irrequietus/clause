@@ -144,7 +144,7 @@ struct check_ample_vector
 } /* odreex */
 
 int main() {
-    AMPLE_TEST_RUN( check_ample_vector
-                  , "testing odreex::ample::vector" );
-    return {};
+    return
+        AMPLE_TEST_RUN( check_ample_vector
+                    , "testing odreex::ample::vector" );
 }
