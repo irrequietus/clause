@@ -117,7 +117,7 @@ PPMPF_TEST_BLOCK( ppmpf
                , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_vcat
-                  , "testing ppmpf concatenation" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_vcat
+                      , "testing ppmpf concatenation" );
 }

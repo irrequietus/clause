@@ -47,7 +47,7 @@ struct check_charseq
 } /* odreex */
 
 int main() {
-    AMPLE_TEST_RUN( check_charseq
-                  , "testing odreex::ample::charseq metastring" );
-    return {};
+    return
+        AMPLE_TEST_RUN( check_charseq
+                    , "testing odreex::ample::charseq metastring" );
 }

@@ -79,7 +79,7 @@ struct check_all_natural
 } /* odreex */
 
 int main() {
-    AMPLE_TEST_RUN( check_all_natural
-                  , "all of the following tests should pass" );
-    return {};
+    return
+        AMPLE_TEST_RUN( check_all_natural
+                      , "all of the following tests should pass" );
 }
