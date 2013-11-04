@@ -429,6 +429,30 @@ private:
         return &shnoop[checks_total];
     }
     
+    static constexpr std::size_t total_(as_output) {
+        return checks_total;
+    }
+    
+    static constexpr std::size_t total_(as_result) {
+        return checks_total;
+    }
+    
+    static constexpr std::size_t total_(as_expect) {
+        return checks_total;
+    }
+    
+    static constexpr std::size_t total_(as_failed) {
+        return failed_total;
+    }
+    
+    static constexpr std::size_t total_(as_passed) {
+        return passed_total;
+    }
+    
+    static constexpr std::size_t total_(as_showln) {
+        return checks_total;
+    }
+    
 public:
     template<typename Input_T = as_showln>
     static constexpr auto at(std::size_t const & i)
@@ -449,6 +473,10 @@ public:
     auto operator[](std::size_t const &i) const
       -> decltype(at_(i, Input_T()))
     { return at_(i, Input_T()); }
+    
+    template<typename Input_T = as_showln>
+    static constexpr std::size_t total()
+    { return total_(Input_T()); }
     
     static bool println(std::size_t const &i) {
         size_t sz(strlen(showln[i]))
@@ -476,11 +504,13 @@ public:
 #endif
     }
     
-    static void deploy(char const *s = nullptr) {
+    static std::size_t deploy(char const *s = nullptr) {
         println_head(!s ? "test block initiating" : s);
         std::for_each(begin(), end(), println);
         println_foot("test block complete");
+        return total<as_failed>();
     }
+
 };
 
 
