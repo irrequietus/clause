@@ -103,6 +103,50 @@ f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,\
 f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,\
 f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
 
+PPMPF_TEST( ppmpf_tup2seq8
+          , "PPMPF_TUP2SEQ with 8 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7))
+          , (0)(1)(2)(3)(4)(5)(6)(7) )
+
+PPMPF_TEST( ppmpf_tup2seq16
+          , "PPMPF_TUP2SEQ with 16 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f) )
+
+PPMPF_TEST( ppmpf_tup2seq32
+          , "PPMPF_TUP2SEQ with 32 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f) )
+
+PPMPF_TEST( ppmpf_tup2seq64
+          , "PPMPF_TUP2SEQ with 64 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)\
+(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f) )
+
+PPMPF_TEST( ppmpf_tup2seq128
+          , "PPMPF_TUP2SEQ with 128 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)\
+(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)\
+(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f))
+
 PPMPF_TEST_BLOCK( ppmpf
                 , check_tuple
                 , ( ppmpf_tup_empty
@@ -117,7 +161,12 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup_reverse16
                   , ppmpf_tup_reverse32
                   , ppmpf_tup_reverse64
-                  , ppmpf_tup_reverse128 )
+                  , ppmpf_tup_reverse128
+                  , ppmpf_tup2seq8
+                  , ppmpf_tup2seq16
+                  , ppmpf_tup2seq32
+                  , ppmpf_tup2seq64
+                  , ppmpf_tup2seq128 )
                 , true )
 
 int main() {
