@@ -63,7 +63,32 @@ PPMPF_TEST( ppmpf_tup_join2
                               , ((a,a),(b,b),(c,c),(d,d)) )
           , ((a,a,b,b,c,c,d,d)) )
 
-PPMPF_TEST( ppmpf_tup_reverse
+PPMPF_TEST( ppmpf_tup_reverse8
+          , "PPMPF_TUP_REVERSE with 8 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7))
+          , (7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse16
+          , "PPMPF_TUP_REVERSE with 16 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse32
+          , "PPMPF_TUP_REVERSE with 32 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse64
+          , "PPMPF_TUP_REVERSE with 64 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,\
+f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse128
           , "PPMPF_TUP_REVERSE with 128 arguments"
           , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
                               ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
@@ -88,7 +113,11 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup_join
                   , ppmpf_tup_join1
                   , ppmpf_tup_join2
-                  , ppmpf_tup_reverse )
+                  , ppmpf_tup_reverse8
+                  , ppmpf_tup_reverse16
+                  , ppmpf_tup_reverse32
+                  , ppmpf_tup_reverse64
+                  , ppmpf_tup_reverse128 )
                 , true )
 
 int main() {
