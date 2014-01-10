@@ -39,6 +39,9 @@
 #define PPMPF_TUP_GET_(...) PPMPF_TUP_GET__(__VA_ARGS__,)
 #define PPMPF_TUP_GET(t) (PPMPF_TUP_GET___(PPMPF_TUP_GET_ t,))
 
+/* NOTE: for "safe" tuples. */
+#define PPMPF_TUP_1GET(t) PPMPF_TUP_GET___(PPMPF_TUP_GET_ t,)
+
 /* NOTE: PMPF_TUP_POP: will remove the first element of a tuple. */
 #define PPMPF_TUP_POP___(x,...) (__VA_ARGS__)
 #define PPMPF_TUP_POP__(...) PPMPF_TUP_POP___(__VA_ARGS__)
@@ -52,6 +55,11 @@
 #define PPMPF_TUP_EMPTY(t) \
         PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
                      , PPMPF_JUST PPMPF_TUP_GET((PPMPF_DREF(t),~)) )
+
+/* NOTE: for "safe" tuples */
+#define PPMPF_TUP_1EMPTY(t) \
+        PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
+                     , PPMPF_TUP_1GET((PPMPF_DREF(t),~)) )
 
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */
@@ -70,7 +78,7 @@
                     , PPMPF_JUST \
                     , PPMPF_TUP_REVERSE_)(tup)
 
-/* NOTE: PPMPF_TUP_FOLDR: high order function performing a rifht fold over a
+/* NOTE: PPMPF_TUP_FOLDR: high order function performing a right fold over a
  *       ppmpf tuple. */
 #define PPMPF_TUP_FOLDR(f,s,l) \
         PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__( f \

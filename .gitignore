@@ -49,4 +49,5 @@ odreexconfig.h.in
 *.tar.bz2
 *.tar.gz
 *.tar.xz
+.settings/*
 
