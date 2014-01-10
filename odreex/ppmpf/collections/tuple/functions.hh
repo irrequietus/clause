@@ -60,6 +60,32 @@
 #define PPMPF_TUP_1EMPTY(t) \
         PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
                      , PPMPF_TUP_1GET((PPMPF_DREF(t),~)) )
+                     
+/* NOTE: PPMPF_UTUP_FOLDL: high order function performing a left fold over an
+ *       unsafe / raw ppmpf tuple.
+ */
+#define PPMPF_UTUP_FOLDL(f,s,t) \
+        PPMPF_FLDX0G( f \
+                    , (s)(t) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0I \
+                    , PPMPF_FLDX0L \
+                    , PPMPF_FLDX0K ,)
+
+/* NOTE: PPMPF_UTUP_FOLDL: high order function performing a right fold over an
+ *       unsafe / raw ppmpf tuple.
+ */
+#define PPMPF_UTUP_FOLDR(f,s,t) \
+        PPMPF_FLDX0G( f \
+                    , (s)(PPMPF_TUP_REVERSE(t)) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0O \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
 
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */

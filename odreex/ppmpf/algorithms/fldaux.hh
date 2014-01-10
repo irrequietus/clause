@@ -164,4 +164,7 @@
 #define PPMPF_FLDX0R(n,x) \
         PPMPF_TUP_EMPTY(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x)))
 
+#define PPMPF_FLDX0S(x,y) \
+        x,(y)
+
 #endif /* _ODREEX_PPMPF_FLDAUX_HH_ */
