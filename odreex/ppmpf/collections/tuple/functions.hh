@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -67,6 +67,19 @@
 #define PPMPF_UTUP_FOLDL(f,s,t) \
         PPMPF_FLDX0G( f \
                     , (s)(t) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0I \
+                    , PPMPF_FLDX0L \
+                    , PPMPF_FLDX0K ,)
+
+/* NOTE: PPMPF_UTUP_FOLDL_OF: high order function performing a left fold over an
+ *       unsafe / raw ppmpf tuple, with no fold seed.
+ */
+#define PPMPF_UTUP_FOLDL_OF(f,t) \
+        PPMPF_FLDX0G( f \
+                    , ((PPMPF_TUP_GET(t)))(PPMPF_TUP_POP(t)) \
                     , PPMPF_TUP_GET \
                     , PPMPF_TUP_POP \
                     , PPMPF_TUP_EMPTY \
