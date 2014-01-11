@@ -24,6 +24,7 @@
 #include <odreex/ppmpf/kernel/cpro/empty.hh>
 #include <odreex/ppmpf/collections/tuple/essence.hh>
 #include <odreex/ppmpf/algorithms/fold.hh>
+#include <odreex/ppmpf/algorithms/zip.hh>
 #include <odreex/ppmpf/algorithms/functional.hh>
 #include <odreex/ppmpf/collections/tuple/atpos.hh>
 
