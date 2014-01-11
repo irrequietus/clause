@@ -167,4 +167,13 @@
 #define PPMPF_FLDX0S(x,y) \
         x,(y)
 
+#define PPMPF_FLDX0T(a0,a1) a0,a1
+#define PPMPF_FLDX0U(a0,a1,a2) a0,a1,a2
+#define PPMPF_FLDX0V(a0,a1,a2,a3) a0,a1,a2,a3
+#define PPMPF_FLDX0W(a0,a1,a2,a3,a4) a0,a1,a2,a3,a4
+#define PPMPF_FLDX0X(a0,a1,a2,a3,a4,a5) a0,a1,a2,a3,a4,a5
+#define PPMPF_FLDX0Y(a0,a1,a2,a3,a4,a5,a6) a0,a1,a2,a3,a4,a5,a6
+#define PPMPF_FLDX0Z(a0,a1,a2,a3,a4,a5,a6,a7) a0,a1,a2,a3,a4,a5,a5,a6,a7
+#define PPMPF_FLDX10(a0,a1,a2,a3,a4,a5,a6,a7,a8) a0,a1,a2,a3,a4,a5,a6,a7,a8
+
 #endif /* _ODREEX_PPMPF_FLDAUX_HH_ */

@@ -217,5 +217,5 @@
 
 #define PPMPF_ZIPAUX_APPLY(f,sl,g,...) \
         ((PPMPF_APPLY(f,PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl)))))))
-
+        
 #endif /* _ODREEX_PPMPF_ALGORITHMS_ZIPAUX_HH_ */
