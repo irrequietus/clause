@@ -100,6 +100,13 @@
                     , PPMPF_FLDX0L  \
                     , PPMPF_FLDX0K ,)
 
+/* NOTE: PPMPF_TUPLE: safe ppmpf tuple constructor */
+#define PPMPF_TUPLE(...) \
+        PPMPF_IFELSE( PPMPF_TUP_EMPTY((__VA_ARGS__)) \
+                    , PPMPF_UNIT \
+                    , PPMPF_UTUP_FOLDL_OF )\
+        (PPMPF_FLDX0S,(__VA_ARGS__))
+
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */
 #define PPMPF_TUP_FOLDL(f,s,l) \

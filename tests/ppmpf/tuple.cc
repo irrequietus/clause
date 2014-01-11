@@ -47,6 +47,26 @@ PPMPF_TEST( ppmpf_tup_empty4
           , PPMPF_TUP_EMPTY((()))
           , 0 )
 
+PPMPF_TEST( ppmpf_tup_tuple
+          , "PPMPF_TUPLE constructor with no items"
+          , PPMPF_TUPLE()
+          , () )
+
+PPMPF_TEST( ppmpf_tup_tuple1
+          , "PPMPF_TUPLE constructor with one item"
+          , PPMPF_TUPLE(x)
+          , ((x)) )
+
+PPMPF_TEST( ppmpf_tup_tuple2
+          , "PPMPF_TUPLE constructor with 2 items"
+          , PPMPF_TUPLE(1,2)
+          , ((1),(2)) )
+
+PPMPF_TEST( ppmpf_tup_tuple4
+          , "PPMPF_TUPLE constructor with 4 items"
+          , PPMPF_TUPLE(1,2,3,4)
+          , ((1),(2),(3),(4)) )
+
 PPMPF_TEST( ppmpf_tup_join
           , "PPMPF_TUP_JOIN of 2 tuples with 2 items each"
           , PPMPF_TUP_JOIN((a,a),(a,a))
@@ -85,6 +105,10 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup_empty2
                   , ppmpf_tup_empty3
                   , ppmpf_tup_empty4
+                  , ppmpf_tup_tuple
+                  , ppmpf_tup_tuple1
+                  , ppmpf_tup_tuple2
+                  , ppmpf_tup_tuple4
                   , ppmpf_tup_join
                   , ppmpf_tup_join1
                   , ppmpf_tup_join2
