@@ -43,13 +43,12 @@ define println
 endef
 
 define make_just
-    $(call println,makejust,$1)
+    $(call println,"makejust",$1)
 
     $(foreach, x, \
         "test case : tests/$1" \
         "compiler  : $(CXX)" \
-        "flags used: $(CXXFLAGS) $(CPPFLAGS)", \
-        $(call println_fast,$(x)))
+        "flags used: $(CXXFLAGS) $(CPPFLAGS)")
 
     $(CXX) $(CXXFLAGS) $(CPPFLAGS) \
         -I . -Wall -Werror -Wextra -pedantic tests/$1 \
@@ -57,8 +56,8 @@ define make_just
 endef
 
 define compile_test
-    $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . -Wall -Werror -Wextra -pedantic \
-    $1 -o $2 || exit 1;
+    { $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . -Wall -Werror -Wextra -pedantic \
+      $1 -o $2; } 2>>errors.log || exit 1;
 endef
 
 .PHONY: tests test clean clean-local just \
@@ -98,9 +97,9 @@ $(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS)):
 	@:
 	
 just:
-	@$(call println, compiler, "$(CXX)")
-	@$(call println, cxxflags, "$(CXXFLAGS) $(TESTFLAGS)")
-	@$(call println, cppflags, "$(CPPFLAGS)")
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
 		$(call make_just,$(s)))
