@@ -1,5 +1,5 @@
 ## libodreex:
-## Copyright (C) 2013 George Makrydakis <irrequietus@gmail.com>
+## Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
 ##
 ## This file is part of odreex.
 ##
@@ -33,15 +33,17 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = odreex-$(ODREEX_API_VERSION).pc
 dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit tests
+TESTFLAGS = -Wall -Werror -Wextra -pedantic
 
-define println_building
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m building: \x1b[39;01m%s\x1b[0m\n"\
-           $1
+define println
+    $(if $(filter $(CPPFLAGS),-DUSE_ANSI_COLORS),
+        @printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m %s: \x1b[39;01m%s\x1b[0m\n"\
+            $1 $2,
+        @printf "[*] %s: %s\n" $1 $2)
 endef
 
 define make_just
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m makejust: \x1b[39;01m%s\x1b[0m\n"\
-           $1
+    $(call println,makejust,$1)
 
     $(foreach, x, \
         "test case : tests/$1" \
@@ -52,21 +54,6 @@ define make_just
     $(CXX) $(CXXFLAGS) $(CPPFLAGS) \
         -I . -Wall -Werror -Wextra -pedantic tests/$1 \
         -o $(patsubst %.cc,tests/%.test,$1);
-endef
-
-define println_cxxflags
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m cxxflags: \x1b[39;01m%s\x1b[0m\n"\
-           $1
-endef
-
-define println_cppflags
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m cppflags: \x1b[39;01m%s\x1b[0m\n"\
-           $1
-endef
-
-define println_compiler
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m compiler: \x1b[39;01m%s\x1b[0m\n"\
-           $(CXX)
 endef
 
 define compile_test
@@ -89,7 +76,7 @@ tests:
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
-		$(call println_building,"$(patsubst tests/%.cc,%.test,$(x))");\
+		$(call println,building,"$(patsubst tests/%.cc,%.test,$(x))");\
 		$(call compile_test,"$(x)","$(patsubst %.cc,%.test,$(x))"))
 
 test: tests
@@ -111,9 +98,9 @@ $(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS)):
 	@:
 	
 just:
-	@$(call println_compiler)
-	@$(call println_cxxflags,"$(CXXFLAGS) -Wall -Werror -Wextra -pedantic")
-	@$(call println_cppflags,"$(CPPFLAGS)")
+	@$(call println, compiler, "$(CXX)")
+	@$(call println, cxxflags, "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, cppflags, "$(CPPFLAGS)")
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
 		$(call make_just,$(s)))
