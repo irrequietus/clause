@@ -61,8 +61,9 @@ something like the example below, properly substituting "testname1" and
 
 This will result in just compiling and running the test you are interested in.
 
-Reporting bugs
---------------
+Reporting bugs and other issues
+-------------------------------
 
-Since there is no bugtracker at this point, please report any bugs you may find
-by email and kindly remember that this is pretty much a work in progress!
+Please report any issues over at https://github.com/irrequietus/odreex/issues
+
+
