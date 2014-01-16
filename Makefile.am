@@ -43,23 +43,23 @@ define println
 endef
 
 define testrun
-    ./$1 2>>errors.log || exit $?;
+    $1 2>>errors.log || exit 1;
 endef
 
 define testrun_time
      { time -f "\"[$(patsubst tests/%.test,%.test,$1)]\",%e,%U,%S,%M" $1; } \
-	2>>errors.log || exit $?;
+	2>>errors.log || exit 1;
 endef
 
 define compile_test
     { $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
-      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
+      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit 1
 endef
 
 define compile_test_time
     { time -f "\"[$(patsubst tests/%.cc,%.cc,$1)]\",\"$(CXX)\",%e,%U,%S,%M" \
       $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
-      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
+      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit 1
 endef
 
 .PHONY: tests test clean clean-local just jtim ctim tctime \
@@ -92,8 +92,8 @@ test: tests
 	@$(foreach x, \
 	$(sort $(foreach f, \
 	$(dir tests/*/*), \
-	$(wildcard $(f)*.cc))), \
-	$(call testrun, $(patsubst %.cc,%.test,$(x)) || exit 1; ))
+	$(wildcard $(f)*.test))), \
+	$(call testrun, $(x) ))
 
 clean-local:
 	rm -f tests/ample/*.test
