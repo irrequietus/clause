@@ -57,7 +57,7 @@ define compile_test
 endef
 
 define compile_test_time
-    { time -f "\"[$(patsubst tests/%.cc,%.cc,$1)]\",%e,%U,%S,%M" \
+    { time -f "\"[$(patsubst tests/%.cc,%.cc,$1)]\",\"$(CXX)\",%e,%U,%S,%M" \
       $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
       $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
 endef

@@ -55,7 +55,7 @@ PPMPF_TEST_BLOCK( ppmpf
                 , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_tuple
+    PPMPF_TEST_RUN( check_tuple_zipwith
                   , "testing ppmpf PPMPF_TUP_ZIPWITH (2 - 4)" );
     return {};
 }
