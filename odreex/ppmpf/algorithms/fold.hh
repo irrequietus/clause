@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *

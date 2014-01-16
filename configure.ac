@@ -1,8 +1,9 @@
+## Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
 ## odreex configure.ac
 
 AC_INIT([libodreex],
         [0.0.1],
-        [irrequietus@gmail.com],
+        [https://github.com/irrequietus/odreex/issues],
         [libodreex],
         [https://github.com/irrequietus/odreex])
 
