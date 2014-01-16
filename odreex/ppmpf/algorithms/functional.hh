@@ -33,7 +33,12 @@
  * argument forwarding, n-ary functions are supported, though this is a far
  * more demanding conceptually.
  */
+
+#define PPMPF_APPLY2(f,...) PPMPF_APPLY2_(f,__VA_ARGS__)
+#define PPMPF_APPLY2_(...) PPMPF_APPLY2__(__VA_ARGS__)
+#define PPMPF_APPLY2__(f,...) f(__VA_ARGS__)
+
 #define PPMPF_COMPOSE(x,fseq) \
-        PPMPF_SEQ_FOLDR(((PPMPF_APPLY,_1),_2),x,fseq)
+        PPMPF_SEQ_FOLDR(((PPMPF_APPLY2,_1),_2),x,fseq)
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FUNCTIONAL_HH_ */

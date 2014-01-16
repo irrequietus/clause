@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -24,6 +24,7 @@
 #include <odreex/ppmpf/kernel/cpro/empty.hh>
 #include <odreex/ppmpf/collections/tuple/essence.hh>
 #include <odreex/ppmpf/algorithms/fold.hh>
+#include <odreex/ppmpf/algorithms/zip.hh>
 #include <odreex/ppmpf/algorithms/functional.hh>
 #include <odreex/ppmpf/collections/tuple/atpos.hh>
 
@@ -39,6 +40,9 @@
 #define PPMPF_TUP_GET_(...) PPMPF_TUP_GET__(__VA_ARGS__,)
 #define PPMPF_TUP_GET(t) (PPMPF_TUP_GET___(PPMPF_TUP_GET_ t,))
 
+/* NOTE: for "safe" tuples. */
+#define PPMPF_TUP_1GET(t) PPMPF_TUP_GET___(PPMPF_TUP_GET_ t,)
+
 /* NOTE: PMPF_TUP_POP: will remove the first element of a tuple. */
 #define PPMPF_TUP_POP___(x,...) (__VA_ARGS__)
 #define PPMPF_TUP_POP__(...) PPMPF_TUP_POP___(__VA_ARGS__)
@@ -52,6 +56,57 @@
 #define PPMPF_TUP_EMPTY(t) \
         PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
                      , PPMPF_JUST PPMPF_TUP_GET((PPMPF_DREF(t),~)) )
+
+/* NOTE: for "safe" tuples */
+#define PPMPF_TUP_1EMPTY(t) \
+        PPMPF_EMPTY_A( PPMPF_TUP_POP(PPMPF_TUP_POP((PPMPF_DREF(t),~))) \
+                     , PPMPF_TUP_1GET((PPMPF_DREF(t),~)) )
+                     
+/* NOTE: PPMPF_UTUP_FOLDL: high order function performing a left fold over an
+ *       unsafe / raw ppmpf tuple.
+ */
+#define PPMPF_UTUP_FOLDL(f,s,t) \
+        PPMPF_FLDX0G( f \
+                    , (s)(t) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0I \
+                    , PPMPF_FLDX0L \
+                    , PPMPF_FLDX0K ,)
+
+/* NOTE: PPMPF_UTUP_FOLDL_OF: high order function performing a left fold over an
+ *       unsafe / raw ppmpf tuple, with no fold seed.
+ */
+#define PPMPF_UTUP_FOLDL_OF(f,t) \
+        PPMPF_FLDX0G( f \
+                    , ((PPMPF_TUP_GET(t)))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0I \
+                    , PPMPF_FLDX0L \
+                    , PPMPF_FLDX0K ,)
+
+/* NOTE: PPMPF_UTUP_FOLDL: high order function performing a right fold over an
+ *       unsafe / raw ppmpf tuple.
+ */
+#define PPMPF_UTUP_FOLDR(f,s,t) \
+        PPMPF_FLDX0G( f \
+                    , (s)(PPMPF_TUP_REVERSE(t)) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0O \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
+
+/* NOTE: PPMPF_TUPLE: safe ppmpf tuple constructor */
+#define PPMPF_TUPLE(...) \
+        PPMPF_IFELSE( PPMPF_TUP_EMPTY((__VA_ARGS__)) \
+                    , PPMPF_UNIT \
+                    , PPMPF_UTUP_FOLDL_OF )\
+        (PPMPF_FLDX0S,(__VA_ARGS__))
 
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */
@@ -70,7 +125,7 @@
                     , PPMPF_JUST \
                     , PPMPF_TUP_REVERSE_)(tup)
 
-/* NOTE: PPMPF_TUP_FOLDR: high order function performing a rifht fold over a
+/* NOTE: PPMPF_TUP_FOLDR: high order function performing a right fold over a
  *       ppmpf tuple. */
 #define PPMPF_TUP_FOLDR(f,s,l) \
         PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__( f \
