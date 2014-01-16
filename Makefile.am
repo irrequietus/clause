@@ -1,5 +1,5 @@
 ## libodreex:
-## Copyright (C) 2013 George Makrydakis <irrequietus@gmail.com>
+## Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
 ##
 ## This file is part of odreex.
 ##
@@ -33,48 +33,36 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = odreex-$(ODREEX_API_VERSION).pc
 dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit tests
+TESTFLAGS = -Wall -Werror -Wextra -pedantic
 
-define println_building
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m building: \x1b[39;01m%s\x1b[0m\n"\
-           $1
+define println
+    $(if $(filter $(CPPFLAGS),-DUSE_ANSI_COLORS),
+        @printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m %s: \x1b[39;01m%s\x1b[0m\n"\
+            $1 $2,
+        @printf "[*] %s: %s\n" $1 $2)
 endef
 
-define make_just
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m makejust: \x1b[39;01m%s\x1b[0m\n"\
-           $1
-
-    $(foreach, x, \
-        "test case : tests/$1" \
-        "compiler  : $(CXX)" \
-        "flags used: $(CXXFLAGS) $(CPPFLAGS)", \
-        $(call println_fast,$(x)))
-
-    $(CXX) $(CXXFLAGS) $(CPPFLAGS) \
-        -I . -Wall -Werror -Wextra -pedantic tests/$1 \
-        -o $(patsubst %.cc,tests/%.test,$1);
+define testrun
+    ./$1 2>>errors.log || exit $?;
 endef
 
-define println_cxxflags
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m cxxflags: \x1b[39;01m%s\x1b[0m\n"\
-           $1
-endef
-
-define println_cppflags
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m cppflags: \x1b[39;01m%s\x1b[0m\n"\
-           $1
-endef
-
-define println_compiler
-    printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m compiler: \x1b[39;01m%s\x1b[0m\n"\
-           $(CXX)
+define testrun_time
+     { time -f "\"[$(patsubst tests/%.test,%.test,$1)]\",%e,%U,%S,%M" $1; } \
+	2>>errors.log || exit $?;
 endef
 
 define compile_test
-    $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . -Wall -Werror -Wextra -pedantic \
-    $1 -o $2 || exit 1;
+    { $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
+      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
 endef
 
-.PHONY: tests test clean clean-local just \
+define compile_test_time
+    { time -f "\"[$(patsubst tests/%.cc,%.cc,$1)]\",%e,%U,%S,%M" \
+      $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
+      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
+endef
+
+.PHONY: tests test clean clean-local just jtim ctim tctime \
 	$(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS))
 
 %.o: %.cc
@@ -89,15 +77,23 @@ tests:
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
-		$(call println_building,"$(patsubst tests/%.cc,%.test,$(x))");\
-		$(call compile_test,"$(x)","$(patsubst %.cc,%.test,$(x))"))
+		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
+		$(call compile_test, $(x)))
 
-test: tests
+tctime:
 	@$(foreach x, \
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
-		$(patsubst %.cc,./%.test,$(x)) || exit 1; )
+		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
+		$(call compile_test_time,$(x)))
+
+test: tests
+	@$(foreach x, \
+	$(sort $(foreach f, \
+	$(dir tests/*/*), \
+	$(wildcard $(f)*.cc))), \
+	$(call testrun, $(patsubst %.cc,%.test,$(x)) || exit 1; ))
 
 clean-local:
 	rm -f tests/ample/*.test
@@ -106,14 +102,36 @@ clean-local:
 
 $(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS)):
 	@$(if $(wildcard tests/$*.test), \
-		tests/$*.test, \
-		$(error Deployable only after "make just $*.cc") )
-	@:
-	
+		@:, \
+		$(error deploy only after a make just target) )
+
 just:
-	@$(call println_compiler)
-	@$(call println_cxxflags,"$(CXXFLAGS) -Wall -Werror -Wextra -pedantic")
-	@$(call println_cppflags,"$(CPPFLAGS)")
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
-		$(call make_just,$(s)))
+		$(call println,"makejust",$(s)); \
+		$(call compile_test,tests/$(s)); \
+		$(call testrun_time, \
+			$(patsubst %.cc,%.test,tests/$(s))))
+
+jtim:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
+	@$(foreach s, \
+		$(filter-out $@, $(MAKECMDGOALS)), \
+		$(call println,"makejtim",$(s)); \
+		$(call compile_test_time,tests/$(s)); \
+		$(call testrun_time, \
+			$(patsubst %.cc,%.test,tests/$(s))))
+
+ctim:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
+	@$(foreach s, \
+		$(filter-out $@, $(MAKECMDGOALS)), \
+		$(call println,"makectim",$(s)); \
+		$(call compile_test_time,tests/$(s)))
