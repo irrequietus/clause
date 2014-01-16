@@ -42,25 +42,27 @@ define println
         @printf "[*] %s: %s\n" $1 $2)
 endef
 
-define make_just
-    $(call println,"makejust",$1)
+define testrun
+    ./$1 2>>errors.log || exit $?;
+endef
 
-    $(foreach, x, \
-        "test case : tests/$1" \
-        "compiler  : $(CXX)" \
-        "flags used: $(CXXFLAGS) $(CPPFLAGS)")
-
-    $(CXX) $(CXXFLAGS) $(CPPFLAGS) \
-        -I . -Wall -Werror -Wextra -pedantic tests/$1 \
-        -o $(patsubst %.cc,tests/%.test,$1);
+define testrun_time
+     { time -f "\"[$(patsubst tests/%.test,%.test,$1)]\",%e,%U,%S,%M" $1; } \
+	2>>errors.log || exit $?;
 endef
 
 define compile_test
-    { $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . -Wall -Werror -Wextra -pedantic \
-      $1 -o $2; } 2>>errors.log || exit 1;
+    { $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
+      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
 endef
 
-.PHONY: tests test clean clean-local just \
+define compile_test_time
+    { time -f "\"[$(patsubst tests/%.cc,%.cc,$1)]\",%e,%U,%S,%M" \
+      $(CXX) $(CXXFLAGS) $(CPPFLAGS) -I . $(TESTFLAGS) \
+      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit $?
+endef
+
+.PHONY: tests test clean clean-local just jtim ctim tctime \
 	$(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS))
 
 %.o: %.cc
@@ -75,15 +77,23 @@ tests:
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
-		$(call println,building,"$(patsubst tests/%.cc,%.test,$(x))");\
-		$(call compile_test,"$(x)","$(patsubst %.cc,%.test,$(x))"))
+		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
+		$(call compile_test, $(x)))
 
-test: tests
+tctime:
 	@$(foreach x, \
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
-		$(patsubst %.cc,./%.test,$(x)) || exit 1; )
+		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
+		$(call compile_test_time,$(x)))
+
+test: tests
+	@$(foreach x, \
+	$(sort $(foreach f, \
+	$(dir tests/*/*), \
+	$(wildcard $(f)*.cc))), \
+	$(call testrun, $(patsubst %.cc,%.test,$(x)) || exit 1; ))
 
 clean-local:
 	rm -f tests/ample/*.test
@@ -92,14 +102,36 @@ clean-local:
 
 $(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS)):
 	@$(if $(wildcard tests/$*.test), \
-		tests/$*.test, \
-		$(error Deployable only after "make just $*.cc") )
-	@:
-	
+		@:, \
+		$(error deploy only after a make just target) )
+
 just:
 	@$(call println, "compiler", "$(CXX)")
 	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
 	@$(call println, "cppflags", "$(CPPFLAGS)")
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
-		$(call make_just,$(s)))
+		$(call println,"makejust",$(s)); \
+		$(call compile_test,tests/$(s)); \
+		$(call testrun_time, \
+			$(patsubst %.cc,%.test,tests/$(s))))
+
+jtim:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
+	@$(foreach s, \
+		$(filter-out $@, $(MAKECMDGOALS)), \
+		$(call println,"makejtim",$(s)); \
+		$(call compile_test_time,tests/$(s)); \
+		$(call testrun_time, \
+			$(patsubst %.cc,%.test,tests/$(s))))
+
+ctim:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
+	@$(foreach s, \
+		$(filter-out $@, $(MAKECMDGOALS)), \
+		$(call println,"makectim",$(s)); \
+		$(call compile_test_time,tests/$(s)))
