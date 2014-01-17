@@ -44,6 +44,9 @@ variation of the previously mentioned commands in your terminal:
     ./configure --enable-ansi-colors
     make test
 
+It is now possible to use --with-compiler=<compiler path here> to specify
+a particular compiler path to be used during make targets.
+
 Do remember that autogen.sh needs to run once for creating the necessary
 boilerplate for autotools to run for in a freshly cloned repository. There are
 several branches with different purposes. The master branch is the most stable
