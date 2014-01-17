@@ -1,12 +1,19 @@
+## Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
 ## odreex configure.ac
 
 AC_INIT([libodreex],
         [0.0.1],
-        [irrequietus@gmail.com],
+        [https://github.com/irrequietus/odreex/issues],
         [libodreex],
         [https://github.com/irrequietus/odreex])
 
-AM_INIT_AUTOMAKE([-Wno-portability])
+AM_INIT_AUTOMAKE([1.11
+    -Wno-portability
+    dist-bzip2
+    dist-xz
+    no-define
+    foreign
+    tar-ustar])
 
 AC_PREREQ([2.68])
 LT_PREREQ([2.4.2])
@@ -15,8 +22,6 @@ AC_CONFIG_HEADERS([config.h odreexconfig.h])
 AC_CANONICAL_HOST
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_PROGRAM([make])
-
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 dist-xz -Wall no-define foreign tar-ustar])
 
 m4_include([m4/ax_cxx_compile_stdcxx_11.m4])
 m4_include([m4/odreex_config_options.m4])

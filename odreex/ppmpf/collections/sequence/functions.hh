@@ -79,6 +79,10 @@
                        , PPMPF_SEQ_GET(seq) \
                        , PPMPF_SEQ_POP(seq) )
 
+/* NOTE: PPMPF_SEQ_AT09: Fast access to sequence items with index 0 to 9. */
+
+#define PPMPF_SEQ_AT09(n,s) PPMPF_SEQAUX_(n,s)
+
 /* NOTE: PPMPF_SEQ_MAP: An implementation of the map high order function for
  *       ppmpf sequence constructs.
  */

@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -47,6 +47,26 @@ PPMPF_TEST( ppmpf_tup_empty4
           , PPMPF_TUP_EMPTY((()))
           , 0 )
 
+PPMPF_TEST( ppmpf_tup_tuple
+          , "PPMPF_TUPLE constructor with no items"
+          , PPMPF_TUPLE()
+          , () )
+
+PPMPF_TEST( ppmpf_tup_tuple1
+          , "PPMPF_TUPLE constructor with one item"
+          , PPMPF_TUPLE(x)
+          , ((x)) )
+
+PPMPF_TEST( ppmpf_tup_tuple2
+          , "PPMPF_TUPLE constructor with 2 items"
+          , PPMPF_TUPLE(1,2)
+          , ((1),(2)) )
+
+PPMPF_TEST( ppmpf_tup_tuple4
+          , "PPMPF_TUPLE constructor with 4 items"
+          , PPMPF_TUPLE(1,2,3,4)
+          , ((1),(2),(3),(4)) )
+
 PPMPF_TEST( ppmpf_tup_join
           , "PPMPF_TUP_JOIN of 2 tuples with 2 items each"
           , PPMPF_TUP_JOIN((a,a),(a,a))
@@ -63,7 +83,32 @@ PPMPF_TEST( ppmpf_tup_join2
                               , ((a,a),(b,b),(c,c),(d,d)) )
           , ((a,a,b,b,c,c,d,d)) )
 
-PPMPF_TEST( ppmpf_tup_reverse
+PPMPF_TEST( ppmpf_tup_reverse8
+          , "PPMPF_TUP_REVERSE with 8 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7))
+          , (7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse16
+          , "PPMPF_TUP_REVERSE with 16 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse32
+          , "PPMPF_TUP_REVERSE with 32 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse64
+          , "PPMPF_TUP_REVERSE with 64 arguments"
+          , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                              ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,\
+f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
+
+PPMPF_TEST( ppmpf_tup_reverse128
           , "PPMPF_TUP_REVERSE with 128 arguments"
           , PPMPF_TUP_REVERSE((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
                               ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
@@ -78,6 +123,50 @@ f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,\
 f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,\
 f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0,f,e,d,c,b,a,9,8,7,6,5,4,3,2,1,0))
 
+PPMPF_TEST( ppmpf_tup2seq8
+          , "PPMPF_TUP2SEQ with 8 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7))
+          , (0)(1)(2)(3)(4)(5)(6)(7) )
+
+PPMPF_TEST( ppmpf_tup2seq16
+          , "PPMPF_TUP2SEQ with 16 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f) )
+
+PPMPF_TEST( ppmpf_tup2seq32
+          , "PPMPF_TUP2SEQ with 32 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f) )
+
+PPMPF_TEST( ppmpf_tup2seq64
+          , "PPMPF_TUP2SEQ with 64 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)\
+(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f) )
+
+PPMPF_TEST( ppmpf_tup2seq128
+          , "PPMPF_TUP2SEQ with 128 items"
+          , PPMPF_TUP2SEQ((0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+                          ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
+          , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)\
+(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)\
+(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)\
+(a)(b)(c)(d)(e)(f)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f))
+
 PPMPF_TEST_BLOCK( ppmpf
                 , check_tuple
                 , ( ppmpf_tup_empty
@@ -85,14 +174,27 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup_empty2
                   , ppmpf_tup_empty3
                   , ppmpf_tup_empty4
+                  , ppmpf_tup_tuple
+                  , ppmpf_tup_tuple1
+                  , ppmpf_tup_tuple2
+                  , ppmpf_tup_tuple4
                   , ppmpf_tup_join
                   , ppmpf_tup_join1
                   , ppmpf_tup_join2
-                  , ppmpf_tup_reverse )
+                  , ppmpf_tup_reverse8
+                  , ppmpf_tup_reverse16
+                  , ppmpf_tup_reverse32
+                  , ppmpf_tup_reverse64
+                  , ppmpf_tup_reverse128
+                  , ppmpf_tup2seq8
+                  , ppmpf_tup2seq16
+                  , ppmpf_tup2seq32
+                  , ppmpf_tup2seq64
+                  , ppmpf_tup2seq128 )
                 , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_tuple
-                  , "testing ppmpf tuples" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_tuple
+                    , "testing ppmpf tuples" );
 }

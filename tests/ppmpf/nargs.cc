@@ -107,7 +107,7 @@ PPMPF_TEST_BLOCK( ppmpf
                , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_nargs
-                  , "testing ppmpf argument counters" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_nargs
+                    , "testing ppmpf argument counters" );
 }

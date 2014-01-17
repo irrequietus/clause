@@ -58,7 +58,7 @@ PPMPF_TEST_BLOCK( ppmpf
                , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_range
-                  , "testing ppmpf range generators" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_range
+                    , "testing ppmpf range generators" );
 }
