@@ -209,7 +209,63 @@
 #define PPMPF_FLDX1B(f,x) \
         (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x),f(5,x),f(6,x),f(7,x),f(8,x))
 
-#define PPMPF_FLDX1C(f,x) \
-        (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x),f(5,x),f(6,x),f(7,x),f(8,x),f(9,x))
+#define PPMPF_FLDX1C(c,f,x) \
+        c(f(0,x),f(1,x))
 
-#endif /* _ODREEX_PPMPF_FLDAUX_HH_ */
+#define PPMPF_FLDX1D(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+         , f(2,x) ))
+
+#define PPMPF_FLDX1E(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+         , f(3,x) )))
+
+#define PPMPF_FLDX1F(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+         , f(4,x) ))))
+
+#define PPMPF_FLDX1G(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+         , f(5,x) )))))
+
+#define PPMPF_FLDX1H(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+      , c( f(5,x) \
+         , f(6,x) ))))))
+
+#define PPMPF_FLDX1I(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+      , c( f(5,x) \
+      , c( f(6,x) \
+         , f(7,x) )))))))
+
+#define PPMPF_FLDX1J(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+      , c( f(5,x) \
+      , c( f(6,x) \
+      , c( f(7,x) \
+         , f(8,x) ))))))))
+
+#endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */
