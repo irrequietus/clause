@@ -34,160 +34,160 @@
 #define PPMPF_TUP_ZIP(a,b) \
         PPMPF_FLDX0G( PPMPF_FLDX0T \
                     , (())((a,b)) \
-                    , PPMPF_ZIPAUX_GET \
-                    , PPMPF_ZIPAUX_POP \
-                    , PPMPF_ZIPAUX_EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_GET \
+                    , PPMPF_ZIPT_POP \
+                    , PPMPF_ZIPT_EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP3(a,b,c) \
         PPMPF_FLDX0G( PPMPF_FLDX0U \
                     , (())((a,b,c)) \
-                    , PPMPF_ZIPAUX_3GET \
-                    , PPMPF_ZIPAUX_3POP \
-                    , PPMPF_ZIPAUX_3EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_3GET \
+                    , PPMPF_ZIPT_3POP \
+                    , PPMPF_ZIPT_3EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP4(a,b,c,d) \
         PPMPF_FLDX0G( PPMPF_FLDX0V \
                     , (())((a,b,c,d)) \
-                    , PPMPF_ZIPAUX_4GET \
-                    , PPMPF_ZIPAUX_4POP \
-                    , PPMPF_ZIPAUX_4EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_4GET \
+                    , PPMPF_ZIPT_4POP \
+                    , PPMPF_ZIPT_4EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP5(a,b,c,d,e) \
         PPMPF_FLDX0G( PPMPF_FLDX0W \
                     , (())((a,b,c,d,e)) \
-                    , PPMPF_ZIPAUX_5GET \
-                    , PPMPF_ZIPAUX_5POP \
-                    , PPMPF_ZIPAUX_5EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_5GET \
+                    , PPMPF_ZIPT_5POP \
+                    , PPMPF_ZIPT_5EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP6(a,b,c,d,e,f) \
         PPMPF_FLDX0G( PPMPF_FLDX0X \
                     , (())((a,b,c,d,e,f)) \
-                    , PPMPF_ZIPAUX_6GET \
-                    , PPMPF_ZIPAUX_6POP \
-                    , PPMPF_ZIPAUX_6EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_6GET \
+                    , PPMPF_ZIPT_6POP \
+                    , PPMPF_ZIPT_6EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP7(a,b,c,d,e,f,g) \
         PPMPF_FLDX0G( PPMPF_FLDX0X \
                     , (())((a,b,c,d,e,f,g)) \
-                    , PPMPF_ZIPAUX_7GET \
-                    , PPMPF_ZIPAUX_7POP \
-                    , PPMPF_ZIPAUX_7EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_7GET \
+                    , PPMPF_ZIPT_7POP \
+                    , PPMPF_ZIPT_7EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP8(a,b,c,d,e,f,g,h) \
         PPMPF_FLDX0G( PPMPF_FLDX0Y \
                     , (())((a,b,c,d,e,f,g,h)) \
-                    , PPMPF_ZIPAUX_8GET \
-                    , PPMPF_ZIPAUX_8POP \
-                    , PPMPF_ZIPAUX_8EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_8GET \
+                    , PPMPF_ZIPT_8POP \
+                    , PPMPF_ZIPT_8EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP9(a,b,c,d,e,f,g,h,i) \
         PPMPF_FLDX0G( PPMPF_FLDX0Z \
                     , (())((a,b,c,d,e,f,g,h,i)) \
-                    , PPMPF_ZIPAUX_9GET \
-                    , PPMPF_ZIPAUX_9POP \
-                    , PPMPF_ZIPAUX_9EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_9GET \
+                    , PPMPF_ZIPT_9POP \
+                    , PPMPF_ZIPT_9EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH(f,a,b) \
         PPMPF_FLDX0G( f \
                     , (())((a,b)) \
-                    , PPMPF_ZIPAUX_GET \
-                    , PPMPF_ZIPAUX_POP \
-                    , PPMPF_ZIPAUX_EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_GET \
+                    , PPMPF_ZIPT_POP \
+                    , PPMPF_ZIPT_EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH3(f,a,b,c) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c)) \
-                    , PPMPF_ZIPAUX_3GET \
-                    , PPMPF_ZIPAUX_3POP \
-                    , PPMPF_ZIPAUX_3EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_3GET \
+                    , PPMPF_ZIPT_3POP \
+                    , PPMPF_ZIPT_3EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH4(f,a,b,c,d) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c,d)) \
-                    , PPMPF_ZIPAUX_4GET \
-                    , PPMPF_ZIPAUX_4POP \
-                    , PPMPF_ZIPAUX_4EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_4GET \
+                    , PPMPF_ZIPT_4POP \
+                    , PPMPF_ZIPT_4EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH5(f,a,b,c,d,e) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c,d,e)) \
-                    , PPMPF_ZIPAUX_5GET \
-                    , PPMPF_ZIPAUX_5POP \
-                    , PPMPF_ZIPAUX_5EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_5GET \
+                    , PPMPF_ZIPT_5POP \
+                    , PPMPF_ZIPT_5EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH6(f,a,b,c,d,e,g) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c,d,e,g)) \
-                    , PPMPF_ZIPAUX_6GET \
-                    , PPMPF_ZIPAUX_6POP \
-                    , PPMPF_ZIPAUX_6EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_6GET \
+                    , PPMPF_ZIPT_6POP \
+                    , PPMPF_ZIPT_6EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH7(f,a,b,c,d,e,g,h) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c,d,e,g,h)) \
-                    , PPMPF_ZIPAUX_7GET \
-                    , PPMPF_ZIPAUX_7POP \
-                    , PPMPF_ZIPAUX_7EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_7GET \
+                    , PPMPF_ZIPT_7POP \
+                    , PPMPF_ZIPT_7EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH8(f,a,b,c,d,e,g,h,i) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c,d,e,g,h,i)) \
-                    , PPMPF_ZIPAUX_8GET \
-                    , PPMPF_ZIPAUX_8POP \
-                    , PPMPF_ZIPAUX_8EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_8GET \
+                    , PPMPF_ZIPT_8POP \
+                    , PPMPF_ZIPT_8EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIPWITH9(f,a,b,c,d,e,g,h,i,j) \
         PPMPF_FLDX0G( f \
                     , (())((a,b,c,d,e,g,h,i,j)) \
-                    , PPMPF_ZIPAUX_9GET \
-                    , PPMPF_ZIPAUX_9POP \
-                    , PPMPF_ZIPAUX_9EMPTY \
-                    , PPMPF_ZIPAUX_APPLY \
+                    , PPMPF_ZIPT_9GET \
+                    , PPMPF_ZIPT_9POP \
+                    , PPMPF_ZIPT_9EMPTY \
+                    , PPMPF_ZIPT_APPLY \
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 

@@ -25,197 +25,34 @@
 #error ppmpf: <odreex/ppmpf/algorithms/zip.hh> must precede.
 #endif
 
-#define PPMPF_ZIPAUX_GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) )
-        
-#define PPMPF_ZIPAUX_3GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) )
-        
-#define PPMPF_ZIPAUX_4GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) \
-        , PPMPF_FLDX0P(3,x) )
-        
-#define PPMPF_ZIPAUX_5GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) \
-        , PPMPF_FLDX0P(3,x) \
-        , PPMPF_FLDX0P(4,x) )
-        
-#define PPMPF_ZIPAUX_6GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) \
-        , PPMPF_FLDX0P(3,x) \
-        , PPMPF_FLDX0P(4,x) \
-        , PPMPF_FLDX0P(5,x) )
-        
-#define PPMPF_ZIPAUX_7GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) \
-        , PPMPF_FLDX0P(3,x) \
-        , PPMPF_FLDX0P(4,x) \
-        , PPMPF_FLDX0P(5,x) \
-        , PPMPF_FLDX0P(6,x) )
-        
-#define PPMPF_ZIPAUX_8GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) \
-        , PPMPF_FLDX0P(3,x) \
-        , PPMPF_FLDX0P(4,x) \
-        , PPMPF_FLDX0P(5,x) \
-        , PPMPF_FLDX0P(6,x) \
-        , PPMPF_FLDX0P(7,x) )
+#define PPMPF_ZIPT_GET(x)  PPMPF_FLDX14(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_3GET(x) PPMPF_FLDX15(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_4GET(x) PPMPF_FLDX16(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_5GET(x) PPMPF_FLDX17(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_6GET(x) PPMPF_FLDX18(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_7GET(x) PPMPF_FLDX19(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_8GET(x) PPMPF_FLDX1A(PPMPF_FLDX0P,x)
+#define PPMPF_ZIPT_9GET(x) PPMPF_FLDX1B(PPMPF_FLDX0P,x)
 
-#define PPMPF_ZIPAUX_9GET(x) \
-        ( PPMPF_FLDX0P(0,x) \
-        , PPMPF_FLDX0P(1,x) \
-        , PPMPF_FLDX0P(2,x) \
-        , PPMPF_FLDX0P(3,x) \
-        , PPMPF_FLDX0P(4,x) \
-        , PPMPF_FLDX0P(5,x) \
-        , PPMPF_FLDX0P(6,x) \
-        , PPMPF_FLDX0P(7,x) \
-        , PPMPF_FLDX0P(8,x) )
-        
-#define PPMPF_ZIPAUX_POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) )
+#define PPMPF_ZIPT_POP(x)  PPMPF_FLDX14(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_3POP(x) PPMPF_FLDX15(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_4POP(x) PPMPF_FLDX16(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_5POP(x) PPMPF_FLDX17(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_6POP(x) PPMPF_FLDX18(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_7POP(x) PPMPF_FLDX19(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_8POP(x) PPMPF_FLDX1A(PPMPF_FLDX0Q,x)
+#define PPMPF_ZIPT_9POP(x) PPMPF_FLDX1B(PPMPF_FLDX0Q,x)
 
-#define PPMPF_ZIPAUX_3POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) )
-        
-#define PPMPF_ZIPAUX_4POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) \
-        , PPMPF_FLDX0Q(3,x))
-        
-#define PPMPF_ZIPAUX_5POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) \
-        , PPMPF_FLDX0Q(3,x) \
-        , PPMPF_FLDX0Q(4,x) ) 
+#define PPMPF_ZIPT_EMPTY(x)  PPMPF_FLDX1C(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_3EMPTY(x) PPMPF_FLDX1D(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_4EMPTY(x) PPMPF_FLDX1E(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_5EMPTY(x) PPMPF_FLDX1F(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_6EMPTY(x) PPMPF_FLDX1G(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_7EMPTY(x) PPMPF_FLDX1H(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_8EMPTY(x) PPMPF_FLDX1I(PPMPF_OR,PPMPF_FLDX0R,x)
+#define PPMPF_ZIPT_9EMPTY(x) PPMPF_FLDX1J(PPMPF_OR,PPMPF_FLDX0R,x)
 
-#define PPMPF_ZIPAUX_6POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) \
-        , PPMPF_FLDX0Q(3,x) \
-        , PPMPF_FLDX0Q(4,x) \
-        , PPMPF_FLDX0Q(5,x) )
-
-#define PPMPF_ZIPAUX_7POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) \
-        , PPMPF_FLDX0Q(3,x) \
-        , PPMPF_FLDX0Q(4,x) \
-        , PPMPF_FLDX0Q(5,x) \
-        , PPMPF_FLDX0Q(6,x) )
-
-#define PPMPF_ZIPAUX_8POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) \
-        , PPMPF_FLDX0Q(3,x) \
-        , PPMPF_FLDX0Q(4,x) \
-        , PPMPF_FLDX0Q(5,x) \
-        , PPMPF_FLDX0Q(6,x) \
-        , PPMPF_FLDX0Q(7,x) )
-
-#define PPMPF_ZIPAUX_9POP(x) \
-        ( PPMPF_FLDX0Q(0,x) \
-        , PPMPF_FLDX0Q(1,x) \
-        , PPMPF_FLDX0Q(2,x) \
-        , PPMPF_FLDX0Q(3,x) \
-        , PPMPF_FLDX0Q(4,x) \
-        , PPMPF_FLDX0Q(5,x) \
-        , PPMPF_FLDX0Q(6,x) \
-        , PPMPF_FLDX0Q(7,x) \
-        , PPMPF_FLDX0Q(8,x) )
-        
-#define PPMPF_ZIPAUX_EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-                , PPMPF_FLDX0R(1, x) )
-                
-#define PPMPF_ZIPAUX_3EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-                , PPMPF_FLDX0R(2, x) ))
-                          
-#define PPMPF_ZIPAUX_4EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-                , PPMPF_FLDX0R(3, x) )))
-
-#define PPMPF_ZIPAUX_5EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(3, x) \
-                , PPMPF_FLDX0R(4, x) ))))
-                
-#define PPMPF_ZIPAUX_6EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(3, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(4, x) \
-                , PPMPF_FLDX0R(5, x) )))))
-
-#define PPMPF_ZIPAUX_7EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(3, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(4, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(5, x) \
-                , PPMPF_FLDX0R(6, x) ))))))
-
-#define PPMPF_ZIPAUX_8EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(3, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(4, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(5, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(6, x) \
-                , PPMPF_FLDX0R(7, x) )))))))
-
-#define PPMPF_ZIPAUX_8EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(3, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(4, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(5, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(6, x) \
-                , PPMPF_FLDX0R(7, x) )))))))
-
-#define PPMPF_ZIPAUX_9EMPTY(x) \
-        PPMPF_OR( PPMPF_FLDX0R(0, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(1, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(2, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(3, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(4, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(5, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(6, x) \
-      , PPMPF_OR( PPMPF_FLDX0R(7, x) \
-                , PPMPF_FLDX0R(8, x) ))))))))
-
-#define PPMPF_ZIPAUX_APPLY(f,sl,g,...) \
+#define PPMPF_ZIPT_APPLY(f,sl,g,...) \
         ((PPMPF_APPLY(f,PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl)))))))
         
 #endif /* _ODREEX_PPMPF_ALGORITHMS_ZIPAUX_HH_ */
