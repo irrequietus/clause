@@ -75,3 +75,15 @@ AS_HELP_STRING([--enable-meta-depth],
   esac
 ],
 [])
+
+AC_LANG_PUSH([C++])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
+#if !(defined(__GNUG__) \
+  && defined(__GNUC__) \
+  && !defined(__clang__) \
+  && !defined(__INTEL_COMPILER) \
+  && __GNUC__ >= 4 && __GNUC_MINOR__ >= 8)
+#error -ftrack-macro-expansion should be passed
+#endif
+])], [CXXFLAGS+=" -ftrack-macro-expansion=0"], [])
+AC_LANG_POP([C++])
