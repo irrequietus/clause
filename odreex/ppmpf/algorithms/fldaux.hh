@@ -173,7 +173,7 @@
 #define PPMPF_FLDX0W(a0,a1,a2,a3,a4) a0,a1,a2,a3,a4
 #define PPMPF_FLDX0X(a0,a1,a2,a3,a4,a5) a0,a1,a2,a3,a4,a5
 #define PPMPF_FLDX0Y(a0,a1,a2,a3,a4,a5,a6) a0,a1,a2,a3,a4,a5,a6
-#define PPMPF_FLDX0Z(a0,a1,a2,a3,a4,a5,a6,a7) a0,a1,a2,a3,a4,a5,a5,a6,a7
+#define PPMPF_FLDX0Z(a0,a1,a2,a3,a4,a5,a6,a7) a0,a1,a2,a3,a4,a5,a6,a7
 #define PPMPF_FLDX10(a0,a1,a2,a3,a4,a5,a6,a7,a8) a0,a1,a2,a3,a4,a5,a6,a7,a8
 
 #define PPMPF_FLDX11(n,x) \

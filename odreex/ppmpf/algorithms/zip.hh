@@ -82,7 +82,7 @@
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP7(a,b,c,d,e,f,g) \
-        PPMPF_FLDX0G( PPMPF_FLDX0X \
+        PPMPF_FLDX0G( PPMPF_FLDX0Y \
                     , (())((a,b,c,d,e,f,g)) \
                     , PPMPF_ZIPT_7GET \
                     , PPMPF_ZIPT_7POP \
@@ -92,7 +92,7 @@
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP8(a,b,c,d,e,f,g,h) \
-        PPMPF_FLDX0G( PPMPF_FLDX0Y \
+        PPMPF_FLDX0G( PPMPF_FLDX0Z \
                     , (())((a,b,c,d,e,f,g,h)) \
                     , PPMPF_ZIPT_8GET \
                     , PPMPF_ZIPT_8POP \
@@ -102,7 +102,7 @@
                     , PPMPF_FLDX0H, )
 
 #define PPMPF_TUP_ZIP9(a,b,c,d,e,f,g,h,i) \
-        PPMPF_FLDX0G( PPMPF_FLDX0Z \
+        PPMPF_FLDX0G( PPMPF_FLDX10 \
                     , (())((a,b,c,d,e,f,g,h,i)) \
                     , PPMPF_ZIPT_9GET \
                     , PPMPF_ZIPT_9POP \
