@@ -69,17 +69,62 @@ PPMPF_TEST( ppmpf_seq_zipwith6
           , (a0a0a0)(b1b1b1)(c2c2c2)(d3d3d3)(e4e4e4)(f5f5f5)(g6g6g6)(h7h7h7)\
 (i8i8i8)(j9j9j9))
 
+PPMPF_TEST( ppmpf_seq_zipwith7
+          , "PPMPF_SEQ_ZIPWITH7 (zipwith using 7 ppmpf sequences)"
+          , PPMPF_SEQ_ZIPWITH7( PPMPF_VCAT
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j) )
+          , (a0a0a0a)(b1b1b1b)(c2c2c2c)(d3d3d3d)(e4e4e4e)(f5f5f5f)(g6g6g6g)\
+(h7h7h7h)(i8i8i8i)(j9j9j9j))
+
+PPMPF_TEST( ppmpf_seq_zipwith8
+          , "PPMPF_SEQ_ZIPWITH8 (zipwith using 8 ppmpf sequences)"
+          , PPMPF_SEQ_ZIPWITH8( PPMPF_VCAT
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9) )
+          , (a0a0a0a0)(b1b1b1b1)(c2c2c2c2)(d3d3d3d3)(e4e4e4e4)(f5f5f5f5)\
+(g6g6g6g6)(h7h7h7h7)(i8i8i8i8)(j9j9j9j9))
+
+PPMPF_TEST( ppmpf_seq_zipwith9
+          , "PPMPF_SEQ_ZIPWITH9 (zipwith using 9 ppmpf sequences)"
+          , PPMPF_SEQ_ZIPWITH9( PPMPF_VCAT
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j)
+                              , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
+                              , (a)(b)(c)(d)(e)(f)(g)(h)(i)(j) )
+          , (a0a0a0a0a)(b1b1b1b1b)(c2c2c2c2c)(d3d3d3d3d)(e4e4e4e4e)(f5f5f5f5f)\
+(g6g6g6g6g)(h7h7h7h7h)(i8i8i8i8i)(j9j9j9j9j))
+
 PPMPF_TEST_BLOCK( ppmpf
                 , check_sequence_zipwith
                 , ( ppmpf_seq_zipwith
                   , ppmpf_seq_zipwith3
                   , ppmpf_seq_zipwith4
                   , ppmpf_seq_zipwith5
-                  , ppmpf_seq_zipwith6 )
+                  , ppmpf_seq_zipwith6
+                  , ppmpf_seq_zipwith7
+                  , ppmpf_seq_zipwith8
+                  , ppmpf_seq_zipwith9 )
                 , true )
 
 int main() {
     PPMPF_TEST_RUN( check_sequence_zipwith
-                  , "testing ppmpf PPMPF_SEQ_ZIPWITH (2 - 6 sequences)" );
+                  , "testing ppmpf PPMPF_SEQ_ZIPWITH (2 - 9 sequences)" );
     return {};
 }
