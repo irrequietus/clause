@@ -47,15 +47,85 @@ PPMPF_TEST( ppmpf_tup_zipwith4
           , ((0a0a),(1b1b),(2c2c),(3d3d),(4e4e),\
 (5f5f),(6g6g),(7h7h),(8i8i),(9j9j)) )
 
+PPMPF_TEST( ppmpf_tup_zipwith5
+          , "PPMPF_TUP_ZIPWITH5 (zipwith using 5 safe tuples)"
+          , PPMPF_TUP_ZIPWITH5( PPMPF_VCAT
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 ) )
+          , ((0a0a0),(1b1b1),(2c2c2),(3d3d3),(4e4e4),\
+(5f5f5),(6g6g6),(7h7h7),(8i8i8),(9j9j9)) )
+
+PPMPF_TEST( ppmpf_tup_zipwith6
+          , "PPMPF_TUP_ZIPWITH6 (zipwith using 6 safe tuples)"
+          , PPMPF_TUP_ZIPWITH6( PPMPF_VCAT
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j ) )
+          , ((0a0a0a),(1b1b1b),(2c2c2c),(3d3d3d),(4e4e4e),\
+(5f5f5f),(6g6g6g),(7h7h7h),(8i8i8i),(9j9j9j)) )
+
+PPMPF_TEST( ppmpf_tup_zipwith7
+          , "PPMPF_TUP_ZIPWITH7 (zipwith using 7 safe tuples)"
+          , PPMPF_TUP_ZIPWITH7( PPMPF_VCAT
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 ))
+          , ((0a0a0a0),(1b1b1b1),(2c2c2c2),(3d3d3d3),(4e4e4e4),\
+(5f5f5f5),(6g6g6g6),(7h7h7h7),(8i8i8i8),(9j9j9j9)) )
+
+PPMPF_TEST( ppmpf_tup_zipwith8
+          , "PPMPF_TUP_ZIPWITH8 (zipwith using 8 safe tuples)"
+          , PPMPF_TUP_ZIPWITH8( PPMPF_VCAT
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j ))
+          , ((0a0a0a0a),(1b1b1b1b),(2c2c2c2c),(3d3d3d3d),(4e4e4e4e),\
+(5f5f5f5f),(6g6g6g6g),(7h7h7h7h),(8i8i8i8i),(9j9j9j9j)) )
+
+PPMPF_TEST( ppmpf_tup_zipwith9
+          , "PPMPF_TUP_ZIPWITH9 (zipwith using 9 safe tuples)"
+          , PPMPF_TUP_ZIPWITH9( PPMPF_VCAT
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 )
+                              , PPMPF_TUPLE( a,b,c,d,e,f,g,h,i,j )
+                              , PPMPF_TUPLE( 0,1,2,3,4,5,6,7,8,9 ) )
+          , ((0a0a0a0a0),(1b1b1b1b1),(2c2c2c2c2),(3d3d3d3d3),(4e4e4e4e4),\
+(5f5f5f5f5),(6g6g6g6g6),(7h7h7h7h7),(8i8i8i8i8),(9j9j9j9j9)) )
+
 PPMPF_TEST_BLOCK( ppmpf
                 , check_tuple_zipwith
                 , ( ppmpf_tup_zipwith
                   , ppmpf_tup_zipwith3
-                  , ppmpf_tup_zipwith4 )
+                  , ppmpf_tup_zipwith4
+                  , ppmpf_tup_zipwith5
+                  , ppmpf_tup_zipwith6
+                  , ppmpf_tup_zipwith7
+                  , ppmpf_tup_zipwith8
+                  , ppmpf_tup_zipwith9 )
                 , true )
 
 int main() {
     PPMPF_TEST_RUN( check_tuple_zipwith
-                  , "testing ppmpf PPMPF_TUP_ZIPWITH (2 - 4)" );
+                  , "testing ppmpf PPMPF_TUP_ZIPWITH (2 - 9)" );
     return {};
 }
