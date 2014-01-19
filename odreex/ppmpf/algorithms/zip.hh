@@ -191,5 +191,16 @@
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0H, )
 
-        
+/* Prototype for PPMPF_SEQ_ZIP */
+#define PPMPF_SEQ_ZIP(a,b) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( PPMPF_FLDX1K \
+                        , (())((a,b)) \
+                        , PPMPF_ZIPS_GET \
+                        , PPMPF_ZIPS_POP \
+                        , PPMPF_ZIPS_EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
 #endif /* _ODREEX_PPMPF_ZIP_HH_ */

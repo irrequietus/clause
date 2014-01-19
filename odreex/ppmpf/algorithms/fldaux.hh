@@ -268,4 +268,28 @@
       , c( f(7,x) \
          , f(8,x) ))))))))
 
+#define PPMPF_FLDX1K(a0,a1) \
+        (a0)(a1)
+#define PPMPF_FLDX1L(a0,a1,a2) \
+        (a0)(a1)(a2)
+#define PPMPF_FLDX1M(a0,a1,a2,a3) \
+        (a0)(a1)(a2)(a3)
+#define PPMPF_FLDX1N(a0,a1,a2,a3,a4) \
+        (a0)(a1)(a2)(a3)(a4)
+#define PPMPF_FLDX1O(a0,a1,a2,a3,a4,a5) \
+        (a0)(a1)(a2)(a3)(a4)(a5)
+#define PPMPF_FLDX1P(a0,a1,a2,a3,a4,a5,a6) \
+        (a0)(a1)(a2)(a3)(a4)(a5)(a6)
+#define PPMPF_FLDX1Q(a0,a1,a2,a3,a4,a5,a6,a7) \
+        (a0)(a1)(a2)(a3)(a4)(a5)(a6)(a7)
+#define PPMPF_FLDX1R(a0,a1,a2,a3,a4,a5,a6,a7,a8) \
+        (a0)(a1)(a2)(a3)(a4)(a5)(a6)(a7)(a8)
+
+#define PPMPF_FLDX1S(f,sl,g,p,h,i,...) \
+        (PPMPF_DREF(PPMPF_SEQ_GET(sl))\
+PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
+            , PPMPF_UNIT \
+            , i )(f,sl,g,__VA_ARGS__))(p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+
+
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */
