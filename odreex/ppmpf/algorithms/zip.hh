@@ -280,4 +280,92 @@
                         , PPMPF_FLDX0L \
                         , PPMPF_FLDX1S, ))
 
+#define PPMPF_SEQ_ZIPWITH(f,a,b) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b)) \
+                        , PPMPF_ZIPS_GET \
+                        , PPMPF_ZIPS_POP \
+                        , PPMPF_ZIPS_EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH3(f,a,b,c) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c)) \
+                        , PPMPF_ZIPS_3GET \
+                        , PPMPF_ZIPS_3POP \
+                        , PPMPF_ZIPS_3EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH4(f,a,b,c,d) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c,d)) \
+                        , PPMPF_ZIPS_4GET \
+                        , PPMPF_ZIPS_4POP \
+                        , PPMPF_ZIPS_4EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH5(f,a,b,c,d,e) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c,d,e)) \
+                        , PPMPF_ZIPS_5GET \
+                        , PPMPF_ZIPS_5POP \
+                        , PPMPF_ZIPS_5EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH6(f,a,b,c,d,e,g) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c,d,e,g)) \
+                        , PPMPF_ZIPS_6GET \
+                        , PPMPF_ZIPS_6POP \
+                        , PPMPF_ZIPS_6EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH7(f,a,b,c,d,e,g,h) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c,d,e,g,h)) \
+                        , PPMPF_ZIPS_7GET \
+                        , PPMPF_ZIPS_7POP \
+                        , PPMPF_ZIPS_7EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH8(f,a,b,c,d,e,g,h,i) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c,d,e,g,h,i)) \
+                        , PPMPF_ZIPS_8GET \
+                        , PPMPF_ZIPS_8POP \
+                        , PPMPF_ZIPS_8EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
+#define PPMPF_SEQ_ZIPWITH9(f,a,b,c,d,e,g,h,i,j) \
+        PPMPF_SEQ_POP( \
+            PPMPF_FLDX0G( f \
+                        , (())((a,b,c,d,e,g,h,i,j)) \
+                        , PPMPF_ZIPS_9GET \
+                        , PPMPF_ZIPS_9POP \
+                        , PPMPF_ZIPS_9EMPTY \
+                        , PPMPF_ZIPS_APPLY \
+                        , PPMPF_FLDX0L \
+                        , PPMPF_FLDX1S, ))
+
 #endif /* _ODREEX_PPMPF_ZIP_HH_ */
