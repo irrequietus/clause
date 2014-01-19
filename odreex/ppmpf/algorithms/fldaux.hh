@@ -173,7 +173,123 @@
 #define PPMPF_FLDX0W(a0,a1,a2,a3,a4) a0,a1,a2,a3,a4
 #define PPMPF_FLDX0X(a0,a1,a2,a3,a4,a5) a0,a1,a2,a3,a4,a5
 #define PPMPF_FLDX0Y(a0,a1,a2,a3,a4,a5,a6) a0,a1,a2,a3,a4,a5,a6
-#define PPMPF_FLDX0Z(a0,a1,a2,a3,a4,a5,a6,a7) a0,a1,a2,a3,a4,a5,a5,a6,a7
+#define PPMPF_FLDX0Z(a0,a1,a2,a3,a4,a5,a6,a7) a0,a1,a2,a3,a4,a5,a6,a7
 #define PPMPF_FLDX10(a0,a1,a2,a3,a4,a5,a6,a7,a8) a0,a1,a2,a3,a4,a5,a6,a7,a8
 
-#endif /* _ODREEX_PPMPF_FLDAUX_HH_ */
+#define PPMPF_FLDX11(n,x) \
+        PPMPF_DREF(PPMPF_SEQ_GET(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x))))
+
+#define PPMPF_FLDX12(n,x) \
+        PPMPF_SEQ_POP(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x)))
+
+#define PPMPF_FLDX13(n,x) \
+        PPMPF_SEQ_EMPTY(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x)))
+
+#define PPMPF_FLDX14(f,x) \
+        (f(0,x),f(1,x))
+
+#define PPMPF_FLDX15(f,x) \
+        (f(0,x),f(1,x),f(2,x))
+
+#define PPMPF_FLDX16(f,x) \
+        (f(0,x),f(1,x),f(2,x),f(3,x))
+
+#define PPMPF_FLDX17(f,x) \
+        (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x))
+
+#define PPMPF_FLDX18(f,x) \
+        (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x),f(5,x))
+
+#define PPMPF_FLDX19(f,x) \
+        (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x),f(5,x),f(6,x))
+
+#define PPMPF_FLDX1A(f,x) \
+        (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x),f(5,x),f(6,x),f(7,x))
+
+#define PPMPF_FLDX1B(f,x) \
+        (f(0,x),f(1,x),f(2,x),f(3,x),f(4,x),f(5,x),f(6,x),f(7,x),f(8,x))
+
+#define PPMPF_FLDX1C(c,f,x) \
+        c(f(0,x),f(1,x))
+
+#define PPMPF_FLDX1D(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+         , f(2,x) ))
+
+#define PPMPF_FLDX1E(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+         , f(3,x) )))
+
+#define PPMPF_FLDX1F(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+         , f(4,x) ))))
+
+#define PPMPF_FLDX1G(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+         , f(5,x) )))))
+
+#define PPMPF_FLDX1H(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+      , c( f(5,x) \
+         , f(6,x) ))))))
+
+#define PPMPF_FLDX1I(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+      , c( f(5,x) \
+      , c( f(6,x) \
+         , f(7,x) )))))))
+
+#define PPMPF_FLDX1J(c,f,x) \
+        c( f(0,x) \
+      , c( f(1,x) \
+      , c( f(2,x) \
+      , c( f(3,x) \
+      , c( f(4,x) \
+      , c( f(5,x) \
+      , c( f(6,x) \
+      , c( f(7,x) \
+         , f(8,x) ))))))))
+
+#define PPMPF_FLDX1K(a0,a1) \
+        (a0)(a1)
+#define PPMPF_FLDX1L(a0,a1,a2) \
+        (a0)(a1)(a2)
+#define PPMPF_FLDX1M(a0,a1,a2,a3) \
+        (a0)(a1)(a2)(a3)
+#define PPMPF_FLDX1N(a0,a1,a2,a3,a4) \
+        (a0)(a1)(a2)(a3)(a4)
+#define PPMPF_FLDX1O(a0,a1,a2,a3,a4,a5) \
+        (a0)(a1)(a2)(a3)(a4)(a5)
+#define PPMPF_FLDX1P(a0,a1,a2,a3,a4,a5,a6) \
+        (a0)(a1)(a2)(a3)(a4)(a5)(a6)
+#define PPMPF_FLDX1Q(a0,a1,a2,a3,a4,a5,a6,a7) \
+        (a0)(a1)(a2)(a3)(a4)(a5)(a6)(a7)
+#define PPMPF_FLDX1R(a0,a1,a2,a3,a4,a5,a6,a7,a8) \
+        (a0)(a1)(a2)(a3)(a4)(a5)(a6)(a7)(a8)
+
+#define PPMPF_FLDX1S(f,sl,g,p,h,i,...) \
+        (PPMPF_DREF(PPMPF_SEQ_GET(sl))\
+PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
+            , PPMPF_UNIT \
+            , i )(f,sl,g,__VA_ARGS__))(p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+
+
+#endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */
