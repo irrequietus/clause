@@ -44,6 +44,9 @@ variation of the previously mentioned commands in your terminal:
     ./configure --enable-ansi-colors
     make test
 
+It is now possible to use --with-compiler=<compiler path here> to specify
+a particular compiler path to be used during make targets.
+
 Do remember that autogen.sh needs to run once for creating the necessary
 boilerplate for autotools to run for in a freshly cloned repository. There are
 several branches with different purposes. The master branch is the most stable
@@ -61,8 +64,9 @@ something like the example below, properly substituting "testname1" and
 
 This will result in just compiling and running the test you are interested in.
 
-Reporting bugs
---------------
+Reporting bugs and other issues
+-------------------------------
 
-Since there is no bugtracker at this point, please report any bugs you may find
-by email and kindly remember that this is pretty much a work in progress!
+Please report any issues over at https://github.com/irrequietus/odreex/issues
+
+
