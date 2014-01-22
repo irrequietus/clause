@@ -112,10 +112,10 @@
         PPMPF_DREF( \
             PPMPF_SEQ_GET( \
                 PPMPF_FLDX0F( f,sl,g,p,h,i,m,j \
-                            , PPMPF_3G9 \
-                            , PPMPF_2G9 \
-                            , PPMPF_1G9 \
-                            , PPMPF_0G9 \
+                            , PPMPF_RDMX(PPMPF_3G,PPMPF_RDMH4()) \
+                            , PPMPF_RDMX(PPMPF_2G,PPMPF_RDMH3()) \
+                            , PPMPF_RDMX(PPMPF_1G,PPMPF_RDMH2()) \
+                            , PPMPF_RDMX(PPMPF_0G,PPMPF_RDMH1()) \
                             , __VA_ARGS__ )))
 /* PPMPF_FLDX */
 #define PPMPF_FLDX0H(f,sl,g,p,h,i,...) \
