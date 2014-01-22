@@ -222,6 +222,15 @@
                  , PPMPF_DIGIT(1,n) \
                  , PPMPF_DIGIT(0,n))
 
+#define PPMPF_IEHEX(n) \
+        PPMPF_RDMX( \
+            PPMPF_RDMX( \
+                PPMPF_RDMX( \
+                    PPMPF_RDMX(0x,PPMPF_DIGIT(3,n)) \
+                , PPMPF_DIGIT(2,n)) \
+            , PPMPF_DIGIT(1,n)) \
+        , PPMPF_DIGIT(0,n))
+
 /* NOTE: Basic addition algorithm lookup tuple. */
 #define PPMPF_ITRBASEP_() \
         ( (0)(0),(0)(1),(0)(2),(0)(3),(0)(4) \
