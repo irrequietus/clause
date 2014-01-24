@@ -116,13 +116,28 @@
 
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */
-#define PPMPF_TUP_FOLDL(f,s,l) \
-        PPMPF_SEQ_GET(PPMPF_TUP_FOLD_(f,s,l,PPMPF_FLDAL))
+#define PPMPF_TUP_FOLDL(f,s,t) \
+        PPMPF_FLDX1V( f \
+                    , (s)(t) \
+                    , PPMPF_TUP_1GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0I \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
 
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */
-#define PPMPF_TUP_FOLDL_OF(f,l) \
-        PPMPF_TUP_FOLDL(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l))
+#define PPMPF_TUP_FOLDL_OF(f,t) \
+        PPMPF_FLDX1V( f \
+                    , (PPMPF_TUP_1GET(t))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_1GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0I \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
+
 
 /* NOTE: PPMPF_TUP_REVERSE: reverses a ppmpf tuple. */
 #define PPMPF_TUP_REVERSE(tup) \
@@ -133,15 +148,20 @@
 
 /* NOTE: PPMPF_TUP_FOLDR: high order function performing a right fold over a
  *       ppmpf tuple. */
-#define PPMPF_TUP_FOLDR(f,s,l) \
-        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__( f \
-                                       , ( PPMPF_DREF(s) \
-                                         , PPMPF_DREF(PPMPF_TUP_REVERSE(l)))))
+#define PPMPF_TUP_FOLDR(f,s,t) \
+        PPMPF_FLDX1V( f \
+                    , (s)(PPMPF_TUP_REVERSE(t)) \
+                    , PPMPF_TUP_1GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0O \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
 
 /* NOTE: PPMPF_TUP_FOLDR_OF: high order function performing a right fold over a
  *       ppmpf tuple. */
-#define PPMPF_TUP_FOLDR_OF(f,l) \
-        PPMPF_SEQ_GET(PPMPF_TUP_FOLDR__(f,PPMPF_TUP_REVERSE(l)))
+#define PPMPF_TUP_FOLDR_OF(f,t) \
+        PPMPF_TUP_FOLDR_(f,PPMPF_TUP_REVERSE(t))
 
 /* NOTE: PPMPF_TUP_SIZEOF(tup) returns the number of tuple members existing
  * in a given tuple (tup), which is a parenthesis enclosed comma separated
