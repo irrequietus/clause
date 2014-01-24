@@ -440,6 +440,6 @@
 #define PPMPF_PREV(x) PPMPF_ISUB(x,(0)(0)(0)(1))
 
 /* Assistive macro for integer incrementation during folding. */
-#define PPMPF_PLUS__(x,y) PPMPF_NEXT(PPMPF_DREF(x))
+#define PPMPF_PLUS__(x,y) PPMPF_NEXT(x)
 
 #endif /* _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_ */

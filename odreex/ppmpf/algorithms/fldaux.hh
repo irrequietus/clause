@@ -291,5 +291,23 @@ PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
             , PPMPF_UNIT \
             , i )(f,sl,g,__VA_ARGS__))(p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
 
+#define PPMPF_FLDX1T(f,sl,g,...) \
+        (f(PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
+
+#define PPMPF_FLDX1U(f,sl,g,p,h,i,m,j,x0,x1,x2,x3,...) \
+        x3( f, x2( f, x1( f, x0(f, sl, g, p, h, i, m, j, __VA_ARGS__) \
+                        , g, p, h, i, m, j, __VA_ARGS__) \
+                 , g, p, h, i, m , j, __VA_ARGS__) \
+          , g, p, h, i, m, j, __VA_ARGS__)
+
+#define PPMPF_FLDX1V(f,sl,g,p,h,i,m,j,...) \
+        PPMPF_DREF( \
+            PPMPF_SEQ_GET( \
+                PPMPF_FLDX1U( f,sl,g,p,h,i,m,j \
+                            , PPMPF_RDMX(PPMPF_3X,PPMPF_RDMH4()) \
+                            , PPMPF_RDMX(PPMPF_2X,PPMPF_RDMH3()) \
+                            , PPMPF_RDMX(PPMPF_1X,PPMPF_RDMH2()) \
+                            , PPMPF_RDMX(PPMPF_0X,PPMPF_RDMH1()) \
+                            , __VA_ARGS__ )))
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */

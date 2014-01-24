@@ -80,7 +80,7 @@
         (p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
 #define PPMPF_FLDRS_(a,b) PPMPF_JUST(b)PPMPF_DREF(a)
 #define PPMPF_FLDRT_(a,b) \
-        PPMPF_DREF(b),PPMPF_DREF(a)
+        b,a
 
 /* NOTE: Macro infrastructure for implementing preprocessor based "folding".
  * As with repeats, recursion depth internals are implemented in such a manner
@@ -241,6 +241,10 @@
 #define PPMPF_1GZ(f,sl,g,p,h,i,m,j,...) sl
 #define PPMPF_2GZ(f,sl,g,p,h,i,m,j,...) sl
 #define PPMPF_3GZ(f,sl,g,p,h,i,m,j,...) sl
+#define PPMPF_0XZ(f,sl,g,p,h,i,m,j,...) sl
+#define PPMPF_1XZ(f,sl,g,p,h,i,m,j,...) sl
+#define PPMPF_2XZ(f,sl,g,p,h,i,m,j,...) sl
+#define PPMPF_3XZ(f,sl,g,p,h,i,m,j,...) sl
 
 /* NOTE: recursive macro framework component for folding (0) */
 
@@ -276,6 +280,38 @@
         m(h,sl,0GD)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
 #define PPMPF_0GF(f,sl,g,p,h,i,m,j,...) \
         m(h,sl,0GE)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X0(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0XZ)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X1(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X0)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X2(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X1)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X3(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X2)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X4(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X3)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X5(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X4)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X6(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X5)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X7(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X6)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X8(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X7)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0X9(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X8)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0XA(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0X9)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0XB(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0XA)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0XC(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0XB)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0XD(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0XC)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0XE(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0XD)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_0XF(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,0XE)(f,j(f,sl,g,p,h,i,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
 
 /* NOTE: recursive macro framework component for folding (1) */
 
@@ -327,6 +363,54 @@
 #define PPMPF_1GF(f,sl,g,p,h,i,m,j,...) \
         m(h,sl,1GE) \
             (f,PPMPF_0GF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X0(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1XZ) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X1(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X0) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X2(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X1) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X3(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X2) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X4(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X3) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X5(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X4) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X6(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X5) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X7(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X6) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X8(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X7) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1X9(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X8) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1XA(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1X9) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1XB(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1XA) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1XC(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1XB) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1XD(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1XC) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1XE(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1XD) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_1XF(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,1XE) \
+            (f,PPMPF_0XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
 
 /* NOTE: recursive macro framework component for folding (2) */
 
@@ -378,6 +462,54 @@
 #define PPMPF_2GF(f,sl,g,p,h,i,m,j,...) \
         m(h,sl,2GE) \
             (f,PPMPF_1GF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X0(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2XZ) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X1(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X0) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X2(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X1) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X3(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X2) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X4(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X3) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X5(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X4) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X6(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X5) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X7(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X6) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X8(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X7) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2X9(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X8) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2XA(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2X9) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2XB(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2XA) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2XC(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2XB) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2XD(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2XC) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2XE(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2XD) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_2XF(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,2XE) \
+            (f,PPMPF_1XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
 
 /* NOTE: recursive macro framework component for folding (3) */
 
@@ -429,5 +561,53 @@
 #define PPMPF_3GF(f,sl,g,p,h,i,m,j,...) \
         m(h,sl,3GE) \
             (f,PPMPF_2GF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X0(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3XZ) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X1(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X0) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X2(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X1) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X3(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X2) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X4(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X3) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X5(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X4) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X6(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X5) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X7(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X6) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X8(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X7) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3X9(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X8) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3XA(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3X9) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3XB(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3XA) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3XC(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3XB) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3XD(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3XC) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3XE(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3XD) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
+#define PPMPF_3XF(f,sl,g,p,h,i,m,j,...) \
+        m(h,sl,3XE) \
+            (f,PPMPF_2XF(f,sl,g,p,h,i,m,j,__VA_ARGS__),g,p,h,i,m,j,__VA_ARGS__)
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_ */

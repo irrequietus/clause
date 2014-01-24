@@ -66,7 +66,7 @@
  *       unsafe / raw ppmpf tuple.
  */
 #define PPMPF_UTUP_FOLDL(f,s,t) \
-        PPMPF_FLDX0G( f \
+        PPMPF_FLDX1V( f \
                     , (s)(t) \
                     , PPMPF_TUP_GET \
                     , PPMPF_TUP_POP \
@@ -79,8 +79,8 @@
  *       unsafe / raw ppmpf tuple, with no fold seed.
  */
 #define PPMPF_UTUP_FOLDL_OF(f,t) \
-        PPMPF_FLDX0G( f \
-                    , ((PPMPF_TUP_GET(t)))(PPMPF_TUP_POP(t)) \
+        PPMPF_FLDX1V( f \
+                    , (PPMPF_TUP_GET(t))(PPMPF_TUP_POP(t)) \
                     , PPMPF_TUP_GET \
                     , PPMPF_TUP_POP \
                     , PPMPF_TUP_EMPTY \
@@ -88,11 +88,11 @@
                     , PPMPF_FLDX0L \
                     , PPMPF_FLDX0K ,)
 
-/* NOTE: PPMPF_UTUP_FOLDL: high order function performing a right fold over an
+/* NOTE: PPMPF_UTUP_FOLDR: high order function performing a right fold over an
  *       unsafe / raw ppmpf tuple.
  */
 #define PPMPF_UTUP_FOLDR(f,s,t) \
-        PPMPF_FLDX0G( f \
+        PPMPF_FLDX1V( f \
                     , (s)(PPMPF_TUP_REVERSE(t)) \
                     , PPMPF_TUP_GET \
                     , PPMPF_TUP_POP \
@@ -100,13 +100,19 @@
                     , PPMPF_FLDX0O \
                     , PPMPF_FLDX0L  \
                     , PPMPF_FLDX0K ,)
+                    
+/* NOTE: PPMPF_UTUP_FOLDR: high order function performing a right fold over an
+ *       unsafe / raw ppmpf tuple, with no fold seed.
+ */
+#define PPMPF_UTUP_FOLDR_OF(f,t) \
+        PPMPF_UTUP_FOLDR_(f,PPMPF_TUP_REVERSE(t))
 
 /* NOTE: PPMPF_TUPLE: safe ppmpf tuple constructor */
 #define PPMPF_TUPLE(...) \
         PPMPF_IFELSE( PPMPF_TUP_EMPTY((__VA_ARGS__)) \
                     , PPMPF_UNIT \
-                    , PPMPF_UTUP_FOLDL_OF )\
-        (PPMPF_FLDX0S,(__VA_ARGS__))
+                    , PPMPF_UTUP_MAP )\
+        (,(__VA_ARGS__))
 
 /* NOTE: PPMPF_TUP_FOLDL: high order function performing a left fold over a
  *       ppmpf tuple. */
@@ -142,15 +148,15 @@
  * series of preprocessor tokens.
  */
 #define PPMPF_TUP_SIZEOF(tup) \
-        PPMPF_DREF(PPMPF_TUP_FOLDL(PPMPF_PLUS__,(PPMPF_IMINV()),tup))
+        PPMPF_DREF(PPMPF_UTUP_FOLDL(PPMPF_PLUS__,(PPMPF_IMINV()),tup))
 
-/* NOTE: PPMPF_TUP2SEQ: convert a ppmpf tuple to a ppmpf sequence, preserving
- * the original order of elements. */
-#define PPMPF_TUP2SEQ(tup) \
+/* NOTE: PPMPF_UTUP2SEQ: convert an unsafe / raw ppmpf tuple to a ppmpf
+ *       sequence, preserving the original order of elements. */
+#define PPMPF_UTUP2SEQ(tup) \
         PPMPF_DREF( \
-            PPMPF_TUP_FOLDL( PPMPF_T2S_ \
-                           , (PPMPF_TUP_GET(tup)) \
-                           , PPMPF_TUP_POP(tup) ) )
+            PPMPF_UTUP_FOLDL( PPMPF_T2S_ \
+                            , (PPMPF_TUP_GET(tup)) \
+                            , PPMPF_TUP_POP(tup) ) )
 
 /* NOTE: PPMPF_TUP_JOIN: Join two ppmpf tuples together.*/
 #define PPMPF_TUP_JOIN(z,x) \
@@ -200,24 +206,29 @@
                        (PPMPF_ENCLOSE))
 
 /* NOTE: PPMPF_TUP_MAP: An implementation of the map high order function for
- * ppmpf tuple constructs.
+ *       safe ppmpf tuple constructs.
  */
 #define PPMPF_TUP_MAP(f,t) \
-        PPMPF_DREF( \
-            PPMPF_SEQ_GET( \
-                PPMPF_FOLD_( f \
-                           , ( PPMPF_IFELSE( PPMPF_TUP_EMPTY(t) \
-                                           , () \
-                                           , ((PPMPF_TMAP_AUX1(f,t)) ) ) ) \
-                           , PPMPF_TUP_POP(t) \
-                           , PPMPF_TUP_GET \
-                           , PPMPF_TUP_POP \
-                           , PPMPF_TUP_EMPTY \
-                           , PPMPF_FLDT \
-                           , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
-                           , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
-                           , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
-                           , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
-                           , PPMPF_FLDMT_, )))
+        PPMPF_FLDX0G( f \
+                    , (((f(PPMPF_TUP_1GET(t)))))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_1GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0E \
+                    , PPMPF_FLDX0D \
+                    , PPMPF_FLDX0H, )
+
+/* NOTE: PPMPF_UTUP_MAP: An implementation of the map high order function for
+ *       unsafe / raw ppmpf tuple constructs.
+ */
+#define PPMPF_UTUP_MAP(f,t) \
+        PPMPF_FLDX0G( f \
+                    , ((f(PPMPF_TUP_1GET(t))))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX1T \
+                    , PPMPF_FLDX0D \
+                    , PPMPF_FLDX0H, )
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_ */

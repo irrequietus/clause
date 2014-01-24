@@ -30,7 +30,7 @@
 #include <odreex/ppmpf/kernel/cpro/empty.hh>
 
 /* Assistive macro for tuple -> sequence conversion. */
-#define PPMPF_T2S_(a,b) PPMPF_DREF(a)b
+#define PPMPF_T2S_(a,b) PPMPF_JUST(a)(b)
 
 /* This performs the same task as PPMPF_TUP_JOIN but on a "raw" tuple. */
 #define PPMPF_TUP_JOIN_(z,...) PPMPF_TUP_JOIN(z,(__VA_ARGS__))
@@ -74,8 +74,18 @@
                                  , PPMPF_FOLD_DWRAP \
                                  , PPMPF_JUST )(f), )
 
+#define PPMPF_UTUP_FOLDR_(f,t) \
+        PPMPF_FLDX0G( f \
+            , (PPMPF_TUP_GET(t))(PPMPF_TUP_POP(t)) \
+            , PPMPF_TUP_GET \
+            , PPMPF_TUP_POP \
+            , PPMPF_TUP_EMPTY \
+            , PPMPF_FLDX0O \
+            , PPMPF_FLDX0L  \
+            , PPMPF_FLDX0K ,)
+
 #define PPMPF_TUP_REVERSE_(tup) \
-        (PPMPF_DREF(PPMPF_TUP_FOLDL_OF(PPMPF_FLDRT_, \
+        (PPMPF_DREF(PPMPF_UTUP_FOLDL_OF(PPMPF_FLDRT_, \
                     PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_TUP_GET(tup)))
 
 #define PPMPF_TUP_FOLDR__(f,l) \
