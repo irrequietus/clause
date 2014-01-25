@@ -73,7 +73,7 @@
 
 /* PPMPF_FLDRS_ */
 #define PPMPF_FLDX08(a,b) \
-        PPMPF_JUST(b)PPMPF_DREF(a)
+        (b)PPMPF_JUST(a)
 
 /* PPMPF_FLDRT_ */
 #define PPMPF_FLDX09(a,b) \
@@ -309,5 +309,16 @@ PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
                             , PPMPF_RDMX(PPMPF_1X,PPMPF_RDMH2()) \
                             , PPMPF_RDMX(PPMPF_0X,PPMPF_RDMH1()) \
                             , __VA_ARGS__ )))
+
+#define PPMPF_FLDX1W(f1,f2,sl) (f1(sl))(f2(sl))
+
+#define PPMPF_FLDX1X(f,sl,g,p,h,i,...) \
+        ( PPMPF_DREF(PPMPF_SEQ_GET(sl))PPMPF_IFELSE( \
+            h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
+          , PPMPF_UNIT \
+          , i )(f,sl,g,__VA_ARGS__))(p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+
+#define PPMPF_FLDX1Y(f,sl,g,...) \
+        (f(PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */
