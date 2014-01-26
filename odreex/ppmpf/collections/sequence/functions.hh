@@ -138,4 +138,10 @@
                     , PPMPF_FLDX0D \
                     , PPMPF_FLDX1X, )
 
+/* NOTE: PPMPF_SEQUENCE: constructor for ppmpf sequences. */
+#define PPMPF_SEQUENCE(...) \
+        PPMPF_IFELSE( PPMPF_TUP_EMPTY((__VA_ARGS__)) \
+                    , PPMPF_EMPTY \
+                    , PPMPF_UTUP2SEQ)((__VA_ARGS__))
+
 #endif /* _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_FUNCTIONS_HH_ */
