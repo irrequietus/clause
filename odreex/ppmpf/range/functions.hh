@@ -49,11 +49,18 @@ PPMPF_SEQ_POP)(r)
  * NOTE: PPMPF_NRANGE_TUP : Given numbers a and b in ppmpf 4 digit sequence
  * format with a <= b, generate a ppmpf tuple for all numbers in [a,b] range,
  * with numbers in that range expressed in regular decimal format - i.e.
- * (0,...,1234)
+ * ((0),...,(1234))
  */
 #define PPMPF_NRANGE_TUP(a,b) \
-        PPMPF_TUP_JOIN( PPMPF_RANGE_(a,b,PPMPF_NRANGE_1,(PPMPF_DIGNM)) \
-                      , (PPMPF_DIGNM(b)) )
+        PPMPF_FLDX0G( PPMPF_DIGNM \
+                    , (((PPMPF_DIGNM(PPMPF_RANGE_GET((a)(PPMPF_NEXT(b))))))) \
+                      (PPMPF_RANGE_POP((a)(PPMPF_NEXT(b)))) \
+                    , PPMPF_RANGE_GET \
+                    , PPMPF_RANGE_POP \
+                    , PPMPF_RANGE_EMPTY \
+                    , PPMPF_FLDX20 \
+                    , PPMPF_FLDX0D \
+                    , PPMPF_FLDX0H, )
 
 /*
  * NOTE: PPMPF_IRANGE_TUP : Given numbers a and b in ppmpf 4 digit sequence
@@ -62,11 +69,15 @@ PPMPF_SEQ_POP)(r)
  * ((0)(0)(0)(0),...,(1)(2)(3)(4))
  */
 #define PPMPF_IRANGE_TUP(a,b) \
-        PPMPF_TUP_JOIN( \
-            PPMPF_RANGE_( a \
-                        , b \
-                        , PPMPF_IRANGE_1 \
-                        , (PPMPF_DPAR)(PPMPF_ENCLOSE)),(b))
+        PPMPF_FLDX0G(  \
+                    , ((PPMPF_RANGE_GET((a)(PPMPF_NEXT(b))))) \
+                      (PPMPF_RANGE_POP((a)(PPMPF_NEXT(b)))) \
+                    , PPMPF_RANGE_GET \
+                    , PPMPF_RANGE_POP \
+                    , PPMPF_RANGE_EMPTY \
+                    , PPMPF_FLDX1Z \
+                    , PPMPF_FLDX0D \
+                    , PPMPF_FLDX0H, )
 /*
  * NOTE: PPMPF_NRANGE_SEQ : Given numbers a and b in ppmpf 4 digit sequence
  * format with a <= b, generate a ppmpf sequence for all numbers in [a,b] range,
