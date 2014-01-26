@@ -21,6 +21,8 @@
 #ifndef _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_
 #define _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_
 
+#include <odreex/ppmpf/kernel/cpro/limits.hh>
+
 /* NOTE: PPMPF_TRUE, PPMPF_FALSE: When deployed, resolving to either 1 or 0. */
 #define PPMPF_TRUE(...) 1
 #define PPMPF_FALSE(...) 0

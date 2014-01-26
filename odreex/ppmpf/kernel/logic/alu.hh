@@ -222,6 +222,15 @@
                  , PPMPF_DIGIT(1,n) \
                  , PPMPF_DIGIT(0,n))
 
+#define PPMPF_IEHEX(n) \
+        PPMPF_RDMX( \
+            PPMPF_RDMX( \
+                PPMPF_RDMX( \
+                    PPMPF_RDMX(0x,PPMPF_DIGIT(3,n)) \
+                , PPMPF_DIGIT(2,n)) \
+            , PPMPF_DIGIT(1,n)) \
+        , PPMPF_DIGIT(0,n))
+
 /* NOTE: Basic addition algorithm lookup tuple. */
 #define PPMPF_ITRBASEP_() \
         ( (0)(0),(0)(1),(0)(2),(0)(3),(0)(4) \
@@ -431,6 +440,6 @@
 #define PPMPF_PREV(x) PPMPF_ISUB(x,(0)(0)(0)(1))
 
 /* Assistive macro for integer incrementation during folding. */
-#define PPMPF_PLUS__(x,y) PPMPF_NEXT(PPMPF_DREF(x))
+#define PPMPF_PLUS__(x,y) PPMPF_NEXT(x)
 
 #endif /* _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_ */

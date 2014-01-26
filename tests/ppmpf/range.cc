@@ -39,8 +39,8 @@ PPMPF_TEST( ppmpf_nrange_seq_0_64
 
 PPMPF_TEST( ppmpf_irange_tup_0_140
           , "PPMPF_IRANGE_TUP on [0,140], adding all numbers"
-          , PPMPF_TUP_FOLDL_OF( ((PPMPF_IADD,_1),_2)
-                              , PPMPF_IRANGE_TUP((0)(0)(0)(0),(0)(1)(4)(0)) )
+          , PPMPF_UTUP_FOLDL_OF( PPMPF_IADD
+                               , PPMPF_IRANGE_TUP((0)(0)(0)(0),(0)(1)(4)(0)) )
           , ((9)(8)(7)(0)))
 
 PPMPF_TEST( ppmpf_irange_seq_0_140
