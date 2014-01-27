@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -30,7 +30,7 @@
 #include <odreex/ppmpf/kernel/cpro/empty.hh>
 
 /* Assistive macro for tuple -> sequence conversion. */
-#define PPMPF_T2S_(a,b) PPMPF_DREF(a)b
+#define PPMPF_T2S_(a,b) PPMPF_JUST(a)(b)
 
 /* This performs the same task as PPMPF_TUP_JOIN but on a "raw" tuple. */
 #define PPMPF_TUP_JOIN_(z,...) PPMPF_TUP_JOIN(z,(__VA_ARGS__))
@@ -43,43 +43,28 @@
                     , PPMPF_TUP_SPLIT___ \
                     , PPMPF_TUP_SPLIT__)(__VA_ARGS__)
 
-#define PPMPF_TMAP_AUX1(f,t) \
-        PPMPF_APPLY(f,PPMPF_DREF(PPMPF_TUP_GET(t)))
+#define PPMPF_UTUP_FOLDR_(f,t) \
+        PPMPF_FLDX1V( f \
+                    , (PPMPF_TUP_GET(t))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0O \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
 
-// PPMPF_DREF() applied by default, aka _1 is default
-#define PPMPF_FLDMT_(f,sl,g,...) \
-        PPMPF_TUP_JOIN( \
-            PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
-        ,   ((PPMPF_APPLY( f \
-                         , PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))))
-
-#define PPMPF_TUP_FOLD_(f,s,l,i) \
-        PPMPF_FOLD_( PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , PPMPF_FOLD_DFUNC \
-                                 , PPMPF_JUST )(f) \
-                   , s \
-                   , l \
-                   , PPMPF_TUP_GET \
-                   , PPMPF_TUP_POP \
-                   , PPMPF_TUP_EMPTY \
-                   , PPMPF_FLDT \
-                   , PPMPF_CAT(PPMPF_3F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_2F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_1F,PPMPF_PNX(9)) \
-                   , PPMPF_CAT(PPMPF_0F,PPMPF_PNX(9)) \
-                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , i##_ \
-                                 , i )\
-                   , PPMPF_IFELSE( PPMPF_EMPTY_10(PPMPF_COMMA f) \
-                                 , PPMPF_FOLD_DWRAP \
-                                 , PPMPF_JUST )(f), )
+#define PPMPF_TUP_FOLDR_(f,t) \
+        PPMPF_FLDX1V( f \
+                    , (PPMPF_TUP_1GET(t))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_1GET \
+                    , PPMPF_TUP_POP \
+                    , PPMPF_TUP_EMPTY \
+                    , PPMPF_FLDX0O \
+                    , PPMPF_FLDX0L  \
+                    , PPMPF_FLDX0K ,)
 
 #define PPMPF_TUP_REVERSE_(tup) \
-        (PPMPF_DREF(PPMPF_TUP_FOLDL_OF(PPMPF_FLDRT_, \
+        (PPMPF_DREF(PPMPF_UTUP_FOLDL_OF(PPMPF_FLDRT_, \
                     PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_TUP_GET(tup)))
-
-#define PPMPF_TUP_FOLDR__(f,l) \
-        PPMPF_TUP_FOLD_(f,PPMPF_TUP_GET(l),PPMPF_TUP_POP(l),PPMPF_FLDAR)
-
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_ESSENCE_HH_ */

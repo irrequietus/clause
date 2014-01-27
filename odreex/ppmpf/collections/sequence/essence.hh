@@ -25,7 +25,9 @@
 #error ppmpf: <odreex/ppmpf/collections/sequence/functions.hh> must precede.
 #endif
 
-#define PPMPF_S2T_(a,b) PPMPF_DREF(a),PPMPF_DREF(b)
+#define PPMPF_S2T_(a,b) (PPMPF_DREF(a),b)
+
+#define PPMPF_S3T_(a,b) (PPMPF_DREF(a),(b))
 
 #define PPMPF_SMAP_AUX1(f,s) \
         PPMPF_IFELSE( PPMPF_SEQ_EMPTY(s) \

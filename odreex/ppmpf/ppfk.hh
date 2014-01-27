@@ -27,7 +27,7 @@
 
 /* NOTE: PPMPF_VCAT - A variadic version of PPMPF_CAT */
 #define PPMPF_VCAT(x,...) \
-        PPMPF_DREF(PPMPF_TUP_FOLDL_OF(((PPMPF_CAT,_1),_2),(x,__VA_ARGS__)))
+        PPMPF_DREF(PPMPF_UTUP_FOLDL(PPMPF_CAT,(x),(__VA_ARGS__)))
 
 /* NOTE: PPMPF_IARGS - Counting n arbirtrary size of arguments in __VA_ARGS__.
  * This will work within a range of 0 to 9999 macro arguments passed to

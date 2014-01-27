@@ -87,7 +87,7 @@ PPMPF_TEST_BLOCK( ppmpf
                 , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_seq_at09
-                  , "testing ppmpf PPMPF_SEQ_AT09 in index range [0,9]" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_seq_at09
+                      , "testing ppmpf PPMPF_SEQ_AT09 in index range [0,9]" );
 }
