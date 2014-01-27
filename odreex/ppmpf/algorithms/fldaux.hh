@@ -327,4 +327,7 @@ PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
 #define PPMPF_FLDX20(f,sl,g,...) \
         ((f(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
 
+#define PPMPF_FLDX21(f,sl,g,...) \
+        f(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */

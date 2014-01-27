@@ -39,6 +39,6 @@
 #define PPMPF_APPLY2__(f,...) f(__VA_ARGS__)
 
 #define PPMPF_COMPOSE(x,fseq) \
-        PPMPF_SEQ_FOLDR(((PPMPF_APPLY2,_1),_2),x,fseq)
+        PPMPF_DREF(PPMPF_SEQ_FOLDR(PPMPF_APPLY2,(),fseq x))
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FUNCTIONAL_HH_ */

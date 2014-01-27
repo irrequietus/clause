@@ -124,7 +124,7 @@ PPMPF_TEST_BLOCK( ppmpf
                 , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_sequence_zipwith
-                  , "testing ppmpf PPMPF_SEQ_ZIPWITH (2 - 9 sequences)" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_sequence_zipwith
+                      , "testing ppmpf PPMPF_SEQ_ZIPWITH (2 - 9 sequences)" );
 }

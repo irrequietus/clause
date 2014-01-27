@@ -21,8 +21,8 @@
 #ifndef _ODREEX_PPMPF_RANGE_FUNCTIONS_HH_
 #define _ODREEX_PPMPF_RANGE_FUNCTIONS_HH_
 
-#include <odreex/ppmpf/range/essence.hh>
-
+#include <odreex/ppmpf/kernel/cpro/base.hh>
+#include <odreex/ppmpf/kernel/cpro/core.hh>
 /*
  * NOTE: PPMPF_RANGE_GET : Get the next item in a numerical range.
  */
@@ -85,12 +85,15 @@ PPMPF_SEQ_POP)(r)
  * ((0)...(1234)))
  */
 #define PPMPF_NRANGE_SEQ(a,b) \
-        PPMPF_DREF( \
-            PPMPF_RANGE_( a \
-                        , b \
-                        , PPMPF_NRANGE_2 \
-                        , (PPMPF_ENCLOSE)(PPMPF_DIGNM)))(PPMPF_DIGNM(b))
-
+        PPMPF_FLDX0G( PPMPF_DIGNM \
+                    , ((PPMPF_DIGNM(PPMPF_RANGE_GET((a)(PPMPF_NEXT(b)))))) \
+                      (PPMPF_RANGE_POP((a)(PPMPF_NEXT(b)))) \
+                    , PPMPF_RANGE_GET \
+                    , PPMPF_RANGE_POP \
+                    , PPMPF_RANGE_EMPTY \
+                    , PPMPF_FLDX1Z \
+                    , PPMPF_FLDX0D \
+                    , PPMPF_FLDX1X, )
 /*
  * NOTE: PPMPF_IRANGE_SEQ : Given numbers a and b in ppmpf 4 digit sequence
  * format with a <= b, generate a ppmpf sequence for all numbers in [a,b] range,
@@ -98,7 +101,15 @@ PPMPF_SEQ_POP)(r)
  * (((0)(0)(0)(0))...((1)(2)(3)(4)))
  */
 #define PPMPF_IRANGE_SEQ(a,b) \
-        PPMPF_DREF(PPMPF_RANGE_(a,b,PPMPF_IRANGE_2,(PPMPF_ENCLOSE)))(b)
+        PPMPF_FLDX0G(  \
+                    , ((PPMPF_RANGE_GET((a)(PPMPF_NEXT(b))))) \
+                      (PPMPF_RANGE_POP((a)(PPMPF_NEXT(b)))) \
+                    , PPMPF_RANGE_GET \
+                    , PPMPF_RANGE_POP \
+                    , PPMPF_RANGE_EMPTY \
+                    , PPMPF_FLDX21 \
+                    , PPMPF_FLDX0D \
+                    , PPMPF_FLDX1X, )
 
 
 #endif /* _ODREEX_PPMPF_RANGE_FUNCTIONS_HH_ */

@@ -45,7 +45,7 @@ PPMPF_TEST_BLOCK( ppmpf
                 , true )
 
 int main() {
-    PPMPF_TEST_RUN( check_sequence
-                  , "testing ppmpf PPMPF_SEQUENCE (0, 10 and 20 items)" );
-    return {};
+    return
+        PPMPF_TEST_RUN( check_sequence
+                      , "testing ppmpf PPMPF_SEQUENCE (0, 10 and 20 items)" );
 }

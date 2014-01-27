@@ -49,7 +49,7 @@ struct name \
 #define PPMPF_TEST_BLOCK_(t) \
         PPMPF_DREF(PPMPF_TUP_POP( \
             PPMPF_UTUP_FOLDL( PPMPF_TEST_BLOCK__, () \
-                           , PPMPF_UTUP_MAP(PPMPF_TEST_TYPE, t))))
+                            , PPMPF_UTUP_MAP(PPMPF_TEST_TYPE, t))))
 
 #define PPMPF_TEST_BLOCK(nspace,name,tests,expected) \
 namespace odreex { namespace nspace { namespace test { \
