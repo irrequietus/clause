@@ -62,7 +62,7 @@ define compile_test_time
       $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit 1
 endef
 
-.PHONY: tests test clean clean-local just jtim ctim tctime \
+.PHONY: test clean clean-local just jtim ctim tctime \
 	$(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS))
 
 %.o: %.cc
@@ -72,17 +72,6 @@ dist-hook:
 	rm -f $(distdir)/tests/ample/*.test
 	rm -f $(distdir)/tests/ppmpf/*.test
 
-tests:
-	@$(call println, "compiler", "$(CXX)")
-	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
-	@$(call println, "cppflags", "$(CPPFLAGS)")
-	@$(foreach x, \
-	    $(sort $(foreach f, \
-	        $(dir tests/*/*), \
-		$(wildcard $(f)*.cc))), \
-		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
-		$(call compile_test, $(x)))
-
 tctime:
 	@$(foreach x, \
 	    $(sort $(foreach f, \
@@ -91,12 +80,17 @@ tctime:
 		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
 		$(call compile_test_time,$(x)))
 
-test: tests
+test:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
 	@$(foreach x, \
-	$(sort $(foreach f, \
-	$(dir tests/*/*), \
-	$(wildcard $(f)*.test))), \
-	$(call testrun, $(x) ))
+	    $(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.cc))), \
+		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
+		$(call compile_test, $(x)))
+	@$(foreach x, \
+	    $(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.test))),\
+		$(call testrun, $(x) ))
 
 clean-local:
 	rm -f tests/ample/*.test
