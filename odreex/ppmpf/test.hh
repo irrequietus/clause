@@ -22,6 +22,7 @@
 #define _ODREEX_PPMPF_TEST_HH_
 
 #include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ample/charseq.hh>
 #include <odreex/ample/test.hh>
 
 /* NOTE: PPMPF_TEST : A macro for creating PPMPF macro tests. Using the test
@@ -51,15 +52,21 @@ struct name \
             PPMPF_UTUP_FOLDL( PPMPF_TEST_BLOCK__, () \
                             , PPMPF_UTUP_MAP(PPMPF_TEST_TYPE, t))))
 
-#define PPMPF_TEST_BLOCK(nspace,name,tests,expected) \
+#define PPMPF_TEST_BLOCK(nspace,name,tests,expected,msg) \
 namespace odreex { namespace nspace { namespace test { \
 struct name \
      : PPMPF_TEST_BLOCK____(check)< expected \
-            , PPMPF_TEST_BLOCK____(check_all)<PPMPF_TEST_BLOCK_(tests)>>  \
+            , PPMPF_TEST_BLOCK____(check_all)<PPMPF_TEST_BLOCK_(tests)> \
+            , ample_charseq(msg) >  \
 {}; \
 } } }
 
-#define PPMPF_TEST_RUN(name, text) \
-        odreex::ppmpf::test::name::deploy(text);
+#define PPMPF_TEST_MRUN(name) \
+        int main() { \
+            return odreex::ppmpf::test::name::run_all(); \
+        }
+
+#define PPMPF_TST(a,b,c,d,e) \
+        PPMPF_TEST(a,e,PPMPF_APPLY(b,PPMPF_DREF(c)),d)
 
 #endif /* _ODREEX_PPMPF_TEST_HH_ */

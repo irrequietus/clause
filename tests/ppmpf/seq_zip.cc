@@ -18,9 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 
 PPMPF_TEST( ppmpf_seq_zip
           , "PPMPF_SEQ_ZIP (zip using 2 ppmpf sequences)"
@@ -127,10 +126,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_seq_zip7
                   , ppmpf_seq_zip8
                   , ppmpf_seq_zip9 )
-                , true )
+                , true
+                , "testing ppmpf PPMPF_SEQ_ZIP (2 - 9 sequences)" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_sequence_zip
-                      , "testing ppmpf PPMPF_SEQ_ZIP (2 - 9 sequences)" );
-}
+PPMPF_TEST_MRUN(check_sequence_zip)

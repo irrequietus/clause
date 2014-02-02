@@ -18,9 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
+#include <odreex/test.hh>
 #include <odreex/ppmpf/range.hh>
-#include <odreex/ppmpf/test.hh>
 
 PPMPF_TEST( ppmpf_nrange_tup_0_0
           , "PPMPF_NRANGE_TUP on [0,0], expansion only"
@@ -82,10 +81,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_nrange_seq_0_1
                   , ppmpf_nrange_seq_0_32
                   , ppmpf_nrange_seq_0_64 )
-               , true )
+               , true
+               , "testing ppmpf range generators")
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_range
-                    , "testing ppmpf range generators" );
-}
+PPMPF_TEST_MRUN(check_range)

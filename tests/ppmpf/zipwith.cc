@@ -18,9 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/tuple.hh>
 
 PPMPF_TEST( ppmpf_tup_zipwith
           , "PPMPF_TUP_ZIPWITH (zipwith using 2 safe tuples)"
@@ -122,10 +121,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup_zipwith7
                   , ppmpf_tup_zipwith8
                   , ppmpf_tup_zipwith9 )
-                , true )
+                , true
+                , "testing ppmpf PPMPF_TUP_ZIPWITH (2 - 9)" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_tuple_zipwith
-                      , "testing ppmpf PPMPF_TUP_ZIPWITH (2 - 9)" );
-}
+PPMPF_TEST_MRUN(check_tuple_zipwith)

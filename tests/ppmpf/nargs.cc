@@ -18,19 +18,20 @@
  *
  */
 
-#include <odreex/ample/test.hh>
+#include <odreex/test.hh>
 #include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
 
-PPMPF_TEST( ppmpf_nargs0
-          , "PPMPF_NARGS with 2 arguments"
-          , (PPMPF_NARGS(0,1))
-          , (2) )
+PPMPF_TST( ppmpf_nargs0
+         , PPMPF_NARGS
+         , (0,1)
+         , 2
+         , "PPMPF_NARGS with 2 arguments" )
 
-PPMPF_TEST( ppmpf_nargs1
-          , "PPMPF_NARGS with 3 arguments"
-          , (PPMPF_NARGS(0,1,2))
-          , (3) )
+PPMPF_TST( ppmpf_nargs1
+         , PPMPF_NARGS
+         , (0,1,2)
+         , 3
+         , "PPMPF_NARGS with 3 arguments" )
 
 PPMPF_TEST( ppmpf_nargs2
           , "PPMPF_NARGS with 4 arguments"
@@ -104,10 +105,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_nargs6
                   , ppmpf_nargs7
                   , ppmpf_nargs8 )
-               , true )
+               , true
+               , "testing ppmpf argument counters" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_nargs
-                    , "testing ppmpf argument counters" );
-}
+PPMPF_TEST_MRUN(check_nargs)

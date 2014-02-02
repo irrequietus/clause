@@ -18,9 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 
 PPMPF_TEST( ppmpf_sequence_0
           , "PPMPF_SEQUENCE with 0 items"
@@ -42,10 +41,7 @@ PPMPF_TEST_BLOCK( ppmpf
                 , ( ppmpf_sequence_0
                   , ppmpf_sequence_10
                   , ppmpf_sequence_20 )
-                , true )
+                , true
+                , "testing ppmpf PPMPF_SEQUENCE (0, 10 and 20 items)" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_sequence
-                      , "testing ppmpf PPMPF_SEQUENCE (0, 10 and 20 items)" );
-}
+PPMPF_TEST_MRUN(check_sequence)
