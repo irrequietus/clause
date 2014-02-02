@@ -25,6 +25,8 @@
 #include <odreex/ample/charseq.hh>
 #include <odreex/ample/test.hh>
 
+#ifdef USE_TEST_EXPANSION
+
 /* NOTE: PPMPF_TEST : A macro for creating PPMPF macro tests. Using the test
  * facilities odreex::ample::test offers, we create types to be used for
  * ample - like testing but within a ppmpf::test namespace.
@@ -72,5 +74,16 @@ struct name \
 
 #define PPMPF_TST(a,b,c,d,e) \
         PPMPF_TEST(a,e,PPMPF_TST0(b,c),d)
+#else
+
+#define PPMPF_TST(a,b,c,d,e)
+#define PPMPF_TEST_MRUN(name) \
+        int main() { \
+            static_assert(false, PPMPF_QUOTE(name not found)); \
+            return 1; \
+        }
+#define PPMPF_TEST_BLOCK(nspace,name,tests,expected,msg)
+
+#endif
 
 #endif /* _ODREEX_PPMPF_TEST_HH_ */
