@@ -61,12 +61,16 @@ struct name \
 {}; \
 } } }
 
+#define PPMPF_TST0(f,x) PPMPF_TST1(f,PPMPF_DREF(x))
+#define PPMPF_TST1(f,...) PPMPF_TST2(f,__VA_ARGS__)
+#define PPMPF_TST2(f,...) f(__VA_ARGS__)
+
 #define PPMPF_TEST_MRUN(name) \
         int main() { \
             return odreex::ppmpf::test::name::run_all(); \
         }
 
 #define PPMPF_TST(a,b,c,d,e) \
-        PPMPF_TEST(a,e,PPMPF_APPLY(b,PPMPF_DREF(c)),d)
+        PPMPF_TEST(a,e,PPMPF_TST0(b,c),d)
 
 #endif /* _ODREEX_PPMPF_TEST_HH_ */
