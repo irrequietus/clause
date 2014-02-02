@@ -73,6 +73,9 @@ dist-hook:
 	rm -f $(distdir)/tests/ppmpf/*.test
 
 tests:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS)")
 	@$(foreach x, \
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
