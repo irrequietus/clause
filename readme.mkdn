@@ -45,7 +45,9 @@ cd odreex
 make test
 ```
 It is now possible to use `--with-compiler=<compiler path here>` to specify
-a particular compiler path to be used during make targets.
+a particular compiler path to be used during make targets. The `make test`
+command adds a `-DUSE_TEST_EXPANSION` to the flags using during tests, allowing
+for test macro expansion to occur only during tests.
 
 Do remember that autogen.sh needs to run once for creating the necessary
 boilerplate for autotools to run for in a freshly cloned repository. There are
