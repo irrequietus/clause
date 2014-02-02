@@ -18,33 +18,96 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 
-PPMPF_TEST( ppmpf_seq_foldr_10
-          , "PPMPF_SEQ_FOLDR with 10 items"
-          , PPMPF_SEQ_FOLDR( PPMPF_CAT
-                           , (0)
-                           , (1)(2)(3)(4)(5)(6)(7)(8)(9) )
-          , (0123456789))
+PPMPF_TST( ppmpf_seq_foldr_10
+         , PPMPF_SEQ_FOLDR
+         , (PPMPF_CAT, (0), (1)(2)(3)(4)(5)(6)(7)(8)(9))
+         , (0123456789)
+         , "PPMPF_SEQ_FOLDR with 10 items" )
 
-PPMPF_TEST( ppmpf_seq_foldr_20
-          , "PPMPF_SEQ_FOLDR with 20 items"
-          , PPMPF_SEQ_FOLDR( PPMPF_CAT
-                           , (0)
-                           , (1)(2)(3)(4)(5)(6)(7)(8)(9)\
-                             (0)(1)(2)(3)(4)(5)(6)(7)(8)(9) )
-          , (01234567890123456789))
+PPMPF_TST( ppmpf_seq_foldr_20
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9) )
+         , (01234567890123456789)
+         , "PPMPF_SEQ_FOLDR with 20 items" )
+
+PPMPF_TST( ppmpf_seq_foldr_30
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9) )
+         , (012345678901234567890123456789)
+         , "PPMPF_SEQ_FOLDR with 30 items" )
+
+PPMPF_TST( ppmpf_seq_foldr_40
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9) )
+         , (0123456789012345678901234567890123456789)
+         , "PPMPF_SEQ_FOLDR with 40 items" )
+
+PPMPF_TST( ppmpf_seq_foldr_50
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9))
+         , (01234567890123456789012345678901234567890123456789)
+         , "PPMPF_SEQ_FOLDR with 50 items" )
+
+PPMPF_TST( ppmpf_seq_foldr_60
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9))
+         , (012345678901234567890123456789012345678901234567890123456789)
+         , "PPMPF_SEQ_FOLDR with 60 items" )
+
+PPMPF_TST( ppmpf_seq_foldr_70
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9))
+         , (012345678901234567890123456789012345678901234567890123456789\
+0123456789)
+         , "PPMPF_SEQ_FOLDR with 70 items" )
+
+PPMPF_TST( ppmpf_seq_foldr_80
+         , PPMPF_SEQ_FOLDR
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)\
+             (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9))
+         , (012345678901234567890123456789012345678901234567890123456789\
+01234567890123456789)
+         , "PPMPF_SEQ_FOLDR with 80 items" )
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_seq_foldr
                 , ( ppmpf_seq_foldr_10
-                  , ppmpf_seq_foldr_20 )
-                , true )
+                  , ppmpf_seq_foldr_20
+                  , ppmpf_seq_foldr_30
+                  , ppmpf_seq_foldr_40
+                  , ppmpf_seq_foldr_50
+                  , ppmpf_seq_foldr_60
+                  , ppmpf_seq_foldr_70
+                  , ppmpf_seq_foldr_80 )
+                , true
+                , "testing PPMPF_SEQ_FOLDR (10 - 80 items)" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_seq_foldr
-                      , "testing ppmpf PPMPF_SEQ_FOLDR (10 and 20 items)" );
-}
+PPMPF_TEST_MRUN(check_seq_foldr)

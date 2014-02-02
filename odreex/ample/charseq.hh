@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -24,6 +24,8 @@
 #include <cstdint>
 #include <type_traits>
 #include <odreex/ppmpf/kernel/cpro/base.hh>
+#include <odreex/ample/base/start_types.hh>
+#include <odreex/ample/oprt/fundamentals.hh>
 
 namespace odreex {
 namespace ample {
@@ -73,6 +75,14 @@ struct charseq {
     public:
         typedef typename impl<intfy<Int_N...>>::type type;
     };
+
+    static constexpr char const * cbegin() {
+        return &value[0];
+    }
+
+    static constexpr char const * cend() {
+        return &value[size];
+    };
 };
 
 template<char... X>
@@ -99,7 +109,30 @@ public:
                                , char const (&b)[K]) {
         return (impl(a,b));
     }
+
+    template<typename X>
+    struct is_charseq {
+    private:
+        template<typename T>
+        struct ischarseq_impl
+            : boolean<false>
+        {};
+
+        template<char... Chars_X>
+        struct ischarseq_impl<charseq<Chars_X...>>
+            : boolean<true>
+        {};
+
+    public:
+        typedef ischarseq_impl<X> type;
+    };
 };
+
+template<typename T>
+struct is_charseq
+     : std::integral_constant< bool
+                             , charsops::is_charseq<T>::type::value >
+{};
 
 } /* ample */
 } /* odreex */

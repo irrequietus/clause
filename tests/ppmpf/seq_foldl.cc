@@ -18,33 +18,28 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 
-PPMPF_TEST( ppmpf_seq_foldl_10
-          , "PPMPF_SEQ_FOLDL with 10 items"
-          , PPMPF_SEQ_FOLDL( PPMPF_CAT
-                           , (0)
-                           , (1)(2)(3)(4)(5)(6)(7)(8)(9) )
-          , (0123456789))
+PPMPF_TST( ppmpf_seq_foldl_10 
+         , PPMPF_SEQ_FOLDL
+         , (PPMPF_CAT, (0), (1)(2)(3)(4)(5)(6)(7)(8)(9))
+         , (0123456789)
+         , "PPMPF_SEQ_FOLDL with 10 items" )
 
-PPMPF_TEST( ppmpf_seq_foldl_20
-          , "PPMPF_SEQ_FOLDL with 20 items"
-          , PPMPF_SEQ_FOLDL( PPMPF_CAT
-                           , (0)
-                           , (1)(2)(3)(4)(5)(6)(7)(8)(9)\
-                             (0)(1)(2)(3)(4)(5)(6)(7)(8)(9) )
-          , (01234567890123456789))
+PPMPF_TST( ppmpf_seq_foldl_20
+         , PPMPF_SEQ_FOLDL
+         , ( PPMPF_CAT
+           , (0)
+           , (1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9) )
+         , (01234567890123456789)
+         , "PPMPF_SEQ_FOLDL with 20 items" )
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_seq_foldl
                 , ( ppmpf_seq_foldl_10
                   , ppmpf_seq_foldl_20 )
-                , true )
+                , true
+                , "testing ppmpf PPMPF_SEQ_FOLDL (10 and 20 items)" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_seq_foldl
-                      , "testing ppmpf PPMPF_SEQ_FOLDL (10 and 20 items)" );
-}
+PPMPF_TEST_MRUN(check_seq_foldl)

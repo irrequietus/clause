@@ -18,90 +18,98 @@
  *
  */
 
-#include <odreex/ample/test.hh>
+#include <odreex/test.hh>
 #include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/range.hh>
-#include <odreex/ppmpf/test.hh>
 
-PPMPF_TEST( ppmpf_cat
-          , "PPMPF_CAT for two preprocessor tokens."
-          , (PPMPF_CAT(a,b))
-          , (ab) )
+PPMPF_TST( ppmpf_cat
+         , PPMPF_CAT
+         , (a,b)
+         , ab
+         , "PPMPF_CAT for two preprocessor tokens." )
 
-PPMPF_TEST( ppmpf_vcat0
-          , "PPMPF_VCAT with 2 arguments"
-          , (PPMPF_VCAT(0,1))
-          , (01) )
+PPMPF_TST( ppmpf_vcat0
+         , PPMPF_VCAT
+         , (0,1)
+         , 01
+         , "PPMPF_VCAT with 2 arguments" )
 
-PPMPF_TEST( ppmpf_vcat1
-          , "PPMPF_VCAT with 3 arguments"
-          , (PPMPF_VCAT(0,1,2))
-          , (012) )
+PPMPF_TST( ppmpf_vcat1
+         , PPMPF_VCAT
+         , (0,1,2)
+         , 012
+         , "PPMPF_VCAT with 3 arguments" )
 
-PPMPF_TEST( ppmpf_vcat2
-          , "PPMPF_VCAT with 4 arguments"
-          , (PPMPF_VCAT(0,1,2,3))
-          , (0123) )
+PPMPF_TST( ppmpf_vcat2
+         , PPMPF_VCAT
+         , (0,1,2,3)
+         , 0123
+         , "PPMPF_VCAT with 4 arguments" )
 
-PPMPF_TEST( ppmpf_vcat3
-          , "PPMPF_VCAT with 8 arguments"
-          , (PPMPF_VCAT(0,1,2,3,4,5,6,7))
-          , (01234567) )
+PPMPF_TST( ppmpf_vcat3
+         , PPMPF_VCAT
+         , (0,1,2,3,4,5,6,7)
+         , 01234567
+         , "PPMPF_VCAT with 8 arguments" )
 
-PPMPF_TEST( ppmpf_vcat4
-          , "PPMPF_VCAT with 16 arguments"
-          , (PPMPF_VCAT(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (0123456789abcdef) )
+PPMPF_TST( ppmpf_vcat4
+         , PPMPF_VCAT
+         , (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+         , 0123456789abcdef
+         , "PPMPF_VCAT with 16 arguments" )
 
-PPMPF_TEST( ppmpf_vcat5
-          , "PPMPF_VCAT with 32 arguments"
-          , (PPMPF_VCAT(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (0123456789abcdef0123456789abcdef) )
+PPMPF_TST( ppmpf_vcat5
+         , PPMPF_VCAT
+         , (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+         , 0123456789abcdef0123456789abcdef
+         , "PPMPF_VCAT with 32 arguments" )
 
-PPMPF_TEST( ppmpf_vcat6
-          , "PPMPF_VCAT with 64 arguments"
-          , (PPMPF_VCAT(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef))
+PPMPF_TST( ppmpf_vcat6
+         , PPMPF_VCAT
+         , (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+         , 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+         , "PPMPF_VCAT with 64 arguments" )
 
-PPMPF_TEST( ppmpf_vcat7
-          , "PPMPF_VCAT with 128 arguments"
-          , (PPMPF_VCAT(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-, (0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef))
+PPMPF_TST( ppmpf_vcat7
+         , PPMPF_VCAT
+         , (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+, 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
+0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+         , "PPMPF_VCAT with 128 arguments" )
 
-PPMPF_TEST( ppmpf_vcat8
-          , "PPMPF_VCAT with 256 arguments"
-          , (PPMPF_VCAT(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                       ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-, (0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
+PPMPF_TST( ppmpf_vcat8
+         , PPMPF_VCAT
+         , (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+, 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef))
+0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+         , "PPMPF_VCAT with 256 arguments" )
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_vcat
@@ -114,10 +122,8 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_vcat6
                   , ppmpf_vcat7
                   , ppmpf_vcat8 )
-               , true )
+               , true
+               , "testing ppmpf concatenation" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_vcat
-                      , "testing ppmpf concatenation" );
-}
+PPMPF_TEST_MRUN(check_vcat)
+

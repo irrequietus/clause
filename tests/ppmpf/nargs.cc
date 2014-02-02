@@ -18,80 +18,88 @@
  *
  */
 
-#include <odreex/ample/test.hh>
+#include <odreex/test.hh>
 #include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
 
-PPMPF_TEST( ppmpf_nargs0
-          , "PPMPF_NARGS with 2 arguments"
-          , (PPMPF_NARGS(0,1))
-          , (2) )
+PPMPF_TST( ppmpf_nargs0
+         , PPMPF_NARGS
+         , (0,1)
+         , 2
+         , "PPMPF_NARGS with 2 arguments" )
 
-PPMPF_TEST( ppmpf_nargs1
-          , "PPMPF_NARGS with 3 arguments"
-          , (PPMPF_NARGS(0,1,2))
-          , (3) )
+PPMPF_TST( ppmpf_nargs1
+         , PPMPF_NARGS
+         , (0,1,2)
+         , 3
+         , "PPMPF_NARGS with 3 arguments" )
 
-PPMPF_TEST( ppmpf_nargs2
-          , "PPMPF_NARGS with 4 arguments"
-          , (PPMPF_NARGS(0,1,2,3))
-          , (4) )
+PPMPF_TST( ppmpf_nargs2
+         , PPMPF_NARGS
+         , (0,1,2,3)
+         , 4
+         , "PPMPF_NARGS with 4 arguments" )
 
-PPMPF_TEST( ppmpf_nargs3
-          , "PPMPF_NARGS with 8 arguments"
-          , (PPMPF_NARGS(0,1,2,3,4,5,6,7))
-          , (8) )
+PPMPF_TST( ppmpf_nargs3
+         , PPMPF_NARGS
+         , (0,1,2,3,4,5,6,7)
+         , 8
+         , "PPMPF_NARGS with 8 arguments" )
 
-PPMPF_TEST( ppmpf_nargs4
-          , "PPMPF_NARGS with 16 arguments"
-          , (PPMPF_NARGS(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (16) )
+PPMPF_TST( ppmpf_nargs4
+         , PPMPF_NARGS
+         , (0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+         , 16
+         , "PPMPF_NARGS with 16 arguments" )
 
-PPMPF_TEST( ppmpf_nargs5
-          , "PPMPF_NARGS with 32 arguments"
-          , (PPMPF_NARGS(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (32) )
+PPMPF_TST( ppmpf_nargs5
+         , PPMPF_NARGS
+         , ( 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f )
+         , 32
+         , "PPMPF_NARGS with 32 arguments" )
 
-PPMPF_TEST( ppmpf_nargs6
-          , "PPMPF_NARGS with 64 arguments"
-          , (PPMPF_NARGS(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (64))
+PPMPF_TST( ppmpf_nargs6
+         , PPMPF_NARGS
+         , ( 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f)
+         , 64
+         , "PPMPF_NARGS with 64 arguments" )
 
-PPMPF_TEST( ppmpf_nargs7
-          , "PPMPF_NARGS with 128 arguments"
-          , (PPMPF_NARGS(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (128))
+PPMPF_TST( ppmpf_nargs7
+         , PPMPF_NARGS
+         , ( 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f )
+          , 128
+          , "PPMPF_NARGS with 128 arguments")
 
-PPMPF_TEST( ppmpf_nargs8
-          , "PPMPF_NARGS with 256 arguments"
-          , (PPMPF_NARGS(0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-                        ,0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f))
-          , (256))
+PPMPF_TST( ppmpf_nargs8
+         , PPMPF_NARGS
+         , ( 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+           , 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f )
+         , 256
+         , "PPMPF_NARGS with 256 arguments" )
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_nargs
@@ -104,10 +112,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_nargs6
                   , ppmpf_nargs7
                   , ppmpf_nargs8 )
-               , true )
+               , true
+               , "testing ppmpf argument counters" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_nargs
-                    , "testing ppmpf argument counters" );
-}
+PPMPF_TEST_MRUN(check_nargs)
