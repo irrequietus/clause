@@ -18,10 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
+#include <odreex/test.hh>
 #include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/range.hh>
-#include <odreex/ppmpf/test.hh>
 
 PPMPF_TEST( ppmpf_cat
           , "PPMPF_CAT for two preprocessor tokens."
@@ -114,10 +112,8 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_vcat6
                   , ppmpf_vcat7
                   , ppmpf_vcat8 )
-               , true )
+               , true
+               , "testing ppmpf concatenation" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_vcat
-                      , "testing ppmpf concatenation" );
-}
+PPMPF_TEST_MRUN(check_vcat)
+

@@ -18,9 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 
 PPMPF_TEST( ppmpf_seq_at09_0
           , "PPMPF_SEQ_AT09 - at index 0"
@@ -84,10 +83,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_seq_at09_7
                   , ppmpf_seq_at09_8
                   , ppmpf_seq_at09_9)
-                , true )
+                , true
+                , "testing ppmpf PPMPF_SEQ_AT09 in index range [0,9]" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_seq_at09
-                      , "testing ppmpf PPMPF_SEQ_AT09 in index range [0,9]" );
-}
+PPMPF_TEST_MRUN(check_seq_at09)

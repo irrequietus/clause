@@ -24,6 +24,7 @@
 #include <odreex/ample/base/start_types.hh>
 #include <odreex/ample/oprt/fundamentals.hh>
 #include <odreex/ample/base/basic_number.hh>
+#include <odreex/ample/logic/when.hh>
 #include <odreex/ample/charseq.hh>
 
 #define ample_vldt_(t) \
@@ -355,7 +356,9 @@ std::size_t const check_all<T...>
     C...
 };
 
-template<bool Cascade_B, typename Check_T>
+template< bool Cascade_B
+        , typename Check_T
+        , typename CharMessage_T = charseq<> >
 struct check : private Check_T::template apply<Cascade_B> {
 private:
     using Check_T::template apply<Cascade_B>::passed;
@@ -506,6 +509,17 @@ public:
     
     static std::size_t deploy(char const *s = nullptr) {
         println_head(!s ? "test block initiating" : s);
+        std::for_each(begin(), end(), println);
+        println_foot("test block complete");
+        return total<as_failed>();
+    }
+
+    static
+        typename
+            odreex::ample::when< odreex::ample::is_charseq<CharMessage_T>
+                               , std::size_t >::type
+    run_all() {
+        println_head(CharMessage_T::value);
         std::for_each(begin(), end(), println);
         println_foot("test block complete");
         return total<as_failed>();

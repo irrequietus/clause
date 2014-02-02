@@ -18,9 +18,8 @@
  *
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/test.hh>
+#include <odreex/test.hh>
+#include <odreex/ppmpf/collections/tuple.hh>
 
 PPMPF_TEST( ppmpf_tup_empty
           , "PPMPF_TUP_EMPTY with an empty tuple"
@@ -191,10 +190,7 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_tup2seq32
                   , ppmpf_tup2seq64
                   , ppmpf_tup2seq128 )
-                , true )
+                , true
+                , "testing ppmpf tuples" )
 
-int main() {
-    return
-        PPMPF_TEST_RUN( check_tuple
-                    , "testing ppmpf tuples" );
-}
+PPMPF_TEST_MRUN(check_tuple)
