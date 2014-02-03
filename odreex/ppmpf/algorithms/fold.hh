@@ -231,10 +231,6 @@
  * recursive construct, where we have increased the effective depth from 10k
  * to 2^16 (that is 65536). The internal mechanics for the recursion remain
  * the same.
- * 
- * TODO: Every recursive macro expansion construct will be dependent upon the
- * following metafunction macro construct, including high order function
- * emulation.
  */
 
 #define PPMPF_0GZ(f,sl,g,p,h,i,m,j,...) sl
