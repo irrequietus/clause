@@ -289,7 +289,7 @@
 #define PPMPF_ITRSELM0(a,b,c,d,e,f,g,h,i,j,...) \
         (j,__VA_ARGS__,)
 
-#define PPMPF_IADDC___(x) PPMPF_TUP_GET__ x
+#define PPMPF_IADDC___(x) PPMPF_UTUP_GET__ x
 #define PPMPF_IADDC__(x)  PPMPF_IADDC___(x)
 #define PPMPF_IADDC_(y,x) PPMPF_IADDC__(PPMPF_ITRSELP##y x)
 
@@ -306,7 +306,7 @@
  */
 #define PPMPF_IOPC_(x) \
         PPMPF_IFELSE( PPMPF_OR PPMPF_SEQ_GET(x) \
-                    , PPMPF_IFELSE( PPMPF_DREF(PPMPF_TUP_GET(PPMPF_SEQ_GET(x)))\
+                    , PPMPF_IFELSE( PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_SEQ_GET(x)))\
                                   , PPMPF_IMINV \
                                   , PPMPF_IMAXV ) \
                     , PPMPF_JUST )(PPMPF_SEQ_POP(x))

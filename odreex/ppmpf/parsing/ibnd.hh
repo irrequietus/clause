@@ -32,14 +32,14 @@
                   , (0)(0)(0)(2) )
 
 #define PPMPF_IBND3(x) \
-        PPMPF_PRSE_IPRT(PPMPF_DREF(PPMPF_TUP_GET(x)))
+        PPMPF_PRSE_IPRT(PPMPF_DREF(PPMPF_UTUP_GET(x)))
 
 #define PPMPF_IBND4(x) \
-        PPMPF_AND( PPMPF_IBND2(PPMPF_DREF(PPMPF_TUP_GET(x))) \
+        PPMPF_AND( PPMPF_IBND2(PPMPF_DREF(PPMPF_UTUP_GET(x))) \
                  , PPMPF_PRSE_ITOK( \
                     PPMPF_DREF( \
-                        PPMPF_TUP_GET( \
-                            PPMPF_DREF(PPMPF_TUP_GET(x)) \
+                        PPMPF_UTUP_GET( \
+                            PPMPF_DREF(PPMPF_UTUP_GET(x)) \
                         ) ) ) )
 
 #define PPMPF_IBND5(x) \
@@ -54,9 +54,9 @@
             ,   PPMPF_PRSE_IPLH(PPMPF_TUP_ATPOS((0)(0)(0)(2),tup))))
 
 #define PPMPF_IBND7(x) \
-        ( PPMPF_DREF(PPMPF_TUP_GET(PPMPF_DREF(PPMPF_TUP_GET(x)))) \
-        , PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_TUP_GET(x)))) \
-        , PPMPF_DREF(PPMPF_TUP_GET(PPMPF_TUP_POP(x))) )
+        ( PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_DREF(PPMPF_UTUP_GET(x)))) \
+        , PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_UTUP_GET(x)))) \
+        , PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_TUP_POP(x))) )
 
 #define PPMPF_IBND(f) \
         PPMPF_IFELSE( \

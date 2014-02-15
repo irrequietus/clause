@@ -47,11 +47,19 @@
                             PPMPF_COMMA \
                                 PPMPF_CAT(PPMPF_ x,_PPMPF_EMPTY____) ()) \
                       , 1, 0, 0 )
-#define PPMPF_EMPTY_B(x) \
+#define PPMPF_EMPTY_14(x) \
+        PPMPF_EMPTY_10(PPMPF_JUST(PPMPF_COMMA x ()), 1, 0, 0 )
+#define PPMPF_EMPTY_B1(x) \
         PPMPF_IFELSE(PPMPF_EMPTY_12(x),PPMPF_FALSE,PPMPF_EMPTY_13)(x)
+#define PPMPF_EMPTY_B2(x) \
+        PPMPF_IFELSE(PPMPF_EMPTY_12(x),PPMPF_FALSE,PPMPF_EMPTY_14)(x)
 #define PPMPF_EMPTY_A(x,y) \
         PPMPF_IFELSE( PPMPF_EMPTY_C(PPMPF_DREF(x)) \
-                    , PPMPF_EMPTY_B \
+                    , PPMPF_EMPTY_B1 \
+                    , PPMPF_FALSE )(y)
+#define PPMPF_EMPTY_A2(x,y) \
+        PPMPF_IFELSE( PPMPF_EMPTY_C(PPMPF_DREF(x)) \
+                    , PPMPF_EMPTY_B2 \
                     , PPMPF_FALSE )(y)
 #define PPMPF_EMPTY_C(...) \
         PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \

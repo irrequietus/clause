@@ -30,13 +30,13 @@
 /* Assistive macros */
 
 #define PPMPF_FOLD_DFUNC(x) \
-        PPMPF_DREF(PPMPF_TUP_GET(PPMPF_DREF(PPMPF_TUP_GET(x))))
+        PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_DREF(PPMPF_UTUP_GET(x))))
 
 #define PPMPF_FOLD_DWRAP(x) \
         PPMPF_CAT( \
             PPMPF_FOLD_PLHF \
-        ,   PPMPF_CAT( PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_TUP_GET(x))))\
-                     , PPMPF_DREF(PPMPF_TUP_GET(PPMPF_TUP_POP(x)))) )
+        ,   PPMPF_CAT( PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_UTUP_GET(x))))\
+                     , PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_TUP_POP(x)))) )
 
 #define PPMPF_FOLD_PLHF_1_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
 #define PPMPF_FOLD_PLHF__1_2(f,a,b) f(a,PPMPF_DREF(b))

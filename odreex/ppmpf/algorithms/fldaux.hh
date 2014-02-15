@@ -156,7 +156,7 @@
           , PPMPF_DREF(PPMPF_DREF(PPMPF_SEQ_GET(sl)))))
 
 #define PPMPF_FLDX0P(n,x) \
-        PPMPF_DREF(PPMPF_TUP_1GET(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x))))
+        PPMPF_DREF(PPMPF_TUP_GET(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x))))
 
 #define PPMPF_FLDX0Q(n,x) \
         PPMPF_TUP_POP(PPMPF_DREF(PPMPF_TUP_ATPOS((0)(0)(0)(n),x)))
@@ -329,5 +329,12 @@ PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
 
 #define PPMPF_FLDX21(f,sl,g,...) \
         f(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+
+#define PPMPF_FLDX22(f,sl,g,p,h,i,...) \
+        ( PPMPF_UTUP_JOIN( PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
+                         , PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
+                         , PPMPF_UNIT \
+                         , i )(f,sl,g,__VA_ARGS__)) ) \
+        (p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */
