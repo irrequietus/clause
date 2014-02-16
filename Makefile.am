@@ -43,26 +43,17 @@ define println
 endef
 
 define testrun
-    $1 2>>errors.log || exit 1;
-endef
-
-define testrun_time
      { time -f "\"[$(patsubst tests/%.test,%.test,$1)]\",%e,%U,%S,%M" $1; } \
 	2>>errors.log || exit 1;
 endef
 
 define compile_test
-    { $(CXX) $(CXXFLAGS) $(CPPFLAGS) -DUSE_TEST_EXPANSION -I . $(TESTFLAGS) \
-      $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit 1
-endef
-
-define compile_test_time
     { time -f "\"[$(patsubst tests/%.cc,%.cc,$1)]\",\"$(CXX)\",%e,%U,%S,%M" \
       $(CXX) $(CXXFLAGS) $(CPPFLAGS) -DUSE_TEST_EXPANSION -I . $(TESTFLAGS) \
       $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit 1
 endef
 
-.PHONY: test clean clean-local just jtim ctim tctime \
+.PHONY: test clean clean-local just ctst cmpl \
 	$(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS))
 
 %.o: %.cc
@@ -72,24 +63,20 @@ dist-hook:
 	rm -f $(distdir)/tests/ample/*.test
 	rm -f $(distdir)/tests/ppmpf/*.test
 
-tctime:
+ctst:
+	@$(call println, "compiler", "$(CXX)")
+	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
+	@$(call println, "cppflags", "$(CPPFLAGS) -DUSE_TEST_EXPANSION")
 	@$(foreach x, \
 	    $(sort $(foreach f, \
 	        $(dir tests/*/*), \
 		$(wildcard $(f)*.cc))), \
 		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
-		$(call compile_test_time,$(x)))
+		$(call compile_test,$(x)))
 
-test:
-	@$(call println, "compiler", "$(CXX)")
-	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
-	@$(call println, "cppflags", "$(CPPFLAGS) -DUSE_TEST_EXPANSION")
+test: ctst
 	@$(foreach x, \
-	    $(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.cc))), \
-		$(call println,building,"$(patsubst %.cc,%.test,$(x))");\
-		$(call compile_test, $(x)))
-	@$(foreach x, \
-	    $(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.test))),\
+		$(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.test))),\
 		$(call testrun, $(x) ))
 
 clean-local:
@@ -110,25 +97,14 @@ just:
 		$(filter-out $@, $(MAKECMDGOALS)), \
 		$(call println,"makejust",$(s)); \
 		$(call compile_test,tests/$(s)); \
-		$(call testrun_time, \
+		$(call testrun, \
 			$(patsubst %.cc,%.test,tests/$(s))))
 
-jtim:
+cmpl:
 	@$(call println, "compiler", "$(CXX)")
 	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
 	@$(call println, "cppflags", "$(CPPFLAGS) -DUSE_TEST_EXPANSION")
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
-		$(call println,"makejtim",$(s)); \
-		$(call compile_test_time,tests/$(s)); \
-		$(call testrun_time, \
-			$(patsubst %.cc,%.test,tests/$(s))))
-
-ctim:
-	@$(call println, "compiler", "$(CXX)")
-	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
-	@$(call println, "cppflags", "$(CPPFLAGS) -DUSE_TEST_EXPANSION")
-	@$(foreach s, \
-		$(filter-out $@, $(MAKECMDGOALS)), \
-		$(call println,"makectim",$(s)); \
-		$(call compile_test_time,tests/$(s)))
+		$(call println,"makecmpl",$(s)); \
+		$(call compile_test,tests/$(s)))
