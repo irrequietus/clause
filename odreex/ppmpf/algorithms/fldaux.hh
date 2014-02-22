@@ -337,4 +337,20 @@ PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
                          , i )(f,sl,g,__VA_ARGS__)) ) \
         (p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
 
+#define PPMPF_FLDX23(f,slbc,g,...) \
+        (f(PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_AT09(1,slbc))))))
+
+#define PPMPF_FLDX24(h,slbc,z) \
+        PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_AT09(1,slbc))) \
+                    , slbc PPMPF_EMPTY \
+                    , PPMPF_ ## z )
+
+#define PPMPF_FLDX25(f,slbc,g,p,h,i,m,j,...) \
+        PPMPF_FLDX0F( f,slbc,g,p,h,i,m,j \
+                    , PPMPF_RDMX(PPMPF_3G,PPMPF_RDMH4()) \
+                    , PPMPF_RDMX(PPMPF_2G,PPMPF_RDMH3()) \
+                    , PPMPF_RDMX(PPMPF_1G,PPMPF_RDMH2()) \
+                    , PPMPF_RDMX(PPMPF_0G,PPMPF_RDMH1()) \
+                    , __VA_ARGS__ )
+
 #endif /* _ODREEX_PPMPF_ALGORITHMS_FLDAUX_HH_ */
