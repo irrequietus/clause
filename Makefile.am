@@ -33,7 +33,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = odreex-$(ODREEX_API_VERSION).pc
 dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit tests
-TESTFLAGS = -Wall -Werror -Wextra -pedantic
+TESTFLAGS = -Wall -Werror -Wextra -pedantic -fconstexpr-depth=1024
 
 define println
     $(if $(filter $(CPPFLAGS),-DUSE_ANSI_COLORS),

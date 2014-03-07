@@ -68,14 +68,14 @@
  *       signature semantics.
  */
 #define PPMPF_BDS23(f,r,x,y,z) \
-        r(PPMPF_APPLY(f,PPMPF_BDS11(x,y,z)))
+        r(PPMPF_APPLY(f,PPMPF_DREF(PPMPF_BDS11(x,y,z))))
 
 /*~
  * @desc Parsing the "signature" part of the "binding" ppmpf macro instruction.
  *       This is going to be used to introduce binding in the high order
  *       function emulations.
  * 
- * @pfrig x: A two item sequence where first item is either _0 or __0 of
+ * @pfrg x: A two item sequence where first item is either _0 or __0 of
  *           the ppmpf placeholders, second is a comma separated sequence of
  *           any of the remaining placeholders and / or _(...) "constants".
  * @pexp A sequence of comma separated tokens where the first is either of
@@ -88,5 +88,32 @@
         PPMPF_CAT( PPMPF_BDX \
                  , PPMPF_DREF(PPMPF_SEQ_GET(x)))() \
       , PPMPF_BDS20(PPMPF_SEQ_POP(x))
+
+#define PPMPF_BDS25(x) \
+        PPMPF_DREF(PPMPF_UTUP_GET(x)) \
+      , PPMPF_BDS24(PPMPF_DREF(PPMPF_TUP_POP(x)))
+
+/*~
+ * @desc This is a prototype for a ppmpf high order map function that accepts
+ *       ppmpf "bind" expressions only. This is the base upon which solutions
+ *       existing for demonstrative reasons (current PPMPF_TUP_BIND and
+ *       PPMPF_UTUP_BIND) are to be deprecated.
+ * @pfrg f: the ppmpf "bind" expression.
+ * @pfrg t: a safe / unsafe ppmpf tuple for each member of which the f "bound"
+ *          expression is applied.
+ * @note More documentation is needed after PPMPF_BDS31 completes its role as
+ *       a proof of concept prototype. Tests can be found in the usual folder,
+ *       i.e. test file is tests/ppmpf/bds31.cc, make target for just testing
+ *       that is make just ppmpf/bds31.cc
+ */
+#define PPMPF_BDS31(f,t) \
+        PPMPF_PFLD1( f \
+                   , (())(t) \
+                   , PPMPF_TUP_GET \
+                   , PPMPF_TUP_POP \
+                   , PPMPF_UTUP_EMPTY \
+                   , PPMPF_BDSN4 \
+                   , PPMPF_FLDX0D \
+                   , PPMPF_BDSN2, )
 
 #endif /* _ODREEX_PPMPF_FUNCTIONAL_BIND_HH_ */

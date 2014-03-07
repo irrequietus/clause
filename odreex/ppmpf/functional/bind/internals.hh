@@ -23,6 +23,7 @@
 
 #include <odreex/ppmpf/collections/tuple.hh>
 #include <odreex/ppmpf/collections/sequence.hh>
+#include <odreex/ppmpf/kernel/pfld.hh>
 
 /*~
  * @info These are all internal for the implementation of the function macro
@@ -34,6 +35,7 @@
 
 #define PPMPF_BDP1_(x) x
 #define PPMPF_BDP(x)   PPMPF_CAT(PPMPF_BDP1,x)
+
 #define PPMPF_BDS0(x)  PPMPF_CAT(PPMPF_BDX,x)()
 #define PPMPF_BDS1(x)  PPMPF_CAT(PPMPF_BDA,x)
 #define PPMPF_BDS2(x)  PPMPF_CAT(PPMPF_BDB,x)
@@ -67,15 +69,14 @@
         (PPMPF_DREF(PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl)))))(c,v))
 
 #define PPMPF_BDS11(a,b,c) \
-        PPMPF_TUP_POP( \
-            PPMPF_FLDX0G( \
+            PPMPF_FLDX1V( \
                         , ()(a)            \
                         , PPMPF_UTUP_GET   \
                         , PPMPF_TUP_POP    \
                         , PPMPF_UTUP_EMPTY \
                         , PPMPF_BDS10      \
                         , PPMPF_FLDX0D     \
-                        , PPMPF_FLDX22, b, c, ) )
+                        , PPMPF_FLDX22, b, c, )
 
 #define PPMPF_BDS14A(x) \
         PPMPF_UTUP_MAP( PPMPF_BDS0 \
@@ -111,9 +112,46 @@
         PPMPF_BDS14A(x), PPMPF_BDS14B(x)
 
 #define PPMPF_BDS20(x) \
-        PPMPF_BDS19(PPMPF_BDS18(x))
+        PPMPF_CAT(PPMPF_BDX,PPMPF_DREF(PPMPF_SEQ_GET(x)))() \
+      , PPMPF_BDS19(PPMPF_BDS18(PPMPF_SEQ_POP(x)))
 
-#define PPMPF_BDS21(f,...) \
-        PPMPF_APPLY(f,PPMPF_DREF(PPMPF_BDS11(__VA_ARGS__)))
+#define PPMPF_BDS21(f,a,b,c) \
+        PPMPF_APPLY(f,PPMPF_DREF(PPMPF_BDS11(a,b,c)))
+
+#define PPMPF_BDSN1(f,sl,g,z,l,...) \
+        (PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))(z,l))
+
+#define PPMPF_BDSN2(f,sl,g,p,h,i,...) \
+        ( PPMPF_UTUP_JOIN( PPMPF_DREF(PPMPF_SEQ_GET(sl)) \
+                         , PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
+                                       , PPMPF_UNIT \
+                                       , i )(f,sl,g,__VA_ARGS__)) ) \
+        (p(PPMPF_DREF(PPMPF_SEQ_POP(sl))))
+
+#define PPMPF_BDSN3(f,sl,g,...) \
+        (f((g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
+
+#define PPMPF_BDSN4(f,sl,g,...) \
+        (PPMPF_BDS30( PPMPF_TUP_GET(f)             \
+                    , PPMPF_DREF(PPMPF_TUP_POP(f)) \
+                    , PPMPF_TUP_GET(PPMPF_SEQ_POP(sl))))
+
+#define PPMPF_BDS27(t,a,b) \
+        PPMPF_PFLD0( , (())(t)       \
+                   , PPMPF_TUP_GET   \
+                   , PPMPF_TUP_POP   \
+                   , PPMPF_TUP_EMPTY \
+                   , PPMPF_BDSN1    \
+                   , PPMPF_FLDX0D    \
+                   , PPMPF_FLDX22    \
+                   , (PPMPF_DREF(a),)               \
+                   , (PPMPF_DREF(b),) ,)
+
+#define PPMPF_BDS28(f,r,t,a,b) \
+        r(PPMPF_APPLY(f,PPMPF_DREF(PPMPF_BDS27(t,a,b))))
+#define PPMPF_BDS29(...) \
+        PPMPF_BDS28(__VA_ARGS__)
+#define PPMPF_BDS30(a,b,c) \
+        PPMPF_BDS29(a,PPMPF_BDS20(b),c)
 
 #endif /* _ODREEX_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH_ */
