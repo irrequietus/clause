@@ -35,6 +35,7 @@ dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit tests
 TESTFLAGS = -Wall -Werror -Wextra -pedantic
 
+
 define println
     $(if $(filter $(CPPFLAGS),-DUSE_ANSI_COLORS),
         @printf "\x1b[34;01m[*]\x1b[0m:\x1b[36;01m %s: \x1b[39;01m%s\x1b[0m\n"\
@@ -53,7 +54,7 @@ define compile_test
       $1 -o $(patsubst %.cc,%.test,$1); } 2>>errors.log || exit 1
 endef
 
-.PHONY: test clean clean-local just ctst cmpl \
+.PHONY: test clean check clean-local just ctst cmpl \
 	$(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS))
 
 %.o: %.cc
@@ -76,8 +77,10 @@ ctst:
 
 test: ctst
 	@$(foreach x, \
-		$(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.test))),\
-		$(call testrun, $(x) ))
+		$(sort $(foreach f, $(dir tests/*/*),$(wildcard $(f)*.cc))),\
+		$(call testrun, $(patsubst %.cc,%.test,$(x)) ))
+
+check: test
 
 clean-local:
 	rm -f tests/ample/*.test
