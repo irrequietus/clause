@@ -148,7 +148,7 @@
                    , (PPMPF_DREF(b),) ,)
 
 #define PPMPF_BDS28(f,r,t,a,b) \
-        r(PPMPF_APPLY(f,PPMPF_DREF(PPMPF_BDS27(t,a,b))))
+        r(PPMPF_APPLY2(f,PPMPF_DREF(PPMPF_BDS27(t,a,b))))
 #define PPMPF_BDS29(...) \
         PPMPF_BDS28(__VA_ARGS__)
 #define PPMPF_BDS30(a,b,c) \
