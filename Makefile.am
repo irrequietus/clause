@@ -99,10 +99,11 @@ just:
 	@$(foreach s, \
 		$(filter-out $@, $(MAKECMDGOALS)), \
 		$(call println,"makejust",$(s)); \
-		$(call compile_test,tests/$(s)); \
+		$(call compile_test,tests/$(s)); )
+	@$(foreach s, \
+		$(filter-out $@, $(MAKECMDGOALS)), \
 		$(call testrun, \
 			$(patsubst %.cc,%.test,tests/$(s))))
-
 cmpl:
 	@$(call println, "compiler", "$(CXX)")
 	@$(call println, "cxxflags", "$(CXXFLAGS) $(TESTFLAGS)")
