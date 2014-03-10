@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -121,5 +121,72 @@
 #define PPMPF_NOT_1() 0
 #define PPMPF_NOT_0() 1
 #define PPMPF_NOT(x) PPMPF_CAT(PPMPF_NOT_, x)()
+
+/*~
+ * @term `ppmpf typeclause`: This refers to a 2-tuple (pair) consisting of a
+ *       `ppmpf collection` (tuple, sequence) and a decimal number following it
+ *       that serves as a type identifier, referred to as typeid. Typeclauses
+ *       are a sort of an agreement between the programmer and ppmpf internals
+ *       that serve for implementing "overloadable" high order function macros.
+ *       This is a sort of a "type system" for preprocessor constructs as the
+ *       ones implemented in ppmpf, but it is more a convenient bypass than
+ *       anything else.
+ */
+
+/*~
+ * @desc Given an enclosed token representing a ppmpf "type", get the
+ *       type numerical identifier that is pertinent to it.
+ * @pfrg x: a ppmpf compound type token (i.e. enclosed comma separated
+ *          sequence consisting of data, followed by type.
+ * @pexp Expands to the type identifier.
+ */
+#define PPMPF_TYPEOF(x) \
+        PPMPF_TYPED1(PPMPF_DREF(x),)
+
+/*~
+ * @desc Given an enclosed token representing a ppmpf "type", get the
+ *       "data" section that is pertinent to it.
+ * @pfrg x: a ppmpf compound type token (i.e. enclosed comma separated
+ *          sequence consisting of data, followed by type.
+ * @pexp Expands to the data section included.
+ */
+#define PPMPF_DATAOF(x) \
+        PPMPF_TYPED0(PPMPF_DREF(x),)
+
+/*~
+ * @impl PPMPF_TYPEOF, PPMPF_DATAOF
+ */
+#define PPMPF_TYPED0(...) PPMPF_TYPED00(__VA_ARGS__)
+#define PPMPF_TYPED1(...) PPMPF_TYPED10(__VA_ARGS__)
+#define PPMPF_TYPED00(a,b,...) a
+#define PPMPF_TYPED10(a,b,...) b
+
+/*~
+ * @desc Deducing ppmpf collection type and correct metafunction macro data
+ *       dispatching.
+ * @pfrg   fn: The high order function metahandler.
+ * @pfrg    f: The function that is to be applied over the items of a ppmpf
+ *             collection.
+ * @pfrg seed: An initial value from used in high order functions, where that
+ *             is applicable of course.
+ * @pfrg data: The ppmpf collection as extracted by its ppmpf type clause.
+ * @pexp Always the result of the high order function applied to the data
+ *       portion of the ppmpf type clause, after the metahandler has produced
+ *       the metafunction representing the remaining implementational constructs
+ *       for the high order function application.
+ *
+ */
+#define PPMPF_TFY(fn,f,seed,type) \
+        PPMPF_TFY0( PPMPF_CAT(fn,PPMPF_TYPEOF(type)) \
+                  , seed \
+                  , PPMPF_DATAOF(type) )
+
+/*~
+ * @impl PPMPF_TFY
+ */
+#define PPMPF_TFY0(fn,f,seed,data) \
+        PPMPF_TFY1(fn,f,seed,data)
+#define PPMPF_TFY1(fn,f,seed,data) \
+        fn(f,seed,data)
 
 #endif /* _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_ */

@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -22,6 +22,6 @@
 #define _ODREEX_PPMPF_COLLECTIONS_TUPLE_HH_
 
 #include <odreex/ppmpf/collections/tuple/functions.hh>
-
+#include <odreex/ppmpf/collections/tuple/type.hh>
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_HH_ */
