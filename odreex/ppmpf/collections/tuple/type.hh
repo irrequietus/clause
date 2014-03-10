@@ -58,4 +58,18 @@
                                , PPMPF_FLDX0D     \
                                , PPMPF_FLDX22, ),1)
 
+/*~
+ * @desc A temporary example of how a high order function macro metahandler can
+ *       be used in order to dispatch the ppmpf collection enclosed in its
+ *       typeclause to the function proper to its typeid and then recompose
+ *       into the resulting typeclause after expansion has occured. The two
+ *       function macros involved here are PPMPF_TUP_MAP and PPMPF_UTUP_MAP.
+ */
+#define PPMPF_TMAP(f,t) \
+        (PPMPF_APPLY(PPMPF_CAT( PPMPF_TMAP_H \
+                    , PPMPF_TYPEOF(t)),f,PPMPF_DATAOF(t)),PPMPF_TYPEOF(t))
+
+#define PPMPF_TMAP_H0(f,t) PPMPF_UTUP_MAP(f,t)
+#define PPMPF_TMAP_H1(f,t) PPMPF_TUP_MAP(f,t)
+
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_TYPE_HH_ */
