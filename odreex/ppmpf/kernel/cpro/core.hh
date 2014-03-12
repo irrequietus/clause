@@ -178,6 +178,7 @@
  */
 #define PPMPF_TFY(fn,f,seed,type) \
         PPMPF_TFY0( PPMPF_CAT(fn,PPMPF_TYPEOF(type)) \
+                  , f \
                   , seed \
                   , PPMPF_DATAOF(type) )
 
