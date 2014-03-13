@@ -164,16 +164,20 @@
 /*~
  * @desc Deducing ppmpf collection type and correct metafunction macro data
  *       dispatching.
- * @pfrg   fn: The high order function metahandler.
- * @pfrg    f: The function that is to be applied over the items of a ppmpf
- *             collection.
+ * @pfrg   fn: The high order function metahandler. Every metahandler used at
+ *             this level, should also be able to carry out dispatching to
+ *             an implementation of the macro supporting the plain macro or
+ *             complex expression (like "bind" expressions) in f.
+ * @pfrg    f: The function macro or complex expression that is to be applied
+ *             over the items of a ppmpf collection. When an expression, it is
+ *             upon fn to handle f as well.
  * @pfrg seed: An initial value from used in high order functions, where that
  *             is applicable of course.
  * @pfrg data: The ppmpf collection as extracted by its ppmpf type clause.
  * @pexp Always the result of the high order function applied to the data
  *       portion of the ppmpf type clause, after the metahandler has produced
- *       the metafunction representing the remaining implementational constructs
- *       for the high order function application.
+ *       the metafunction representing the remaining constructs for the high
+ *       order function application.
  *
  */
 #define PPMPF_TFY(fn,f,seed,type) \

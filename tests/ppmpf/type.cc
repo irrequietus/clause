@@ -82,13 +82,26 @@ PPMPF_TST( ppmpf_tmap3
          , (((f(g(0))),(f(g(1))),(f(g(2))),(f(g(3))),(f(g(4)))),1)
          , "PPMPT_TMAP self composition, safe ppmpf 5-tuple" )
 
+PPMPF_TST( ppmpf_tmap4
+         , PPMPF_TMAP
+         , (("expression"),PPMPF_TMAP(g,PPMPF_UTUP(0,1,2,3,4)))
+         , ((),0)
+         , "PPMPT_TMAP tentative expression testing with unsafe tuples" )
+
+PPMPF_TST( ppmpf_tmap5
+         , PPMPF_TMAP
+         , (("expression"),PPMPF_TMAP(g,PPMPF_STUP(0,1,2,3,4)))
+         , ((),1)
+         , "PPMPT_TMAP tentative expression testing with safe tuples" )
+
 PPMPF_TEST_BLOCK( ppmpf
                 , check_type
                 , ( ppmpf_type_1, ppmpf_type_2
                   , ppmpf_type_3, ppmpf_type_4
                   , ppmpf_type_5, ppmpf_type_6
                   , ppmpf_tmap0 , ppmpf_tmap1
-                  , ppmpf_tmap2 , ppmpf_tmap3 )
+                  , ppmpf_tmap2 , ppmpf_tmap3
+                  , ppmpf_tmap4 , ppmpf_tmap5 )
                 , true
                 , "testing ppmpf type deductor and PPMPF_TMAP" )
 

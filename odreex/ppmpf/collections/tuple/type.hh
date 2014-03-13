@@ -69,7 +69,13 @@
         (PPMPF_APPLY(PPMPF_CAT( PPMPF_TMAP_H \
                     , PPMPF_TYPEOF(t)),f,PPMPF_DATAOF(t)),PPMPF_TYPEOF(t))
 
-#define PPMPF_TMAP_H0(f,t) PPMPF_UTUP_MAP(f,t)
-#define PPMPF_TMAP_H1(f,t) PPMPF_TUP_MAP(f,t)
+#define PPMPF_TMAP_H0(f,t) \
+        PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
+                    , PPMPF_UNIT \
+                    , PPMPF_UTUP_MAP)(f,t)
+#define PPMPF_TMAP_H1(f,t) \
+        PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
+                    , PPMPF_UNIT \
+                    , PPMPF_TUP_MAP)(f,t)
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_TYPE_HH_ */
