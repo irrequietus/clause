@@ -67,13 +67,13 @@
  */
 #define PPMPF_TMAP(f,t) \
         (PPMPF_APPLY(PPMPF_CAT( PPMPF_TMAP_H \
-                    , PPMPF_TYPEOF(t)),f,PPMPF_DATAOF(t)),PPMPF_TYPEOF(t))
+                    , PPMPF_TYPEOF(t)),f,(),PPMPF_DATAOF(t)),PPMPF_TYPEOF(t))
 
-#define PPMPF_TMAP_H0(f,t) \
+#define PPMPF_TMAP_H0(f,s,t) \
         PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
                     , PPMPF_UNIT \
                     , PPMPF_UTUP_MAP)(f,t)
-#define PPMPF_TMAP_H1(f,t) \
+#define PPMPF_TMAP_H1(f,s,t) \
         PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
                     , PPMPF_UNIT \
                     , PPMPF_TUP_MAP)(f,t)
