@@ -173,25 +173,25 @@
  *             upon fn to handle f as well.
  * @pfrg seed: An initial value from used in high order functions, where that
  *             is applicable of course.
- * @pfrg data: The ppmpf collection as extracted by its ppmpf type clause.
+ * @pfrg tycl: The ppmpf typeclause containing data and "type".
  * @pexp Always the result of the high order function applied to the data
  *       portion of the ppmpf type clause, after the metahandler has produced
  *       the metafunction representing the remaining constructs for the high
  *       order function application.
  *
  */
-#define PPMPF_TFY(fn,f,seed,type) \
-        PPMPF_TFY0( PPMPF_CAT(fn,PPMPF_TYPEOF(type)) \
-                  , f \
-                  , seed \
-                  , PPMPF_DATAOF(type) )
+#define PPMPF_TFY(fn,f,seed,tycl) \
+        PPMPF_TFY0(fn,f,seed,PPMPF_DATAOF(tycl),PPMPF_TYPEOF(tycl))
 
 /*~
  * @impl PPMPF_TFY
+ * @pdel tycl
+ * @pfrg data: the ppmpf collection to be used.
+ * @pfrg type: the type of the ppmpf collection we are dealing with.
  */
-#define PPMPF_TFY0(fn,f,seed,data) \
-        PPMPF_TFY1(fn,f,seed,data)
-#define PPMPF_TFY1(fn,f,seed,data) \
-        fn(f,seed,data)
+#define PPMPF_TFY0(fn,f,seed,data,type) \
+        PPMPF_TFY1(PPMPF_CAT(fn,type),f,seed,data,type)
+#define PPMPF_TFY1(fn,f,seed,data,type) \
+        (fn(f,seed,data),type)
 
 #endif /* _ODREEX_PPMPF_KERNEL_CPRO_CORE_HH_ */

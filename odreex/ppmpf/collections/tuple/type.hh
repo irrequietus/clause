@@ -66,8 +66,7 @@
  *       function macros involved here are PPMPF_TUP_MAP and PPMPF_UTUP_MAP.
  */
 #define PPMPF_TMAP(f,t) \
-        (PPMPF_APPLY(PPMPF_CAT( PPMPF_TMAP_H \
-                    , PPMPF_TYPEOF(t)),f,(),PPMPF_DATAOF(t)),PPMPF_TYPEOF(t))
+        PPMPF_TFY(PPMPF_TMAP_H,f,(),t)
 
 #define PPMPF_TMAP_H0(f,s,t) \
         PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
