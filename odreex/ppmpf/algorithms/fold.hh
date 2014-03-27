@@ -21,6 +21,16 @@
 #ifndef _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_
 #define _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_
 
+/*~
+ * @note This entire file is going to be repurposed exclusively for folds and
+ *       maybe even relocated during refactoring. The constructs to be used
+ *       for recursive macro expansion are slowly migrating towards the various
+ *       pfld[0-9].hh headers and the 3rd generation construct for this
+ *       purpose.
+ *
+ */
+
+
 #include <odreex/ppmpf/kernel/cpro/core.hh>
 #include <odreex/ppmpf/kernel/logic/alu.hh>
 #include <odreex/ppmpf/collections/tuple/functions.hh>
@@ -30,13 +40,13 @@
 /* Assistive macros */
 
 #define PPMPF_FOLD_DFUNC(x) \
-        PPMPF_DREF(PPMPF_TUP_GET(PPMPF_DREF(PPMPF_TUP_GET(x))))
+        PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_DREF(PPMPF_UTUP_GET(x))))
 
 #define PPMPF_FOLD_DWRAP(x) \
         PPMPF_CAT( \
             PPMPF_FOLD_PLHF \
-        ,   PPMPF_CAT( PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_TUP_GET(x))))\
-                     , PPMPF_DREF(PPMPF_TUP_GET(PPMPF_TUP_POP(x)))) )
+        ,   PPMPF_CAT( PPMPF_DREF(PPMPF_TUP_POP(PPMPF_DREF(PPMPF_UTUP_GET(x))))\
+                     , PPMPF_DREF(PPMPF_UTUP_GET(PPMPF_TUP_POP(x)))) )
 
 #define PPMPF_FOLD_PLHF_1_2(f,a,b) f(PPMPF_DREF(a),PPMPF_DREF(b))
 #define PPMPF_FOLD_PLHF__1_2(f,a,b) f(a,PPMPF_DREF(b))
@@ -231,10 +241,6 @@
  * recursive construct, where we have increased the effective depth from 10k
  * to 2^16 (that is 65536). The internal mechanics for the recursion remain
  * the same.
- * 
- * TODO: Every recursive macro expansion construct will be dependent upon the
- * following metafunction macro construct, including high order function
- * emulation.
  */
 
 #define PPMPF_0GZ(f,sl,g,p,h,i,m,j,...) sl

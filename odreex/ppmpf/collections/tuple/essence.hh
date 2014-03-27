@@ -32,9 +32,6 @@
 /* Assistive macro for tuple -> sequence conversion. */
 #define PPMPF_T2S_(a,b) PPMPF_JUST(a)(b)
 
-/* This performs the same task as PPMPF_TUP_JOIN but on a "raw" tuple. */
-#define PPMPF_TUP_JOIN_(z,...) PPMPF_TUP_JOIN(z,(__VA_ARGS__))
-
 /* Assistive macro function, for raw tuple macro "splitting" */
 #define PPMPF_TUP_SPLIT__(x,...) x,(__VA_ARGS__)
 #define PPMPF_TUP_SPLIT___(...) __VA_ARGS__()
@@ -45,8 +42,8 @@
 
 #define PPMPF_UTUP_FOLDR_(f,t) \
         PPMPF_FLDX1V( f \
-                    , (PPMPF_TUP_GET(t))(PPMPF_TUP_POP(t)) \
-                    , PPMPF_TUP_GET \
+                    , (PPMPF_UTUP_GET(t))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_UTUP_GET \
                     , PPMPF_TUP_POP \
                     , PPMPF_TUP_EMPTY \
                     , PPMPF_FLDX0O \
@@ -55,8 +52,8 @@
 
 #define PPMPF_TUP_FOLDR_(f,t) \
         PPMPF_FLDX1V( f \
-                    , (PPMPF_TUP_1GET(t))(PPMPF_TUP_POP(t)) \
-                    , PPMPF_TUP_1GET \
+                    , (PPMPF_TUP_GET(t))(PPMPF_TUP_POP(t)) \
+                    , PPMPF_TUP_GET \
                     , PPMPF_TUP_POP \
                     , PPMPF_TUP_EMPTY \
                     , PPMPF_FLDX0O \
@@ -65,6 +62,6 @@
 
 #define PPMPF_TUP_REVERSE_(tup) \
         (PPMPF_DREF(PPMPF_UTUP_FOLDL_OF(PPMPF_FLDRT_, \
-                    PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_TUP_GET(tup)))
+                    PPMPF_TUP_POP(tup))),PPMPF_DREF(PPMPF_UTUP_GET(tup)))
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_ESSENCE_HH_ */

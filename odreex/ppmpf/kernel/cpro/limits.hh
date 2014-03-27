@@ -42,7 +42,7 @@
 #define PPMPF_RDMH1() 15
 #undef  PPMPF_RDMAX
 #define PPMPF_RDMAX() \
-    (PPMPF_RDMH4())(PPMPF_RDMH3())(PPMPF_RDMH2())(PPMPF_RDMH1())
+        (PPMPF_RDMH4())(PPMPF_RDMH3())(PPMPF_RDMH2())(PPMPF_RDMH1())
 #elif   PPMPF_RDMAX == 65535
 #define PPMPF_RDMH4() 15
 #define PPMPF_RDMH3() 15
@@ -50,7 +50,7 @@
 #define PPMPF_RDMH1() 15
 #undef  PPMPF_RDMAX
 #define PPMPF_RDMAX() \
-    (PPMPF_RDMH4())(PPMPF_RDMH3())(PPMPF_RDMH2())(PPMPF_RDMH1())
+        (PPMPF_RDMH4())(PPMPF_RDMH3())(PPMPF_RDMH2())(PPMPF_RDMH1())
 #else
 #if (PPMPF_RDMAX / 4096) % 16 == 0
 #define PPMPF_RDMH4() 0
@@ -194,7 +194,7 @@
 #define PPMPF_RDMH2() 15
 #define PPMPF_RDMH1() 15
 #define PPMPF_RDMAX() \
-    (PPMPF_RDMH4())(PPMPF_RDMH3())(PPMPF_RDMH2())(PPMPF_RDMH1())
+        (PPMPF_RDMH4())(PPMPF_RDMH3())(PPMPF_RDMH2())(PPMPF_RDMH1())
 #endif
 
 #define PPMPF_RDMX0(...) __VA_ARGS__##0
@@ -214,8 +214,12 @@
 #define PPMPF_RDMX14(...) __VA_ARGS__##E
 #define PPMPF_RDMX15(...) __VA_ARGS__##F
 
-#define PPMPF_RDMX__(x,n) PPMPF_RDMX##n(x)
-#define PPMPF_RDMX_(x,n) PPMPF_RDMX__(n,x)
-#define PPMPF_RDMX(x,n) PPMPF_RDMX_(n,x)
+#define PPMPF_RDMX(x,n) \
+        PPMPF_RDMX_(n,x)
+#define PPMPF_RDMX__(x,n) \
+        PPMPF_RDMX##n(x)
+#define PPMPF_RDMX_(x,n) \
+        PPMPF_RDMX__(n,x)
+
 
 #endif /* _ODREEX_PPMPF_KERNEL_CPRO_LIMITS_HH_ */
