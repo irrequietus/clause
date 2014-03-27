@@ -21,6 +21,16 @@
 #ifndef _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_
 #define _ODREEX_PPMPF_ALGORITHMS_FOLD_HH_
 
+/*~
+ * @note This entire file is going to be repurposed exclusively for folds and
+ *       maybe even relocated during refactoring. The constructs to be used
+ *       for recursive macro expansion are slowly migrating towards the various
+ *       pfld[0-9].hh headers and the 3rd generation construct for this
+ *       purpose.
+ *
+ */
+
+
 #include <odreex/ppmpf/kernel/cpro/core.hh>
 #include <odreex/ppmpf/kernel/logic/alu.hh>
 #include <odreex/ppmpf/collections/tuple/functions.hh>

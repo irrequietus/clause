@@ -189,12 +189,16 @@
 #define PPMPF_ZFY_1101(a,b,c,d) PPMPF_CAT(c,d)
 #define PPMPF_ZFY_1110(a,b,c,d) d
 #define PPMPF_ZFY_1111(a,b,c,d) 0
+#define PPMPF_ZFY0(a,b,c,d) PPMPF_ZFY1(a,b,c,d)
+#define PPMPF_ZFY1(a,b,c,d) PPMPF_ZFY2(PPMPF_IS(0,a),b,c,d)
+#define PPMPF_ZFY2(a,b,c,d) PPMPF_ZFY3(a,PPMPF_IS(0,b),c,d)
+#define PPMPF_ZFY3(a,b,c,d) PPMPF_ZFY4(a,b,PPMPF_IS(0,c),d)
+#define PPMPF_ZFY4(a,b,c,d) PPMPF_ZFY5(a,b,c,PPMPF_IS(0,d))
+#define PPMPF_ZFY5(a,b,c,d) PPMPF_ZFY6(a,b,c,d)
+#define PPMPF_ZFY6(a,b,c,d) PPMPF_ZFY_ ## a ## b ## c ## d
+#define PPMPF_ZFYX(...)     PPMPF_ZFY0(__VA_ARGS__)(__VA_ARGS__)
 #define PPMPF_ZFY(a,b,c,d) \
-        PPMPF_CAT( PPMPF_ZFY_ \
-                 , PPMPF_CAT( PPMPF_IS(0,a) \
-                            , PPMPF_CAT( PPMPF_IS(0,b) \
-                                       , PPMPF_CAT( PPMPF_IS(0,c) \
-                                                  , PPMPF_IS(0,d)))))(a,b,c,d)
+        PPMPF_ZFYX(a,b,c,d)
 
 /* NOTE: PPMPF_DIGNM - convert from a 4 digit number represented as a
  * (3)(2)(1)(0) "sequence" to a standard 3210 one, trimming leading zeros.

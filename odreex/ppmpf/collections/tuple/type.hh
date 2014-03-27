@@ -25,6 +25,8 @@
 #error ppmpf: <odreex/ppmpf/collections/tuple/functions.hh> must precede.
 #endif
 
+#include <odreex/ppmpf/functional/bind.hh>
+
 /*~
  * @desc The unsafe ppmpf tuple collection constructor.
  * @pfrg ...: A sequence of comma separated C99 preprocessor tokens, with the
@@ -59,22 +61,90 @@
                                , PPMPF_FLDX22, ),1)
 
 /*~
- * @desc A temporary example of how a high order function macro metahandler can
- *       be used in order to dispatch the ppmpf collection enclosed in its
- *       typeclause to the function proper to its typeid and then recompose
- *       into the resulting typeclause after expansion has occured. The two
- *       function macros involved here are PPMPF_TUP_MAP and PPMPF_UTUP_MAP.
+ * @desc The default, first - level type - dispatching recursive expansion
+ *       function metahandler for ppmpf typeclauses.
+ * @pfrg n: Digit [0-9] representing the type identifier entry of a given ppmpf
+ *          typeclause.
+ * @pexp Expands to PPMPF_MHD0 or PPMPF_MHD1 or ... or PPMPF_MHD9 depending on
+ *       which type identifier is used. Each of these expansions refers to a
+ *       function macro that is invocable with the empty preprocessor token.
+ *       Once the resulting function macro is invoked, an unsafe 3-tuple is
+ *       returned with the three functions dedicated for retrieval, erasure and
+ *       emptyness check for a given ppmpf collection.
  */
-#define PPMPF_TMAP(f,t) \
-        PPMPF_TFY(PPMPF_TMAP_H,f,(),t)
+#define PPMPF_MHD(n) \
+        PPMPF_CAT(PPMPF_MHD,n)
 
-#define PPMPF_TMAP_H0(f,s,t) \
-        PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
-                    , PPMPF_UNIT \
-                    , PPMPF_UTUP_MAP)(f,t)
-#define PPMPF_TMAP_H1(f,s,t) \
-        PPMPF_IFELSE( PPMPF_EMPTY_12(PPMPF_COMMA f) \
-                    , PPMPF_UNIT \
-                    , PPMPF_TUP_MAP)(f,t)
+/*~
+ * @desc The default, second - level type - dispatching recursive expansion
+ *       function metahandler for ppmpf typeclauses, in case of unsafe tuples
+ *       (the type identifier for them is 0).
+ * @pexp Expands to an unsafe 3-tuple is with the three functions contained
+ *       as dedicated for retrieval, erasure and emptyness check for a given
+ *       unsafe ppmpf tuple.
+ */
+#define PPMPF_MHD0() \
+        ( PPMPF_UTUP_GET, PPMPF_TUP_POP, PPMPF_UTUP_EMPTY )
+
+/*~
+ * @desc The default, second - level type - dispatching recursive expansion
+ *       function metahandler for ppmpf typeclauses, in case of safe tuples
+ *       (the type identifier for them is 1).
+ * @pexp Expands to an unsafe 3-tuple is with the three functions contained
+ *       as dedicated for retrieval, erasure and emptyness check for a given
+ *       safe ppmpf tuple.
+ */
+#define PPMPF_MHD1() \
+        ( PPMPF_TUP_GET, PPMPF_TUP_POP, PPMPF_TUP_EMPTY )
+
+/*~
+ * @desc The default, third - level function - dispatching recursive expansion
+ *       function metahandler for ppmpf typeclauses, for the `PPMPF_MAP` high
+ *       order function macro. This metahandler deals with partial application,
+ *       function "binding" semantics as well as the regular, plain function
+ *       macro identifiers used in `PPMPF_MAP`.
+ * @pfrg n: Digit [0-9] representing the type identifier entry of a given ppmpf
+ *          typeclause.
+ * @pexp Expands to PPMPF_MAP_MHD0 or PPMPF_MAP_MHD1 or ... or PPMPF_MAP_MHD9
+ *       depending on which type identifier is used. Each of these expansions
+ *       refers to a function macro that is invocable with the empty
+ *       preprocessor token. Once the resulting function macro is invoked, it
+ *       expands to two unsafe 3-tuples. The first 3-tuple is used in the
+ *       "folding pipeline" of the `PPMPF_PFLD*` for when a plain function
+ *       macro identifier has been detected, the second when it is the case for
+ *       a complex expression.
+ */
+#define PPMPF_MAP_MHD(n) \
+        PPMPF_CAT(PPMPF_MAP_MHD,n)
+
+/*~
+ * @desc Folding pipeline metahandler for the `PPMPF_MAP` high order function
+ *       macro, in the case of unsafe ppmpf tuples.
+ * @pexp Expands to a pair of 3-tuples where the first contains the necessary
+ *       internals for "folding pipelines" of the `PPMPF_PFLD*` construct
+ *       family when a plain function macro identifier is detected, the second
+ *       one the ones used in the case of a more complex expression.
+ */
+#define PPMPF_MAP_MHD0() \
+        ( PPMPF_FLDX1T, PPMPF_FLDX0D , PPMPF_FLDX22 ) \
+      , ( PPMPF_BDSN4 , PPMPF_FLDX0D , PPMPF_BDSN2 )
+
+/*~
+ * @desc Folding pipeline metahandler for the `PPMPF_MAP` high order function
+ *       macro, in the case of safe ppmpf tuples.
+ * @pexp Expands to a pair of 3-tuples where the first contains the necessary
+ *       internals for "folding pipelines" of the `PPMPF_PFLD*` construct
+ *       family when a plain function macro identifier is detected, the second
+ *       one the ones used in the case of a more complex expression.
+ */
+#define PPMPF_MAP_MHD1() \
+        ( PPMPF_FLDX0E, PPMPF_FLDX0D, PPMPF_FLDX0H ) \
+      , ( PPMPF_BDSN4 , PPMPF_FLDX0D, PPMPF_BDSN2 )
+
+/*
+ * Substitutes the PPMPF_TMAP temporary, prototype for PPMPF_MAP substitution.
+ * */
+#define PPMPF_QMAP(f,t) \
+        PPMPF_TYPEFY(PPMPF_PFLD1,PPMPF_MHD,PPMPF_MAP_MHD,f,(),t)
 
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_TYPE_HH_ */
