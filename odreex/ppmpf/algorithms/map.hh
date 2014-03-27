@@ -22,38 +22,26 @@
 #define _ODREEX_PPMPF_ALGORITHMS_MAP_HH_
 
 #include <odreex/ppmpf/collections/tuple.hh>
-#include <odreex/ppmpf/functional/bind.hh>
-#include <odreex/ppmpf/functional/rdfn.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 
 /*~
- * @desc A newer implementation of the map high order function, for tuples,
- *       that is bind - aware.
- * @pfrg f: a plain function or a ppmpf bind expression.
- * @pfrg t: a safe tuple
- * @pexp Application of f over an n-ary ppmpf tuple.
- * @note This is very much a work in progress, based on work done with the
- *       `PPMPF_BDS31` bind map prototype.
- * @todo Implement the first ppmpf "type" system within this prototype and
- *       optimize expansion times of the initial code inheritance from the
- *       `PPMPF_BDS31` proof of concept code.
+ * @desc A high order function applying a given function to each element of a
+ *       a given ppmpf collection (sequences, safe and unsafe ppmpf tuples),
+ *       also supporting closures with a particular syntax and expanding to
+ *       a ppmpf collection of the same typeclause.
+ * @pfrg fexp: a plain function or a ppmpf closure.
+ * @pfrg tycl: a ppmpf typeclause.
+ * @pexp Application of fexp over a ppmpf collection as the latter is described
+ *       in the typeclause enclosing it.
  */
-
-#define PPMPF_MAP(f,t) \
-        PPMPF_RDFN( PPMPF_PFLD1 \
-                  , f \
-                  , ( (())(t) \
-                    , PPMPF_TUP_GET \
-                    , PPMPF_TUP_POP \
-                    , PPMPF_UTUP_EMPTY \
-                    , PPMPF_BDSN4 \
-                    , PPMPF_FLDX0D \
-                    , PPMPF_BDSN2 ) \
-                  , ( (())(t) \
-                    , PPMPF_TUP_GET \
-                    , PPMPF_TUP_POP \
-                    , PPMPF_TUP_EMPTY \
-                    , PPMPF_FLDX0E \
-                    , PPMPF_FLDX0D \
-                    , PPMPF_FLDX0H ) )
+#define PPMPF_MAP(fexp,tycl) \
+        PPMPF_TYPEFY( PPMPF_PFLD1 \
+                    , PPMPF_MHD \
+                    , PPMPF_MAP_MHD \
+                    , fexp \
+                    , PPMPF_IFELSE( PPMPF_IS(PPMPF_TYPEOF(tycl), 2) \
+                                  , \
+                                  , () )\
+                    , tycl )
 
 #endif /* _ODREEX_PPMPF_ALGORITHMS_MAP_HH_ */
