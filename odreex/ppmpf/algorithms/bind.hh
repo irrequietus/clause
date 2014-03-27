@@ -68,6 +68,30 @@
 #define PPMPF_BNDX__8() PPMPF_BNDR8
 #define PPMPF_BNDX__9() PPMPF_BNDR9
 
+#define PPMPF_BNDY_0() PPMPF_ENCLOSE
+#define PPMPF_BNDY_1() PPMPF_BNDJ1
+#define PPMPF_BNDY_2() PPMPF_BNDJ2
+#define PPMPF_BNDY_3() PPMPF_BNDJ3
+#define PPMPF_BNDY_4() PPMPF_BNDJ4
+#define PPMPF_BNDY_5() PPMPF_BNDJ5
+#define PPMPF_BNDY_6() PPMPF_BNDJ6
+#define PPMPF_BNDY_7() PPMPF_BNDJ7
+#define PPMPF_BNDY_8() PPMPF_BNDJ8
+#define PPMPF_BNDY_9() PPMPF_BNDJ9
+
+#define PPMPF_BNDY__0() PPMPF_JUST
+#define PPMPF_BNDY__1() PPMPF_BNDJ1
+#define PPMPF_BNDY__2() PPMPF_BNDJ2
+#define PPMPF_BNDY__1() PPMPF_BNDJ1
+#define PPMPF_BNDY__2() PPMPF_BNDJ2
+#define PPMPF_BNDY__3() PPMPF_BNDJ3
+#define PPMPF_BNDY__4() PPMPF_BNDJ4
+#define PPMPF_BNDY__5() PPMPF_BNDJ5
+#define PPMPF_BNDY__6() PPMPF_BNDJ6
+#define PPMPF_BNDY__7() PPMPF_BNDJ7
+#define PPMPF_BNDY__8() PPMPF_BNDJ8
+#define PPMPF_BNDY__9() PPMPF_BNDJ9
+
 #define PPMPF_BNDX1(t,q,x) x(0,t)(q)
 #define PPMPF_BNDX2(t,q,x) PPMPF_BNDX1(t,q,x),x(1,t)(q)
 #define PPMPF_BNDX3(t,q,x) PPMPF_BNDX2(t,q,x),x(2,t)(q)
@@ -81,19 +105,21 @@
 #define PPMPF_DPR3(x)   PPMPF_DPAR(PPMPF_DPAR(PPMPF_DPAR(x)))
 #define PPMPF_BNDD(n,t) PPMPF_DPR3(PPMPF_TUP_ATPOS((0)(0)(0)(n),t))
 #define PPMPF_BNDQ(x) PPMPF_CAT(PPMPF_BNDX,x)()
+#define PPMPF_BNDZ(x) PPMPF_CAT(PPMPF_BNDY,x)()
 #define PPMPF_BNDE(f,t,q,h) PPMPF_APPLY(f,h(t,q,PPMPF_BNDD))
 #define PPMPF_BNDF(x) PPMPF_TUP_MAP(PPMPF_BNDQ,x)
+#define PPMPF_BNDG(x) PPMPF_TUP_MAP(PPMPF_BNDZ,x)
 
-#define PPMPF_BIND0(f,t2,t) f()
-#define PPMPF_BIND1(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX1)
-#define PPMPF_BIND2(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX2)
-#define PPMPF_BIND3(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX3)
-#define PPMPF_BIND4(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX4)
-#define PPMPF_BIND5(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX5)
-#define PPMPF_BIND6(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX6)
-#define PPMPF_BIND7(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX7)
-#define PPMPF_BIND8(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX8)
-#define PPMPF_BIND9(f,t2,t) PPMPF_BNDE(f,PPMPF_BNDF(t2),t, PPMPF_BNDX9)
+#define PPMPF_BIND0(f,g,t2,t) f()
+#define PPMPF_BIND1(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX1)
+#define PPMPF_BIND2(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX2)
+#define PPMPF_BIND3(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX3)
+#define PPMPF_BIND4(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX4)
+#define PPMPF_BIND5(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX5)
+#define PPMPF_BIND6(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX6)
+#define PPMPF_BIND7(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX7)
+#define PPMPF_BIND8(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX8)
+#define PPMPF_BIND9(f,g,t2,t) PPMPF_BNDE(f,g(t2),t, PPMPF_BNDX9)
 
 /*
  * NOTE: A version of a "binding" macro for safe ppmpf tuples, for placeholders
@@ -107,9 +133,24 @@
  *       ... and so on.
  */
 #define PPMPF_TUP_BIND(f,x,...) \
-        PPMPF_BNDQ(PPMPF_DPAR(PPMPF_SEQ_GET(x)))( \
+        PPMPF_CAT(PPMPF_BNDX,PPMPF_DPAR(PPMPF_SEQ_GET(x)))()( \
         PPMPF_CAT( PPMPF_BIND \
                  , PPMPF_NARGS(PPMPF_DREF(PPMPF_SEQ_POP(x))))( f \
+                                  , PPMPF_BNDF \
+                                  , PPMPF_TUPLE(PPMPF_DREF(PPMPF_SEQ_POP(x))) \
+                                  , (__VA_ARGS__) ) )
+/*
+ * NOTE: This is the version of the same function for unsafe ppmpf tuples but
+ *       in this case, either single or double underscore placeholders ranging
+ *       [1,9] do not result in removing parenthetical enclosures. The __0, _0
+ *       semantics (do not enclose, enclose respectively) remain for the final
+ *       result of function application.
+ */
+#define PPMPF_UTUP_BIND(f,x,...) \
+        PPMPF_CAT(PPMPF_BNDY,PPMPF_DPAR(PPMPF_SEQ_GET(x)))()( \
+        PPMPF_CAT( PPMPF_BIND \
+                 , PPMPF_NARGS(PPMPF_DREF(PPMPF_SEQ_POP(x))))( f \
+                                  , PPMPF_BNDG \
                                   , PPMPF_TUPLE(PPMPF_DREF(PPMPF_SEQ_POP(x))) \
                                   , (__VA_ARGS__) ) )
 

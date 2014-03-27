@@ -65,4 +65,13 @@
         PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \
                  , PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__) )
 
+/*~
+ * @desc Determine whether an argument is a balanced parenthetical enclosure or
+ *       any other legal preprocessor token.
+ * @pfrg x: token to check whether is or is not a ()
+ * @pexp to 1 if it is, to 0 if it is not.
+ */
+#define PPMPF_ISPRN(x) \
+        PPMPF_EMPTY_12(PPMPF_COMMA x)
+
 #endif /* _ODREEX_PPMPF_EMPTY_HH_ */

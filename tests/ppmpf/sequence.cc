@@ -22,22 +22,22 @@
 #include <odreex/ppmpf/collections/sequence.hh>
 
 PPMPF_TST( ppmpf_sequence_0
-         , PPMPF_SEQUENCE
+         , PPMPF_SEQC
          , ()
-         ,
-         , "PPMPF_SEQUENCE with 0 items" )
+         , (,2)
+         , "PPMPF_SEQC with 0 items" )
 
 PPMPF_TST( ppmpf_sequence_10
-         , PPMPF_SEQUENCE
+         , PPMPF_SEQC
          , (0,1,2,3,4,5,6,7,8,9)
-         , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
-         , "PPMPF_SEQUENCE with 10 items" )
+         , ((0)(1)(2)(3)(4)(5)(6)(7)(8)(9),2)
+         , "PPMPF_SEQC with 10 items" )
 
 PPMPF_TST( ppmpf_sequence_20
-         , PPMPF_SEQUENCE
+         , PPMPF_SEQC
          , (0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9)
-         , (0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9)
-         , "PPMPF_SEQUENCE with 20 items" )
+         , ((0)(1)(2)(3)(4)(5)(6)(7)(8)(9)(0)(1)(2)(3)(4)(5)(6)(7)(8)(9),2)
+         , "PPMPF_SEQC with 20 items" )
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_sequence
@@ -45,6 +45,6 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_sequence_10
                   , ppmpf_sequence_20 )
                 , true
-                , "testing ppmpf PPMPF_SEQUENCE (0, 10 and 20 items)" )
+                , "testing ppmpf PPMPF_SEQC (0, 10 and 20 items)" )
 
 PPMPF_TEST_MRUN(check_sequence)
