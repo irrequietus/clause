@@ -246,6 +246,74 @@
 #define PPMPF_NOT_0() 1
 
 /*~
+ * @pgrp PPMPF_EMPTY_*
+ * @desc A series of macro constructs dedicated to detecting whether the empty
+ *       preprocessor token is the one being used as an argument. The main
+ *       problem with empty token detection is that when function macro
+ *       identifiers or other particular character combinations are used in
+ *       preprocessor tokens, these may cause trouble in detecting whether
+ *       the empty token is actually the single token involved. These constructs
+ *       provide a base to build a more versatile detection facility, such that
+ *       when function macro identifiers are used as the single or the last
+ *       token passed to a function, counting said argument does not cause an
+ *       error.
+ * @pexp Variable, depending on `PPMPF_EMPTY_` member.
+ */
+#define PPMPF_EMPTY_0(...) (,)
+#define PPMPF_EMPTY_1(...) (,) ,
+#define PPMPF_EMPTY_2(...) ()
+#define PPMPF_EMPTY_3(...) \
+        PPMPF_EMPTY_4(PPMPF_EMPTY_1 __VA_ARGS__ (,),)
+#define PPMPF_EMPTY_4(a,...) \
+        PPMPF_EMPTY_5(PPMPF_EMPTY_0  a)
+#define PPMPF_EMPTY_5(...) \
+        PPMPF_EMPTY_6(PPMPF_COMMA __VA_ARGS__)
+#define PPMPF_EMPTY_6(...) \
+        PPMPF_EMPTY_7(__VA_ARGS__)
+#define PPMPF_EMPTY_7(...) \
+        PPMPF_EMPTY_8(__VA_ARGS__,1,1,0,)
+#define PPMPF_EMPTY_8(...) \
+        PPMPF_EMPTY_9(__VA_ARGS__)
+#define PPMPF_EMPTY_9(a,b,c,n,...) n
+#define PPMPF_EMPTY_10(...) \
+        PPMPF_EMPTY_11(__VA_ARGS__,1,0,0)
+#define PPMPF_EMPTY_11(a,b,n,...) n
+#define PPMPF_EMPTY_12(x) \
+        PPMPF_EMPTY_10(PPMPF_COMMA x)
+#define PPMPF_EMPTY_13(x) \
+        PPMPF_EMPTY_10( PPMPF_JUST(\
+                            PPMPF_COMMA \
+                                PPMPF_CAT(PPMPF_ x,_PPMPF_EMPTY____) ()) \
+                      , 1, 0, 0 )
+#define PPMPF_EMPTY_14(x) \
+        PPMPF_EMPTY_10(PPMPF_JUST(PPMPF_COMMA x ()), 1, 0, 0 )
+#define PPMPF_EMPTY_B1(x) \
+        PPMPF_IFELSE(PPMPF_EMPTY_12(x),PPMPF_FALSE,PPMPF_EMPTY_13)(x)
+#define PPMPF_EMPTY_B2(x) \
+        PPMPF_IFELSE(PPMPF_EMPTY_12(x),PPMPF_FALSE,PPMPF_EMPTY_14)(x)
+#define PPMPF_EMPTY_A(x,y) \
+        PPMPF_IFELSE( PPMPF_EMPTY_C(PPMPF_DREF(x)) \
+                    , PPMPF_EMPTY_B1 \
+                    , PPMPF_FALSE )(y)
+#define PPMPF_EMPTY_A2(x,y) \
+        PPMPF_IFELSE( PPMPF_EMPTY_C(PPMPF_DREF(x)) \
+                    , PPMPF_EMPTY_B2 \
+                    , PPMPF_FALSE )(y)
+#define PPMPF_EMPTY_C(...) \
+        PPMPF_XOR( PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__,) \
+                 , PPMPF_EMPTY_3(PPMPF_EMPTY_2 __VA_ARGS__) )
+#define PPMPF__PPMPF_EMPTY____ /**/
+
+/*~
+ * @desc Determine whether an argument is a balanced parenthetical enclosure or
+ *       any other legal preprocessor token.
+ * @pfrg x: token to check whether is or is not a ()
+ * @pexp to 1 if it is, to 0 if it is not.
+ */
+#define PPMPF_ISPRN(x) \
+        PPMPF_EMPTY_12(PPMPF_COMMA x)
+
+/*~
  * @desc A fast way to access the items from a comma separated sequence of
  *       preprocessor tokens. This is related to `PPMPF_TUP_ATPOS` only that
  *       it is less 'secure' and limited to the first 10 items.

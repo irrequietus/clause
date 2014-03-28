@@ -1,5 +1,5 @@
 /* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
  *
  * This file is part of odreex.
  *
@@ -22,7 +22,6 @@
 #define _ODREEX_PPMPF_KERNEL_LOGIC_ALU_HH_
 
 #include <odreex/ppmpf/kernel/cpro/core.hh>
-#include <odreex/ppmpf/kernel/cpro/empty.hh>
 #include <odreex/ppmpf/collections/tuple/functions.hh>
 #include <odreex/ppmpf/collections/sequence/functions.hh>
 

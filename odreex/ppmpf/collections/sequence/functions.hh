@@ -21,7 +21,6 @@
 #ifndef _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_FUNCTIONS_HH_
 #define _ODREEX_PPMPF_COLLECTIONS_SEQUENCE_FUNCTIONS_HH_
 
-#include <odreex/ppmpf/kernel/cpro/empty.hh>
 #include <odreex/ppmpf/collections/sequence/essence.hh>
 #include <odreex/ppmpf/algorithms/fold.hh>
 #include <odreex/ppmpf/algorithms/functional.hh>

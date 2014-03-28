@@ -25,10 +25,6 @@
 #error ppmpf: <odreex/ppmpf/collections/tuple/functions.hh> must precede.
 #endif
 
-#include <odreex/ppmpf/kernel/cpro/base.hh>
-#include <odreex/ppmpf/kernel/cpro/core.hh>
-#include <odreex/ppmpf/kernel/cpro/empty.hh>
-
 /* Assistive macro for tuple -> sequence conversion. */
 #define PPMPF_T2S_(a,b) PPMPF_JUST(a)(b)
 
