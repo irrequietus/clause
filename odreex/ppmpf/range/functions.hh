@@ -21,8 +21,8 @@
 #ifndef _ODREEX_PPMPF_RANGE_FUNCTIONS_HH_
 #define _ODREEX_PPMPF_RANGE_FUNCTIONS_HH_
 
-#include <odreex/ppmpf/kernel/cpro/base.hh>
-#include <odreex/ppmpf/kernel/cpro/core.hh>
+#include <odreex/ppmpf/collections/tuple.hh>
+#include <odreex/ppmpf/collections/sequence.hh>
 /*
  * NOTE: PPMPF_RANGE_GET : Get the next item in a numerical range.
  */
