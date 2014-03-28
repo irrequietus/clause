@@ -141,10 +141,4 @@
         ( PPMPF_FLDX0E, PPMPF_FLDX0D, PPMPF_FLDX0H ) \
       , ( PPMPF_BDSN4 , PPMPF_FLDX0D, PPMPF_BDSN2 )
 
-/*
- * Substitutes the PPMPF_TMAP temporary, prototype for PPMPF_MAP substitution.
- * */
-#define PPMPF_QMAP(f,t) \
-        PPMPF_TYPEFY(PPMPF_PFLD1,PPMPF_MHD,PPMPF_MAP_MHD,f,(),t)
-
 #endif /* _ODREEX_PPMPF_COLLECTIONS_TUPLE_TYPE_HH_ */
