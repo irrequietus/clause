@@ -22,7 +22,6 @@
 #define _ODREEX_PPMPF_ALGORITHMS_BIND_HH_
 
 #include <odreex/ppmpf/collections/tuple.hh>
-#include <odreex/ppmpf/algorithms/plh.hh>
 #include <odreex/ppmpf/ppfk.hh>
 
 #define PPMPF_BNDJ1(x) PPMPF_TUP_ATPOS((0)(0)(0)(0),x)
