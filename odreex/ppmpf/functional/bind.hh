@@ -115,5 +115,27 @@
                    , PPMPF_BDSN4 \
                    , PPMPF_FLDX0D \
                    , PPMPF_BDSN2, )
+/*~
+ * @desc The true implementation of a partial applicator for use outside high
+ *       order function internals.
+ * @pfrg fexp: a ppmpf function expression.
+ * @pfrg  ...: a series of arguments to which the ppmpf function expression
+ *             placeholders refer to.
+ * @pexp The application of fexp over the series of arguments passed.
+ */
+#define PPMPF_BIND(fexp,...) \
+        PPMPF_BIND_0( (PPMPF_QTAT(0,fexp) \
+                    , PPMPF_BDS20(PPMPF_QTAT(1,fexp))) \
+                    , (__VA_ARGS__,))
+
+#define PPMPF_BIND_0(x,y) \
+        PPMPF_BIND_1( PPMPF_QTAT(0,x) \
+                    , PPMPF_QTAT(1,x) \
+                    , PPMPF_QTAT(2,x) \
+                    , PPMPF_QTAT(3,x) \
+                    , y )
+
+#define PPMPF_BIND_1(a,b,c,d,e) \
+        PPMPF_BDS23(a,b,c,d,e)
 
 #endif /* _ODREEX_PPMPF_FUNCTIONAL_BIND_HH_ */

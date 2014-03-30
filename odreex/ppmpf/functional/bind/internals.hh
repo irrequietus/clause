@@ -70,7 +70,7 @@
 
 #define PPMPF_BDS11(a,b,c) \
             PPMPF_FLDX1V( \
-                        , ()(a)            \
+                        , (())(a)            \
                         , PPMPF_UTUP_GET   \
                         , PPMPF_TUP_POP    \
                         , PPMPF_UTUP_EMPTY \

@@ -120,7 +120,7 @@
 #define PPMPF_BDX_8()   (PPMPF_BDJ8)
 #define PPMPF_BDX_9()   (PPMPF_BDJ9)
 
-#define PPMPF_BDX__0()  PPMPF_JUST
+#define PPMPF_BDX__0()  PPMPF_JUSX
 #define PPMPF_BDX__1()  (PPMPF_BDR1)
 #define PPMPF_BDX__2()  (PPMPF_BDR2)
 #define PPMPF_BDX__3()  (PPMPF_BDR3)

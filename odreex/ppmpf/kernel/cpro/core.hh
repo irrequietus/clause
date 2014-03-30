@@ -127,6 +127,14 @@
 #define PPMPF_JUST(...) __VA_ARGS__
 
 /*~
+ * @desc A function macro always expanding to the preprocessor tokens it is
+ *       handed. This is a duplicate of `PPMPF_JUST`
+ * @pfrg ...: any comma separated sequence of preprocessor tokens.
+ * @pexp Always to the preprocessor tokens used as arguments.
+ */
+#define PPMPF_JUSX(...) __VA_ARGS__
+
+/*~
  * @desc "Dereference" a preprocessor token from a parenthetical its enclosure.
  * @pfrg x: argument representing a single, parenthesis enclosed preprocessor
  *          token.
