@@ -23,6 +23,45 @@
 
 #include <odreex/ppmpf/kernel/cpro/limits.hh>
 
+
+/*~
+ * @desc Given a digit [0,9] get the previous one.
+ * @pfrg n: the digit for which to get its previous one.
+ * @pexp To the previous digit; if it is 0, expand to Z.
+ */
+#define PPMPF_PNX(n) \
+        PPMPF_CAT(PPMPF_NX, n)()
+#define PPMPF_NX0()  Z
+#define PPMPF_NX1()  0
+#define PPMPF_NX2()  1
+#define PPMPF_NX3()  2
+#define PPMPF_NX4()  3
+#define PPMPF_NX5()  4
+#define PPMPF_NX6()  5
+#define PPMPF_NX7()  6
+#define PPMPF_NX8()  7
+#define PPMPF_NX9()  8
+#define PPMPF_NX10() 9
+
+/*~
+ * @desc Given a digit [0,9] get the next one.
+ * @pfrg n: the digit for which to get its next one.
+ * @pexp To the next digit; if it is 9, expand to Z.
+ */
+#define PPMPF_NNX(n) \
+        PPMPF_CAT(PPMPF_MX, n)()
+#define PPMPF_MXZ()  0
+#define PPMPF_MX0()  1
+#define PPMPF_MX1()  2
+#define PPMPF_MX2()  3
+#define PPMPF_MX3()  4
+#define PPMPF_MX4()  5
+#define PPMPF_MX5()  6
+#define PPMPF_MX6()  7
+#define PPMPF_MX7()  8
+#define PPMPF_MX8()  9
+#define PPMPF_MX9()  Z
+
 /*~
  * @desc A function macro always expanding to 1
  * @pfrg ...: any comma separated sequence of preprocessor tokens.
