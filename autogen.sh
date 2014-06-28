@@ -1,29 +1,37 @@
 #!/bin/bash
 
-# odreex libraries autogen.sh implementation
-# Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
-# License: GPLv3+
-# Website: https://github/com/irrequietus/odreex
+# Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
+# 
+# This file is part of 'clause', a highly generic C++ meta-programming library,
+# subject to the terms and conditions of the Mozilla Public License v 2.0. If
+# a copy of the MPLv2 license text was not distributed with this file, you can
+# obtain it at: http://mozilla.org/MPL/2.0/.
+# 
+# The 'clause' library is an experimental library in active development with
+# a source code repository at: https://github.com/irrequietus/clause.git and
+# issue tracker at https://github.com/irrequietus/clause/issues.
 #
+
 # The reason for writing this is for assisting the generation of the necessary
-# files required for autotools to work with odreex and it is written in GNU/bash
+# files required for autotools to work with clause and it is written in GNU/bash
 # because of conveniency.
 
-function odreexgen_help() {
-    printf "\n=============================================================\n"
-    printf "odreex libraries autogen.sh implementation\n"
-    printf "Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>\n"
-    printf "License: GPLv3+\n"
-    printf "Website: https://github.com/irrequietus/odreex\n"
-    printf "=============================================================\n\n"
+function clausegen_help() {
+    printf "\n===============================================================\n"
+    printf "'clause' library autogen.sh implementation\n"
+    printf "Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>\n"
+    printf "License: MPLv2\n"
+    printf "Website: https://github.com/irrequietus/clause\n"
+    printf "=================================================================\n"
+    printf "\n"
 }
 
 
 #
-# @desc Create a Makefile.am for the source directories involved in the odreex
+# @desc Create a Makefile.am for the source directories involved in the clause
 #       libraries.
 #
-function odreexgen_makefile() {
+function clausegen_makefile() {
     local fl="" fheaders=() fsources=() fh="" fs=""
     
     while read fl; do
@@ -41,14 +49,14 @@ function odreexgen_makefile() {
     fs="${fsources[${#fsources[@]}-1]}"
     unset fheaders[${#fheaders[@]}-1] fsources[${#fsources[@]}-1]
     
-    { printf "nobase_odreex_include_HEADERS = \\\\\n"
+    { printf "nobase_clause_include_HEADERS = \\\\\n"
       for((fl=0;fl!=${#fheaders[@]};fl++)); do
           printf "\t%s \\\\\n" "${fheaders[fl]}"
       done
       printf "\t$fh\n\n"
     } > "fheaders.mk"
     
-    { printf "libodreex_@ODREEX_API_VERSION@_la_SOURCES = \\\\\n"
+    { printf "libclause_@CLAUSE_API_VERSION@_la_SOURCES = \\\\\n"
       for((fl=0;fl!=${#fsources[@]};fl++)); do
           printf "\t%s \\\\\n" "${fsources[fl]}"
       done
@@ -61,7 +69,7 @@ function odreexgen_makefile() {
 #       files and caches where appropriate.
 #
 
-function odreexgen_cleanup() {
+function clausegen_cleanup() {
     find . -name '*~' | xargs rm -rf
     find . -name '*.out' | xargs rm -rf
     find . -name '*.deps' | xargs rm -rf
@@ -74,19 +82,19 @@ function odreexgen_cleanup() {
     rm -rf autom4te.cache aclocal.m4 *.log *.status
     rm -rf Makefile Makefile.in missing stamp* *.sub
     rm -rf depcomp install-sh configure config.*
-    rm -rf *.mk odreexconfig.h* *.pc
+    rm -rf *.mk clauseconfig.h* *.pc
 }
 
 #
 # @desc run autoreconf after having cleaned up and regenerated the makefile
 #       required for the library to be built.
 #
-function odreexgen_reconf() {
-    odreexgen_cleanup
-    odreexgen_makefile
+function clausegen_reconf() {
+    clausegen_cleanup
+    clausegen_makefile
     test -n "$srcdir" || srcdir="$(dirname "$0")"
     test -n "$srcdir" || srcdir=.
-    touch odreexconfig.h.in
+    touch clauseconfig.h.in
     autoreconf --force --install --verbose "$srcdir" || exit 1
     if patch -s --dry-run < patch/ltmain-as-needed.patch; then
         patch -s -p0 < patch/ltmain-as-needed.patch || exit 1
@@ -101,12 +109,12 @@ function odreexgen_reconf() {
 #
 # @desc Just a make distcheck from clean slate
 #
-function odreexgen_distcheck() {
-    odreexgen_cleanup
-    odreexgen_makefile
+function clausegen_distcheck() {
+    clausegen_cleanup
+    clausegen_makefile
     test -n "$srcdir" || srcdir="$(dirname "$0")"
     test -n "$srcdir" || srcdir=.
-    touch odreexconfig.h.in
+    touch clauseconfig.h.in
     autoreconf --force --install --verbose "$srcdir"
     if patch -s --dry-run < patch/ltmain-as-needed.patch; then
         patch -s -p0 < patch/ltmain-as-needed.patch
@@ -118,34 +126,34 @@ function odreexgen_distcheck() {
     rm -rf autom4te.cache
     find . -name '*~' | xargs rm -rf
     ./configure
-    make distcheck && odreexgen_cleanup
+    make distcheck && clausegen_cleanup
 }
 
 #
 # @desc Run through a series of options and decide which one should apply. Only
 #       the first command line option gets executed, the others are ignored.
 #
-function odreexgen_getopts() {
+function clausegen_getopts() {
     local opts_var=""
     if [ -z "$@" ]; then
-        odreexgen_reconf
+        clausegen_reconf
         exit
     fi
     while getopts “hcrmd” opts_var; do
         case $opts_var in
-        h)  odreexgen_help
+        h)  clausegen_help
             exit
             ;;
-        c)  odreexgen_cleanup
+        c)  clausegen_cleanup
             exit
             ;;
-        r)  odreexgen_reconf
+        r)  clausegen_reconf
             exit
             ;;
-        m)  odreexgen_makefile
+        m)  clausegen_makefile
             exit
             ;;
-        d)  odreexgen_distcheck
+        d)  clausegen_distcheck
             rm -rf dist
             mkdir dist
             mv *.tar.* dist
@@ -156,7 +164,7 @@ function odreexgen_getopts() {
             done
             exit
             ;;
-        *)  odreexgen_help
+        *)  clausegen_help
             exit
             ;;
         esac
@@ -164,4 +172,4 @@ function odreexgen_getopts() {
 }
 
 
-odreexgen_getopts "$@"
+clausegen_getopts "$@"
