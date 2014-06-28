@@ -1,27 +1,21 @@
-/* --
- * Copyright (C) 2013, George Makrydakis <irrequietus@gmail.com>
- *
- * This file is part of odreex.
- *
- * odreex is free software: you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * odreex is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * odreex. If not, see http://www.gnu.org/licenses/.
- *
+/*~
+ * Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
+ * 
+ * This file is part of 'clause', a highly generic C++ meta-programming library,
+ * subject to the terms and conditions of the Mozilla Public License v 2.0. If
+ * a copy of the MPLv2 license text was not distributed with this file, you can
+ * obtain it at: http://mozilla.org/MPL/2.0/.
+ * 
+ * The 'clause' library is an experimental library in active development with
+ * a source code repository at: https://github.com/irrequietus/clause.git and
+ * issue tracker at https://github.com/irrequietus/clause/issues.
+ * 
  */
 
-#include <odreex/ample/test.hh>
-#include <odreex/ample/vector.hh>
+#include <clause/ample/test.hh>
+#include <clause/ample/vector.hh>
 
-namespace odreex {
+namespace clause {
 namespace ample {
 namespace test {
 
@@ -122,7 +116,7 @@ struct validating_vector_11
 };
 
 
-/* tests for odreex::ample::vector */
+/* tests for clause::ample::vector */
 struct check_ample_vector
      : check< true
             , check_all< validating_vector_0
@@ -141,10 +135,10 @@ struct check_ample_vector
 
 } /* test */
 } /* ample */
-} /* odreex */
+} /* clause */
 
 int main() {
     return
         AMPLE_TEST_RUN( check_ample_vector
-                    , "testing odreex::ample::vector" );
+                    , "testing clause::ample::vector" );
 }

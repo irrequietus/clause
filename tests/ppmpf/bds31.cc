@@ -1,27 +1,21 @@
-/* --
+/*~
  * Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
- *
- * This file is part of odreex.
- *
- * odreex is free software: you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * odreex is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * odreex. If not, see http://www.gnu.org/licenses/.
- *
+ * 
+ * This file is part of 'clause', a highly generic C++ meta-programming library,
+ * subject to the terms and conditions of the Mozilla Public License v 2.0. If
+ * a copy of the MPLv2 license text was not distributed with this file, you can
+ * obtain it at: http://mozilla.org/MPL/2.0/.
+ * 
+ * The 'clause' library is an experimental library in active development with
+ * a source code repository at: https://github.com/irrequietus/clause.git and
+ * issue tracker at https://github.com/irrequietus/clause/issues.
+ * 
  */
 
-#include <odreex/ppmpf/functional/bind.hh>
-#include <odreex/ppmpf/range.hh>
-#include <odreex/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
+#include <clause/ppmpf/functional/bind.hh>
+#include <clause/ppmpf/range.hh>
+#include <clause/test.hh>
+#include <clause/ppmpf/ppfk.hh>
 
 PPMPF_TST( PPMPF_BDS318
          , PPMPF_BDS31

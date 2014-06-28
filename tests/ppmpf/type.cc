@@ -1,26 +1,21 @@
-/* --
- * Copyright (C) 2013, 2014, George Makrydakis <irrequietus@gmail.com>
- *
- * This file is part of odreex.
- *
- * odreex is free software: you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * odreex is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * odreex. If not, see http://www.gnu.org/licenses/.
- *
+/*~
+ * Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
+ * 
+ * This file is part of 'clause', a highly generic C++ meta-programming library,
+ * subject to the terms and conditions of the Mozilla Public License v 2.0. If
+ * a copy of the MPLv2 license text was not distributed with this file, you can
+ * obtain it at: http://mozilla.org/MPL/2.0/.
+ * 
+ * The 'clause' library is an experimental library in active development with
+ * a source code repository at: https://github.com/irrequietus/clause.git and
+ * issue tracker at https://github.com/irrequietus/clause/issues.
+ * 
  */
 
-#include <odreex/test.hh>
-#include <odreex/ppmpf/ppfk.hh>
-#include <odreex/ppmpf/collections/tuple.hh>
+#include <clause/test.hh>
+#include <clause/ppmpf/ppfk.hh>
+#include <clause/ppmpf/collections/tuple.hh>
+#include <clause/ppmpf/algorithms/map.hh>
 
 PPMPF_TST( ppmpf_type_1
          , PPMPF_TYPEOF
@@ -59,40 +54,40 @@ PPMPF_TST( ppmpf_type_6
          , "PPMPF_DATAOF for ppmpf sequences" )
 
 PPMPF_TST( ppmpf_qmap0
-         , PPMPF_QMAP
+         , PPMPF_MAP
          , (f,PPMPF_UTUP(0,1,2,3,4))
          , ((f(0),f(1),f(2),f(3),f(4)),0)
-         , "PPMPF_QMAP with an unsafe tuple of 5 elements" )
+         , "PPMPF_MAP with an unsafe tuple of 5 elements" )
 
 PPMPF_TST( ppmpf_qmap1
-         , PPMPF_QMAP
+         , PPMPF_MAP
          , (f,PPMPF_STUP(0,1,2,3,4))
          , (((f(0)),(f(1)),(f(2)),(f(3)),(f(4))),1)
-         , "PPMPF_QMAP with a safe tuple of 5 elements" )
+         , "PPMPF_MAP with a safe tuple of 5 elements" )
 
 PPMPF_TST( ppmpf_qmap2
-         , PPMPF_QMAP
-         , (f,PPMPF_QMAP(g,PPMPF_UTUP(0,1,2,3,4)))
+         , PPMPF_MAP
+         , (f,PPMPF_MAP(g,PPMPF_UTUP(0,1,2,3,4)))
          , ((f(g(0)),f(g(1)),f(g(2)),f(g(3)),f(g(4))),0)
-         , "PPMPF_QMAP self composition, unsafe ppmpf 5-tuple" )
+         , "PPMPF_MAP self composition, unsafe ppmpf 5-tuple" )
 
 PPMPF_TST( ppmpf_qmap3
-         , PPMPF_QMAP
-         , (f,PPMPF_QMAP(g,PPMPF_STUP(0,1,2,3,4)))
+         , PPMPF_MAP
+         , (f,PPMPF_MAP(g,PPMPF_STUP(0,1,2,3,4)))
          , (((f(g(0))),(f(g(1))),(f(g(2))),(f(g(3))),(f(g(4)))),1)
-         , "PPMPF_QMAP self composition, safe ppmpf 5-tuple" )
+         , "PPMPF_MAP self composition, safe ppmpf 5-tuple" )
 
 PPMPF_TST( ppmpf_qmap4
-         , PPMPF_QMAP
-         , ((f,(__0)(_1)),PPMPF_QMAP(g,PPMPF_UTUP(0,1,2,3,4)))
+         , PPMPF_MAP
+         , ((f,(__0)(_1)),PPMPF_MAP(g,PPMPF_UTUP(0,1,2,3,4)))
          , ((f(g(0)),f(g(1)),f(g(2)),f(g(3)),f(g(4))),0)
-         , "PPMPF_QMAP tentative expression testing with unsafe tuples" )
+         , "PPMPF_MAP tentative expression testing with unsafe tuples" )
 
 PPMPF_TST( ppmpf_qmap5
-         , PPMPF_QMAP
-         , ((f,(__0)(_1)),PPMPF_QMAP(g,PPMPF_STUP(0,1,2,3,4)))
+         , PPMPF_MAP
+         , ((f,(__0)(_1)),PPMPF_MAP(g,PPMPF_STUP(0,1,2,3,4)))
          , ((f((g(0))),f((g(1))),f((g(2))),f((g(3))),f((g(4)))),1)
-         , "PPMPF_QMAP tentative expression testing with safe tuples" )
+         , "PPMPF_MAP tentative expression testing with safe tuples" )
 
 PPMPF_TEST_BLOCK( ppmpf
                 , check_type
@@ -103,6 +98,6 @@ PPMPF_TEST_BLOCK( ppmpf
                   , ppmpf_qmap2 , ppmpf_qmap3
                   , ppmpf_qmap4 , ppmpf_qmap5 )
                 , true
-                , "testing ppmpf type deductor and PPMPF_QMAP" )
+                , "testing ppmpf type deductor and PPMPF_MAP" )
 
 PPMPF_TEST_MRUN(check_type)

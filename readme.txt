@@ -1,36 +1,30 @@
-odreex
+clause
 
 What this is all about
 ----------------------
 
-This is primarily a C++11 metaprogramming experiment. Some things are good to
-go, others are still being developed or in process of being introduced. Although
-the GPLv3+ license is being used, I should eventually bring in an exception
-in the spirit of the GCC linking exception. The following is the current list
-of sub - components of the odreex library:
+'clause' is a C++11 metaprogramming library licensed under the Mozilla Public
+License 2.0. The following is the current list of its sublibrary components.
 
  * ppmpf (preprocessor metaprogramming framework)
  * ample (another metaprogramming library etude)
  
 There are no third party library dependencies other than minimal C++11 standard
 library support for using this library. However, it is very important that you
-use a fully C++11 compliant compiler, like g++ 4.8.1. Kindly remember that
-C++11 compliance means C99 compliance for the parts of C99 that have been
-integrated into the standard, and that includes C99 standard library functions
-involved where applicable.
+use a fully C++11 compliant compiler.
 
 Testing the code available
 --------------------------
 
-Tests are provided for odreex using its own testing framework, which itself is
+Tests are provided for clause using its own testing framework, which itself is
 pretty much a work in progress. New tests are added regularly and they are used
 in order to ascertain proper library functionality.
 
-If you wish to just run the tests available for odreex, simply clone the git
+If you wish to just run the tests available for clause, simply clone the git
 repository and run make as follows in your terminal:
 
-    git clone git://github.com/irrequietus/odreex.git
-    cd odreex
+    git clone git://github.com/irrequietus/clause.git
+    cd clause
     ./autogen.sh
     ./configure
     make test
@@ -38,8 +32,8 @@ repository and run make as follows in your terminal:
 If you wish to get ANSI coloured output for the tests, do the following
 variation of the previously mentioned commands in your terminal:
 
-    git clone git://github.com/irrequietus/odreex.git
-    cd odreex
+    git clone git://github.com/irrequietus/clause.git
+    cd clause
     ./autogen.sh
     ./configure --enable-ansi-colors
     make test
@@ -48,13 +42,6 @@ It is now possible to use --with-compiler=<compiler path here> to specify
 a particular compiler path to be used during make targets. The 'make test'
 command adds a '-DUSE_TEST_EXPANSION' to the flags using during tests, allowing
 for test macro expansion to occur only during tests.
-
-Do remember that autogen.sh needs to run once for creating the necessary
-boilerplate for autotools to run for in a freshly cloned repository. There are
-several branches with different purposes. The master branch is the most stable
-one to use, the devbox branch the one containing properly merged code from all
-others. The remaining branches must always be considered as unstable and / or
-requiring fixes.
 
 In order to run compile and run a single test within the subdirectories for
 ample and / or ppmpf, after properly configuring the package as above run
@@ -69,6 +56,6 @@ This will result in just compiling and running the test you are interested in.
 Reporting bugs and other issues
 -------------------------------
 
-Please report any issues over at https://github.com/irrequietus/odreex/issues
+Please report any issues over at https://github.com/irrequietus/clause/issues
 
 

@@ -1,20 +1,17 @@
-## libodreex:
-## Copyright (C) 2013,2014 George Makrydakis <irrequietus@gmail.com>
+## libclause:
 ##
-## This file is part of odreex.
+## Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
+## 
+## This file is part of 'clause', a highly generic C++ meta-programming library,
+## subject to the terms and conditions of the Mozilla Public License v 2.0. If
+## a copy of the MPLv2 license text was not distributed with this file, you can
+## obtain it at: http://mozilla.org/MPL/2.0/.
+## 
+## The 'clause' library is an experimental library in active development with
+## a source code repository at: https://github.com/irrequietus/clause.git and
+## issue tracker at https://github.com/irrequietus/clause/issues.
+## 
 ##
-## odreex is free software; you can redistribute it and/or modify it under the
-## terms of the GNU General Public License as published by the Free Software
-## Foundation, either version 3 of the License, or (at your option) any later
-## version.
-##
-## odreex is distributed in the hope that it will be useful, but WITHOUT ANY
-## WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-## FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-## details.
-##
-## You should have received a copy of the GNU General Public License along with
-## odreex. If not, see http://www.gnu.org/licenses.
 
 distdir = $(PACKAGE).$(VERSION)-$(shell git rev-parse HEAD)
 AUTOMAKE_OPTIONS = subdir-objects
@@ -24,13 +21,13 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 include $(top_srcdir)/fsources.mk
 include $(top_srcdir)/fheaders.mk
 
-lib_LTLIBRARIES = libodreex-@ODREEX_API_VERSION@.la
-libodreex_@ODREEX_API_VERSION@_la_LDFLAGS = -version-info $(ODREEX_SO_VERSION)
-odreex_includedir = $(includedir)/odreex-$(ODREEX_API_VERSION)
-odreex_libincludedir = $(libdir)/odreex-$(ODREEX_API_VERSION)/include
-nodist_odreex_libinclude_HEADERS = odreexconfig.h
+lib_LTLIBRARIES = libclause-@CLAUSE_API_VERSION@.la
+libclause_@CLAUSE_API_VERSION@_la_LDFLAGS = -version-info $(CLAUSE_SO_VERSION)
+clause_includedir = $(includedir)/clause-$(CLAUSE_API_VERSION)
+clause_libincludedir = $(libdir)/clause-$(CLAUSE_API_VERSION)/include
+nodist_clause_libinclude_HEADERS = clauseconfig.h
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = odreex-$(ODREEX_API_VERSION).pc
+pkgconfig_DATA = clause-$(CLAUSE_API_VERSION).pc
 dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch appkit tests
 TESTFLAGS = -Wall -Werror -Wextra -pedantic -fconstexpr-depth=1024
@@ -85,7 +82,7 @@ check: test
 clean-local:
 	rm -f tests/ample/*.test
 	rm -f tests/ppmpf/*.test
-	rm -rf libodreex*.tar.*
+	rm -rf libclause*.tar.*
 
 $(filter ample%.cc ppmpf%.cc, $(MAKECMDGOALS)):
 	@$(if $(wildcard tests/$*.test), \

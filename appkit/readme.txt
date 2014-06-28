@@ -1,2 +1,2 @@
-appkit (applications based on odreex) will go here.
+appkit (applications based on clause) will go here.
 

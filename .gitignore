@@ -43,9 +43,9 @@ config.h.in
 config.status
 libtool
 ltmain.sh
-odreex-0.1.pc
-odreexconfig.h
-odreexconfig.h.in
+clause-0.1.pc
+clauseconfig.h
+clauseconfig.h.in
 *.tar.bz2
 *.tar.gz
 *.tar.xz
