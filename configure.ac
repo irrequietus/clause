@@ -1,4 +1,4 @@
-## Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
+## Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
 ## clause configure.ac
 
 AC_INIT([libclause],

@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <irrequietus@gmail.com>
+ * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
  *
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If

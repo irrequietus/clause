@@ -1,4 +1,4 @@
-2014-06-29 George Makrydakis <irrequietus@gmail.com>
+2014-06-29 George Makrydakis <george@irrequietus.eu>
 
     * project has several meta-programming components like ppmpf and ample.
     * testing frameworks for preprocessor and template meta-programming
@@ -13,7 +13,7 @@
     * the license of the entire project is Mozilla Public License version 2.0
     and can be read at the copying.mpl2 file.
 
-2013-08-04 George Makrydakis <irrequietus@gmail.com>
+2013-08-04 George Makrydakis <george@irrequietus.eu>
 
     * Just a series of files for the autotools based build system for the
     clause C++ libraries.
