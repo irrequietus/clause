@@ -193,6 +193,37 @@
 #define PPMPF_ZFY(a,b,c,d) \
         PPMPF_ZFYX(a,b,c,d)
 
+/* NOTE: PPMPF_XFY - Leading 0s trimming algorithm for preprocessor "tuples",
+ * deliberately fixed for 6 digits (dealing with 000000 - 999999) iteration.
+ * This could substitute PPMPF_ZFY but I am not so sure yet.
+ */
+#define PPMPF_XFYC0(a,b,c,d,e,f) \
+        PPMPF_CAT(a,PPMPF_CAT(b,PPMPF_CAT(c,PPMPF_CAT(d,PPMPF_CAT(e,f)))))
+#define PPMPF_XFYC1(a,b,c,d,e,f) \
+        PPMPF_CAT(b,PPMPF_CAT(c,PPMPF_CAT(d,PPMPF_CAT(e,f))))
+#define PPMPF_XFYC2(a,b,c,d,e,f) \
+        PPMPF_CAT(c,PPMPF_CAT(d,PPMPF_CAT(e,f)))
+#define PPMPF_XFYC3(a,b,c,d,e,f) \
+        PPMPF_CAT(d,PPMPF_CAT(e,f))
+#define PPMPF_XFYC4(a,b,c,d,e,f) \
+        PPMPF_CAT(e,f)
+
+#define PPMPF_XFYX0(a,b,c,d,e,f) \
+        PPMPF_IFELSE(PPMPF_IS(0,a),PPMPF_XFYX1,PPMPF_XFYC0)(a,b,c,d,e,f)
+#define PPMPF_XFYX1(a,b,c,d,e,f) \
+        PPMPF_IFELSE(PPMPF_IS(0,b),PPMPF_XFYX2,PPMPF_XFYC1)(a,b,c,d,e,f) 
+#define PPMPF_XFYX2(a,b,c,d,e,f) \
+        PPMPF_IFELSE(PPMPF_IS(0,c),PPMPF_XFYX3,PPMPF_XFYC2)(a,b,c,d,e,f)
+#define PPMPF_XFYX3(a,b,c,d,e,f) \
+        PPMPF_IFELSE(PPMPF_IS(0,d),PPMPF_XFYX4,PPMPF_XFYC3)(a,b,c,d,e,f)
+#define PPMPF_XFYX4(a,b,c,d,e,f) \
+        PPMPF_IFELSE(PPMPF_IS(0,e),PPMPF_XFYX5,PPMPF_XFYC4)(a,b,c,d,e,f)
+#define PPMPF_XFYX5(a,b,c,d,e,f) f
+
+#define PPMPF_XFY(a,b,c,d,e,f) \
+        PPMPF_XFYX0(a,b,c,d,e,f)
+
+
 /* NOTE: PPMPF_DIGNM - convert from a 4 digit number represented as a
  * (3)(2)(1)(0) "sequence" to a standard 3210 one, trimming leading zeros.
  */

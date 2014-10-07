@@ -347,4 +347,7 @@ PPMPF_IFELSE( h(PPMPF_DREF(PPMPF_SEQ_POP(sl))) \
                     , PPMPF_RDMX(PPMPF_0G,PPMPF_RDMH1()) \
                     , __VA_ARGS__ )
 
+#define PPMPF_FLDX26(n,x) \
+        PPMPF_TUP_GET(PPMPF_TUP_ATPOS((0)(0)(0)(n),x))
+
 #endif /* _CLAUSE_PPMPF_ALGORITHMS_FLDAUX_HH_ */
