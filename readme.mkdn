@@ -56,5 +56,6 @@ This will result in just compiling and running the test you are interested in.
 Reporting bugs and other issues
 -------------------------------
 
-Please report any issues over at https://github.com/irrequietus/clause/issues
+Please report any issues over at https://github.com/irrequietus/clause/issues,
+mailing list at https://launchpad.net/~clause-developers
 
