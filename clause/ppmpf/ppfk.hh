@@ -38,4 +38,12 @@
  */
 #define PPMPF_NARGS(...) PPMPF_DIGNM(PPMPF_IARGS(__VA_ARGS__))
 
+/*~
+ * @desc Deduce whether a preprocessor token is parenthesis enclosed or not.
+ * @pfrg x : a single preprocessor token
+ * @pexp 1 if there is a parenthesis enclosure, 0 if there is not.
+ */
+#define PPMPF_ISPAREN(x) \
+		PPMPF_IS(3,PPMPF_NARGS(PPMPF_JUST(PPMPF_COMMA x,PPMPF_COMMA)))
+
 #endif /* _CLAUSE_PPMPF_PPFK_HH_ */

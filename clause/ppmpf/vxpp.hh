@@ -42,6 +42,61 @@
 #define PPMPF_VXPP_ITEM(n) \
         PPMPF_CAT(PPMPF_VXPP_ITEM,n)()
 
+/*~
+ * @desc Deduce whether a comma separated sequence of macro set identifiers
+ *       has been defined properly. It makes use of a foldl and map.
+ * @pfrg ...: strictly digits 0 to 9
+ * @pexp 1 if all of the identifiers are defined, 0 if not.
+ */
+#define PPMPF_VXPP_ISSET(...) \
+        PPMPF_DREF( \
+          PPMPF_UTUP_FOLDL( PPMPF_AND \
+                          , (1) \
+                          , PPMPF_UTUP_MAP( PPMPF_VXPP_ISSET_ \
+                                          , (__VA_ARGS__))))
+/*~
+ * @mgrp PPMPF_VXPP_ISSET
+ */
+#define PPMPF_VXPP_ISSET_(n) \
+        PPMPF_ISPAREN(PPMPF_JUST(PPMPF_CAT(PPMPF_VXPP_SET,n)(/**/)))
+
+/*~
+ * @desc Apply PPMPF_VXPP_FMAPOF to a sequence of set macro identifiers
+ * @mmii PPMPF_VXPP_SETS() : has to be defined as a 0- to 10-tuple of set
+ *       macro identifiers (PPMPF_VXPP_SET0,...9) with only the identifier
+ *       digit. An example follows:
+ * 
+ *           #define PPMPF_VXPP_SET0(n) ((f),(0,100))
+ *           #define PPMPF_VXPP_SET1(n) ((g),(10,50))
+ *           #define PPMPF_VXPP_SETS()  (0,1)
+ *           #include PPMPF_VXPP_FMAPSETS() // will expand 0 then 1 etc.
+ * 
+ */
+#define PPMPF_VXPP_FMAPSETS() \
+        PPMPF_IFELSE( \
+          PPMPF_AND( PPMPF_IS(3,PPMPF_NARGS( PPMPF_COMMA PPMPF_VXPP_SETS() \
+                                           , PPMPF_COMMA )) \
+                   , PPMPF_NOT(PPMPF_TUP_EMPTY(\
+                                       PPMPF_JUST(PPMPF_VXPP_SETS())))) \
+      , PPMPF_VXPP_FMAPSETS_  \
+      , <clause/ppmpf/vxpp/slots/null.hh> PPMPF_JUST)()
+
+/*~
+ * @mgrp PPMPF_VXPP_FMAPSETS
+ */
+#define PPMPF_VXPP_FMAPSETS_() \
+        PPMPF_IFELSE( PPMPF_ILTE( (0)(0)(0)(2) \
+                                , PPMPF_TUP_SIZEOF(PPMPF_VXPP_SETS()) ) \
+      , <clause/ppmpf/vxpp/slots/fmul/fmul.hh>  \
+      , PPMPF_IFELSE( PPMPF_IEQL( (0)(0)(0)(1) \
+                                , PPMPF_TUP_SIZEOF(PPMPF_VXPP_SETS()) )\
+                    , PPMPF_VXPP_FMAPOF(PPMPF_TUP_GET(PPMPF_VXPP_SETS())) \
+                    , <clause/ppmpf/vxpp/slots/null.hh> ) )
+
+/*~
+ * @desc Expand a ppmpf set macro identifier vertically
+ * @todo Remaining documentation for this.
+ */
 #define PPMPF_VXPP_FMAPOF(n) \
         <PPMPF_CAT( PPMPF_CAT(clause/ppmpf/vxpp/slots/fmap/fmap,n) \
                   , PPMPF_IFELSE( \
@@ -61,7 +116,8 @@
                                       PPMPF_CAT(PPMPF_VXPP_SET,n)(/**/))) \
                                       ,)))) \
                           , 0 ))).hh>
-        
+
+
 #define PPMPF_VXPP_ENDL(s) PPMPF_CAT(PPMPF_VXPP_ENDL,s)()
 #define PPMPF_VXPP_ENDR(s) PPMPF_CAT(PPMPF_VXPP_ENDR,s)()
 
