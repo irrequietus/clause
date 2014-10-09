@@ -43,6 +43,24 @@
         PPMPF_CAT(PPMPF_VXPP_ITEM,n)()
 
 /*~
+ * @desc Deduce whether a comma separated sequence of macro set identifiers
+ *       has been defined properly. It makes use of a foldl and map.
+ * @pfrg ...: strictly digits 0 to 9
+ * @pexp 1 if all of the identifiers are defined, 0 if not.
+ */
+#define PPMPF_VXPP_ISSET(...) \
+        PPMPF_DREF( \
+          PPMPF_UTUP_FOLDL( PPMPF_AND \
+                          , (1) \
+                          , PPMPF_UTUP_MAP( PPMPF_VXPP_ISSET_ \
+                                          , (__VA_ARGS__))))
+/*~
+ * @mgrp PPMPF_VXPP_ISSET
+ */
+#define PPMPF_VXPP_ISSET_(n) \
+        PPMPF_ISPAREN(PPMPF_JUST(PPMPF_CAT(PPMPF_VXPP_SET,n)(/**/)))
+
+/*~
  * @desc Apply PPMPF_VXPP_FMAPOF to a sequence of set macro identifiers
  * @mmii PPMPF_VXPP_SETS() : has to be defined as a 0- to 10-tuple of set
  *       macro identifiers (PPMPF_VXPP_SET0,...9) with only the identifier

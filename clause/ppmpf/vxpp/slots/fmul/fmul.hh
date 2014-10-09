@@ -19,6 +19,8 @@
  *       constant expressions in '#if' directives.
  */
 
+#if PPMPF_VXPP_ISSET(PPMPF_VXPP(PPMPF_VXPP_SETS()))
+
 #if   PPMPF_DIGNM(PPMPF_TUP_SIZEOF(PPMPF_VXPP_SETS())) == 2
     #include PPMPF_VXPP_FMAPOF(PPMPF_DREF(PPMPF_VXPP_T09(0,PPMPF_VXPP_SETS())))
     #include PPMPF_VXPP_FMAPOF(PPMPF_DREF(PPMPF_VXPP_T09(1,PPMPF_VXPP_SETS())))
@@ -83,4 +85,7 @@
     #include PPMPF_VXPP_FMAPOF(PPMPF_DREF(PPMPF_VXPP_T09(7,PPMPF_VXPP_SETS())))
     #include PPMPF_VXPP_FMAPOF(PPMPF_DREF(PPMPF_VXPP_T09(8,PPMPF_VXPP_SETS())))
     #include PPMPF_VXPP_FMAPOF(PPMPF_DREF(PPMPF_VXPP_T09(9,PPMPF_VXPP_SETS())))
+#endif
+#else
+    #error PPMPF_VXPP_SETS() is not defined properly, invalid identifiers.
 #endif
