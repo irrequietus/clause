@@ -411,6 +411,15 @@
  */
 #define PPMPF_DATAOF(x) \
         PPMPF_TYPED0(PPMPF_DREF(x),)
+/*~
+ * @desc Given an enclosed token representing a ppmpf "type", get the
+ *       "data" section that is pertinent to it and apply PPMPF_DREF to it.
+ * @pfrg x: a ppmpf compound type token (i.e. enclosed comma separated
+ *          sequence consisting of data, followed by type.
+ * @pexp Expands to the data section included and applies PPMPF_DREF to it.
+ */
+#define PPMPF_EXCISE(x) \
+        PPMPF_DREF(PPMPF_TYPED0(PPMPF_DREF(x),))
 
 /*~
  * @desc Handles the dispatching to both typeid and function metahandlers. This
