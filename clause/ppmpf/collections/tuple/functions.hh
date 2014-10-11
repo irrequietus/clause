@@ -223,7 +223,7 @@
 
 /* NOTE: PPMPF_TUP_ATPOS: return ppmpf element at position n */
 #define PPMPF_TUP_ATPOS(n,tup) \
-        PPMPF_COMPOSE( PPMPF_TUP_SPLIT(PPMPF_PREV(n),tup) \
+        PPMPF_COMPOSE( PPMPF_TUP_SPLIT(PPMPF_PREV(n),(PPMPF_DREF(tup),/**/)) \
                      , (PPMPF_DPAR)    \
                        PPMPF_IFELSE( PPMPF_IEQL(n,PPMPF_IMINV()) \
                                    , (PPMPF_DPAR)                \
