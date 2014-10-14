@@ -18,6 +18,7 @@
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/base/basic_number.hh>
 #include <clause/ample/oprt/fundamentals.hh>
+#include <clause/ample/ensure.hh>
 
 namespace clause {
 namespace ample {
@@ -32,15 +33,16 @@ struct storage_push_front
 
 template<typename... Types_T>
 struct storage_sequence {
+    template<typename...>
     struct oprt_size_of
-         : natural<sizeof...(Types_T)>
+         : is_just<natural<sizeof...(Types_T)>>
     {};
-
+    
     template<typename Type_X>
     struct oprt_push_back
          : is_just<storage_sequence<Types_T..., Type_X>>
     {};
-
+    
     template<typename Type_X>
     struct oprt_push_front
          : is_just<storage_sequence<Types_T..., Type_X>>
@@ -57,15 +59,18 @@ struct storage_block : OriginBlock_T {
 
     static is_just<Target_T>
     parameter(typename Number_S::type);
-
+    
+    template<typename...>
     struct oprt_size_of
-         : sub<next<size_of<OriginBlock_T>>, Number_F>
+         : is_just<sub<next<size_of<OriginBlock_T>>, Number_F>>
     {};
-
+    
+    template<typename...>
     struct oprt_factor_of
-         : Number_F
+         : is_just<Number_F>
     {};
-
+    
+    template<typename...>
     struct oprt_base_of
          : is_just<OriginBlock_T>
     {};
@@ -77,19 +82,22 @@ struct storage_block< storage_sequence<>
                     , storage_sequence<>
                     , Number_S
                     , Number_F> {
-    static storage_sequence<>
+    static failure<>
     parameter(...);
-
+    
+    template<typename...>
     struct oprt_base_of
          : is_just<storage_block>
     {};
-
+    
+    template<typename...>
     struct oprt_factor_of
-         : natural<>
+         : is_just<natural<>>
     {};
-
+    
+    template<typename...>
     struct oprt_size_of
-         : natural<>
+         : is_just<natural<>>
     {};
 };
 

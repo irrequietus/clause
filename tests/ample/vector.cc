@@ -22,73 +22,68 @@ namespace test {
 /* validation preamble */
 
 struct validating_vector_0
-    : vldt_types<typename size_of<vector<>>::type, natural<>, true> {
+    : vldt_types<size_of<vector<>>, natural<>, true> {
     ample_vldt_("size_of<vector<>>")
 };
 
 struct validating_vector_1
-    : vldt_types< typename size_of<vector<int>>::type
+    : vldt_types< size_of<vector<int>>
                 , natural<1>
                 , true > {
     ample_vldt_("size_of<vector<int>>")
 };
 
 struct validating_vector_2
-    : vldt_types< typename size_of<vector<int,long>>::type
+    : vldt_types< size_of<vector<int,long>>
                 , natural<2>
                 , true > {
     ample_vldt_("size_of<vector<int,long>>")
 };
 
 struct validating_vector_3
-    : vldt_types< typename size_of<pop_front<vector<int,long>>>::type
+    : vldt_types< size_of<pop_front<vector<int,long>>>
                 , natural<1>
                 , true> {
     ample_vldt_("size_of<pop_front<vector<int,long>>>")
 };
 
 struct validating_vector_4
-    : vldt_types< typename size_of<pop_back<vector<int,long>>>::type
+    : vldt_types< size_of<pop_back<vector<int,long>>>
                 , natural<1>
                 , true> {
     ample_vldt_("size_of<pop_back<vector<int,long>>>")
 };
 
 struct validating_vector_5
-    : vldt_types< typename atpos< vector<int,long>
-                                , natural<> >::type
+    : vldt_types< atpos< vector<int,long>, natural<> >
                 , int
                 , true> {
     ample_vldt_("atpos<vector<int,long>, natural<>>")
 };
 
 struct validating_vector_6
-    : vldt_types< typename atpos< vector<int,long>
-                                , natural<1> >::type
+    : vldt_types< atpos< vector<int,long>, natural<1> >
                 , long
                 , true> {
     ample_vldt_("atpos<vector<int,long>, natural<1>>")
 };
 
 struct validating_vector_7
-    : vldt_types< typename atpos< pop_front<vector<int,long>>
-                                , natural<0> >::type
+    : vldt_types< atpos< pop_front<vector<int,long>>, natural<0> >
                 , long
                 , true> {
     ample_vldt_("atpos<pop_front<vector<int,long>>, natural<0>>")
 };
 
 struct validating_vector_8
-    : vldt_types< typename atpos< push_front<vector<int,long>,char>
-                                , natural<0> >::type
+    : vldt_types< atpos< push_front<vector<int,long>,char>, natural<0> >
                 , char
                 , true> {
     ample_vldt_("atpos<push_front<vector<int,long>,char>, natural<0>>")
 };
 
 struct validating_vector_9
-    : vldt_types< typename atpos< push_back<vector<int,long>,char>
-                                , natural<2> >::type
+    : vldt_types< atpos< push_back<vector<int,long>,char>, natural<2> >
                 , char
                 , true> {
     ample_vldt_("atpos<push_back<vector<int,long>,char>, natural<2>>")
@@ -98,7 +93,7 @@ struct validating_vector_10
     : vldt_types< atpos< assign_atpos< vector<int,long,char>
                                      , float
                                      , natural<1>>
-                       , natural<1>>::type
+                       , natural<1>>
                 , float
                 , true> {
     ample_vldt_(
@@ -107,7 +102,7 @@ struct validating_vector_10
 };
 
 struct validating_vector_11
-    : vldt_types< typename size_of<clear<vector<int,long,float> > >::type
+    : vldt_types< size_of<clear<vector<int,long,float> > >
                 , natural<>
                 , true> {
     ample_vldt_(

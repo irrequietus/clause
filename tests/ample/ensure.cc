@@ -27,7 +27,7 @@ namespace test {
         , push_front, pop_back, pop_front, clear, is_empty, leq, geq, neq     \
         , equal, less, greater, head_of, tail_of, null_of, join, atpos        \
         , assign_atpos, insert_at, split_at, circular_shiftl, circular_shiftr \
-        , shiftl, shiftr
+        , shiftl, shiftr, prev, next, apply
 
 #define CLAUSE_ENSURE_PAIRS(x) \
         PPMPF_CAT(ensure1_,x),PPMPF_CAT(ensure2_,x)

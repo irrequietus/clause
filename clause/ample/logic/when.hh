@@ -75,8 +75,23 @@ private:
     { typedef X type_; };
 
 public:
-    typedef typename when_<If::value, Then, Else>::type_ type;
+    typedef
+        typename when_<static_cast<bool>(If::value), Then, Else>::type_ type;
 };
+
+/*~
+ * @desc A template alias for `clause::ample::when` where the contained type
+ *       is exposed.
+ * @parm If  : a type containing a ::value that is to be casted to a boolean,
+ *             usually an integral constant expression.
+ * @parm Then: when 'If' is convertible to a type representing true  ::value
+ * @parm Else: when 'If' is convertible to a type representing false ::value
+ * @inst Either to 'Then' when true or 'Else' when false; due to implicit
+ *       enable and disable `when`, can be used for sfinae purposes as well.
+ */
+template<typename If, typename Then, typename Else = enable_when<>>
+using where
+    = typename when<If, Then, Else>::type;
 
 } /* ample */
 } /* clause */

@@ -55,11 +55,13 @@ struct basic_number {
         typedef basic_number< Type_T
                             , N % static_cast<Type_T>(Number_T::value)> type;
     };
-
+    
+    template<typename...>
     struct oprt_next
          : oprt_add<basic_number<Type_T, 1>>
     {};
-
+    
+    template<typename...>
     struct oprt_prev
          : oprt_sub<basic_number<Type_T, 1>>
     {};

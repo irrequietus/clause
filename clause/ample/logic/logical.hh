@@ -12,7 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_AMPLE_LOGICAL_LOGICAL_HH_
+#ifndef _CLAUSE_AMPLE_LOGIC_LOGICAL_HH_
+#define _CLAUSE_AMPLE_LOGIC_LOGICAL_HH_
 
 #include <clause/ample/base/start_types.hh>
 
@@ -87,4 +88,4 @@ struct is_empty
 } /* ample */
 } /* clause */
 
-#endif /* _CLAUSE_AMPLE_LOGICAL_LOGICAL_HH_ */
+#endif /* _CLAUSE_AMPLE_LOGIC_LOGICAL_HH_ */

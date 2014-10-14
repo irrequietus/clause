@@ -69,12 +69,14 @@ private:
 
 public:
     /* ample oprt metahandlers */
+    template<typename...>
     struct oprt_factor_of
          : when< greater_than<size_, factor_>
                , factor_
                , natural<> >::type
     {};
-
+    
+    template<typename...>
     struct oprt_size_of
          : when< greater_than<size_, PopNumber_T>
                , sub<size_, PopNumber_T>
@@ -102,12 +104,14 @@ private:
 
 public:
     /* ample oprt metahandlers */
+    template<typename...>
     struct oprt_size_of
          : when< greater_than< size_, factor_ >
                , sub< size_, factor_ >
                , natural<> >::type
     {};
-
+    
+    template<typename...>
     struct oprt_factor_of
          : when< greater_than< size_of<base_of<StorageBlock_T> >
                              , factor_of<StorageBlock_T> >

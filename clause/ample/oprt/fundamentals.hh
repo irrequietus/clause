@@ -15,63 +15,59 @@
 #ifndef _CLAUSE_AMPLE_OPRT_FUNDAMENTALS_HH_
 #define _CLAUSE_AMPLE_OPRT_FUNDAMENTALS_HH_
 
+#include <clause/ample/base/basic_number.hh>
+#include <clause/ample/ensure.hh>
+
 namespace clause {
 namespace ample {
 
 template<typename Type_T, typename Type_Q>
-struct add
-     : Type_T::template oprt_add<Type_Q>::type
-{};
+using add
+    = typename ensure<Type_T>::template oprt_add<Type_Q>::type;
 
 template<typename Type_T, typename Type_Q>
-struct sub
-     : Type_T::template oprt_sub<Type_Q>::type
-{};
+using sub
+    = typename ensure<Type_T>::template oprt_sub<Type_Q>::type;
 
 template<typename Type_T, typename Type_Q>
-struct mul
-     : Type_T::template oprt_mul<Type_Q>::type
-{};
+using mul
+    = typename ensure<Type_T>::template oprt_mul<Type_Q>::type;
 
 template<typename Type_T, typename Type_Q>
-struct div
-     : Type_T::template oprt_div<Type_Q>::type
-{};
+using div
+    = typename ensure<Type_T>::template oprt_div<Type_Q>::type;
 
 template<typename Type_T, typename Type_Q>
-struct mod
-     : Type_T::template oprt_mod<Type_Q>::type
-{};
+using mod
+    = typename ensure<Type_T>::template oprt_mod<Type_Q>::type;
 
 template<typename Type_T>
-struct next
-     : Type_T::oprt_next::type
-{};
+using next
+    = typename ensure<Type_T>::template oprt_next<>::type;
 
 template<typename Type_T>
-struct prev
-     : Type_T::oprt_prev::type
-{};
+using prev
+    = typename ensure<Type_T>::template oprt_prev<>::type;
 
 template<typename Type_T>
-struct size_of
-     : Type_T::oprt_size_of::type
-{};
+using size_of
+    = typename ensure<Type_T>::template oprt_size_of<>::type;
 
 template<typename Type_T>
-struct factor_of
-     : Type_T::oprt_factor_of::type
-{};
+using factor_of
+    = typename ensure<Type_T>::template oprt_factor_of<>::type;
 
 template<typename Type_T>
-struct base_of
-     : Type_T::oprt_base_of::type
-{};
+using base_of
+    = typename ensure<Type_T>::template oprt_base_of<>::type;
 
 template<typename Type_T>
-struct enclosed_base_of
-     : Type_T::oprt_base_of
-{};
+using enclosed_base_of
+    = typename ensure<Type_T>::template oprt_base_of<>::type;
+
+template<typename F, typename... X>
+using apply
+    = typename ensure<F>::template oprt_apply<X...>::type;
 
 } /* ample */
 } /* clause */

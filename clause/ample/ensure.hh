@@ -29,7 +29,7 @@ namespace ample {
  * @inst type: a member type declaration of its own instantiation.
  */
 template<typename... Types_T>
-struct failure final
+struct failure
 { using type = failure<Types_T...>; };
 
 /*~
@@ -68,8 +68,8 @@ struct ensure final {
             add, sub, mul ,div, mod, size_of, base_of, factor_of, push_back \
           , push_front, pop_back, pop_front, clear, is_empty, leq, geq, neq \
           , equal, less, greater, head_of, tail_of, null_of, join, atpos    \
-          , assign_atpos, insert_at, split_at, circular_shiftl              \
-          , circular_shiftr, shiftl, shiftr
+          , assign_atpos, insert_at, split_at, circular_shiftl, apply       \
+          , circular_shiftr, shiftl, shiftr, next, prev
     
     /* The series of static member function template overloads necessary for
      * implementing the detection of an oprt metafunction within the definition

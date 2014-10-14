@@ -16,6 +16,7 @@
 #define _CLAUSE_AMPLE_STORAGE_PACK_HH_
 
 #include <clause/ample/storage/headtail.hh>
+#include <clause/ample/ensure.hh>
 
 namespace clause {
 namespace ample {
@@ -194,6 +195,7 @@ public:
      * assign_atpos
      * ------------
      */
+    template<typename...>
     struct oprt_size_of
          : add< impl_bsize<Storage_L>, impl_bsize<Storage_R> >
     {};
@@ -218,7 +220,8 @@ public:
                                , Storage_R
                                , size_of<Storage_R> > >
     {};
-
+    
+    template<typename...>
     struct oprt_pop_back
          : when< is_empty<Storage_L>
                , storage_sequential< impl_bclr<Storage_L>
@@ -226,7 +229,8 @@ public:
                , storage_sequential< storage_pop_head<Storage_L>
                                    , Storage_R> >
     {};
-
+    
+    template<typename...>
     struct oprt_pop_front
          : when< is_empty<Storage_R>
                , storage_sequential< storage_pop_tail<Storage_L>
@@ -234,23 +238,24 @@ public:
                , storage_sequential< Storage_L
                                    , storage_pop_head<Storage_R> > >
     {};
-
+    
     template<typename At_N>
     struct oprt_atpos
-         : when< greater_or_equal<At_N, impl_bsize<Storage_R>>
-               , impl_atpos<Storage_L, sub<At_N, impl_bsize<Storage_R > > >
-               , impl_atpos<Storage_R, prev<sub<impl_bsize< Storage_R>
-                                                          , At_N > > > >
+         : where< oprt_size_of<>
+                , where< greater_or_equal<At_N, impl_bsize<Storage_R>>
+                       , impl_atpos< Storage_L
+                                   , sub<At_N, impl_bsize<Storage_R>>>
+                       , impl_atpos< Storage_R
+                                   , prev<sub<impl_bsize<Storage_R>, At_N>>>>
+                , failure</*~ ~*/>>
     {};
 
     template<typename At_N, typename Type_X>
     struct oprt_assign_atpos
-         : impl_assign_atpos<At_N, Type_X, Storage_L, Storage_R>
-    {
-        static_assert( greater_than< size_of<storage_sequential>
-                                   , At_N >::value
-                     , "out of bounds assignment" );
-    };
+         : where< greater_than<oprt_size_of<>, At_N>
+                , impl_assign_atpos<At_N, Type_X, Storage_L, Storage_R>
+                , failure<>>
+    {};
 
 };
 
