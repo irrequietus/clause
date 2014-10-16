@@ -28,6 +28,18 @@ template<bool = true>
 struct disable_when
 {};
 
+/*~
+ * @desc A template doing both conditional selection and sfinae in one blow.
+ * @parm If  : a type containing a ::value that is to be casted to a boolean,
+ *             usually an integral constant expression.
+ * @parm Then: when 'If' is convertible to a type representing true  ::value
+ * @parm Else: when 'If' is convertible to a type representing false ::value
+ * @inst Either to 'Then' when true or 'Else' when false; due to implicit
+ *       enable and disable `when`, can be used for sfinae purposes as well.
+ * @note When Else is defaulted or used with enable_when / disable_when, the
+ *       behaviour is that of removing the type used in 'Then' since that
+ *       ::type cannot be instantiated.
+ */
 template<typename If, typename Then, typename Else = enable_when<>>
 struct when {
 private:
