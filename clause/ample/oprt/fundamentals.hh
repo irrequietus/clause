@@ -16,6 +16,8 @@
 #define _CLAUSE_AMPLE_OPRT_FUNDAMENTALS_HH_
 
 #include <clause/ample/base/basic_number.hh>
+#include <clause/ample/base/start_types.hh>
+#include <clause/ample/logic/when.hh>
 #include <clause/ample/ensure.hh>
 
 namespace clause {
@@ -68,6 +70,28 @@ using enclosed_base_of
 template<typename F, typename... X>
 using apply
     = typename ensure<F>::template oprt_apply<X...>::type;
+
+/*~
+ * @desc Check then two types match absolutely.
+ * @tprm Type_A: A type on the left
+ * @tprm Type_B: A type on the right
+ * @inst It should instantiate to either boolean<true> when they match, or to
+ *       boolean<false> when they don't.
+ */ 
+template<typename Type_A, typename Type_B>
+using types_match
+    = apply<hidden::types_match__,Type_A, Type_B>;
+    
+/*~
+ * @desc Check then two values match absolutely.
+ * @tprm Type_A: A type on the left
+ * @tprm Type_B: A type on the right
+ * @inst It should instantiate to either boolean<true> when they match, or to
+ *       boolean<false> when they don't.
+ */ 
+template<typename Type_A, typename Type_B>
+using values_match
+    = apply<hidden::values_match__,Type_A, Type_B>;
 
 } /* ample */
 } /* clause */

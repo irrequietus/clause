@@ -16,8 +16,8 @@
 #define _CLAUSE_AMPLE_CHARSEQ_HH_
 
 #include <cstdint>
-#include <type_traits>
 #include <clause/ppmpf/kernel/cpro/base.hh>
+#include <clause/ample/logic/when.hh>
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/oprt/fundamentals.hh>
 
@@ -57,9 +57,9 @@ struct charseq {
 
         template<uint16_t X, uint16_t... A, uint16_t... B>
         struct impl<intfy<X, A...>, intfy<B...>>
-            : std::conditional< (X == 256)
-                              , impl< intfy<A...>, intfy<B...>>
-                              , impl <intfy<A...>, intfy<B...,X>>>::type
+            : where< boolean<(X == 256)>
+                   , impl< intfy<A...>, intfy<B...>>
+                   , impl <intfy<A...>, intfy<B...,X>>>
         {};
 
         template<uint16_t... X>
@@ -124,8 +124,7 @@ public:
 
 template<typename T>
 struct is_charseq
-     : std::integral_constant< bool
-                             , charsops::is_charseq<T>::type::value >
+     : boolean<charsops::is_charseq<T>::type::value>
 {};
 
 } /* ample */

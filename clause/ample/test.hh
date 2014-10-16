@@ -15,11 +15,15 @@
 #ifndef _CLAUSE_AMPLE_TEST_HH_
 #define _CLAUSE_AMPLE_TEST_HH_
 
+
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/oprt/fundamentals.hh>
 #include <clause/ample/base/basic_number.hh>
 #include <clause/ample/logic/when.hh>
 #include <clause/ample/charseq.hh>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 
 #define ample_vldt_(t) \
     static constexpr char const * showln() noexcept \
@@ -92,12 +96,6 @@
  * NOTE: Testing mechanism fundamentals for the various clause::ample template
  * metaprogramming constructs.
  **/
-
-#include <cstdio>
-#include <cstring>
-#include <type_traits>
-#include <algorithm>
-
 namespace clause {
 namespace ample {
 namespace test {
@@ -108,18 +106,6 @@ struct as_output {};
 struct as_expect {};
 struct as_result {};
 struct as_showln {};
-
-/* class template for types that must be "matched" */
-template<typename Type_X, typename Type_Y>
-struct types_match 
-    : std::integral_constant<bool, std::is_same<Type_X, Type_Y>::value >
-{};
-
-/* class template for values in types that must be "matched" */
-template<typename Type_X, typename Type_Y>
-struct values_match
-    : std::integral_constant<bool, Type_X::value == Type_Y::value>
-{};
 
 /* the default test class templates providing details */
 
@@ -195,19 +181,19 @@ struct check_all {
                      , check_all<X, Xn...>
                      , N
                      , Casc_B >
-         : std::conditional< X::output() == Casc_B
-                           , check_impl< wrap_<A..., N>
-                                       , wrap_<B...>
-                                       , wrap_<C..., N>
-                                       , check_all<Xn...>
-                                       , N + 1
-                                       , Casc_B >
-                           , check_impl< wrap_<A...>
-                                       , wrap_<B..., N>
-                                       , wrap_<C..., N>
-                                       , check_all<Xn...>
-                                       , N + 1
-                                       , Casc_B >>::type
+         : where< boolean<X::output() == Casc_B>
+                , check_impl< wrap_<A..., N>
+                            , wrap_<B...>
+                            , wrap_<C..., N>
+                            , check_all<Xn...>
+                            , N + 1
+                            , Casc_B >
+                , check_impl< wrap_<A...>
+                            , wrap_<B..., N>
+                            , wrap_<C..., N>
+                            , check_all<Xn...>
+                            , N + 1
+                            , Casc_B >>
     {};
     
     template< std::size_t... A

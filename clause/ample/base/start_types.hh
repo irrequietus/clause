@@ -15,7 +15,7 @@
 #ifndef _CLAUSE_AMPLE_BASE_START_TYPES_HH_
 #define _CLAUSE_AMPLE_BASE_START_TYPES_HH_
 
-#include <type_traits>
+#include <clause/ample/logic/when.hh>
 
 namespace clause {
 namespace ample {
@@ -41,11 +41,6 @@ struct as_bool
      : boolean<static_cast<bool>(Type_T::value)>
 {};
 
-template<typename Type_T, Type_T Value_V>
-struct as
-     : std::integral_constant<Type_T, Value_V>
-{};
-
 namespace hidden {
 template<typename Type_T>
 struct as_type_providing_impl {
@@ -60,6 +55,23 @@ private:
 public:
 
     typedef decltype(inspect<Type_T>(0)) type;
+};
+
+struct types_match__ {
+    template<typename X, typename Y>
+    struct oprt_apply
+    { typedef boolean<false> type; };
+    
+    template<typename A>
+    struct oprt_apply<A,A>
+    { typedef boolean<true> type; };
+};
+
+struct values_match__ {
+    /* TODO: something equivalent to ensure is required for values */
+    template<typename X, typename Y>
+    struct oprt_apply
+    { typedef boolean<X::value == Y::value> type; };
 };
 
 } /* hidden */
