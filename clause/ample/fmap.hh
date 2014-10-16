@@ -38,6 +38,35 @@ namespace ample {
  * @inst Instantiates to an abstraction preserving the metaprogramming interface
  *       of Target_T, or to a failure<> depending on type container semantics
  *       and operation.
+ * @note One of the optimizations that can be done in order to run the algorithm
+ *       optimally, is to take advantage of the "functorial" nature of pack
+ *       expansion. Namely, we can for example define such a function template
+ *       that a class template F accepting a single parameter is immediately
+ *       expanded using the classical pack expansion mechanism:
+ * 
+ *       template<template<typename> class F, typename... X>
+ *       void fun(F<X>...) {}; // notice the position of the triple-dot
+ *       
+ *       One problem is that the internals of type containers may have several
+ *       implementations (whether with recursive instantiations and overloads,
+ *       vertical expansions using preprocessor tricks, integer sequences and
+ *       their expansions (this is actually derived from an old technique used
+ *       by preprocessor metaprogrammers to get a specific token in a comma
+ *       separated token list and "ported" to templates). We are not yet fully
+ *       optimized for different scenarios where folds and fmaps are applicable.
+ *       
+ *       The diversity is justified by the semantics of said containers and
+ *       some are to obviously "run" slower when it comes to instantiation time.
+ *       That requires diverse implementations not covered by F<X>... and there
+ *       are cases (see graph structures) where you may end up requiring very
+ *       particular internals. Thus, there are cases where the F<X>... tricks
+ *       may not cut it, to be short while there are others that may be fitted
+ *       into working perfectly with it. The nice thing is that this fmap kind
+ *       can be specialized to move to an optimal version, whether F<X>... is
+ *       applicable or not. Until all the different kinds of containers I have
+ *       in mind are in place, using this version is adequate for developing
+ *       algorithms depending on fmap as a notion.
+ * 
  */
 template<typename Fnc_T, typename Origin_T, typename Target_T = clear<Origin_T>>
 struct fmap
