@@ -19,6 +19,7 @@
 #include <clause/ample/logic/logical.hh>
 #include <clause/ample/logic/when.hh>
 #include <clause/ample/logic/relational.hh>
+#include <clause/ample/applying.hh>
 
 namespace clause {
 namespace ample {
