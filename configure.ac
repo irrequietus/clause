@@ -2,7 +2,7 @@
 ## clause configure.ac
 
 AC_INIT([libclause],
-        [0.0.1],
+        [0.1],
         [https://github.com/irrequietus/clause/issues],
         [libclause],
         [https://github.com/irrequietus/clause])
