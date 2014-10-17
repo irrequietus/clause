@@ -15,6 +15,7 @@
 #ifndef _CLAUSE_AMPLE_DOT_HH_
 #define _CLAUSE_AMPLE_DOT_HH_
 
+#include <clause/ample/vector.hh>
 #include <clause/ample/fold.hh>
 
 namespace clause {
