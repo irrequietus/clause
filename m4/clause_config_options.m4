@@ -56,6 +56,10 @@ AC_DEFUN([AX_CLAUSE_EDGE], [ dnl post C++11, may not work for your compiler.
         echo "configure: **** --enable-cxx14 used, c++11 override to C++14 ****"
      ;;
      *-DCLAUSE_ENABLE_CXX1Z*)
+        case "${CPPFLAGS}" in
+          *-DCLAUSE_ENABLE_CXX14*) ;;
+          *) CPPFLAGS="${CPPFLAGS} -DCLAUSE_ENABLE_CXX14" ;;
+        esac
         CXXFLAGS="${CXXFLAGS//-std=c++11/-std=c++1z}"
         CXXFLAGS="${CXXFLAGS//-std=c++1x/-std=c++1z}"
         CXXFLAGS="${CXXFLAGS//-std=gnu++1x/-std=c++1z}"
