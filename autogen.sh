@@ -43,8 +43,7 @@ function clausegen_makefile() {
             *.cc) fsources+=("${fl#*/}") ;;
         esac
         fx+=("${fl#*/}")
-    done < <(find . -regextype posix-extended -regex '.+\.(hh|cc)' \
-                    -not -path '*/appkit/*' -type f )
+    done < <(find . -regextype posix-extended -regex '.+\.(hh|cc)' -type f )
     fh="${fheaders[${#fheaders[@]}-1]}"
     fs="${fsources[${#fsources[@]}-1]}"
     unset fheaders[${#fheaders[@]}-1] fsources[${#fsources[@]}-1]
