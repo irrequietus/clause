@@ -32,6 +32,39 @@ AS_HELP_STRING([--enable-ansi-colors],
     CPPFLAGS="$CPPFLAGS -DUSE_ANSI_COLORS" ],
 [])
 
+AC_ARG_ENABLE([cxx1z],
+AS_HELP_STRING([--enable-cxx1z],
+    [enable C++1z dependent code]),
+[ dnl Enable bleeding edge standard language features dependent code.
+    CPPFLAGS="$CPPFLAGS -DCLAUSE_ENABLE_CXX1Z"; ],
+[])
+
+AC_ARG_ENABLE([cxx14],
+AS_HELP_STRING([--enable-cxx14],
+    [enable C++14 dependent code]),
+[ dnl Enable C++14 standard language features dependent code.
+    CPPFLAGS="$CPPFLAGS -DCLAUSE_ENABLE_CXX14"; ],
+[])
+
+AC_DEFUN([AX_CLAUSE_EDGE], [ dnl post C++11, may not work for your compiler.
+ case "${CPPFLAGS}" in
+     *-DCLAUSE_ENABLE_CXX14*)
+        CXXFLAGS="${CXXFLAGS//-std=c++11/-std=c++1y}"
+        CXXFLAGS="${CXXFLAGS//-std=c++1x/-std=c++1y}"
+        CXXFLAGS="${CXXFLAGS//-std=gnu++1x/-std=c++1y}"
+        CXXFLAGS="${CXXFLAGS//-std=gnu++1x/-std=c++1y}"
+        echo "configure: **** --enable-cxx14 used, c++11 override to C++14 ****"
+     ;;
+     *-DCLAUSE_ENABLE_CXX1Z*)
+        CXXFLAGS="${CXXFLAGS//-std=c++11/-std=c++1z}"
+        CXXFLAGS="${CXXFLAGS//-std=c++1x/-std=c++1z}"
+        CXXFLAGS="${CXXFLAGS//-std=gnu++1x/-std=c++1z}"
+        CXXFLAGS="${CXXFLAGS//-std=gnu++1x/-std=c++1z}"
+        echo "configure: **** --enable-cxx1z used, c++11 override to C++1z ****"
+     ;;
+ esac
+])
+
 AC_ARG_ENABLE([pedantry],
 AS_HELP_STRING([--enable-pedantry],
     [enable -Wall -Wextra -Werror -pedantic flags]),

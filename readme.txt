@@ -3,15 +3,19 @@ clause
 What this is all about
 ----------------------
 
-'clause' is a C++11 metaprogramming library licensed under the Mozilla Public
+'clause' is a C++ metaprogramming library licensed under the Mozilla Public
 License 2.0. The following is the current list of its sublibrary components.
 
  * ppmpf (preprocessor metaprogramming framework)
  * ample (another metaprogramming library etude)
  
-There are no third party library dependencies other than minimal C++11 standard
-library support for using this library. However, it is very important that you
-use a fully C++11 compliant compiler.
+There are no third party library dependencies other than very minimal C++11
+standard library support (to almost none) for using this library. However, it
+is very important that you use a fully C++11 compliant compiler. Sections
+of the library are written for C++14 and C++1z (post C++14) may be present and
+are enabled through --enable-cxx14 / --enable-cxx1z during build configuration
+and properly marked within the source code, but are not necessary for the use
+of the library.
 
 Testing the code available
 --------------------------
