@@ -48,6 +48,24 @@ struct case_of {
     };
 };
 
+/*~
+ * @desc A wrapper for template template parameter types, uses an oprt_apply
+ *       metahandler to apply the enclosed template template parameter upon
+ *       a pack of type parameters.
+ * @tprm Type_T: template parameter type to wrap into plain parameter type.
+ * @omth oprt_apply: applies the Type_T template parameter type to a pack
+ *       of type parameters.
+ * @note Works as a tool for `case_of.
+ * 
+ */
+template<template<typename...> class Type_T>
+struct employ final {
+    template<typename... T>
+    struct oprt_apply {
+        typedef Type_T<T...> type;
+    };
+};
+
 } /* ample */
 } /* clause */
 
