@@ -15,7 +15,7 @@
 #ifndef _CLAUSE_AMPLE_BASE_START_TYPES_HH_
 #define _CLAUSE_AMPLE_BASE_START_TYPES_HH_
 
-#include <clause/ample/logic/when.hh>
+#include <clause/ample/ensure.hh>
 
 namespace clause {
 namespace ample {
@@ -80,6 +80,9 @@ template<typename Type_T>
 struct as_type_providing
      : hidden::as_type_providing_impl<Type_T>
 {};
+
+template<typename Type_T>
+using extype = typename Type_T::type;
 
 } /* ample */
 } /* clause */

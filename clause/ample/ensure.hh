@@ -25,12 +25,19 @@ namespace ample {
  *       going to be used as the common pathway to which all kinds of errors
  *       that are algorithmically detectable during recursive instantiations
  *       are to actually instantiate to.
+ * @omth oprt_apply: When a failure occurs, its apply<...> should fail.
  * @parm Types_T: A series of parameters that are reserved for the time being.
  * @inst type: a member type declaration of its own instantiation.
  */
 template<typename... Types_T>
-struct failure
-{ using type = failure<Types_T...>; };
+struct failure {
+    using type = failure<Types_T...>;
+    
+    template<typename... X>
+    struct oprt_apply {
+        using type = failure<X...>;
+    };
+};
 
 /*~
  * @desc A class template ensuring that when an inexistant oprt metahandler is
