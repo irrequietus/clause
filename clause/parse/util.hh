@@ -33,6 +33,10 @@ struct deployable_as
      : ample::failure<deployable_as<ample::failure<>>>
 {};
 
+/*~
+ * @desc Termination aid for `recursively_conjunctive, `recursively_disjunctive.
+ * @tprm Type_T: The actual type performing the conjunction/disjunction.
+ */
 template<typename Type_T>
 struct deployable_term {
     template<typename X, typename Type_X>
@@ -84,7 +88,7 @@ private:
 
 /*~
  * @desc Allowing recursion to occur as a CRTP-like interface for the parsing
- *       components of clause over a conjunction.
+ *       components of clause over a disjunction.
  * @tprm Z: Enclosing template type parameter type used for abstracting the
  *          actual recursion through the `deployable static member templates.
  *          It has to offer a deploy static member template.
@@ -95,10 +99,10 @@ private:
  */
 template<template<typename...> class Z>
 struct recursively_disjunctive
-     : private deployable_term<recursively_conjunctive<Z>> {
+     : private deployable_term<recursively_disjunctive<Z>> {
 private:
     template<typename> friend struct deployable_as;
-    using deployable_term<recursively_conjunctive<Z>>::deployable;
+    using deployable_term<recursively_disjunctive<Z>>::deployable;
     template<typename X, typename... Y, typename Type_T>
     static inline bool deployable(Type_T & x, ample::natural<sizeof...(Y)+1>)
     {  return X::template deploy(x) || Z<Y...>::template deploy(x); }
