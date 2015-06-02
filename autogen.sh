@@ -19,7 +19,7 @@
 function clausegen_help() {
     printf "\n===============================================================\n"
     printf "'clause' library autogen.sh implementation\n"
-    printf "Copyright (C) 2013,2014 George Makrydakis <george@irrequietus.eu>\n"
+    printf "Copyright (C) 2013-2015 George Makrydakis <george@irrequietus.eu>\n"
     printf "License: MPLv2\n"
     printf "Website: https://github.com/irrequietus/clause\n"
     printf "=================================================================\n"
@@ -39,6 +39,7 @@ function clausegen_makefile() {
             */ample/test/*.cc)   ;;
             */tests/*.hh)        ;;
             */tests/*.cc)        ;;
+            */toys/*.cc)         ;;
             *.hh) fheaders+=("${fl#*/}") ;;
             *.cc) fsources+=("${fl#*/}") ;;
         esac
