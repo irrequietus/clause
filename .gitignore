@@ -50,4 +50,6 @@ clauseconfig.h.in
 *.tar.gz
 *.tar.xz
 .settings/*
+.kdev4
+clause.kdev4
 
