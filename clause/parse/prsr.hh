@@ -49,10 +49,10 @@ public:
     { return m_x; }
     
     of_iterator<String_T>& getr()
-    { return m_x; }
+    { return m_y; }
     
     of_iterator<String_T> const & getl() const
-    { return m_y; }
+    { return m_x; }
     
     of_iterator<String_T> const & getr() const
     { return m_y; }
