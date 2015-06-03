@@ -86,7 +86,7 @@ struct star {
     template<typename IterableParser_T>
     static inline bool deploy(IterableParser_T & x) {
         return x
-            ? [&](){ for(;Expr_T::deploy(x);) {}; return true; }()
+            ? [&](){ for(;Expr_T::template deploy(x);) {}; return true; }()
             : true;
     }
 };
@@ -216,7 +216,7 @@ struct past {
         for( of_iterator<IterableParser_T> tmp(x.getl())
            ; !Expr_T::template deploy(x)
            ; ++x )
-        { if(x) { x.setl(tmp); return false; } }
+        { if(!x) { x.setl(tmp); return false; } }
         return true;
     }
 };
