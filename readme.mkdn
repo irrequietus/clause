@@ -9,13 +9,11 @@ License 2.0. The following is the current list of its sublibrary components.
  * **ppmpf** (preprocessor metaprogramming framework)
  * **ample** (another metaprogramming library etude)
  
-There are no third party library dependencies other than very minimal C++11
+There are no third party library dependencies other than very minimal C++14
 standard library support (to almost none) for using this library. However, it
-is very important that you use a **fully C++11 compliant compiler**. Sections
-of the library are written for C++14 and C++1z (post C++14) may be present and
-are enabled through `--enable-cxx14` / `--enable-cxx1z` during build
-configuration and properly marked within the source code, but are not necessary
-for the use of the library.
+is very important that you use a **fully C++14 compliant compiler**. Library
+is transitioning from C++11 to C++14 and beyond ina a relatively "unstable"
+manner, build system will provide hints.
 
 Testing the code available
 --------------------------
@@ -60,6 +58,5 @@ This will result in just compiling and running the test you are interested in.
 Reporting bugs and other issues
 -------------------------------
 
-Please report any issues over at https://github.com/irrequietus/clause/issues,
-mailing list at https://launchpad.net/~clause-developers
+Please report any issues over at https://github.com/irrequietus/clause/issues
 
