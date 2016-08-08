@@ -121,7 +121,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
   && defined(__GNUC__) \
   && !defined(__clang__) \
   && !defined(__INTEL_COMPILER) \
-  && __GNUC__ >= 4 && __GNUC_MINOR__ >= 8)
+  && __GNUC__ >= 5)
 #error -ftrack-macro-expansion should be passed
 #endif
 ])], [CXXFLAGS+=" -ftrack-macro-expansion=0"], [])

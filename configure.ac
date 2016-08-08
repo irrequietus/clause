@@ -23,7 +23,7 @@ AC_CANONICAL_HOST
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_PROGRAM([make])
 
-m4_include([m4/ax_cxx_compile_stdcxx_11.m4])
+m4_include([m4/ax_cxx_compile_stdcxx.m4])
 m4_include([m4/clause_config_options.m4])
 
 AC_LANG([C++])
@@ -38,7 +38,7 @@ AC_PROG_GREP
 AC_SUBST([CLAUSE_SO_VERSION], [0:1:0])
 AC_SUBST([CLAUSE_API_VERSION], [0.1])
 
-AX_CXX_COMPILE_STDCXX_11(noext,mandatory)
+AX_CXX_COMPILE_STDCXX(14,noext,mandatory)
 AX_CLAUSE_EDGE
 
 AM_SILENT_RULES([yes])
