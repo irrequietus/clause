@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_KERNEL_CPRO_CORE_HH_
-#define _CLAUSE_PPMPF_KERNEL_CPRO_CORE_HH_
+#ifndef CLAUSE_PPMPF_KERNEL_CPRO_CORE_HH
+#define CLAUSE_PPMPF_KERNEL_CPRO_CORE_HH
 
 #include <clause/ppmpf/kernel/cpro/limits.hh>
 
@@ -457,4 +457,4 @@
 #define PPMPF_TFY4(ex1,ex2) \
         PPMPF_DREF(ex1),PPMPF_DREF(ex2)
 
-#endif /* _CLAUSE_PPMPF_KERNEL_CPRO_CORE_HH_ */
+#endif /* CLAUSE_PPMPF_KERNEL_CPRO_CORE_HH */

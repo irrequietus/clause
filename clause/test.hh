@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,11 +12,11 @@
  * 
  */
 
-#ifndef _CLAUSE_TEST_HH_
-#define _CLAUSE_TEST_HH_
+#ifndef CLAUSE_TEST_HH
+#define CLAUSE_TEST_HH
 
 #include <clause/ample/test.hh>
 #include <clause/ppmpf/ppfk.hh>
 #include <clause/ppmpf/test.hh>
 
-#endif /* _CLAUSE_TEST_HH_ */
+#endif /* CLAUSE_TEST_HH */

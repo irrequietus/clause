@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_AMPLE_STORAGE_BLOCK_HH_
-#define _CLAUSE_AMPLE_STORAGE_BLOCK_HH_
+#ifndef CLAUSE_AMPLE_STORAGE_BLOCK_HH
+#define CLAUSE_AMPLE_STORAGE_BLOCK_HH
 
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/base/basic_number.hh>
@@ -104,4 +104,4 @@ struct storage_block< storage_sequence<>
 } /* ample */
 } /* clause */
 
-#endif /* _CLAUSE_AMPLE_STORAGE_BLOCK_HH_ */
+#endif /* CLAUSE_AMPLE_STORAGE_BLOCK_HH */

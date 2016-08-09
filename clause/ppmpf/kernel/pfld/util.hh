@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -13,8 +13,8 @@
  */
 
 
-#ifndef _CLAUSE_PPMPF_KERNEL_PFLD_UTIL_HH_
-#define _CLAUSE_PPMPF_KERNEL_PFLD_UTIL_HH_
+#ifndef CLAUSE_PPMPF_KERNEL_PFLD_UTIL_HH
+#define CLAUSE_PPMPF_KERNEL_PFLD_UTIL_HH
 
 /*~
  * @mark `PPMPF_R0AZ`
@@ -134,4 +134,4 @@
 #define PPMPF_XPR_(...) PPMPF_XPJ __VA_ARGS__
 #define PPMPF_XPR(x)    PPMPF_XPR_(x)
 
-#endif /* _CLAUSE_PPMPF_KERNEL_PFLD_UTIL_HH_ */
+#endif /* CLAUSE_PPMPF_KERNEL_PFLD_UTIL_HH */

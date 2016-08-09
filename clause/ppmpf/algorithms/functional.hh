@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_ALGORITHMS_FUNCTIONAL_HH_
-#define _CLAUSE_PPMPF_ALGORITHMS_FUNCTIONAL_HH_
+#ifndef CLAUSE_PPMPF_ALGORITHMS_FUNCTIONAL_HH
+#define CLAUSE_PPMPF_ALGORITHMS_FUNCTIONAL_HH
 
 #include <clause/ppmpf/kernel/cpro/core.hh>
 #include <clause/ppmpf/algorithms/fold.hh>
@@ -35,4 +35,4 @@
 #define PPMPF_COMPOSE(x,fseq) \
         PPMPF_DREF(PPMPF_SEQ_FOLDR(PPMPF_APPLY2,(),fseq x))
 
-#endif /* _CLAUSE_PPMPF_ALGORITHMS_FUNCTIONAL_HH_ */
+#endif /* CLAUSE_PPMPF_ALGORITHMS_FUNCTIONAL_HH */

@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_AMPLE_BASE_START_TYPES_HH_
-#define _CLAUSE_AMPLE_BASE_START_TYPES_HH_
+#ifndef CLAUSE_AMPLE_BASE_START_TYPES_HH
+#define CLAUSE_AMPLE_BASE_START_TYPES_HH
 
 #include <clause/ample/ensure.hh>
 
@@ -87,4 +87,4 @@ using extype = typename Type_T::type;
 } /* ample */
 } /* clause */
 
-#endif /* _CLAUSE_AMPLE_BASE_START_TYPES_HH_ */
+#endif /* CLAUSE_AMPLE_BASE_START_TYPES_HH */

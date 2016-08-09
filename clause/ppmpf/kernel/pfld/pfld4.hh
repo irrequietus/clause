@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_KERNEL_PFLD4_HH_
-#define _CLAUSE_PPMPF_KERNEL_PFLD4_HH_
+#ifndef CLAUSE_PPMPF_KERNEL_PFLD4_HH
+#define CLAUSE_PPMPF_KERNEL_PFLD4_HH
 
 #include <clause/ppmpf/kernel/pfld/util.hh>
 
@@ -149,4 +149,4 @@
 #define PPMPF_R3EF(f,sl,g,p,h,i,m,j,v) \
         m(h,sl,R3EE)(f,PPMPF_R2EF(f,sl,g,p,h,i,m,j,v),g,p,h,i,m,j,v)
 
-#endif /* _ODREAX_PPMPF_KERNEL_PFLD4_HH_ */
+#endif /* _ODREAX_PPMPF_KERNEL_PFLD4_HH */

@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,10 +12,10 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_ALGORITHMS_ZIPAUX_HH_
-#define _CLAUSE_PPMPF_ALGORITHMS_ZIPAUX_HH_
+#ifndef CLAUSE_PPMPF_ALGORITHMS_ZIPAUX_HH
+#define CLAUSE_PPMPF_ALGORITHMS_ZIPAUX_HH
 
-#ifndef _CLAUSE_PPMPF_ALGORITHMS_FOLD_HH_
+#ifndef CLAUSE_PPMPF_ALGORITHMS_FOLD_HH
 #error ppmpf: <clause/ppmpf/algorithms/zip.hh> must precede.
 #endif
 
@@ -78,4 +78,4 @@
 #define PPMPF_ZIPS_APPLY(f,sl,g,...) \
         (PPMPF_APPLY(f,PPMPF_DREF(g(PPMPF_DREF(PPMPF_SEQ_POP(sl))))))
         
-#endif /* _CLAUSE_PPMPF_ALGORITHMS_ZIPAUX_HH_ */
+#endif /* CLAUSE_PPMPF_ALGORITHMS_ZIPAUX_HH */

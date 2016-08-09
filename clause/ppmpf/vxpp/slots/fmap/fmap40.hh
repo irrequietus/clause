@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -20,10 +20,10 @@
  *       header inclusion guards.
  */
 
-#ifdef _CLAUSE_PPMPF_VXPP_SET4_
+#ifdef CLAUSE_PPMPF_VXPP_SET4_
     #error Already iterating macro set with identifier 4.
 #else
-#define _CLAUSE_PPMPF_VXPP_SET4_
+#define CLAUSE_PPMPF_VXPP_SET4_
 #undef PPMPF_VXPP_ENDL4
 #undef PPMPF_VXPP_ENDR4
 #undef PPMPF_VXPP
@@ -939,6 +939,6 @@
     #undef PPMPF_VXPP_ENDL4
     #undef PPMPF_VXPP_ENDR4
     #undef PPMPF_VXPP_SLOT4
-#undef _CLAUSE_PPMPF_VXPP_SET4_
+#undef CLAUSE_PPMPF_VXPP_SET4_
 #undef PPMPF_VXPP
-#endif /* _CLAUSE_PPMPF_VXPP_SET4_ */
+#endif /* CLAUSE_PPMPF_VXPP_SET4_ */

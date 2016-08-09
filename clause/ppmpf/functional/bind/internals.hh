@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH_
-#define _CLAUSE_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH_
+#ifndef CLAUSE_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH
+#define CLAUSE_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH
 
 #include <clause/ppmpf/collections/tuple.hh>
 #include <clause/ppmpf/collections/sequence.hh>
@@ -148,4 +148,4 @@
 #define PPMPF_BDS30(a,b,c) \
         PPMPF_BDS29(a,PPMPF_BDS20(b),c)
 
-#endif /* _CLAUSE_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH_ */
+#endif /* CLAUSE_PPMPF_FUNCTIONAL_BIND_INTERNALS_HH */

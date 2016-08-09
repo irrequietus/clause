@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014, 2015 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  *
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  *
  */
 
-#ifndef _CLAUSE_PARSE_EXPR_HH_
-#define _CLAUSE_PARSE_EXPR_HH_
+#ifndef CLAUSE_PARSE_EXPR_HH
+#define CLAUSE_PARSE_EXPR_HH
 
 #include <clause/ample/base/basic_number.hh>
 #include <clause/cmmn.hh>
@@ -303,4 +303,4 @@ struct keep {
 } /* parse */
 } /* clause */
 
-#endif /* _CLAUSE_PARSE_EXPR_HH_ */
+#endif /* CLAUSE_PARSE_EXPR_HH */

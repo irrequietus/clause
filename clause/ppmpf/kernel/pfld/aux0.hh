@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_KERNEL_PFLD_AUX0_HH_
-#define _CLAUSE_PPMPF_KERNEL_PFLD_AUX0_HH_
+#ifndef CLAUSE_PPMPF_KERNEL_PFLD_AUX0_HH
+#define CLAUSE_PPMPF_KERNEL_PFLD_AUX0_HH
 
 #define PPMPF_PFLD00(f,sl,g,p,h,i,m,j,x0,x1,x2,x3,...) \
         x3( f, x2( f, x1( f, x0(f, sl, g, p, h, i, m, j, (__VA_ARGS__)) \
@@ -75,4 +75,4 @@
                  , g, p, h, i, m , j, (__VA_ARGS__)) \
           , g, p, h, i, m, j, __VA_ARGS__)
 
-#endif /* _CLAUSE_PPMPF_KERNEL_PFLD_AUX0_HH_ */
+#endif /* CLAUSE_PPMPF_KERNEL_PFLD_AUX0_HH */

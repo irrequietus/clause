@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -22,33 +22,33 @@
 #ifndef _PPMPF_VXPP_BASE4_
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
 #if  PPMPF_VXPP_EVAL(4)
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
 #if  PPMPF_VXPP_EVAL(4)
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #if  PPMPF_VXPP_EVAL(4)
 #include <clause/ppmpf/vxpp/slots/next/loop/loop4.hh>
-#undef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH_
+#undef CLAUSE_PPMPF_VXPP_SLOTS_SLOT4_FX04_HH
 #endif
 #endif
 #endif

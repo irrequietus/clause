@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -21,10 +21,10 @@
  */
 
 
-#ifndef _CLAUSE_PPMPF_VXPP_SLOTS_SLOT0_FX00_HH_
+#ifndef CLAUSE_PPMPF_VXPP_SLOTS_SLOT0_FX00_HH
     #if  PPMPF_VXPP_EVAL(0)
         #if PPMPF_VXPP_ITERATE(0)
-            #define _CLAUSE_PPMPF_VXPP_SLOTS_SLOT0_FX00_HH_
+            #define CLAUSE_PPMPF_VXPP_SLOTS_SLOT0_FX00_HH
             #include PPMPF_VXPP_ARITY01()
             #include PPMPF_VXPP_ARITY02()
             #include PPMPF_VXPP_ARITY03()

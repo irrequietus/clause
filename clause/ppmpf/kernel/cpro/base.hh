@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -19,8 +19,8 @@
  * producing ordered sets with size up to 10000 (4th power of 10) are available.
  */
 
-#ifndef _CLAUSE_PPMPF_KERNEL_CPRO_BASE_HH_
-#define _CLAUSE_PPMPF_KERNEL_CPRO_BASE_HH_
+#ifndef CLAUSE_PPMPF_KERNEL_CPRO_BASE_HH
+#define CLAUSE_PPMPF_KERNEL_CPRO_BASE_HH
 
 #include <clause/ppmpf/kernel/cpro/core.hh>
 #include <clause/ppmpf/kernel/logic/alu.hh>
@@ -271,4 +271,4 @@
 #   define PPMPF_REPEATS(f,s,...) PPMPF_REPEAT(f,s,0,0,6,4,__VA_ARGS__)
 #endif
 
-#endif /* _CLAUSE_PPMPF_KERNEL_CPRO_BASE_HH_ */
+#endif /* CLAUSE_PPMPF_KERNEL_CPRO_BASE_HH */

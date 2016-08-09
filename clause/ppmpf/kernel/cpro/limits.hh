@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_KERNEL_CPRO_LIMITS_HH_
-#define _CLAUSE_PPMPF_KERNEL_CPRO_LIMITS_HH_
+#ifndef CLAUSE_PPMPF_KERNEL_CPRO_LIMITS_HH
+#define CLAUSE_PPMPF_KERNEL_CPRO_LIMITS_HH
 
 /* 
  * NOTE: PPMPF_RDMAX is the default maximum to which the folding construct is
@@ -216,4 +216,4 @@
         PPMPF_RDMX__(n,x)
 
 
-#endif /* _CLAUSE_PPMPF_KERNEL_CPRO_LIMITS_HH_ */
+#endif /* CLAUSE_PPMPF_KERNEL_CPRO_LIMITS_HH */

@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,10 +12,10 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH_
-#define _CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH_
+#ifndef CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH
+#define CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH
 
-#ifndef _CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_FUNCTIONS_HH_
+#ifndef CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_FUNCTIONS_HH
 #error ppmpf: <clause/ppmpf/collections/sequence/functions.hh> must precede.
 #endif
 
@@ -71,4 +71,4 @@
 #define PPMPF_SEQAUX_0(x) PPMPF_SEQ_GET(x)
 
 
-#endif /* _CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH_ */
+#endif /* CLAUSE_PPMPF_COLLECTIONS_SEQUENCE_ESSENCE_HH */

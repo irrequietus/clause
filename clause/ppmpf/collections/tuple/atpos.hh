@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,10 +12,10 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH_
-#define _CLAUSE_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH_
+#ifndef CLAUSE_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH
+#define CLAUSE_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH
 
-#ifndef _CLAUSE_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH_
+#ifndef CLAUSE_PPMPF_COLLECTIONS_TUPLE_FUNCTIONS_HH
 #error ppmpf: <clause/ppmpf/collections/tuple/functions.hh> must precede.
 #endif
 
@@ -345,4 +345,4 @@
 #define PPMPF_TUP_A39(...) \
         PPMPF_TUP_A38(PPMPF_TUP_A3X(__VA_ARGS__))
 
-#endif /* _CLAUSE_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH_ */
+#endif /* CLAUSE_PPMPF_COLLECTIONS_TUPLE_ATPOS_HH */

@@ -1,5 +1,5 @@
 /*~
- * Copyright (C) 2013, 2014 George Makrydakis <george@irrequietus.eu>
+ * Copyright (C) 2013 - 2016 George Makrydakis <george@irrequietus.eu>
  * 
  * This file is part of 'clause', a highly generic C++ meta-programming library,
  * subject to the terms and conditions of the Mozilla Public License v 2.0. If
@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _CLAUSE_PPMPF_VXPP_NUMBER_SEQUENCE_HH_
-#define _CLAUSE_PPMPF_VXPP_NUMBER_SEQUENCE_HH_
+#ifndef CLAUSE_PPMPF_VXPP_NUMBER_SEQUENCE_HH
+#define CLAUSE_PPMPF_VXPP_NUMBER_SEQUENCE_HH
 
 /*~
  * @desc A macro for turning a ppmpf vxpp slot left endpoint into a ppmpf
@@ -159,5 +159,5 @@
 (PPMPF_VXPP_I9D4)(PPMPF_VXPP_I9D3)(PPMPF_VXPP_I9D2)\
 (PPMPF_VXPP_I9D1)(PPMPF_VXPP_I9D0)
 
-#endif /* _CLAUSE_PPMPF_VXPP_NUMBER_SEQUENCE_HH_ */
+#endif /* CLAUSE_PPMPF_VXPP_NUMBER_SEQUENCE_HH */
 
