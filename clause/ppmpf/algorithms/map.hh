@@ -17,6 +17,7 @@
 
 #include <clause/ppmpf/collections/tuple.hh>
 #include <clause/ppmpf/collections/sequence.hh>
+#include <clause/ppmpf/vxpp.hh>
 
 /*~
  * @desc A high order function applying a given function to each element of a
