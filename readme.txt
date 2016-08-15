@@ -13,7 +13,8 @@ There are no third party library dependencies other than very minimal C++14
 standard library support (to almost none) for using this library. However, it
 is very important that you use a fully C++14 compliant compiler. Library is
 transitioning in an "unstable" manner from C++11 to C++14 and beyond but
-build system will provide hints.
+build system will provide hints.Check development branches like
+ample2-dev for edge, unstable features.
 
 Testing the code available
 --------------------------
