@@ -33,7 +33,7 @@ CLAUSE_TEST_DEFN( check_all_seqrange
                     , clause::ample::intgr_seq<9,8,7,6,5,4,3,2,1,0> );
 
     CLAUSE_TEST_TYPE( charseq1
-                    , "charseq_range_t<'a','z'> containing a,b,...,z"
+                    , "chars_range_t<'a','z'> containing a,b,...,z"
                     , true
                     , clause::ample::chars_range_t<'a','z'>
                     , clause::ample::chars_seq<'a', 'b', 'c', 'd', 'e',
@@ -42,7 +42,7 @@ CLAUSE_TEST_DEFN( check_all_seqrange
                                                'p', 'q', 'r', 's', 't',
                                                'u', 'v', 'w', 'x', 'y', 'z'> );
     CLAUSE_TEST_TYPE( charseq2
-                    , "charseq_range_t<'z','a'> containing z,y,...,a"
+                    , "chars_range_t<'z','a'> containing z,y,...,a"
                     , true
                     , clause::ample::chars_range_t<'z','a'>
                     , clause::ample::chars_seq<'z', 'y', 'x', 'w', 'v',
