@@ -15,9 +15,10 @@
 #include <clause/ample/test.hh>
 #include <clause/ample/base/seqrange.hh>
 
-CLAUSE_TEST_DEFN(check_all_seqrange, "evaluating integer sequences, ranges") {
+CLAUSE_TEST_DEFN( check_all_seqrange
+                , "evaluating int and char sequences, ranges") {
 
-    CLAUSE_TEST_DECL(intseq1, intseq2);
+    CLAUSE_TEST_DECL(intseq1, intseq2, charseq1, charseq2);
 
     CLAUSE_TEST_TYPE( intseq1
                     , "intseq_range_t<0,10> containing 0,1,...,9"
@@ -30,4 +31,23 @@ CLAUSE_TEST_DEFN(check_all_seqrange, "evaluating integer sequences, ranges") {
                     , true
                     , clause::ample::intgr_range_t<10,0>
                     , clause::ample::intgr_seq<9,8,7,6,5,4,3,2,1,0> );
+
+    CLAUSE_TEST_TYPE( charseq1
+                    , "charseq_range_t<'a','z'> containing a,b,...,z"
+                    , true
+                    , clause::ample::chars_range_t<'a','z'>
+                    , clause::ample::chars_seq<'a', 'b', 'c', 'd', 'e',
+                                               'f', 'g', 'h', 'i', 'j',
+                                               'k', 'l', 'm', 'n', 'o',
+                                               'p', 'q', 'r', 's', 't',
+                                               'u', 'v', 'w', 'x', 'y', 'z'> );
+    CLAUSE_TEST_TYPE( charseq2
+                    , "charseq_range_t<'z','a'> containing z,y,...,a"
+                    , true
+                    , clause::ample::chars_range_t<'z','a'>
+                    , clause::ample::chars_seq<'z', 'y', 'x', 'w', 'v',
+                                               'u', 't', 's', 'r', 'q',
+                                               'p', 'o', 'n', 'm', 'l',
+                                               'k', 'j', 'i', 'h', 'g',
+                                               'f', 'e', 'd', 'c', 'b', 'a'> );
 };
