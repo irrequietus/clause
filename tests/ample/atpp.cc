@@ -20,7 +20,8 @@ CLAUSE_TEST_DEFN( check_all_atpp
 
     using test_ = clause::ample::atpp< int, char, long>;
 
-    CLAUSE_TEST_DECL(atpp1,atpp2,atpp3,atpp4,atpp5,atpp6,atpp7,atpp8,atpp9,atpp10,atpp11);
+    CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
+                    , atpp9, atpp10, atpp11, atpp12, atpp13 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -105,4 +106,15 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , clause::ample::atpp< int,char,long
                                          , int,char,double
                                          , float,short,long > );
+    CLAUSE_TEST_TYPE( atpp12
+                    , "atpp<X...>::remove<N>"
+                    , true
+                    , test_::remove<1>
+                    , clause::ample::atpp<int,long> );
+
+    CLAUSE_TEST_TYPE( atpp13
+                    , "atpp<X...>::remove<N,M>"
+                    , true
+                    , test_::repeat<10>::remove<4,29>
+                    , clause::ample::atpp<int,char,long,int,long> );
 };

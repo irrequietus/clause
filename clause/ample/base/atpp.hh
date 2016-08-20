@@ -233,6 +233,8 @@ using atpp_cvt
  *   8) atpp<X...>::insert<N,T>      // at index N insert type T
  *   9) atpp<X...>::insert<N,T...>   // at index N insert pack T...
  *  10) atpp<X...>::replace<N,T...>  // T... replaces [N, N + sizeof...(T))
+ *  11) atpp<X...>::remove<N,M>      // [N,M) removed from T...
+ *  12) atpp<X...>::remove<N>        // [N,N+1) removed from T... (just N)
  *
  */
 template<typename... X>
@@ -270,6 +272,10 @@ struct atpp {
     using replace
         = atpp_insert< atpp_insert<expand<0,N>,atpp<T...>>
                      , expand<N+sizeof...(T),sizeof...(X)> >;
+
+    template<uint64_t N, uint64_t M = N + 1>
+    using remove
+        = atpp_insert<expand<0,N>,expand<M,sizeof...(X)>>;
 
     template<uint64_t N>
     using atpos
