@@ -171,6 +171,50 @@ static auto expand(I<Z...>, I<X...>)
                                      , (pwrap<Y,X>*)(nullptr)...
                                      , (pwrap<>*)(nullptr) ) );
 
+template<typename ...X> struct wrap2_ {};
+
+template<typename X> struct wrap2_<X> { using type = X; };
+
+template<typename... X, typename Y>
+struct wrap2_<wrap2_<X...>, Y>
+{ using type = wrap2_<X...,Y>; };
+
+template<typename Y>
+struct wrap2_<wrap2_<>, Y>
+{ using type = wrap2_<Y>; };
+
+template<>
+struct wrap2_<wrap2_<>, wrap2_<>>
+{ using type = wrap2_<>; };
+
+template<typename...> struct wrap3_;
+
+template<>
+struct wrap3_<> {
+    static auto check(...) -> wrap2_<>;
+
+    template<typename... X>
+    static auto count(wrap2_<X...>) -> natural<sizeof...(X)>;
+
+    template<typename X>
+    using contains = natural<0>;
+};
+
+template<typename A, typename... X>
+struct wrap3_<A,X...> : wrap3_<X...> {
+
+    using wrap3_<X...>::check;
+    using wrap3_<X...>::count;
+
+    static auto check(wrap2_<A>)
+        -> extype< wrap2_< decltype(wrap3_<X...>::check(wrap2_<A>()))
+                         , natural<sizeof...(X)> > >;
+
+    template<typename T>
+    using contains
+        = decltype(count(decltype(check(wrap2_<T>()))()));
+};
+
 } /* atpp_ */
 
 template<int X, typename... T>
@@ -235,6 +279,7 @@ using atpp_cvt
  *  10) atpp<X...>::replace<N,T...>  // T... replaces [N, N + sizeof...(T))
  *  11) atpp<X...>::remove<N,M>      // [N,M) removed from T...
  *  12) atpp<X...>::remove<N>        // [N,N+1) removed from T... (just N)
+ *  13) atpp<X...>::contains<T>      // natural<N> where N = occurences of T
  *
  */
 template<typename... X>
@@ -295,6 +340,10 @@ struct atpp {
     using pattern_of
         = atpp_identity< atpp_repeat< sizeof...(X) / N, atpp_expand<0,N,X...>>
                        , atpp_::wrap<X...> >;
+
+    template<typename T>
+    using contains
+        = typename atpp_::wrap3_<X...>::template contains<T>;
 
 };
 
