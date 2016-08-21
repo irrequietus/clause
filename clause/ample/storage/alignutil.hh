@@ -178,6 +178,13 @@ using M7
         >
     >;
 
+/*~
+ * @note The final result is given by this template alias, instantiating to a
+ *       `M1 wrapped pack containing everything that is used afterwards via
+ *       a ::template rebind instantiation to wrap to an end user defined
+ *       template template parameter type. Through this, `M6 will run only
+ *       through the necessary range of powers of 2 for the sorting to occur.
+ */
 template<typename... X>
 using unisorted_aligned_
     = M0<M6<M7<X...>, M1<X...>::min_val, M1<X...>::max_val>>;
