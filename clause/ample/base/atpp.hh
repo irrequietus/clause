@@ -242,46 +242,46 @@ struct atpp {
 
     using type = atpp<X...>;
 
-    static uint64_t constexpr value = sizeof...(X);
+    static std::size_t constexpr value = sizeof...(X);
 
     template<template<typename...> class R>
     using rebind = R<X...>;
 
-    template<uint64_t N, uint64_t M = N+1, uint64_t K = 1>
+    template<std::size_t N, std::size_t M = N+1, std::size_t K = 1>
     using generate
         = atpp_cvt<atpp_repeat<K, atpp_expand<N,M,X...>>>;
 
-    template<uint64_t N, uint64_t M>
+    template<std::size_t N, std::size_t M>
     using expand
         = atpp_cvt<atpp_expand<N,M,X...>>;
 
-    template<uint64_t N>
+    template<std::size_t N>
     using repeat
         = atpp_cvt<atpp_repeat<N,X...>>;
 
-    template<uint64_t N, uint64_t M, uint64_t K = 1>
+    template<std::size_t N, std::size_t M, std::size_t K = 1>
     using restrict
         = atpp_restrict<N,M,K,X...>;
 
-    template<uint64_t N, typename... T>
+    template<std::size_t N, typename... T>
     using insert
         = atpp_insert< atpp_insert< expand<0,N>,atpp<T...> >
                      , expand<N,sizeof...(X)> >;
 
-    template<uint64_t N, typename ...T>
+    template<std::size_t N, typename ...T>
     using replace
         = atpp_insert< atpp_insert<expand<0,N>,atpp<T...>>
                      , expand<N+sizeof...(T),sizeof...(X)> >;
 
-    template<uint64_t N, uint64_t M = N + 1>
+    template<std::size_t N, std::size_t M = N + 1>
     using remove
         = atpp_insert<expand<0,N>,expand<M,sizeof...(X)>>;
 
-    template<uint64_t N>
+    template<std::size_t N>
     using atpos
         = atpp_atpos<N, X...>;
 
-    template<uint64_t N, typename T>
+    template<std::size_t N, typename T>
     using atpos_is
         = atpp_identity< atpp_::wrap<T>
                        , atpp_::wrap<atpos<N> > >;
@@ -291,7 +291,7 @@ struct atpp {
         = atpp_identity< atpp_repeat< sizeof...(X)/sizeof...(T), T...>
                        , atpp_::wrap<X...>>;
 
-    template<uint64_t N>
+    template<std::size_t N>
     using pattern_of
         = atpp_identity< atpp_repeat< sizeof...(X) / N, atpp_expand<0,N,X...>>
                        , atpp_::wrap<X...> >;
