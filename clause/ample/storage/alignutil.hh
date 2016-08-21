@@ -180,7 +180,7 @@ using M7
 
 template<typename... X>
 using unisorted_aligned_
-    = M0<M6<M7<X...>, M7<X...>::min_val, M7<X...>::max_val>>;
+    = M0<M6<M7<X...>, M1<X...>::min_val, M1<X...>::max_val>>;
 
 } /* alignutil_ */
 
