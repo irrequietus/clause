@@ -21,7 +21,8 @@ CLAUSE_TEST_DEFN( check_all_atpp
     using test_ = clause::ample::atpp< int, char, long>;
 
     CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
-                    , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15 );
+                    , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
+                    , atpp16, atpp17, atpp18 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -129,4 +130,31 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , true
                     , clause::ample::atpp<int>::repeat<100>::contains<int>
                     , clause::ample::natural<100> );
+
+    CLAUSE_TEST_TYPE( atpp16
+                    , "atpp<X...>::indices_of<T> (1)"
+                    , true
+                    , clause::ample::atpp<int>
+                            ::repeat<100>
+                                ::replace<30,double,double,double>
+                                    ::indices_of<double>
+                    , clause::ample::intgr_seq<30,31,32> );
+
+    CLAUSE_TEST_TYPE( atpp17
+                    , "atpp<X...>::indices_of<T> (2)"
+                    , true
+                    , clause::ample::atpp<int>
+                            ::repeat<100>
+                                ::replace<50,double,float,long,short>
+                                    ::indices_of<long>
+                    , clause::ample::intgr_seq<52> );
+
+    CLAUSE_TEST_TYPE( atpp18
+                    , "atpp<X...>::indices_of<T> (3)"
+                    , true
+                    , clause::ample::atpp<int>
+                            ::repeat<100>
+                                ::replace<50,double,float,long>
+                                    ::indices_of<short>
+                    , clause::ample::intgr_seq<> );
 };

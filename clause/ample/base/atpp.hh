@@ -177,7 +177,7 @@ template<typename X> struct wrap2_<X> { using type = X; };
 
 template<typename... X, typename Y>
 struct wrap2_<wrap2_<X...>, Y>
-{ using type = wrap2_<X...,Y>; };
+{ using type = wrap2_<Y,X...>; };
 
 template<typename Y>
 struct wrap2_<wrap2_<>, Y>
@@ -196,8 +196,15 @@ struct wrap3_<> {
     template<typename... X>
     static auto count(wrap2_<X...>) -> natural<sizeof...(X)>;
 
+    template<std::size_t N, typename... X>
+    static auto index(wrap2_<X...>, natural<N>)
+        -> intgr_seq<(N - X::value)...>;
+
     template<typename X>
     using contains = natural<0>;
+
+    template<typename X>
+    using indices_of = intgr_seq<>;
 };
 
 template<typename A, typename... X>
@@ -205,6 +212,7 @@ struct wrap3_<A,X...> : wrap3_<X...> {
 
     using wrap3_<X...>::check;
     using wrap3_<X...>::count;
+    using wrap3_<X...>::index;
 
     static auto check(wrap2_<A>)
         -> extype< wrap2_< decltype(wrap3_<X...>::check(wrap2_<A>()))
@@ -213,6 +221,11 @@ struct wrap3_<A,X...> : wrap3_<X...> {
     template<typename T>
     using contains
         = decltype(count(decltype(check(wrap2_<T>()))()));
+
+    template<typename T>
+    using indices_of
+          = decltype( index( decltype(check(wrap2_<T>()))()
+                           , natural<sizeof...(X)>() ) );
 };
 
 } /* atpp_ */
@@ -280,6 +293,7 @@ using atpp_cvt
  *  11) atpp<X...>::remove<N,M>      // [N,M) removed from T...
  *  12) atpp<X...>::remove<N>        // [N,N+1) removed from T... (just N)
  *  13) atpp<X...>::contains<T>      // natural<N> where N = occurences of T
+ *  14) atpp<X...>::indices_of<T>    // to intgr_seq<N...>, N... = indices
  *
  */
 template<typename... X>
@@ -344,6 +358,10 @@ struct atpp {
     template<typename T>
     using contains
         = typename atpp_::wrap3_<X...>::template contains<T>;
+
+    template<typename T>
+    using indices_of
+        = typename atpp_::wrap3_<X...>::template indices_of<T>;
 
 };
 
