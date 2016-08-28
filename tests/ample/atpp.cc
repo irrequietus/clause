@@ -19,6 +19,18 @@
         ()(struct a_{};)(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z)
 #include PPMPF_VXPP_FMAPOF(0)
 
+struct pred {
+    template<typename T, typename...>
+    struct oprt_apply {
+        using type = clause::ample::boolean<true>;
+    };
+
+    template<typename... Z>
+    struct oprt_apply<char, Z...> {
+        using type = clause::ample::boolean<false>;
+    };
+};
+
 CLAUSE_TEST_DEFN( check_all_atpp
                 , "evaluating atpp pack annotation") {
 
@@ -28,7 +40,8 @@ CLAUSE_TEST_DEFN( check_all_atpp
 
     CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
                     , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
-                    , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22 );
+                    , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22
+                    , atpp23, atpp24 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -195,4 +208,19 @@ CLAUSE_TEST_DEFN( check_all_atpp
                                          , a,d,e,a,d,b,e,e,f >
                                         ::uniques_as<tested>
                     , tested< a,b,c,d,e,f > );
+
+    CLAUSE_TEST_TYPE( atpp23
+                    , "atpp<X...>::filter<F> (1)"
+                    , true
+                    , clause::ample::atpp<int,char,char,int,char,int>
+                            ::filter<pred>
+                    , clause::ample::atpp<int,int,int> );
+
+    CLAUSE_TEST_TYPE( atpp24
+                    , "atpp<X...>::filter<F> (2)"
+                    , true
+                    , clause::ample::atpp<>
+                            ::filter<pred>
+                    , clause::ample::atpp<> );
+
 };

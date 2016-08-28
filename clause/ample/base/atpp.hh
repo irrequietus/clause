@@ -322,6 +322,76 @@ using m7
                             , m<>>>>::template rebind<W>;
 }; /* wrap4_ */
 
+struct wrap5_ {
+
+    template< typename S
+            , typename F
+            , typename R
+            , typename A
+            , typename B>
+    struct filter_;
+
+    template< template<typename...> class W
+            , typename F
+            , typename X
+            , typename Q
+            , typename... Y
+            , typename... Z>
+    struct filter_<boolean<true>,F,X,W<Q,Y...>, W<Z...>>
+         : filter_< typename F::template oprt_apply<Q>::type
+                 , F
+                 , Q
+                 , W<Y...>
+                 , W<Z...,X> >::type
+    {};
+
+    template< template<typename...> class W
+            , typename F
+            , typename X
+            , typename Q
+            , typename... Y
+            , typename... Z>
+    struct filter_<boolean<false>,F,X,W<Q,Y...>, W<Z...>>
+         : filter_< typename F::template oprt_apply<Q>::type
+                 , F
+                 , Q
+                 , W<Y...>
+                 , W<Z...> >::type
+    {};
+
+    template< template<typename...> class W
+            , typename F
+            , typename X
+            , typename... Z>
+    struct filter_<boolean<true>,F,X,W<>, W<Z...>>
+         : is_just<W<Z...,X>>
+    {};
+
+    template< template<typename...> class W
+            , typename F
+            , typename X
+            , typename... Z>
+    struct filter_<boolean<false>,F,X,W<>, W<Z...>>
+         : is_just<W<Z...>>
+    {};
+
+    template<typename F, typename A, typename... X>
+    using filter__
+        = typename filter_< typename F::template oprt_apply<A>::type
+                 , F
+                 , A
+                 , atpp<X...>
+                 , atpp<> >::type;
+
+    template<typename F, typename A, typename... X>
+    static auto filter(F,A,X...) -> filter__<F,extype<A>,extype<X>...>;
+
+    template<typename F>
+    static auto filter(F) -> atpp<>;
+
+}; /* wrap5_ */
+
+
 } /* atpp_ */
 
 template<int X, typename... T>
@@ -460,11 +530,16 @@ struct atpp {
         = typename atpp_::wrap3_<X...>::template indices_of<T>;
 
     using uniques
-        = typename atpp_::wrap4_::template m7<atpp,X...>;
+        = atpp_cvt<typename atpp_::wrap4_::template m7<atpp_::wrap,X...>>;
 
     template<template<typename...> class W>
     using uniques_as
         = typename atpp_::wrap4_::template m7<W,X...>;
+
+    template<typename FTypl>
+    using filter
+       = decltype(atpp_::wrap5_::template filter( FTypl()
+                                                , atpp_::wrap2_<X>()...) );
 
 };
 
