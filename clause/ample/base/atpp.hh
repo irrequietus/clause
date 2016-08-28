@@ -460,6 +460,7 @@ using atpp_cvt
  *  14) atpp<X...>::indices_of<T>    // to intgr_seq<N...>, N... = indices
  *  15) atpp<X...>::uniques          // remove all duplicates from X...
  *  16) atpp<X...>::uniques_as<W>    // remove duplicates from X..., wrap to W
+ *  17) atpp<X...>::filter<F>        // Predicate yielding boolean<B> equivalent
  *
  */
 template<typename... X>
