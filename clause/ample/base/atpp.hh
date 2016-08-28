@@ -171,9 +171,13 @@ static auto expand(I<Z...>, I<X...>)
                                      , (pwrap<Y,X>*)(nullptr)...
                                      , (pwrap<>*)(nullptr) ) );
 
-template<typename ...X> struct wrap2_ {};
+template<typename ...X>
+struct wrap2_
+{};
 
-template<typename X> struct wrap2_<X> { using type = X; };
+template<typename X>
+struct wrap2_<X>
+{ using type = X; };
 
 template<typename... X, typename Y>
 struct wrap2_<wrap2_<X...>, Y>
@@ -187,14 +191,18 @@ template<>
 struct wrap2_<wrap2_<>, wrap2_<>>
 { using type = wrap2_<>; };
 
-template<typename...> struct wrap3_;
+
+
+template<typename...>
+struct wrap3_;
 
 template<>
 struct wrap3_<> {
     static auto check(...) -> wrap2_<>;
 
     template<typename... X>
-    static auto count(wrap2_<X...>) -> natural<sizeof...(X)>;
+    static auto count(wrap2_<X...>)
+        -> natural<sizeof...(X)>;
 
     template<std::size_t N, typename... X>
     static auto index(wrap2_<X...>, natural<N>)
@@ -205,6 +213,21 @@ struct wrap3_<> {
 
     template<typename X>
     using indices_of = intgr_seq<>;
+
+    /*
+     * Decided to keep an alternative that isn't respecting the order, unlike
+     * the `wrap4_::m7 template.
+
+    using uniques = wrap<>;
+
+    template<typename X, int N, typename... Y>
+    static auto uniqt(intgr_seq<N>, X, wrap<Y...>)
+        -> wrap<X,Y...>;
+
+    template<typename X, int... N, typename... Y>
+    static auto uniqt(intgr_seq<N...>, X, wrap<Y...>)
+        -> wrap<Y...>;
+    */
 };
 
 template<typename A, typename... X>
@@ -213,6 +236,7 @@ struct wrap3_<A,X...> : wrap3_<X...> {
     using wrap3_<X...>::check;
     using wrap3_<X...>::count;
     using wrap3_<X...>::index;
+    // using wrap3_<X...>::uniqt;
 
     static auto check(wrap2_<A>)
         -> extype< wrap2_< decltype(wrap3_<X...>::check(wrap2_<A>()))
@@ -226,7 +250,77 @@ struct wrap3_<A,X...> : wrap3_<X...> {
     using indices_of
           = decltype( index( decltype(check(wrap2_<T>()))()
                            , natural<sizeof...(X)>() ) );
+    /*
+     * Same reason as before, it is a quite interesting construct.
+
+    using uniques
+        = decltype( uniqt( indices_of<A>()
+                         , A()
+                         , typename wrap3_<X...>::uniques() ) );
+    */
 };
+
+struct wrap4_ {
+
+template<typename...> struct m;
+
+template<typename X, typename... T>
+struct m<X,T...> : m<T...> {
+    using m<T...>::C;
+    static auto C(X) -> X;
+};
+
+template<typename X>
+struct m<X> {
+    static auto C(X)   -> X;
+    static auto C(...) -> m<>;
+};
+
+template<typename W, typename X>
+struct m2 : W {
+    using W::C;
+    static auto C(X) ->  wrap<>;
+};
+
+template<typename,typename,typename>
+struct m4;
+
+template< typename S
+        , typename A
+        , typename... X
+        , typename... Y >
+struct m4<S, m<A, X...>, m<Y...>>
+     : m4< m2<S,A>
+         , m<X...>
+         , m<Y...,decltype(S::C(A()))> >
+{};
+
+template<typename S, typename... Y>
+struct m4<S, m<>, m<Y...>>
+{ using type = m<Y...>; };
+
+template<typename A, typename...>
+struct m5 { using type = A; };
+
+template<typename... A, typename... B, typename X>
+struct m5<m<A...>, m<X,B...>> : m5<m<A...,X>,m<B...>>
+{};
+
+template<typename... A, typename... B>
+struct m5<m<A...>, m<wrap<>,B...>> : m5<m<A...>,m<B...>>
+{};
+
+template<typename... A>
+struct m5<m<wrap<A>...>,m<>> : m5<m<A...>>
+{ template<template<typename...> class R> using rebind = R<A...>; };
+
+template<template<typename...> class W, typename... X>
+using m7
+    = typename m5< m<>
+                , extype< m4< m<decltype(m<wrap<X>...>::C(wrap<X>()))...>
+                            , m<wrap<X>...>
+                            , m<>>>>::template rebind<W>;
+}; /* wrap4_ */
 
 } /* atpp_ */
 
@@ -294,6 +388,8 @@ using atpp_cvt
  *  12) atpp<X...>::remove<N>        // [N,N+1) removed from T... (just N)
  *  13) atpp<X...>::contains<T>      // natural<N> where N = occurences of T
  *  14) atpp<X...>::indices_of<T>    // to intgr_seq<N...>, N... = indices
+ *  15) atpp<X...>::uniques          // remove all duplicates from X...
+ *  16) atpp<X...>::uniques_as<W>    // remove duplicates from X..., wrap to W
  *
  */
 template<typename... X>
@@ -362,6 +458,13 @@ struct atpp {
     template<typename T>
     using indices_of
         = typename atpp_::wrap3_<X...>::template indices_of<T>;
+
+    using uniques
+        = typename atpp_::wrap4_::template m7<atpp,X...>;
+
+    template<template<typename...> class W>
+    using uniques_as
+        = typename atpp_::wrap4_::template m7<W,X...>;
 
 };
 

@@ -15,14 +15,20 @@
 #include <clause/ample/test.hh>
 #include <clause/ample/base/atpp.hh>
 
+#define PPMPF_VXPP_SET0(a_) \
+        ()(struct a_{};)(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z)
+#include PPMPF_VXPP_FMAPOF(0)
+
 CLAUSE_TEST_DEFN( check_all_atpp
                 , "evaluating atpp pack annotation") {
 
     using test_ = clause::ample::atpp< int, char, long>;
 
+    template<typename...> struct tested {};
+
     CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
                     , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
-                    , atpp16, atpp17, atpp18 );
+                    , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -157,4 +163,36 @@ CLAUSE_TEST_DEFN( check_all_atpp
                                 ::replace<50,double,float,long>
                                     ::indices_of<short>
                     , clause::ample::intgr_seq<> );
+
+    CLAUSE_TEST_TYPE( atpp19
+                    , "atpp<X...>::uniques (1)"
+                    , true
+                    , clause::ample::atpp< a,b,c,d,e,f,g,h,i,j,k,l,m
+                                         , n,o,p,q,r,s,t,u,v,w,x,y,z >
+                                        ::uniques
+                    , clause::ample::atpp< a,b,c,d,e,f,g,h,i,j,k,l,m
+                                         , n,o,p,q,r,s,t,u,v,w,x,y,z >  );
+
+    CLAUSE_TEST_TYPE( atpp20
+                    , "atpp<X...>::uniques (2)"
+                    , true
+                    , clause::ample::atpp< a,a,a,a,a,a,a,a >
+                                        ::uniques
+                    , clause::ample::atpp< a > );
+
+    CLAUSE_TEST_TYPE( atpp21
+                    , "atpp<X...>::uniques (3)"
+                    , true
+                    , clause::ample::atpp< a,a,b,a,a,c,c,d,e,f
+                                         , a,d,e,a,d,b,e,e,f >
+                                        ::uniques
+                    , clause::ample::atpp< a,b,c,d,e,f > );
+
+    CLAUSE_TEST_TYPE( atpp22
+                    , "atpp<X...>::uniques_as<W>"
+                    , true
+                    , clause::ample::atpp< a,a,b,a,a,c,c,d,e,f
+                                         , a,d,e,a,d,b,e,e,f >
+                                        ::uniques_as<tested>
+                    , tested< a,b,c,d,e,f > );
 };
