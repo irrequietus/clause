@@ -38,6 +38,13 @@ struct plus_ {
     {};
 };
 
+struct charfy {
+    template<typename X>
+    struct oprt_apply
+         : clause::ample::is_just<char[X::value]>
+    {};
+};
+
 CLAUSE_TEST_DEFN( check_all_atpp
                 , "evaluating atpp pack annotation") {
 
@@ -48,7 +55,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
     CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
                     , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
                     , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22
-                    , atpp23, atpp24, atpp25, atpp26 );
+                    , atpp23, atpp24, atpp25, atpp26, atpp27 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -253,5 +260,20 @@ CLAUSE_TEST_DEFN( check_all_atpp
                                          , clause::ample::natural<5> >
                             ::foldl_of<plus_>
                     , clause::ample::natural<15>  );
+
+    CLAUSE_TEST_TYPE( atpp27
+                    , "atpp<X...>::fmap<F>"
+                    , true
+                    , clause::ample::atpp< clause::ample::natural<1>
+                                         , clause::ample::natural<2>
+                                         , clause::ample::natural<3>
+                                         , clause::ample::natural<4>
+                                         , clause::ample::natural<5> >
+                            ::fmap<charfy>
+                    , clause::ample::atpp< char[1]
+                                         , char[2]
+                                         , char[3]
+                                         , char[4]
+                                         , char[5] > );
 
 };

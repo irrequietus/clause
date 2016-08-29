@@ -496,6 +496,7 @@ using atpp_cvt
  *  17) atpp<X...>::filter<F>        // Predicate yielding boolean<B> equivalent
  *  18) atpp<X...>::foldl<F,S>       // left fold of F over X... with initial S
  *  19) atpp<X...>::foldl_of<F>      // left fold of F over X..., gets own S
+ *  20) atpp<X...>::fmap<F>          // F's oprt_apply<X>::type...
  *
  */
 template<typename... X>
@@ -584,6 +585,10 @@ struct atpp {
     template<typename FTypl>
     using foldl_of
             = extype<atpp_::wrap5_::fold_of<FTypl,atpp_::wrap2_<X...>>>;
+
+    template<typename FTypl>
+    using fmap
+        = atpp<typename FTypl::template oprt_apply<X>::type...>;
 
 };
 
