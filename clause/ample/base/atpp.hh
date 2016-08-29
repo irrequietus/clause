@@ -326,6 +326,39 @@ struct wrap5_ {
 
     template< typename S
             , typename F
+            , typename O >
+    struct fold;
+
+    template< typename S
+            , typename F
+            , template<typename...> class W
+            , typename X
+            , typename... Y >
+    struct fold<S,F,W<X,Y...>>
+         : fold< typename F::template oprt_apply<S,X>::type
+               , F
+               , W<Y...>>
+    {};
+
+    template< typename S, typename F, template<typename...> class W >
+    struct fold<S, F, W<>>
+         : is_just<S>
+    {};
+
+    template<typename F, typename O>
+    struct fold_of;
+
+    template< typename F
+            , template<typename...> class W
+            , typename X
+            , typename Y
+            , typename... Z >
+    struct fold_of<F,W<X,Y,Z...>>
+         : fold<typename F::template oprt_apply<X,Y>::type, F, W<Z...>>
+    {};
+
+    template< typename S
+            , typename F
             , typename R
             , typename A
             , typename B>
@@ -461,6 +494,8 @@ using atpp_cvt
  *  15) atpp<X...>::uniques          // remove all duplicates from X...
  *  16) atpp<X...>::uniques_as<W>    // remove duplicates from X..., wrap to W
  *  17) atpp<X...>::filter<F>        // Predicate yielding boolean<B> equivalent
+ *  18) atpp<X...>::foldl<F,S>       // left fold of F over X... with initial S
+ *  19) atpp<X...>::foldl_of<F>      // left fold of F over X..., gets own S
  *
  */
 template<typename... X>
@@ -541,6 +576,14 @@ struct atpp {
     using filter
        = decltype(atpp_::wrap5_::template filter( FTypl()
                                                 , atpp_::wrap2_<X>()...) );
+
+    template<typename FTypl, typename S>
+    using foldl
+        = extype<atpp_::wrap5_::fold<S,FTypl,atpp_::wrap2_<X...>>>;
+
+    template<typename FTypl>
+    using foldl_of
+            = extype<atpp_::wrap5_::fold_of<FTypl,atpp_::wrap2_<X...>>>;
 
 };
 
