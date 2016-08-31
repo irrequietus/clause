@@ -55,7 +55,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
     CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
                     , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
                     , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22
-                    , atpp23, atpp24, atpp25, atpp26, atpp27 );
+                    , atpp23, atpp24, atpp25, atpp26, atpp27, atpp28 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -275,5 +275,11 @@ CLAUSE_TEST_DEFN( check_all_atpp
                                          , char[3]
                                          , char[4]
                                          , char[5] > );
+
+    CLAUSE_TEST_TYPE( atpp28
+                    , "atpp<X...>::reverse"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g>::reverse
+                    , clause::ample::atpp<g,f,e,d,c,b,a> );
 
 };

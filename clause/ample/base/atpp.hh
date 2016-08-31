@@ -165,7 +165,7 @@ template< int K
         , int... Z
         , template<int...> class I >
 static auto expand(I<Z...>, I<X...>)
-    -> decltype( (char (*)[K>L])(nullptr)
+    -> decltype( (char (*)[K>=L])(nullptr)
                 , atpp_layer<Z...>::template
                     impl<K-L>::peek_q( I<>()
                                      , (pwrap<Y,X>*)(nullptr)...
@@ -497,7 +497,7 @@ using atpp_cvt
  *  18) atpp<X...>::foldl<F,S>       // left fold of F over X... with initial S
  *  19) atpp<X...>::foldl_of<F>      // left fold of F over X..., gets own S
  *  20) atpp<X...>::fmap<F>          // F's oprt_apply<X>::type...
- *
+ *  21) atpp<X...>::reverse          // X... sequence reversed (last is first)
  */
 template<typename... X>
 struct atpp {
@@ -516,6 +516,9 @@ struct atpp {
     template<std::size_t N, std::size_t M>
     using expand
         = atpp_cvt<atpp_expand<N,M,X...>>;
+
+    using reverse
+        = expand<sizeof...(X),0>;
 
     template<std::size_t N>
     using repeat
