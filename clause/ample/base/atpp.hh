@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/base/seqrange.hh>
+#include <clause/ppmpf/vxpp.hh>
 
 namespace clause {
 namespace ample {
@@ -328,11 +329,10 @@ using m7
 
 struct wrap5_ {
 
-    template<typename...> struct fold;
-    template<typename...> struct fold_of;
-    template<typename...> struct foldr_of;
-    template<typename...> struct filter_;
-    template<typename...> struct fold_;
+    #define PPMPF_VXPP_SET0(a_) \
+            ()(template<typename...> struct a_;) \
+              (fold, fold_of, foldr_of, filter_, fold_)
+    #include PPMPF_VXPP_FMAPOF(0)
 
     template< typename S
             , typename F
