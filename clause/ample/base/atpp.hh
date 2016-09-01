@@ -324,10 +324,11 @@ using m7
 
 struct wrap5_ {
 
-    template< typename S
-            , typename F
-            , typename O >
-    struct fold;
+    template<typename...> struct fold;
+    template<typename...> struct fold_of;
+    template<typename...> struct foldr_of;
+    template<typename...> struct filter_;
+    template<typename...> struct fold_;
 
     template< typename S
             , typename F
@@ -345,8 +346,21 @@ struct wrap5_ {
          : is_just<S>
     {};
 
-    template<typename F, typename O>
-    struct fold_of;
+    template< typename S
+            , typename F
+            , template<typename...> class W
+            , typename X
+            , typename... Y >
+    struct fold_<S,F,W<X,Y...>>
+         : fold_< typename F::template oprt_apply<X,S>::type
+               , F
+               , W<Y...>>
+    {};
+
+    template< typename S, typename F, template<typename...> class W >
+    struct fold_<S, F, W<>>
+         : is_just<S>
+    {};
 
     template< typename F
             , template<typename...> class W
@@ -357,12 +371,14 @@ struct wrap5_ {
          : fold<typename F::template oprt_apply<X,Y>::type, F, W<Z...>>
     {};
 
-    template< typename S
-            , typename F
-            , typename R
-            , typename A
-            , typename B>
-    struct filter_;
+    template< typename F
+            , template<typename...> class W
+            , typename X
+            , typename Y
+            , typename... Z >
+    struct foldr_of<F,W<X,Y,Z...>>
+         : fold_<typename F::template oprt_apply<Y,X>::type, F, W<Z...>>
+    {};
 
     template< template<typename...> class W
             , typename F
@@ -423,7 +439,6 @@ struct wrap5_ {
     static auto filter(F) -> atpp<>;
 
 }; /* wrap5_ */
-
 
 } /* atpp_ */
 
@@ -496,8 +511,10 @@ using atpp_cvt
  *  17) atpp<X...>::filter<F>        // Predicate yielding boolean<B> equivalent
  *  18) atpp<X...>::foldl<F,S>       // left fold of F over X... with initial S
  *  19) atpp<X...>::foldl_of<F>      // left fold of F over X..., gets own S
- *  20) atpp<X...>::fmap<F>          // F's oprt_apply<X>::type...
- *  21) atpp<X...>::reverse          // X... sequence reversed (last is first)
+ *  20) atpp<X...>::foldr<F,S>       // right fold of F over X... with initial S
+ *  21) atpp<X...>::foldr_of<F>      // tight fold of F over X..., gets own S
+ *  22) atpp<X...>::fmap<F>          // F's oprt_apply<X>::type...
+ *  23) atpp<X...>::reverse          // X... sequence reversed (last is first)
  */
 template<typename... X>
 struct atpp {
@@ -585,9 +602,20 @@ struct atpp {
     using foldl
         = extype<atpp_::wrap5_::fold<S,FTypl,atpp_::wrap2_<X...>>>;
 
+    template<typename FTypl, typename S>
+    using foldr
+        = extype<atpp_::wrap5_::fold_< S
+                                     , FTypl
+                                     , atpp_expand<sizeof...(X),0,X...>>>;
+
     template<typename FTypl>
     using foldl_of
-            = extype<atpp_::wrap5_::fold_of<FTypl,atpp_::wrap2_<X...>>>;
+        = extype<atpp_::wrap5_::fold_of<FTypl,atpp_::wrap2_<X...>>>;
+
+    template<typename FTypl>
+    using foldr_of
+        = extype<atpp_::wrap5_::foldr_of< FTypl
+                                        , atpp_expand<sizeof...(X),0,X...>>>;
 
     template<typename FTypl>
     using fmap

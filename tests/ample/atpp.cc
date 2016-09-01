@@ -45,6 +45,12 @@ struct charfy {
     {};
 };
 
+template<typename...>
+struct Fx {
+    template<typename A, typename B>
+    struct oprt_apply { using type = Fx<A,B>; };
+};
+
 CLAUSE_TEST_DEFN( check_all_atpp
                 , "evaluating atpp pack annotation") {
 
@@ -55,7 +61,8 @@ CLAUSE_TEST_DEFN( check_all_atpp
     CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
                     , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
                     , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22
-                    , atpp23, atpp24, atpp25, atpp26, atpp27, atpp28 );
+                    , atpp23, atpp24, atpp25, atpp26, atpp27, atpp28, atpp29
+                    , atpp30, atpp31, atpp32, atpp33, atpp34 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -238,7 +245,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , clause::ample::atpp<> );
 
     CLAUSE_TEST_TYPE( atpp25
-                    , "atpp<X...>::foldl<F,S>"
+                    , "atpp<X...>::foldl<F,S> (1)"
                     , true
                     , clause::ample::atpp< clause::ample::natural<0>
                                          , clause::ample::natural<1>
@@ -250,7 +257,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , clause::ample::natural<15>  );
 
     CLAUSE_TEST_TYPE( atpp26
-                    , "atpp<X...>::foldl_of<F>"
+                    , "atpp<X...>::foldl_of<F> (2)"
                     , true
                     , clause::ample::atpp< clause::ample::natural<0>
                                          , clause::ample::natural<1>
@@ -262,6 +269,74 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , clause::ample::natural<15>  );
 
     CLAUSE_TEST_TYPE( atpp27
+                    , "atpp<X...>::foldl<F,S> (3)"
+                    , true
+                    ,     clause::ample::atpp< a,b,c,d,e,f,g,h,i,j,k,l,m,n,o
+                                             , p,q,r,s,t,u,v,w,x,y,z >
+                                            ::foldl_of<Fx<>>
+                    , Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx
+                            <Fx<Fx<Fx<Fx<Fx<Fx<a, b>, c>, d>, e>, f>, g>, h>
+                                , i>, j>, k>, l>, m>, n>, o>, p>, q>, r>, s>
+                                , t>, u>, v>, w>, x>, y>, z>  );
+
+    CLAUSE_TEST_TYPE( atpp28
+                    , "atpp<X...>::foldl_of<F> (4)"
+                    , true
+                    ,     clause::ample::atpp< a,b,c,d,e,f,g,h,i,j,k,l,m,n,o
+                                             , p,q,r,s,t,u,v,w,x,y,z >
+                                            ::foldl_of<Fx<>>
+                    , Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx<Fx
+                            <Fx<Fx<Fx<Fx<Fx<Fx<a, b>, c>, d>, e>, f>, g>, h>
+                                , i>, j>, k>, l>, m>, n>, o>, p>, q>, r>, s>
+                                , t>, u>, v>, w>, x>, y>, z>  );
+
+    CLAUSE_TEST_TYPE( atpp29
+                    , "atpp<X...>::foldr<F,S> (1)"
+                    , true
+                    , clause::ample::atpp< clause::ample::natural<0>
+                                         , clause::ample::natural<1>
+                                         , clause::ample::natural<2>
+                                         , clause::ample::natural<3>
+                                         , clause::ample::natural<4>
+                                         , clause::ample::natural<5> >
+                            ::foldr<plus_, clause::ample::natural<0> >
+                    , clause::ample::natural<15>  );
+
+    CLAUSE_TEST_TYPE( atpp30
+                    , "atpp<X...>::foldr<F,S> (2)"
+                    , true
+                    , clause::ample::atpp< a,b,c,d,e,f,g,h,i,j,k,l,m,n,o
+                                         , p,q,r,s,t,u,v,w,x,y >
+                            ::foldr<Fx<>, z>
+                    , Fx<a, Fx<b, Fx<c, Fx<d, Fx<e, Fx<f, Fx<g, Fx<h, Fx<i
+                        , Fx<j, Fx<k, Fx<l, Fx<m, Fx<n, Fx<o, Fx<p, Fx<q
+                            , Fx<r, Fx<s, Fx<t, Fx<u, Fx<v, Fx<w
+                                , Fx<x, Fx<y, z> >>>>>>>>>>>>>>>>>>>>>>>> );
+
+    CLAUSE_TEST_TYPE( atpp31
+                    , "atpp<X...>::foldr_of<F> (3)"
+                    , true
+                    , clause::ample::atpp< clause::ample::natural<0>
+                                         , clause::ample::natural<1>
+                                         , clause::ample::natural<2>
+                                         , clause::ample::natural<3>
+                                         , clause::ample::natural<4>
+                                         , clause::ample::natural<5> >
+                            ::foldr_of<plus_>
+                    , clause::ample::natural<15>  );
+
+    CLAUSE_TEST_TYPE( atpp32
+                    , "atpp<X...>::foldr_of<F> (4)"
+                    , true
+                    , clause::ample::atpp< a,b,c,d,e,f,g,h,i,j,k,l,m,n,o
+                                         , p,q,r,s,t,u,v,w,x,y,z >
+                            ::foldr_of<Fx<>>
+                    , Fx<a, Fx<b, Fx<c, Fx<d, Fx<e, Fx<f, Fx<g, Fx<h, Fx<i
+                        , Fx<j, Fx<k, Fx<l, Fx<m, Fx<n, Fx<o, Fx<p, Fx<q
+                            , Fx<r, Fx<s, Fx<t, Fx<u, Fx<v, Fx<w
+                                , Fx<x, Fx<y, z> >>>>>>>>>>>>>>>>>>>>>>>> );
+
+    CLAUSE_TEST_TYPE( atpp33
                     , "atpp<X...>::fmap<F>"
                     , true
                     , clause::ample::atpp< clause::ample::natural<1>
@@ -276,7 +351,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
                                          , char[4]
                                          , char[5] > );
 
-    CLAUSE_TEST_TYPE( atpp28
+    CLAUSE_TEST_TYPE( atpp34
                     , "atpp<X...>::reverse"
                     , true
                     , clause::ample::atpp<a,b,c,d,e,f,g>::reverse
