@@ -178,7 +178,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
                             ::repeat<100>
                                 ::replace<30,double,double,double>
                                     ::indices_of<double>
-                    , clause::ample::intgr_seq<30,31,32> );
+                    , clause::ample::size_seq<30,31,32> );
 
     CLAUSE_TEST_TYPE( atpp17
                     , "atpp<X...>::indices_of<T> (2)"
@@ -187,7 +187,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
                             ::repeat<100>
                                 ::replace<50,double,float,long,short>
                                     ::indices_of<long>
-                    , clause::ample::intgr_seq<52> );
+                    , clause::ample::size_seq<52> );
 
     CLAUSE_TEST_TYPE( atpp18
                     , "atpp<X...>::indices_of<T> (3)"
@@ -196,7 +196,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
                             ::repeat<100>
                                 ::replace<50,double,float,long>
                                     ::indices_of<short>
-                    , clause::ample::intgr_seq<> );
+                    , clause::ample::size_seq<> );
 
     CLAUSE_TEST_TYPE( atpp19
                     , "atpp<X...>::uniques (1)"

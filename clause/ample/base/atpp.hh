@@ -27,7 +27,7 @@ template<typename...> struct atpp;
 
 namespace atpp_ {
 
-template<typename = void, int = 0>
+template<typename = void, std::size_t = 0>
 struct base {};
 
 template<typename... T>
@@ -52,52 +52,52 @@ struct wrap : base<> {
     static X unpack(atpp_::wrap<X>);
 };
 
-template<typename T = void, int N = 0>
+template<typename T = void, std::size_t N = 0>
 struct pwrap : base<>
 {};
 
-template<int N>
+template<std::size_t N>
 using bwrap = base<>;
 
 template< template<typename...> class W
-        , template<int...> class G_
+        , template<std::size_t...> class G_
         , typename... T
         , typename... Z
-        , int... N
-        , template<typename, int> class P >
+        , std::size_t... N
+        , template<typename, std::size_t> class P >
 static auto peek_x(W<Z...>, G_<0>, P<T,N>*... t)
     -> W<Z...>;
 
 template< template<typename...> class W
         , typename... T
-        , template<int...> class G_
+        , template<std::size_t...> class G_
         , typename... Z
-        , int D
-        , int... N
-        , int J
+        , std::size_t D
+        , std::size_t... N
+        , std::size_t J
         , typename C
-        , template<typename, int> class P >
+        , template<typename, std::size_t> class P >
 static auto peek_x(W<Z...>, G_<D>, P<C,J>*, P<T,N>*... t)
     -> decltype( peek_x(W<Z..., C>(), G_<D-1>(), t...) );
 
 template< template<typename...> class W
         , typename... T
-        , template<int...> class G_
+        , template<std::size_t...> class G_
         , typename... Z
-        , int... N
-        , template<typename, int> class P >
+        , std::size_t... N
+        , template<typename, std::size_t> class P >
 static auto peek_y( W<Z...>, G_<0>, P<T,N>*... t )
     -> W<Z...>;
 
 template< template<typename...> class W
         , typename... T
-        , template<int...> class G_
+        , template<std::size_t...> class G_
         , typename... Z
-        , int D
-        , int... N
-        , int J
+        , std::size_t D
+        , std::size_t... N
+        , std::size_t J
         , typename C
-        , template<typename, int> class P >
+        , template<typename, std::size_t> class P >
 static auto peek_y(W<Z...>, G_<D>, P<C,J>*, P<T,N>*... t)
     -> decltype(peek_y(W<C,Z...>(), G_<D-1>(), t...));
 
@@ -109,11 +109,11 @@ template<template<typename...> class W, typename... T, typename... Y>
 static auto repeat(W<T...>, W<Y...>,...)
     -> decltype(W<Y...>());
 
-template<template<typename...> class W, int X, typename... T, typename... Y>
+template<template<typename...> class W, std::size_t X, typename... T, typename... Y>
 static auto repeat(W<T...>, W<Y...>, char(*)[X])
     -> decltype(repeat(W<T...>(), W<Y...,T...>(), (char(*)[X-1])0));
 
-template<template<typename...> class W, int X, typename... T, typename... Y>
+template<template<typename...> class W, std::size_t X, typename... T, typename... Y>
 static auto repeat(W<W<T...>>, W<Y...>, char(*)[X])
     -> decltype(repeat(W<T...>(), W<Y...,T...>(), (char(*)[X-1])0));
 
@@ -129,41 +129,45 @@ template<typename A, typename B>
 using atpp_identity = decltype(identity(A(),B()));
 
 
-template<int... A>
+template<std::size_t... A>
 struct atpp_layer {
 
-    template<int S>
+    template<std::size_t S>
     struct impl {
 
-        template< typename... T, int... N, template<int...> class G_>
+        template< typename... T
+                , std::size_t... N
+                , template<std::size_t...> class G_ >
         static auto peek_p(G_<>,bwrap<A>*..., pwrap<T,N>*... t)
             -> decltype(peek_x(wrap<>(), G_<S>(), t...));
 
-        template< typename... T, int... N, template<int...> class G_>
+        template< typename... T
+                , std::size_t... N
+                , template<std::size_t...> class G_ >
         static auto peek_q(G_<>,bwrap<A>*..., pwrap<T,N>*... t)
             -> decltype(peek_y(wrap<>(), G_<S>(), t...));
     };
 
 };
 
-template< int K
-        , int L
+template< std::size_t K
+        , std::size_t L
         , typename... Y
-        , int... X
-        , int... Z
-        , template<int...> class I>
+        , std::size_t... X
+        , std::size_t... Z
+        , template<std::size_t...> class I>
 static auto expand(I<Z...>, I<X...>)
     -> decltype( (char (*)[K<L])(nullptr)
                 , atpp_layer<Z...>::template
                     impl<L-K>::peek_p( I<>()
                                      , (pwrap<Y,X>*)(nullptr)...
                                      , (pwrap<>*)(nullptr) ) );
-template< int K
-        , int L
+template< std::size_t K
+        , std::size_t L
         , typename... Y
-        , int... X
-        , int... Z
-        , template<int...> class I >
+        , std::size_t... X
+        , std::size_t... Z
+        , template<std::size_t...> class I >
 static auto expand(I<Z...>, I<X...>)
     -> decltype( (char (*)[K>=L])(nullptr)
                 , atpp_layer<Z...>::template
@@ -206,13 +210,13 @@ struct wrap3_<> {
 
     template<std::size_t N, typename... X>
     static auto index(wrap2_<X...>, natural<N>)
-        -> intgr_seq<(N - X::value)...>;
+        -> size_seq<(N - X::value)...>;
 
     template<typename X>
     using contains = natural<0>;
 
     template<typename X>
-    using indices_of = intgr_seq<>;
+    using indices_of = size_seq<>;
 
     /*
      * Decided to keep an alternative that isn't respecting the order, unlike
@@ -220,12 +224,12 @@ struct wrap3_<> {
 
     using uniques = wrap<>;
 
-    template<typename X, int N, typename... Y>
-    static auto uniqt(intgr_seq<N>, X, wrap<Y...>)
+    template<typename X, std::size_t N, typename... Y>
+    static auto uniqt(size_seq<N>, X, wrap<Y...>)
         -> wrap<X,Y...>;
 
-    template<typename X, int... N, typename... Y>
-    static auto uniqt(intgr_seq<N...>, X, wrap<Y...>)
+    template<typename X, std::size_t... N, typename... Y>
+    static auto uniqt(size_seq<N...>, X, wrap<Y...>)
         -> wrap<Y...>;
     */
 };
@@ -442,22 +446,22 @@ struct wrap5_ {
 
 } /* atpp_ */
 
-template<int X, typename... T>
+template<std::size_t X, typename... T>
 using atpp_repeat
     = decltype( atpp_::repeat( atpp_::wrap<T...>()
                              , atpp_::wrap<>()
                              , (char(*)[X+1])(nullptr) ) );
 
-template<int X, int Y, typename... T>
+template<std::size_t X, std::size_t Y, typename... T>
 using atpp_expand
-    = decltype( atpp_::expand<X,Y,T...>( intgr_range_t<0,(X>Y?Y:X)>()
-                                       , intgr_range_t<0,sizeof...(T)>()));
+    = decltype( atpp_::expand<X,Y,T...>( size_range_t<0,(X>Y?Y:X)>()
+                                       , size_range_t<0,sizeof...(T)>()));
 
-template<int N, typename... T>
+template<std::size_t N, typename... T>
 using atpp_atpos
     = decltype(atpp_::wrap<>::unpack(atpp_expand<N,N+1,T...>()));
 
-template<int N, int M, int K, typename... T>
+template<std::size_t N, std::size_t M, std::size_t K, typename... T>
 using atpp_restrict
     = decltype( atpp_::identity( atpp_::wrap<T...>()
                                , atpp_repeat<K, atpp_expand<N,M,T...>>() ) );
@@ -505,7 +509,7 @@ using atpp_cvt
  *  11) atpp<X...>::remove<N,M>      // [N,M) removed from T...
  *  12) atpp<X...>::remove<N>        // [N,N+1) removed from T... (just N)
  *  13) atpp<X...>::contains<T>      // natural<N> where N = occurences of T
- *  14) atpp<X...>::indices_of<T>    // to intgr_seq<N...>, N... = indices
+ *  14) atpp<X...>::indices_of<T>    // to size_seq<N...>, N... = indices
  *  15) atpp<X...>::uniques          // remove all duplicates from X...
  *  16) atpp<X...>::uniques_as<W>    // remove duplicates from X..., wrap to W
  *  17) atpp<X...>::filter<F>        // Predicate yielding boolean<B> equivalent

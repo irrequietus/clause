@@ -190,7 +190,7 @@ struct size_seq
      , seqrange_::provide_generator<std::size_t,size_seq>
 {};
 
-template<int A, int B>
+template<std::size_t A, std::size_t B>
 using size_range_t
     = typename size_seq<>::generate_range_t<A,B>::type;
 
