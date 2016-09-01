@@ -14,6 +14,7 @@
 
 #include <clause/ample/test.hh>
 #include <clause/ample/base/atpp.hh>
+#include <clause/ppmpf/spexp.hh>
 
 #define PPMPF_VXPP_SET0(a_) \
         ()(struct a_{};)(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z)
@@ -58,12 +59,13 @@ CLAUSE_TEST_DEFN( check_all_atpp
 
     template<typename...> struct tested {};
 
-    CLAUSE_TEST_DECL( atpp1, atpp2, atpp3, atpp4, atpp5, atpp6, atpp7, atpp8
-                    , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
-                    , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22
-                    , atpp23, atpp24, atpp25, atpp26, atpp27, atpp28, atpp29
-                    , atpp30, atpp31, atpp32, atpp33, atpp34, atpp35, atpp36
-                    , atpp37, atpp38, atpp39, atpp40 );
+    CLAUSE_TEST_INDX(atpp, (0)(0)(4)(0));
+
+    CLAUSE_TEST_TYPE( atpp0
+                    , "atpp<X...>::type"
+                    , true
+                    , clause::ample::atpp<a,b,c>
+                    , typename clause::ample::atpp<a,b,c>::type );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"

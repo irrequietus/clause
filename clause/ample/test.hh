@@ -21,6 +21,7 @@
 #include <clause/ample/base/basic_number.hh>
 #include <clause/ample/logic/when.hh>
 #include <clause/ample/charseq.hh>
+#include <clause/ppmpf/spexp.hh>
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
@@ -70,6 +71,14 @@
     template<typename..., typename X = proxy1<true,__VA_ARGS__>>\
     static int deploy(char const *s){ return proxy2(s, X(nullptr)); } \
     struct PPMPF_VCAT(clause__test,name,__LINE__) { /* deliberate */ }
+
+/*~
+ * @desc Create indexed token lists for CLAUSE_TEST_DECL use.
+ * @pfrg a: prefix used
+ * @pfrg n: number up to and including it in (a)(b)(c)(d) format.
+ */
+#define CLAUSE_TEST_INDX(a_1__,n_1__) \
+        CLAUSE_TEST_DECL(PPMPF_PREFEXP(a_1__, n_1__))
 
 /*~
  * @desc Creates a full test body to be run for type matches involved, this is
