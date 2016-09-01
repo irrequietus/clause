@@ -110,11 +110,17 @@ template<template<typename...> class W, typename... T, typename... Y>
 static auto repeat(W<T...>, W<Y...>,...)
     -> decltype(W<Y...>());
 
-template<template<typename...> class W, std::size_t X, typename... T, typename... Y>
+template< template<typename...> class W
+        , std::size_t X
+        , typename... T
+        , typename... Y >
 static auto repeat(W<T...>, W<Y...>, char(*)[X])
     -> decltype(repeat(W<T...>(), W<Y...,T...>(), (char(*)[X-1])0));
 
-template<template<typename...> class W, std::size_t X, typename... T, typename... Y>
+template< template<typename...> class W
+        , std::size_t X
+        , typename... T
+        , typename... Y >
 static auto repeat(W<W<T...>>, W<Y...>, char(*)[X])
     -> decltype(repeat(W<T...>(), W<Y...,T...>(), (char(*)[X-1])0));
 
@@ -128,7 +134,6 @@ static auto identity(W<X...>, W<X...>)
 
 template<typename A, typename B>
 using atpp_identity = decltype(identity(A(),B()));
-
 
 template<std::size_t... A>
 struct atpp_layer {
@@ -484,7 +489,6 @@ template<typename T>
 using atpp_cvt
     = decltype(cvt_(T(),(atpp<>*)0));
 
-
 /*~
  * @desc Allowing manipulation of a parameter pack through the use of integral
  *       constant expressions and pattern matched sequences. Member template
@@ -519,6 +523,12 @@ using atpp_cvt
  *  21) atpp<X...>::foldr_of<F>      // tight fold of F over X..., gets own S
  *  22) atpp<X...>::fmap<F>          // F's oprt_apply<X>::type...
  *  23) atpp<X...>::reverse          // X... sequence reversed (last is first)
+ *  24) atpp<X...>::split_left<N>    // [0,N) X... expansion
+ *  25) atpp<X...>::split_rght<N>    // [N,sizeof...(X)) X... expansion
+ *  26) atpp<X...>::push_back<T...>  // atpp<X...,T...>
+ *  27) atpp<X...>::push_frnt<T...>  // atpp<T...,X...>
+ *  28) atpp<X...>::pop_back<N>      // remove last "N" types, default is 1
+ *  29) atpp<X...>::pop_frnt<N>      // remove first "N" types, default is 1
  */
 template<typename... X>
 struct atpp {
@@ -624,6 +634,30 @@ struct atpp {
     template<typename FTypl>
     using fmap
         = atpp<typename FTypl::template oprt_apply<X>::type...>;
+
+    template<std::size_t N>
+    using split_left
+        = expand<0,N>;
+
+    template<std::size_t N>
+    using split_rght
+        = expand<N,sizeof...(X)>;
+
+    template<typename... T>
+    using push_back
+        = atpp<X..., T...>;
+
+    template<typename... T>
+    using push_frnt
+        = atpp<T..., X...>;
+
+    template<std::size_t N = 1>
+    using pop_back
+        = expand<0, sizeof...(X)-N>;
+
+    template<std::size_t N = 1>
+    using pop_frnt
+        = expand<N, sizeof...(X)>;
 
 };
 

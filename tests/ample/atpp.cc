@@ -62,7 +62,8 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , atpp9, atpp10, atpp11, atpp12, atpp13, atpp14, atpp15
                     , atpp16, atpp17, atpp18, atpp19, atpp20, atpp21, atpp22
                     , atpp23, atpp24, atpp25, atpp26, atpp27, atpp28, atpp29
-                    , atpp30, atpp31, atpp32, atpp33, atpp34 );
+                    , atpp30, atpp31, atpp32, atpp33, atpp34, atpp35, atpp36
+                    , atpp37, atpp38, atpp39, atpp40 );
 
     CLAUSE_TEST_TYPE( atpp1
                     , "atpp<X...>::repeat<N>"
@@ -356,5 +357,42 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , true
                     , clause::ample::atpp<a,b,c,d,e,f,g>::reverse
                     , clause::ample::atpp<g,f,e,d,c,b,a> );
+
+    CLAUSE_TEST_TYPE( atpp35
+                    , "atpp<X...>::split_left<N>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g>::split_left<4>
+                    , clause::ample::atpp<a,b,c,d> );
+
+    CLAUSE_TEST_TYPE( atpp36
+                    , "atpp<X...>::split_rght<N>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g>::split_rght<4>
+                    , clause::ample::atpp<e,f,g> );
+
+    CLAUSE_TEST_TYPE( atpp37
+                    , "atpp<X...>::push_back<Y...>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g>::push_back<h,i,j,k>
+                    , clause::ample::atpp<a,b,c,d,e,f,g,h,i,j,k> );
+
+    CLAUSE_TEST_TYPE( atpp38
+                    , "atpp<X...>::push_frnt<Y...>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g>::push_frnt<h,i,j,k>
+                    , clause::ample::atpp<h,i,j,k,a,b,c,d,e,f,g> );
+
+    CLAUSE_TEST_TYPE( atpp39
+                    , "atpp<X...>::pop_frnt<N>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g,h,i,j,k>::pop_frnt<5>
+                    , clause::ample::atpp<f,g,h,i,j,k> );
+
+    CLAUSE_TEST_TYPE( atpp40
+                    , "atpp<X...>::pop_back<N>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g,h,i,j,k>::pop_back<5>
+                    , clause::ample::atpp<a,b,c,d,e,f> );
+
 
 };
