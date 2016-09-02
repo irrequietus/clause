@@ -30,7 +30,9 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = clause-$(CLAUSE_API_VERSION).pc
 dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = patch tests
-TESTFLAGS = -Wall -Werror -Wextra -pedantic -fconstexpr-depth=1024
+TESTFLAGS = -Wall -Werror -Wextra -pedantic \
+	-fconstexpr-depth=1024 \
+	-ftemplate-depth=1024
 
 
 define println
