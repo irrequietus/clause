@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <clause/ample/base/start_types.hh>
+#include <clause/ample/base/basic_number.hh>
 #include <clause/ample/base/seqrange.hh>
 #include <clause/ppmpf/vxpp.hh>
 
