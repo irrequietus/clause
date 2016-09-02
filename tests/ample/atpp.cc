@@ -52,13 +52,20 @@ struct Fx {
     struct oprt_apply { using type = Fx<A,B>; };
 };
 
+using test_
+    = clause::ample::atpp< int, char, long>;
+
+template<typename...> struct tested {};
+
 CLAUSE_TEST_DEFN( check_all_atpp
                 , "evaluating atpp pack annotation") {
 
-    using test_ = clause::ample::atpp< int, char, long>;
-
-    template<typename...> struct tested {};
-
+    /*
+     * An example of deploying a ppmpf based token generator using pure
+     * preprocessor to implement the necessary boilerplate for the tests.
+     * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
+     * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
+     */
     CLAUSE_TEST_INDX(atpp, (0)(0)(4)(0));
 
     CLAUSE_TEST_TYPE( atpp0
