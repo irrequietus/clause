@@ -19,7 +19,8 @@
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/base/basic_number.hh>
 #include <clause/ample/base/seqrange.hh>
-#include <clause/ppmpf/vxpp.hh>
+#include <clause/ample/base/atpp/ppro.hh>
+#include <clause/ample/base/atpp/cmpl.hh>
 
 namespace clause {
 namespace ample {
@@ -126,15 +127,26 @@ static auto repeat(W<W<T...>>, W<Y...>, char(*)[X])
     -> decltype(repeat(W<T...>(), W<Y...,T...>(), (char(*)[X-1])0));
 
 template<template<typename...> class W, typename ... X, typename... Y>
-static auto identity_(W<X...>, W<Y...>)
+static auto identity(W<X...>, W<Y...>)
     -> boolean<false>; // false
 
 template<template<typename...> class W, typename... X>
 static auto identity(W<X...>, W<X...>)
     -> boolean<true>; // true
 
+template<template<typename...> class W, typename ... X>
+static auto identity_f(boolean<true>, W<X...>)
+    -> W<X...>; // true
+
+template<template<typename...> class W, typename... X>
+static auto identity_f(boolean<false>, W<X...>)
+    -> failure<>; // false
+
 template<typename A, typename B>
 using atpp_identity = decltype(identity(A(),B()));
+
+template<typename A, typename B>
+using atpp_identity_f = decltype(identity_f(A(),B()));
 
 template<std::size_t... A>
 struct atpp_layer {
@@ -490,6 +502,12 @@ template<typename T>
 using atpp_cvt
     = decltype(cvt_(T(),(atpp<>*)0));
 
+template<std::size_t N, std::size_t M, std::size_t K, typename... T>
+using atpp_restrict_f
+    = atpp_cvt<decltype( atpp_::identity_f( boolean< (sizeof...(T) >= N)
+                                         && (sizeof...(T) <  M) >()
+                                 , atpp_::wrap<T...>() ) )>;
+
 /*~
  * @desc Allowing manipulation of a parameter pack through the use of integral
  *       constant expressions and pattern matched sequences. Member template
@@ -532,7 +550,12 @@ using atpp_cvt
  *  29) atpp<X...>::pop_frnt<N>      // remove first "N" types, default is 1
  */
 template<typename... X>
-struct atpp {
+struct atpp
+     : atpp_expr<atpp<atpp<atpp<X...>>,atpp_inst<restriction>>,2> {
+
+    constexpr atpp() noexcept;
+    constexpr atpp(std::size_t const &) noexcept;
+    constexpr atpp(std::size_t const &, std::size_t const &) noexcept;
 
     using type = atpp<X...>;
 
@@ -559,6 +582,10 @@ struct atpp {
     template<std::size_t N, std::size_t M, std::size_t K = 1>
     using restrict
         = atpp_restrict<N,M,K,X...>;
+
+    template<std::size_t N, std::size_t M, std::size_t K = 1>
+    using restrict_f
+        = atpp_restrict_f<N,M,K,X...>;
 
     template<std::size_t N, typename... T>
     using insert
@@ -592,6 +619,13 @@ struct atpp {
     using pattern_of
         = atpp_identity< atpp_repeat< sizeof...(X) / N, atpp_expand<0,N,X...>>
                        , atpp_::wrap<X...> >;
+
+    template<std::size_t N>
+    using pattern_factor
+        = atpp_cvt<decltype(atpp_::identity_f(
+             boolean<!(sizeof...(X) % N) &&
+                atpp_identity<atpp_repeat<N,atpp_expand<0,sizeof...(X)/N,X...>>
+              , atpp_::wrap<X...> >::value>(),atpp_::wrap<X...>()))>;
 
     template<typename T>
     using contains
@@ -662,7 +696,76 @@ struct atpp {
 
 };
 
+/*~
+* @note The following are the `atpp member function definitions.
+*/
+template<typename... T>
+constexpr atpp<T...>::atpp() noexcept
+    : atpp_expr<atpp< atpp<atpp<T...>>,atpp_inst<restriction>>,2>
+        {!sizeof...(T) ? 0 : sizeof...(T) - 1, sizeof...(T)}
+{}
+
+template<typename... T>
+constexpr atpp<T...>::atpp(std::size_t const &i) noexcept
+    : atpp_expr<atpp<atpp<atpp<T...>>,atpp_inst<restriction>>,2>{i, i+1}
+{}
+
+template<typename... T>
+constexpr atpp<T...>::atpp(std::size_t const &a, std::size_t const &b) noexcept
+    : atpp_expr<atpp< atpp<atpp<T...>>,atpp_inst<restriction>>,2>{a, b}
+{}
+
+namespace atpp_ {
+
+template<std::size_t ...K, std::size_t M, typename A, typename B>
+auto atpp_mtch(atpp<size_seq<K...>,atpp_expr<atpp<A,B>,M>>)
+   -> atpp<size_seq<K...>,A,B>;
+
+template<std::size_t ...K, typename... A>
+auto atpp_mtch(atpp<size_seq<K...>,atpp<A...>>)
+  -> atpp<size_seq<K...>,atpp<atpp<A...>>,atpp_inst<restriction>>;
+
+}
+
+template<typename A, typename B>
+using atpp_iprt
+    = extype<atpp_cmpl<decltype(atpp_::atpp_mtch(atpp<A,B>()))>>;
+
 } /* ample */
 } /* clause */
+
+
+
+/*~
+ * @desc Emulating a possible language feature through library implementation
+ *       where complex - yet fundamental - operations upon packs are signaled
+ *       through combination of constexpr, template and regular preprocessor
+ *       metaprogramming merged together for manipulating packs through
+ *       integral constant expressions.
+ * @note
+ */
+#define declpack(...)  ATPP_declpack0(__VA_ARGS__)
+#define templify(...) ATPP_template1(ATPP_template3 __VA_ARGS__)
+
+#define ATPP_getwrap(n,...) (__VA_ARGS__).get(clause::ample::size_seq<n>())
+#define ATPP_declseq_(...)  \
+        clause::ample::size_seq< \
+            ATPP_AXDX20(ATPP_getwrap,,ATPP_STEP(__VA_ARGS__))>
+
+#define ATPP_declpack_(...) \
+        clause::ample::atpp_iprt< ATPP_declseq_(__VA_ARGS__) \
+                                , ATPP_decltyp_(__VA_ARGS__) >
+
+#define ATPP_decltyp_(...)  decltype(ATPP_STEP(__VA_ARGS__))
+#define ATPP_declpack0(...) ATPP_declpack1(__VA_ARGS__)
+#define ATPP_declpack1(...) ATPP_declpack2(__VA_ARGS__)
+#define ATPP_declpack2(...) ATPP_declpack3(__VA_ARGS__)
+#define ATPP_declpack3(...) ATPP_declpack_(__VA_ARGS__)
+#define ATPP_template1(...) ATPP_template2(__VA_ARGS__)
+#define ATPP_template2(x,...) \
+        declpack( (__VA_ARGS__) \
+                  |= clause::ample::as_template_of<ATPP_template4 x>)
+#define ATPP_template3(x) (x),
+#define ATPP_template4(...) __VA_ARGS__
 
 #endif /* CLAUSE_AMPLE_BASE_ATPP_HH */
