@@ -21,6 +21,7 @@
 #include <clause/ample/base/basic_number.hh>
 #include <clause/ample/logic/when.hh>
 #include <clause/ample/charseq.hh>
+#include <clause/ppmpf/spexp.hh>
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
@@ -31,6 +32,66 @@
 
 #define AMPLE_TEST_RUN(name,text) \
         clause::ample::test::name::deploy(text);
+
+
+/*~
+ * @desc Define a validator type macro for generating `vldt_types boilerplate
+ *       code; final (;) must be used after macro invocation. To be used only
+ *       inside of its specific `CLAUSE_TEST_DEFN enclosure; final(;) necessary.
+ * @pfrg name: The value of the identifier the validator is to assume.
+ * @pfrg text: Text that is to be printed when running the test.
+ * @pfrg ... : The two types to be used in the validator; the use of ... is for
+ *             making sure the preprocessor doesn't hickup upon commas used
+ *             in template instantiations used as such for convenience.
+ */
+#define CLAUSE_TEST_TYPE(name,text,value,...) \
+    struct name : clause::ample::test::vldt_types<__VA_ARGS__,value> \
+    { ample_vldt_(text) }
+
+// AUX function for folding with struct keyword
+#define CLAUSE_AUX_FSTRUCT__(n,x) n struct x;
+
+/*~
+ * @desc Declare the identifiers of the tests that are to be implemented inside
+ *       the body of an `ample compatible test. To be used only inside of its
+ *       specific `CLAUSE_TEST_DEFN enclosure. Final (;) for invocation too.
+ * @pfrg ...: series of identifiers, rules of C++ identifier allowed characters
+ *            must be followed.
+ *
+ */
+#define CLAUSE_TEST_DECL(...) \
+        template<bool B, typename... T>  \
+        using proxy1 = clause::ample::boolean<B>(*)(T*...); \
+        template<template<bool> class Z, bool B, typename... X> \
+        static int proxy2(char const *s, Z<B>(*)(X*...)) { \
+            using namespace clause::ample::test; \
+            return check<B, check_all<X...>>::deploy(s); \
+        } PPMPF_EXCISE((PPMPF_TUP_FOLDL( \
+            CLAUSE_AUX_FSTRUCT__,(),PPMPF_TUPLE(__VA_ARGS__)))) \
+    template<typename..., typename X = proxy1<true,__VA_ARGS__>>\
+    static int deploy(char const *s){ return proxy2(s, X(nullptr)); } \
+    struct PPMPF_VCAT(clause__test,name,__LINE__) { /* deliberate */ }
+
+/*~
+ * @desc Create indexed token lists for CLAUSE_TEST_DECL use.
+ * @pfrg a: prefix used
+ * @pfrg n: number up to and including it in (a)(b)(c)(d) format.
+ */
+#define CLAUSE_TEST_INDX(a_1__,n_1__) \
+        CLAUSE_TEST_DECL(PPMPF_PREFEXP(a_1__, n_1__))
+
+/*~
+ * @desc Creates a full test body to be run for type matches involved, this is
+ *       a high level macro that is accompanying a {} enclosed segment of single
+ *       top `CLAUSE_AMPLE_DECL invocation with the list of the identifiers for
+ *       the tests and one `CLAUSE_AMPLE_DEVT invocation for each of these
+ *       identifiers.
+ *
+ */
+#define CLAUSE_TEST_DEFN(name, value) \
+        struct name; template<typename..., typename X = name>\
+        int PPMPF_CAT(test_,name)() { return X::deploy(value); }\
+        int main() { return PPMPF_CAT(test_,name)(); } struct name
 
 # ifdef AMPLE_PRINTLN_LIM
 #    if AMPLE_PRINTLN_LIM > 255

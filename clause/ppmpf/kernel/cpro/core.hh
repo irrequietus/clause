@@ -397,8 +397,8 @@
  */
 #define PPMPF_TYPEOF(x) \
         PPMPF_TYPED1(PPMPF_DREF(x),)
-#define PPMPF_TYPED0(...) PPMPF_TYPED00(__VA_ARGS__)
-#define PPMPF_TYPED1(...) PPMPF_TYPED10(__VA_ARGS__)
+#define PPMPF_TYPED0(...) PPMPF_TYPED00(__VA_ARGS__,)
+#define PPMPF_TYPED1(...) PPMPF_TYPED10(__VA_ARGS__,)
 #define PPMPF_TYPED00(a,b,...) a
 #define PPMPF_TYPED10(a,b,...) b
 
