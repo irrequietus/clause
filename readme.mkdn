@@ -14,7 +14,36 @@ standard library support (to almost none) for using this library. However, it
 is very important that you use a **fully C++14 compliant compiler**. Library
 is transitioning from C++11 to C++14 and beyond ina a relatively "unstable"
 manner, build system will provide hints. Check development branches like
-`ample2-dev` for edge, unstable features.
+`ampl2-dev` for edge, unstable features. An example of how parameter packs
+can be manipulated for several uses through operator driven semantics in
+development so far:
+
+```c++
+#include <clause/ample/base/atpp.hh>
+
+// T... must be between 0 and 20 types in size while
+// consisting of a repeating pattern of its first half;
+// repeat it 8 times and instantiate a Super<...> class
+// template with type indexes 1,3,5,0,0,7 then create
+// a pack from of indices [3,5) of the resulting pack.
+// Stranger things can happen.
+
+template<typename...>
+struct test{};
+
+template<typename... T>
+auto example1(T...)
+  -> templify((test) ( (T...){0,20}[2]^8)(1,3,5,0,0,7)
+                              >>= {3,5} );
+
+int main() {
+    // notice alternation of int/double
+    return std::is_same<
+           decltype(example1(1,2.3,3,4.3,5,6.5,7,8.6))
+         , test<int,int>
+     >::value;
+}
+```
 
 Testing the code available
 --------------------------
