@@ -18,6 +18,7 @@ An example of how parameter packs can be manipulated for several uses
 through operator driven semantics in development so far:
 
 #include <clause/ample/base/atpp.hh>
+#include <type_traits> // for std::is_same
 
 // T... must be between 0 and 20 types in size while
 // consisting of a repeating pattern of its first half;
