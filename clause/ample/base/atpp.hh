@@ -702,7 +702,7 @@ struct atpp
 template<typename... T>
 constexpr atpp<T...>::atpp() noexcept
     : atpp_expr<atpp< atpp<atpp<T...>>,atpp_inst<restriction>>,2>
-        {!sizeof...(T) ? 0 : sizeof...(T) - 1, sizeof...(T)}
+        {sizeof...(T), sizeof...(T)+1}
 {}
 
 template<typename... T>
