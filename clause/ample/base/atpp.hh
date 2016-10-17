@@ -508,6 +508,26 @@ using atpp_restrict_f
                                          && (sizeof...(T) <  M) >()
                                  , atpp_::wrap<T...>() ) )>;
 
+template<std::size_t N, typename... X>
+using atpp_pattern_factor_impl1
+    = atpp_cvt<decltype(atpp_::identity_f(
+         boolean<!(sizeof...(X) % N) &&
+            atpp_identity<atpp_repeat<N,atpp_expand<0,sizeof...(X)/N,X...>>
+          , atpp_::wrap<X...> >::value>(),atpp_::wrap<X...>()))>;
+
+template<template<typename...> class W, typename... T, std::size_t N>
+static auto atpp_pattern_factor_impl2(W<T...>, natural<N>)
+         -> atpp_pattern_factor_impl1<N, T...>;
+
+template<template<typename...> class W, typename... T>
+static auto atpp_pattern_factor_impl2(W<T...>, natural<0>)
+         -> failure<>;
+
+template<std::size_t N, typename... T>
+using atpp_pattern_factor
+    = decltype( atpp_pattern_factor_impl2( atpp_::wrap<T...>()
+                                         , natural<N>() ));
+
 /*~
  * @desc Allowing manipulation of a parameter pack through the use of integral
  *       constant expressions and pattern matched sequences. Member template
@@ -622,10 +642,7 @@ struct atpp
 
     template<std::size_t N>
     using pattern_factor
-        = atpp_cvt<decltype(atpp_::identity_f(
-             boolean<!(sizeof...(X) % N) &&
-                atpp_identity<atpp_repeat<N,atpp_expand<0,sizeof...(X)/N,X...>>
-              , atpp_::wrap<X...> >::value>(),atpp_::wrap<X...>()))>;
+        = atpp_pattern_factor<N,X...>;
 
     template<typename T>
     using contains
