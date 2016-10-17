@@ -53,6 +53,8 @@ struct wrap : base<> {
 
     template<typename X>
     static X unpack(atpp_::wrap<X>);
+
+    static failure<> unpack(...);
 };
 
 template<typename T = void, std::size_t N = 0>
@@ -193,6 +195,23 @@ static auto expand(I<Z...>, I<X...>)
                     impl<K-L>::peek_q( I<>()
                                      , (pwrap<Y,X>*)(nullptr)...
                                      , (pwrap<>*)(nullptr) ) );
+
+template< std::size_t K
+        , std::size_t L
+        , typename... Y
+        , std::size_t... X
+        , std::size_t... Z
+        , template<std::size_t...> class I >
+static auto expand(I<Z...>, I<X...>, boolean<true>) -> failure<>;
+
+template< std::size_t K
+        , std::size_t L
+        , typename... Y
+        , std::size_t... X
+        , std::size_t... Z
+        , template<std::size_t...> class I >
+static auto expand(I<Z...>, I<X...>, boolean<false>)
+         -> decltype(expand<K,L,Y...>(I<Z...>(),I<X...>()));
 
 template<typename ...X>
 struct wrap2_
@@ -473,7 +492,9 @@ using atpp_repeat
 template<std::size_t X, std::size_t Y, typename... T>
 using atpp_expand
     = decltype( atpp_::expand<X,Y,T...>( size_range_t<0,(X>Y?Y:X)>()
-                                       , size_range_t<0,sizeof...(T)>()));
+                                       , size_range_t<0,sizeof...(T)>()
+                                       , boolean<(   X > sizeof...(T)
+                                                  || Y > sizeof...(T))>()));
 
 template<std::size_t N, typename... T>
 using atpp_atpos
