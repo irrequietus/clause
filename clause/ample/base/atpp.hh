@@ -498,6 +498,9 @@ using atpp_insert
 template<typename... T, template<typename...> class W>
 static auto cvt_(atpp_::wrap<T...>, W<>*) -> W<T...>;
 
+template<typename... T, template<typename...> class W>
+static auto cvt_(failure<T...>, W<>*) -> failure<T...>;
+
 template<typename T>
 using atpp_cvt
     = decltype(cvt_(T(),(atpp<>*)0));
