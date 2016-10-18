@@ -55,9 +55,6 @@ using mplixer
 template<typename...>
 struct atpp;
 
-template<typename>
-struct atpp_cmpl {};
-
 template<template<typename> class...>
 struct atpp_inst {};
 
@@ -69,6 +66,7 @@ template<typename> struct pattern;
 template<typename> struct repetition;
 template<typename> struct at_position;
 template<typename> struct skip_block;
+template<typename> struct subst_type;
 
 template<template<typename...> class W>
 struct template_bound {
@@ -194,14 +192,18 @@ struct repetition<W<size_seq<A,X...>,W<P<Q...>, T...>,S<I...>>>
               , S<I...>>>
 {};
 
-template< template<template<typename> class...> class S
-        , typename A
-        , typename... B
-        , typename... T
-        , template<typename...> class W, template<typename> class F
-        , template<typename> class... G >
-struct atpp_cmpl<W<A, W<failure<T...>,B...>, S<F,G...>>>
-     : is_just<failure<T...>>
+template< std::size_t... X
+        , typename ...Q
+        , typename Z
+        , template<typename...> class W
+        , template<typename...> class P
+        , template<template<typename> class...> class S
+        , template<typename> class... I
+        , typename... T>
+struct subst_type<W<size_seq<X...>,W<P<Q...>, P<Z>, T...>,S<I...>>>
+     : is_just< W< size_seq<X...>
+                 , W< Z , T... >
+              , S<I...>>>
 {};
 
 template< template<template<typename> class...> class S
@@ -210,9 +212,8 @@ template< template<template<typename> class...> class S
         , typename... T
         , template<typename...> class W
         , template<typename> class... G >
-struct atpp_cmpl<W<A, W<failure<T...>,B...>, S<G...>>>
-     : is_just<failure<T...>>
-{};
+static auto atpp_cmpl(W<A, W<failure<T...>,B...>, S<G...>>)
+         -> is_just<failure<T...>>;
 
 template< template<template<typename> class...> class S
         , template<typename> class F
@@ -220,20 +221,18 @@ template< template<template<typename> class...> class S
         , typename B
         , template<typename...> class W
         , template<typename> class... G >
-struct atpp_cmpl<W<A,B,S<F,G...>>>
-     : atpp_cmpl<extype<F<W<A,B,S<G...>>>>>
-{};
+static auto atpp_cmpl(W<A,B,S<F,G...>>)
+         -> decltype(atpp_cmpl(extype<F<W<A,B,S<G...>>>>()));
 
 template< template<template<typename> class...> class S
         , typename A
         , typename B
         , template<typename...> class W >
-struct atpp_cmpl<W<A, W<B>, S<>>>
-     : is_just<B>
-{};
+static auto atpp_cmpl(W<A, W<B>, S<>>)
+         -> is_just<B>;
 
-
-template<typename, std::size_t>    struct atpp_expr;
+template<typename, std::size_t>
+struct atpp_expr;
 
 /*~
  * @desc Recursion limiting step for `atpp_expr.
@@ -324,6 +323,9 @@ public:
 
     template<template<typename...> class W>
     constexpr auto operator|=(template_bound<W>) const noexcept;
+
+    template<typename T>
+    constexpr auto operator|=(T) const noexcept;
 
     template<typename... T>
     constexpr auto operator()(T... t) const noexcept;
@@ -496,6 +498,16 @@ constexpr auto atpp_expr<atpp<atpp<X...>,atpp_inst<I...>>,N>
     return
        tswap<atpp< atpp<X..., atpp<template_bound<W>>>
                  , atpp_inst<I...,instantiation> > >
+            (*this);
+}
+
+template<typename... X, template<typename> class... I, std::size_t N>
+template<typename T>
+constexpr auto atpp_expr<atpp<atpp<X...>,atpp_inst<I...>>,N>
+    ::operator|=(T) const noexcept
+{
+    return
+       tswap<atpp< atpp<X..., atpp<T>>, atpp_inst<I...,subst_type> > >
             (*this);
 }
 

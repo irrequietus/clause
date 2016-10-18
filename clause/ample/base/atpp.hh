@@ -53,6 +53,8 @@ struct wrap : base<> {
 
     template<typename X>
     static X unpack(atpp_::wrap<X>);
+
+    static failure<> unpack(...);
 };
 
 template<typename T = void, std::size_t N = 0>
@@ -193,6 +195,23 @@ static auto expand(I<Z...>, I<X...>)
                     impl<K-L>::peek_q( I<>()
                                      , (pwrap<Y,X>*)(nullptr)...
                                      , (pwrap<>*)(nullptr) ) );
+
+template< std::size_t K
+        , std::size_t L
+        , typename... Y
+        , std::size_t... X
+        , std::size_t... Z
+        , template<std::size_t...> class I >
+static auto expand(I<Z...>, I<X...>, boolean<true>) -> failure<>;
+
+template< std::size_t K
+        , std::size_t L
+        , typename... Y
+        , std::size_t... X
+        , std::size_t... Z
+        , template<std::size_t...> class I >
+static auto expand(I<Z...>, I<X...>, boolean<false>)
+         -> decltype(expand<K,L,Y...>(I<Z...>(),I<X...>()));
 
 template<typename ...X>
 struct wrap2_
@@ -473,11 +492,13 @@ using atpp_repeat
 template<std::size_t X, std::size_t Y, typename... T>
 using atpp_expand
     = decltype( atpp_::expand<X,Y,T...>( size_range_t<0,(X>Y?Y:X)>()
-                                       , size_range_t<0,sizeof...(T)>()));
+                                       , size_range_t<0,sizeof...(T)>()
+                                       , boolean<(   X > sizeof...(T)
+                                                  || Y > sizeof...(T))>()));
 
 template<std::size_t N, typename... T>
 using atpp_atpos
-    = decltype(atpp_::wrap<>::unpack(atpp_expand<N,N+1,T...>()));
+    = failproof_t<decltype(atpp_::wrap<>::unpack(atpp_expand<N,N+1,T...>()))>;
 
 template<std::size_t N, std::size_t M, std::size_t K, typename... T>
 using atpp_restrict
@@ -498,6 +519,9 @@ using atpp_insert
 template<typename... T, template<typename...> class W>
 static auto cvt_(atpp_::wrap<T...>, W<>*) -> W<T...>;
 
+template<typename... T, template<typename...> class W>
+static auto cvt_(failure<T...>, W<>*) -> failure<T...>;
+
 template<typename T>
 using atpp_cvt
     = decltype(cvt_(T(),(atpp<>*)0));
@@ -507,6 +531,26 @@ using atpp_restrict_f
     = atpp_cvt<decltype( atpp_::identity_f( boolean< (sizeof...(T) >= N)
                                          && (sizeof...(T) <  M) >()
                                  , atpp_::wrap<T...>() ) )>;
+
+template<std::size_t N, typename... X>
+using atpp_pattern_factor_impl1
+    = atpp_cvt<decltype(atpp_::identity_f(
+         boolean<!(sizeof...(X) % N) &&
+            atpp_identity<atpp_repeat<N,atpp_expand<0,sizeof...(X)/N,X...>>
+          , atpp_::wrap<X...> >::value>(),atpp_::wrap<X...>()))>;
+
+template<template<typename...> class W, typename... T, std::size_t N>
+static auto atpp_pattern_factor_impl2(W<T...>, natural<N>)
+         -> atpp_pattern_factor_impl1<N, T...>;
+
+template<template<typename...> class W, typename... T>
+static auto atpp_pattern_factor_impl2(W<T...>, natural<0>)
+         -> failure<>;
+
+template<std::size_t N, typename... T>
+using atpp_pattern_factor
+    = decltype( atpp_pattern_factor_impl2( atpp_::wrap<T...>()
+                                         , natural<N>() ));
 
 /*~
  * @desc Allowing manipulation of a parameter pack through the use of integral
@@ -622,10 +666,7 @@ struct atpp
 
     template<std::size_t N>
     using pattern_factor
-        = atpp_cvt<decltype(atpp_::identity_f(
-             boolean<!(sizeof...(X) % N) &&
-                atpp_identity<atpp_repeat<N,atpp_expand<0,sizeof...(X)/N,X...>>
-              , atpp_::wrap<X...> >::value>(),atpp_::wrap<X...>()))>;
+        = atpp_pattern_factor<N,X...>;
 
     template<typename T>
     using contains
@@ -702,7 +743,7 @@ struct atpp
 template<typename... T>
 constexpr atpp<T...>::atpp() noexcept
     : atpp_expr<atpp< atpp<atpp<T...>>,atpp_inst<restriction>>,2>
-        {!sizeof...(T) ? 0 : sizeof...(T) - 1, sizeof...(T)}
+        {sizeof...(T), sizeof...(T)+1}
 {}
 
 template<typename... T>
@@ -729,7 +770,7 @@ auto atpp_mtch(atpp<size_seq<K...>,atpp<A...>>)
 
 template<typename A, typename B>
 using atpp_iprt
-    = extype<atpp_cmpl<decltype(atpp_::atpp_mtch(atpp<A,B>()))>>;
+    = extype<decltype(atpp_cmpl(decltype(atpp_::atpp_mtch(atpp<A,B>()))()))>;
 
 } /* ample */
 } /* clause */
@@ -753,8 +794,9 @@ using atpp_iprt
             ATPP_AXDX20(ATPP_getwrap,,ATPP_STEP(__VA_ARGS__))>
 
 #define ATPP_declpack_(...) \
-        clause::ample::atpp_iprt< ATPP_declseq_(__VA_ARGS__) \
-                                , ATPP_decltyp_(__VA_ARGS__) >
+        clause::ample::failproof_t< \
+            clause::ample::atpp_iprt< ATPP_declseq_(__VA_ARGS__) \
+                                    , ATPP_decltyp_(__VA_ARGS__) > >
 
 #define ATPP_decltyp_(...)  decltype(ATPP_STEP(__VA_ARGS__))
 #define ATPP_declpack0(...) ATPP_declpack1(__VA_ARGS__)
