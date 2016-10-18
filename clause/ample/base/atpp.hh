@@ -498,7 +498,7 @@ using atpp_expand
 
 template<std::size_t N, typename... T>
 using atpp_atpos
-    = decltype(atpp_::wrap<>::unpack(atpp_expand<N,N+1,T...>()));
+    = failproof_t<decltype(atpp_::wrap<>::unpack(atpp_expand<N,N+1,T...>()))>;
 
 template<std::size_t N, std::size_t M, std::size_t K, typename... T>
 using atpp_restrict
@@ -770,7 +770,7 @@ auto atpp_mtch(atpp<size_seq<K...>,atpp<A...>>)
 
 template<typename A, typename B>
 using atpp_iprt
-    = extype<atpp_cmpl<decltype(atpp_::atpp_mtch(atpp<A,B>()))>>;
+    = extype<decltype(atpp_cmpl(decltype(atpp_::atpp_mtch(atpp<A,B>()))()))>;
 
 } /* ample */
 } /* clause */
@@ -794,8 +794,9 @@ using atpp_iprt
             ATPP_AXDX20(ATPP_getwrap,,ATPP_STEP(__VA_ARGS__))>
 
 #define ATPP_declpack_(...) \
-        clause::ample::atpp_iprt< ATPP_declseq_(__VA_ARGS__) \
-                                , ATPP_decltyp_(__VA_ARGS__) >
+        clause::ample::failproof_t< \
+            clause::ample::atpp_iprt< ATPP_declseq_(__VA_ARGS__) \
+                                    , ATPP_decltyp_(__VA_ARGS__) > >
 
 #define ATPP_decltyp_(...)  decltype(ATPP_STEP(__VA_ARGS__))
 #define ATPP_declpack0(...) ATPP_declpack1(__VA_ARGS__)

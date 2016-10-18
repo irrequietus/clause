@@ -101,6 +101,19 @@ struct failure {
     };
 };
 
+template<typename T, typename X>
+struct failproof
+     : is_just<X>
+{};
+
+template<typename X, typename... Z>
+struct failproof<failure<Z...>,X>
+{};
+
+template<typename X>
+using failproof_t
+    = extype<failproof<X,X>>;
+
 } /* ample */
 } /* clause */
 
