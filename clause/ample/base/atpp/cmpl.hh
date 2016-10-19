@@ -80,7 +80,7 @@ template<typename> struct subst_type;
              , template<typename> class... I \
              , typename... T> \
   struct aID <W<size_seq<A,B,X...>,W<failure<Q...>, T...>,S<I...>>> \
-       : is_just< failure<> > \
+       : is_just< failure<Q...> > \
   {}; ) \
     ( merging, instantiation, expansion \
     , restriction, pattern, repetition, at_position \
