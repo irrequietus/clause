@@ -137,6 +137,16 @@ auto e10(T...)
 
 auto e10(...) -> a1;
 
+// A pack of size 6, where indices 1,2,3,4 are <1,2> == <3,4>
+template<typename... T>
+auto e11(T...)
+  -> decltype(templify((std::tuple) (((T...){6} >>= {1,5})[2]))(), a4());
+
+template<typename... T>
+auto e12(T...)
+  -> decltype( templify((std::tuple) (T...){}[true][sizeof...(T) > 1])()
+             , a1() );
+
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
 
@@ -146,7 +156,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(4));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(6));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -299,4 +309,16 @@ CLAUSE_TEST_DEFN( check_all_atppops
                                   , a1{}, a2{}, a3{}
                                   , a1{}, a2{}, a3{} ) )
                     , a3 );
+
+    CLAUSE_TEST_TYPE( atpp25
+                    , "templify((std::tuple) (((T...){6} >>= {1,5})[2]))"
+                    , true
+                    , decltype(e11( a1{}, a2{}, a3{}, a2{}, a3{}, a4{} ) )
+                    , a4 );
+
+    CLAUSE_TEST_TYPE( atpp26
+                    , "templify((std::tuple) (T...){}[true][sizeof...(T) > 1])"
+                    , true
+                    , decltype(e12( a1{}, a2{}, a3{}, a2{}, a3{}, a4{} ) )
+                    , a1 );
 };
