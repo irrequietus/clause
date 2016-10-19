@@ -125,6 +125,16 @@ template<typename... T>
 auto e10(T...)
   -> templify((std::tuple) (T...){}[sizeof...(T)] );
 
+// pattern factor operator detecting multiples in fixed size
+// packs, triggering SFINAE properly in each case.
+template<typename... T>
+auto e10(T...)
+  -> decltype(templify((std::tuple) (T...){8}[2])(), a2() );
+
+template<typename... T>
+auto e10(T...)
+  -> decltype(templify((std::tuple) (T...){9}[3])(), a3() );
+
 auto e10(...) -> a1;
 
 CLAUSE_TEST_DEFN( check_all_atppops
@@ -136,7 +146,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(2));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(4));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -275,4 +285,18 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , true
                     , decltype(e10(a1{},a1{},a1{},0,a1{},a1{}))
                     , a1 );
+
+    CLAUSE_TEST_TYPE( atpp23
+                    , "templify((std::tuple) (T...){8}[2] )"
+                    , true
+                    , decltype(e10(a1{},a2{},a1{},a2{},a1{},a2{},a1{},a2{}))
+                    , a2 );
+
+    CLAUSE_TEST_TYPE( atpp24
+                    , "templify((std::tuple) (T...){9}[3] )"
+                    , true
+                    , decltype(e10( a1{}, a2{}, a3{}
+                                  , a1{}, a2{}, a3{}
+                                  , a1{}, a2{}, a3{} ) )
+                    , a3 );
 };
