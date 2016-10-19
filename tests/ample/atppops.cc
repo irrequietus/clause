@@ -76,6 +76,21 @@ template<typename... T>
 auto e3(T...)
   -> declpack((T...){15,20} |= a4());
 
+// reversing a pack using individual access
+template<typename... T>
+auto e4(T...)
+  -> templify((someclass) (T...){}(3,2,1,0));
+
+// access based playing with types in the pack, templify style
+template<typename... T>
+auto e5(T...)
+    -> templify((someclass) (T...){}(2,1,2,1,2,1,2,1));
+
+// access based playing with types in the pack, declpack style
+template<typename... T>
+auto e6(T...)
+    -> declpack(((T...){}(3,3,3)) |= clause::ample::as_template_of<someclass> );
+
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
 
@@ -85,7 +100,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(1));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(4));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((someclass) (T...){1})"
@@ -158,5 +173,24 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , true
                     , decltype(e3(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15))
                     , a4 );
+
+    CLAUSE_TEST_TYPE( atpp12
+                    , "declpack((T...)(3,2,1,0)"
+                    , true
+                    , decltype(e4(a1{},a2{},a3{},a4{}))
+                    , someclass<a4,a3,a2,a1> );
+
+    CLAUSE_TEST_TYPE( atpp13
+                    , "templify((someclass) (T...){}(2,1,2,1,2,1,2,1))"
+                    , true
+                    , decltype(e5(a1{},a2{},a3{},a4{}))
+                    , someclass<a3,a2,a3,a2,a3,a2,a3,a2> );
+
+    CLAUSE_TEST_TYPE( atpp14
+                    , "declpack((T...){}(3,3,3) |= clause::ample::as_template_of<someclass> ))"
+                    , true
+                    , decltype(e6(a1{},a2{},a3{},a4{}))
+                    , someclass<a4,a4,a4> );
+
 
 };
