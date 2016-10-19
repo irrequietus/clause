@@ -119,6 +119,14 @@ template<typename... T>
 auto e9(T...)
   -> templify((std::tuple) (T...){4}(2,3,2,3,1));
 
+// demonstrating one possible use of the pattern factor operator:
+// when equal to the size of the pack, ALL types must be the same!
+template<typename... T>
+auto e10(T...)
+  -> templify((std::tuple) (T...){}[sizeof...(T)] );
+
+auto e10(...) -> a1;
+
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
 
@@ -128,7 +136,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(9));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(2));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -249,4 +257,22 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , true
                     , decltype(e9(a1{},a2{},a3{},a4{}))
                     , std::tuple<a3,a4,a3,a4,a2> );
+
+    CLAUSE_TEST_TYPE( atpp20
+                    , "templify((std::tuple) (T...){}[sizeof...(T)] )"
+                    , true
+                    , decltype(e10(a1{},a1{},a1{}))
+                    , std::tuple<a1,a1,a1> );
+
+    CLAUSE_TEST_TYPE( atpp21
+                    , "templify((std::tuple) (T...){}[sizeof...(T)] )"
+                    , true
+                    , decltype(e10(a1{},a1{},a1{},a1{},a1{}))
+                    , std::tuple<a1,a1,a1,a1,a1> );
+
+    CLAUSE_TEST_TYPE( atpp22
+                    , "templify((std::tuple) (T...){}[sizeof...(T)] )"
+                    , true
+                    , decltype(e10(a1{},a1{},a1{},0,a1{},a1{}))
+                    , a1 );
 };
