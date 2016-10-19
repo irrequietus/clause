@@ -19,6 +19,7 @@
 #include <clause/ample/base/seqrange.hh>
 #include <clause/ample/base/start_types.hh>
 #include <clause/ample/base/basic_number.hh>
+#include <clause/ppmpf/vxpp.hh>
 
 /*~
  * @warn: do not include as standalone.
@@ -67,6 +68,24 @@ template<typename> struct repetition;
 template<typename> struct at_position;
 template<typename> struct skip_block;
 template<typename> struct subst_type;
+
+// Code generation block 1
+#define PPMPF_VXPP_SET0(aID) \
+  ()(template< std::size_t... X \
+             , std::size_t A \
+             , std::size_t B \
+             , typename ...Q \
+             , template<typename...> class W \
+             , template<template<typename> class...> class S \
+             , template<typename> class... I \
+             , typename... T> \
+  struct aID <W<size_seq<A,B,X...>,W<failure<Q...>, T...>,S<I...>>> \
+       : is_just< failure<> > \
+  {}; ) \
+    ( merging, instantiation, expansion \
+    , restriction, pattern, repetition, at_position \
+    , skip_block, subst_type )
+#include PPMPF_VXPP_FMAPOF(0)
 
 template<template<typename...> class W>
 struct template_bound {

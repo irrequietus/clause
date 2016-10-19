@@ -15,31 +15,33 @@
 #include <clause/ample/test.hh>
 #include <clause/ample/base/atpp.hh>
 #include <clause/ppmpf/spexp.hh>
+#include <tuple>
 
 struct a1{};
 struct a2{};
 struct a3{};
 struct a4{};
-
-template<typename...>
-struct someclass{};
+struct a5{};
+struct a6{};
+struct a7{};
+struct a8{};
 
 // fixed size sfinae lock using templify + decltype combination.
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){1})(), a1{});
+  -> decltype(templify((std::tuple) (T...){1})(), a1{});
 
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){2})(), a2{});
+  -> decltype(templify((std::tuple) (T...){2})(), a2{});
 
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){3})(), a3{});
+  -> decltype(templify((std::tuple) (T...){3})(), a3{});
 
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){4})(), a4{});
+  -> decltype(templify((std::tuple) (T...){4})(), a4{});
 
 // fixed size sfinae lock, declpack style
 template<typename... T>
@@ -79,27 +81,43 @@ auto e3(T...)
 // reversing a pack using individual access
 template<typename... T>
 auto e4(T...)
-  -> templify((someclass) (T...){}(3,2,1,0));
+  -> templify((std::tuple) (T...){}(3,2,1,0));
 
 // access based playing with types in the pack, templify style
 template<typename... T>
 auto e5(T...)
-    -> templify((someclass) (T...){}(2,1,2,1,2,1,2,1));
+    -> templify((std::tuple) (T...){}(2,1,2,1,2,1,2,1));
 
 // access based playing with types in the pack, declpack style
 template<typename... T>
 auto e6(T...)
-    -> declpack(((T...){}(3,3,3)) |= clause::ample::as_template_of<someclass> );
+    -> declpack(((T...){}(3,3,3)) |= clause::ample::as_template_of<std::tuple> );
 
 // expanding to specific ranges
 
 template<typename... T>
 auto e7(T...)
-  -> templify((someclass) (T...){} >>= {0,4});
+  -> templify((std::tuple) (T...){} >>= {0,4});
 
 template<typename... T>
 auto e8(T...)
-  -> templify((someclass) (T...){} >>= {4,0});
+  -> templify((std::tuple) (T...){} >>= {4,0});
+
+// size constrains triggering SFINAE while range-expansion used
+// also for reversing the range involved. In one blow.
+
+template<typename... T>
+auto e9(T...)
+  -> templify((std::tuple) (T...){7} >>= {5,2});
+
+template<typename... T>
+auto e9(T...)
+  -> templify((std::tuple) (T...){8} >>= {5,7});
+
+// using the size constraint with multiple random accesses
+template<typename... T>
+auto e9(T...)
+  -> templify((std::tuple) (T...){4}(2,3,2,3,1));
 
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
@@ -110,28 +128,28 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(6));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(9));
 
     CLAUSE_TEST_TYPE( atpp0
-                    , "templify((someclass) (T...){1})"
+                    , "templify((std::tuple) (T...){1})"
                     , true
                     , decltype(e1(1))
                     , a1 );
 
     CLAUSE_TEST_TYPE( atpp1
-                    , "templify((someclass) (T...){2})"
+                    , "templify((std::tuple) (T...){2})"
                     , true
                     , decltype(e1(1,2))
                     , a2 );
 
     CLAUSE_TEST_TYPE( atpp2
-                    , "templify((someclass) (T...){3})"
+                    , "templify((std::tuple) (T...){3})"
                     , true
                     , decltype(e1(1,2,3))
                     , a3 );
 
     CLAUSE_TEST_TYPE( atpp3
-                    , "templify((someclass) (T...){4})"
+                    , "templify((std::tuple) (T...){4})"
                     , true
                     , decltype(e2(1,2,3,4))
                     , a4 );
@@ -188,31 +206,47 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , "declpack((T...)(3,2,1,0)"
                     , true
                     , decltype(e4(a1{},a2{},a3{},a4{}))
-                    , someclass<a4,a3,a2,a1> );
+                    , std::tuple<a4,a3,a2,a1> );
 
     CLAUSE_TEST_TYPE( atpp13
-                    , "templify((someclass) (T...){}(2,1,2,1,2,1,2,1))"
+                    , "templify((std::tuple) (T...){}(2,1,2,1,2,1,2,1))"
                     , true
                     , decltype(e5(a1{},a2{},a3{},a4{}))
-                    , someclass<a3,a2,a3,a2,a3,a2,a3,a2> );
+                    , std::tuple<a3,a2,a3,a2,a3,a2,a3,a2> );
 
     CLAUSE_TEST_TYPE( atpp14
-                    , "declpack((T...){}(3,3,3) |= clause::ample::as_template_of<someclass> ))"
+                    , "declpack((T...){}(3,3,3) |= clause::ample::as_template_of<std::tuple> ))"
                     , true
                     , decltype(e6(a1{},a2{},a3{},a4{}))
-                    , someclass<a4,a4,a4> );
+                    , std::tuple<a4,a4,a4> );
 
     CLAUSE_TEST_TYPE( atpp15
-                    , "templify((someclass) (T...){} >>= {0,4} ))"
+                    , "templify((std::tuple) (T...){} >>= {0,4} ))"
                     , true
                     , decltype(e7(a1{},a2{},a3{},a4{}))
-                    , someclass<a1,a2,a3,a4> );
+                    , std::tuple<a1,a2,a3,a4> );
 
     CLAUSE_TEST_TYPE( atpp16
-                    , "templify((someclass) (T...){} >>= {4,0} ))"
+                    , "templify((std::tuple) (T...){} >>= {4,0} ))"
                     , true
                     , decltype(e8(a1{},a2{},a3{},a4{}))
-                    , someclass<a4,a3,a2,a1> );
+                    , std::tuple<a4,a3,a2,a1> );
 
+    CLAUSE_TEST_TYPE( atpp17
+                    , "templify((std::tuple) (T...){7} >>= {5,2} ))"
+                    , true
+                    , decltype(e9(a1{},a2{},a3{},a4{},a5{},a6{},a7{}))
+                    , std::tuple<a5,a4,a3> );
 
+    CLAUSE_TEST_TYPE( atpp18
+                    , "templify((std::tuple) (T...){8} >>= {5,7} ))"
+                    , true
+                    , decltype(e9(a1{},a2{},a3{},a4{},a5{},a6{},a7{},a8{}))
+                    , std::tuple<a6,a7> );
+
+    CLAUSE_TEST_TYPE( atpp19
+                    , "templify((std::tuple) (T...){4}(2,3,2,3,1))"
+                    , true
+                    , decltype(e9(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a3,a4,a3,a4,a2> );
 };
