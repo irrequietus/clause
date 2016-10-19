@@ -91,6 +91,16 @@ template<typename... T>
 auto e6(T...)
     -> declpack(((T...){}(3,3,3)) |= clause::ample::as_template_of<someclass> );
 
+// expanding to specific ranges
+
+template<typename... T>
+auto e7(T...)
+  -> templify((someclass) (T...){} >>= {0,4});
+
+template<typename... T>
+auto e8(T...)
+  -> templify((someclass) (T...){} >>= {4,0});
+
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
 
@@ -100,7 +110,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(4));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(6));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((someclass) (T...){1})"
@@ -191,6 +201,18 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , true
                     , decltype(e6(a1{},a2{},a3{},a4{}))
                     , someclass<a4,a4,a4> );
+
+    CLAUSE_TEST_TYPE( atpp15
+                    , "templify((someclass) (T...){} >>= {0,4} ))"
+                    , true
+                    , decltype(e7(a1{},a2{},a3{},a4{}))
+                    , someclass<a1,a2,a3,a4> );
+
+    CLAUSE_TEST_TYPE( atpp16
+                    , "templify((someclass) (T...){} >>= {4,0} ))"
+                    , true
+                    , decltype(e8(a1{},a2{},a3{},a4{}))
+                    , someclass<a4,a3,a2,a1> );
 
 
 };
