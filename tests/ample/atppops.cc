@@ -142,6 +142,7 @@ template<typename... T>
 auto e11(T...)
   -> decltype(templify((std::tuple) (((T...){6} >>= {1,5})[2]))(), a4());
 
+// Multiple pattern factor operators used in constraints
 template<typename... T>
 auto e12(T...)
   -> decltype( templify((std::tuple) (T...){}[true][sizeof...(T) > 1])()
