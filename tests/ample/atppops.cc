@@ -148,6 +148,14 @@ auto e12(T...)
   -> decltype( templify((std::tuple) (T...){}[true][sizeof...(T) > 1])()
              , a1() );
 
+// Primitive for yielding a type from a given index using declpack
+template<std::size_t N, typename... T>
+auto e13(T...)
+  -> declpack((T...){}[N < sizeof...(T)](N) |= clause::ample::as_template_of<>);
+
+template<std::size_t N>
+auto e13(...) -> int;
+
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
 
@@ -157,7 +165,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(6));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(8));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -322,4 +330,16 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , true
                     , decltype(e12( a1{}, a2{}, a3{}, a2{}, a3{}, a4{} ) )
                     , a1 );
+
+    CLAUSE_TEST_TYPE( atpp27
+                    , "decltype((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
+                    , true
+                    , decltype(e13<3>( a1{}, a2{}, a3{}, a4{}, a5{}, a6{} ) )
+                    , a4 );
+
+    CLAUSE_TEST_TYPE( atpp28
+                    , "decltype((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
+                    , true
+                    , decltype(e13<30>( a1{}, a2{}, a3{}, a4{}, a5{}, a6{} ) )
+                    , int );
 };

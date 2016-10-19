@@ -87,15 +87,26 @@ template<typename> struct subst_type;
     , skip_block, subst_type )
 #include PPMPF_VXPP_FMAPOF(0)
 
-template<template<typename...> class W>
+template<template<typename...> class...>
 struct template_bound {
+    constexpr template_bound() noexcept = delete;
+};
+
+template<>
+struct template_bound<> {
+    template<typename T> using apply = T;
+    constexpr template_bound() noexcept = default;
+};
+
+template<template<typename...> class W>
+struct template_bound<W> {
     template<typename... T> using apply = W<T...>;
     constexpr template_bound() noexcept = default;
 };
 
-template<template<typename...> class F>
-constexpr template_bound<F>
-as_template_of = template_bound<F>{};
+template<template<typename...> class... F>
+constexpr template_bound<F...>
+as_template_of = template_bound<F...>{};
 
 template< std::size_t... X
         , typename ...Q
@@ -117,6 +128,15 @@ template< std::size_t... X
         , template<typename...> class Z >
 struct instantiation<W<size_seq<X...>,W<P<Q...>,P<template_bound<Z>>>,S<>>>
      : is_just<W<size_seq<X...>,W<Z<Q...>>,S<>>>
+{};
+
+template< std::size_t... X
+        , typename ...Q
+        , template<typename...> class W
+        , template<typename...> class P
+        , template<template<typename> class...> class S >
+struct instantiation<W<size_seq<X...>,W<P<Q...>,P<template_bound<>>>,S<>>>
+     : is_just<W<size_seq<X...>,W<Q...>,S<>>>
 {};
 
 template< std::size_t... X
@@ -343,6 +363,8 @@ public:
     template<template<typename...> class W>
     constexpr auto operator|=(template_bound<W>) const noexcept;
 
+    constexpr auto operator|=(template_bound<>) const noexcept;
+
     template<typename T>
     constexpr auto operator|=(T) const noexcept;
 
@@ -518,6 +540,16 @@ constexpr auto atpp_expr<atpp<atpp<X...>,atpp_inst<I...>>,N>
        tswap<atpp< atpp<X..., atpp<template_bound<W>>>
                  , atpp_inst<I...,instantiation> > >
             (*this);
+}
+
+template<typename... X, template<typename> class... I, std::size_t N>
+constexpr auto atpp_expr<atpp<atpp<X...>,atpp_inst<I...>>,N>
+    ::operator|=(template_bound<>) const noexcept
+{
+    return
+            tswap<atpp< atpp<X..., atpp<template_bound<>>>
+                      , atpp_inst<I...,instantiation> > >
+                 (*this);
 }
 
 template<typename... X, template<typename> class... I, std::size_t N>
