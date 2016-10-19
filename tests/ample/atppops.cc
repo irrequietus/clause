@@ -15,31 +15,33 @@
 #include <clause/ample/test.hh>
 #include <clause/ample/base/atpp.hh>
 #include <clause/ppmpf/spexp.hh>
+#include <tuple>
 
 struct a1{};
 struct a2{};
 struct a3{};
 struct a4{};
-
-template<typename...>
-struct someclass{};
+struct a5{};
+struct a6{};
+struct a7{};
+struct a8{};
 
 // fixed size sfinae lock using templify + decltype combination.
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){1})(), a1{});
+  -> decltype(templify((std::tuple) (T...){1})(), a1{});
 
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){2})(), a2{});
+  -> decltype(templify((std::tuple) (T...){2})(), a2{});
 
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){3})(), a3{});
+  -> decltype(templify((std::tuple) (T...){3})(), a3{});
 
 template<typename... T>
 auto e1(T...)
-  -> decltype(templify((someclass) (T...){4})(), a4{});
+  -> decltype(templify((std::tuple) (T...){4})(), a4{});
 
 // fixed size sfinae lock, declpack style
 template<typename... T>
@@ -76,6 +78,84 @@ template<typename... T>
 auto e3(T...)
   -> declpack((T...){15,20} |= a4());
 
+// reversing a pack using individual access
+template<typename... T>
+auto e4(T...)
+  -> templify((std::tuple) (T...){}(3,2,1,0));
+
+// access based playing with types in the pack, templify style
+template<typename... T>
+auto e5(T...)
+    -> templify((std::tuple) (T...){}(2,1,2,1,2,1,2,1));
+
+// access based playing with types in the pack, declpack style
+template<typename... T>
+auto e6(T...)
+    -> declpack(((T...){}(3,3,3)) |= clause::ample::as_template_of<std::tuple> );
+
+// expanding to specific ranges
+
+template<typename... T>
+auto e7(T...)
+  -> templify((std::tuple) (T...){} >>= {0,4});
+
+template<typename... T>
+auto e8(T...)
+  -> templify((std::tuple) (T...){} >>= {4,0});
+
+// size constrains triggering SFINAE while range-expansion used
+// also for reversing the range involved. In one blow.
+
+template<typename... T>
+auto e9(T...)
+  -> templify((std::tuple) (T...){7} >>= {5,2});
+
+template<typename... T>
+auto e9(T...)
+  -> templify((std::tuple) (T...){8} >>= {5,7});
+
+// using the size constraint with multiple random accesses
+template<typename... T>
+auto e9(T...)
+  -> templify((std::tuple) (T...){4}(2,3,2,3,1));
+
+// demonstrating one possible use of the pattern factor operator:
+// when equal to the size of the pack, ALL types must be the same!
+template<typename... T>
+auto e10(T...)
+  -> templify((std::tuple) (T...){}[sizeof...(T)] );
+
+// pattern factor operator detecting multiples in fixed size
+// packs, triggering SFINAE properly in each case.
+template<typename... T>
+auto e10(T...)
+  -> decltype(templify((std::tuple) (T...){8}[2])(), a2() );
+
+template<typename... T>
+auto e10(T...)
+  -> decltype(templify((std::tuple) (T...){9}[3])(), a3() );
+
+auto e10(...) -> a1;
+
+// A pack of size 6, where indices 1,2,3,4 are <1,2> == <3,4>
+template<typename... T>
+auto e11(T...)
+  -> decltype(templify((std::tuple) (((T...){6} >>= {1,5})[2]))(), a4());
+
+// Multiple pattern factor operators used in constraints
+template<typename... T>
+auto e12(T...)
+  -> decltype( templify((std::tuple) (T...){}[true][sizeof...(T) > 1])()
+             , a1() );
+
+// Primitive for yielding a type from a given index using declpack
+template<std::size_t N, typename... T>
+auto e13(T...)
+  -> declpack((T...){}[N < sizeof...(T)](N) |= clause::ample::as_template_of<>);
+
+template<std::size_t N>
+auto e13(...) -> int;
+
 CLAUSE_TEST_DEFN( check_all_atppops
                 , "evaluating atpp pack operators") {
 
@@ -85,28 +165,28 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(1)(1));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(8));
 
     CLAUSE_TEST_TYPE( atpp0
-                    , "templify((someclass) (T...){1})"
+                    , "templify((std::tuple) (T...){1})"
                     , true
                     , decltype(e1(1))
                     , a1 );
 
     CLAUSE_TEST_TYPE( atpp1
-                    , "templify((someclass) (T...){2})"
+                    , "templify((std::tuple) (T...){2})"
                     , true
                     , decltype(e1(1,2))
                     , a2 );
 
     CLAUSE_TEST_TYPE( atpp2
-                    , "templify((someclass) (T...){3})"
+                    , "templify((std::tuple) (T...){3})"
                     , true
                     , decltype(e1(1,2,3))
                     , a3 );
 
     CLAUSE_TEST_TYPE( atpp3
-                    , "templify((someclass) (T...){4})"
+                    , "templify((std::tuple) (T...){4})"
                     , true
                     , decltype(e2(1,2,3,4))
                     , a4 );
@@ -159,4 +239,107 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , decltype(e3(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15))
                     , a4 );
 
+    CLAUSE_TEST_TYPE( atpp12
+                    , "declpack((T...)(3,2,1,0)"
+                    , true
+                    , decltype(e4(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a4,a3,a2,a1> );
+
+    CLAUSE_TEST_TYPE( atpp13
+                    , "templify((std::tuple) (T...){}(2,1,2,1,2,1,2,1))"
+                    , true
+                    , decltype(e5(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a3,a2,a3,a2,a3,a2,a3,a2> );
+
+    CLAUSE_TEST_TYPE( atpp14
+                    , "declpack((T...){}(3,3,3) |= clause::ample::as_template_of<std::tuple> ))"
+                    , true
+                    , decltype(e6(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a4,a4,a4> );
+
+    CLAUSE_TEST_TYPE( atpp15
+                    , "templify((std::tuple) (T...){} >>= {0,4} ))"
+                    , true
+                    , decltype(e7(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a1,a2,a3,a4> );
+
+    CLAUSE_TEST_TYPE( atpp16
+                    , "templify((std::tuple) (T...){} >>= {4,0} ))"
+                    , true
+                    , decltype(e8(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a4,a3,a2,a1> );
+
+    CLAUSE_TEST_TYPE( atpp17
+                    , "templify((std::tuple) (T...){7} >>= {5,2} ))"
+                    , true
+                    , decltype(e9(a1{},a2{},a3{},a4{},a5{},a6{},a7{}))
+                    , std::tuple<a5,a4,a3> );
+
+    CLAUSE_TEST_TYPE( atpp18
+                    , "templify((std::tuple) (T...){8} >>= {5,7} ))"
+                    , true
+                    , decltype(e9(a1{},a2{},a3{},a4{},a5{},a6{},a7{},a8{}))
+                    , std::tuple<a6,a7> );
+
+    CLAUSE_TEST_TYPE( atpp19
+                    , "templify((std::tuple) (T...){4}(2,3,2,3,1))"
+                    , true
+                    , decltype(e9(a1{},a2{},a3{},a4{}))
+                    , std::tuple<a3,a4,a3,a4,a2> );
+
+    CLAUSE_TEST_TYPE( atpp20
+                    , "templify((std::tuple) (T...){}[sizeof...(T)] )"
+                    , true
+                    , decltype(e10(a1{},a1{},a1{}))
+                    , std::tuple<a1,a1,a1> );
+
+    CLAUSE_TEST_TYPE( atpp21
+                    , "templify((std::tuple) (T...){}[sizeof...(T)] )"
+                    , true
+                    , decltype(e10(a1{},a1{},a1{},a1{},a1{}))
+                    , std::tuple<a1,a1,a1,a1,a1> );
+
+    CLAUSE_TEST_TYPE( atpp22
+                    , "templify((std::tuple) (T...){}[sizeof...(T)] )"
+                    , true
+                    , decltype(e10(a1{},a1{},a1{},0,a1{},a1{}))
+                    , a1 );
+
+    CLAUSE_TEST_TYPE( atpp23
+                    , "templify((std::tuple) (T...){8}[2] )"
+                    , true
+                    , decltype(e10(a1{},a2{},a1{},a2{},a1{},a2{},a1{},a2{}))
+                    , a2 );
+
+    CLAUSE_TEST_TYPE( atpp24
+                    , "templify((std::tuple) (T...){9}[3] )"
+                    , true
+                    , decltype(e10( a1{}, a2{}, a3{}
+                                  , a1{}, a2{}, a3{}
+                                  , a1{}, a2{}, a3{} ) )
+                    , a3 );
+
+    CLAUSE_TEST_TYPE( atpp25
+                    , "templify((std::tuple) (((T...){6} >>= {1,5})[2]))"
+                    , true
+                    , decltype(e11( a1{}, a2{}, a3{}, a2{}, a3{}, a4{} ) )
+                    , a4 );
+
+    CLAUSE_TEST_TYPE( atpp26
+                    , "templify((std::tuple) (T...){}[true][sizeof...(T) > 1])"
+                    , true
+                    , decltype(e12( a1{}, a2{}, a3{}, a2{}, a3{}, a4{} ) )
+                    , a1 );
+
+    CLAUSE_TEST_TYPE( atpp27
+                    , "decltype((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
+                    , true
+                    , decltype(e13<3>( a1{}, a2{}, a3{}, a4{}, a5{}, a6{} ) )
+                    , a4 );
+
+    CLAUSE_TEST_TYPE( atpp28
+                    , "decltype((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
+                    , true
+                    , decltype(e13<30>( a1{}, a2{}, a3{}, a4{}, a5{}, a6{} ) )
+                    , int );
 };
