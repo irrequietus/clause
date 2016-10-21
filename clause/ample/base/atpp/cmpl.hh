@@ -59,6 +59,14 @@ struct atpp;
 template<template<typename> class...>
 struct atpp_inst {};
 
+template<template<typename...> class F>
+struct template_f {
+    template<typename... X>
+    struct oprt_apply
+         : is_just<F<X...>>
+    {};
+};
+
 template<typename> struct merging;
 template<typename> struct instantiation;
 template<typename> struct expansion;
@@ -68,6 +76,8 @@ template<typename> struct repetition;
 template<typename> struct at_position;
 template<typename> struct skip_block;
 template<typename> struct subst_type;
+template<typename> struct fmap_type;
+template<typename> struct dotfmap_type;
 
 // Code generation block 1
 #define PPMPF_VXPP_SET0(aID) \
@@ -84,24 +94,81 @@ template<typename> struct subst_type;
   {}; ) \
     ( merging, instantiation, expansion \
     , restriction, pattern, repetition, at_position \
-    , skip_block, subst_type )
+    , skip_block, subst_type, fmap_type, dotfmap_type )
 #include PPMPF_VXPP_FMAPOF(0)
 
-template<template<typename...> class...>
+template<template<typename...> class... F>
 struct template_bound {
-    constexpr template_bound() noexcept = delete;
+private:
+
+    template<typename...> struct i2{};
+
+    template< template<template<typename...> class...> class W
+            , template<typename...> class... G
+            , template<typename...> class... A
+            , template<typename...> class B >
+    struct i2<W<A...>,W<B,G...>>
+        : i2<W<B,A...>, W<G...>>
+    {};
+
+    template< template<template<typename...> class...> class W
+            , template<typename...> class ... A >
+    struct i2<W<A...>,W<>>
+        : is_just< W<A...>>
+        {};
+
+    template<typename...> struct i3;
+
+    template<template<template<typename...> class ...> class W
+            , template<typename...> class... B
+            , template<typename...> class A
+            , template<typename...> class T
+            , typename... X >
+    struct i3<W<A,B...>,T<X...>>
+         : i3<W<B...>, T<A<X>...>>
+    {};
+
+    template<template<template<typename...> class ...> class W
+            , template<typename...> class T
+            , typename... X >
+    struct i3<W<>,T<X...>>
+         : is_just<T<X...>>
+    {};
+
+public:
+    constexpr template_bound() noexcept = default;
+
+    template<template<typename...> class W, typename... X>
+    constexpr auto operator()(W<X...>) const noexcept;
+
+    template<template<typename...> class... Q>
+    constexpr auto operator*(template_bound<Q...>) const noexcept;
+
 };
 
 template<>
 struct template_bound<> {
     template<typename T> using apply = T;
     constexpr template_bound() noexcept = default;
+
+    template<template<typename...> class W, typename... X>
+    constexpr auto operator()(W<X...>) const noexcept;
+
+    template<template<typename...> class... Q>
+    constexpr auto operator*(template_bound<Q...>) const noexcept;
 };
 
 template<template<typename...> class W>
 struct template_bound<W> {
     template<typename... T> using apply = W<T...>;
     constexpr template_bound() noexcept = default;
+
+    template<template<typename...> class Q>
+    constexpr auto operator*(template_bound<Q>) const noexcept;
+
+    template<template<typename...> class G, typename... X>
+    constexpr auto operator()(G<X...>) const noexcept;
+
 };
 
 template<template<typename...> class... F>
@@ -154,6 +221,55 @@ struct expansion<W<size_seq<A,B,X...>,W<P<Q...>, T...>,S<I...>>>
                     , T... >
               , S<I...>>>
 {};
+
+template< std::size_t... X
+        , std::size_t A
+        , std::size_t B
+        , typename ...Q
+        , typename F
+        , template<typename...> class W
+        , template<typename...> class P
+        , template<template<typename> class...> class S
+        , template<typename> class... I
+        , typename... T>
+struct fmap_type<W<size_seq<A,B,X...>,W<P<Q...>, P<F>, T...>,S<I...>>>
+     : is_just< W< size_seq<X...>
+                 , W< typename P<Q...>::template fmap<F>
+                    , T... >
+              , S<I...>>>
+{};
+
+template< std::size_t... X
+        , typename ...Q
+        , template<typename...> class W
+        , template<typename...> class P
+        , template<template<typename> class...> class S
+        , template<typename> class... I, typename H
+        , typename... T>
+struct dotfmap_type<W<size_seq<X...>,W<P<Q...>, H, T...>,S<I...>>>
+     : is_just< W< size_seq<X...>
+                 , W< decltype(H()(P<Q...>()))
+                    , T... >
+              , S<I...>>>
+{};
+
+
+template< std::size_t... X
+        , typename ...Q
+        , template<typename...> class W
+        , template<typename...> class P
+        , template<template<typename> class...> class S
+        , template<typename> class... I, template<typename...> class... F
+        , template<typename...> class... G
+        , typename... T>
+struct dotfmap_type<W<size_seq<X...>,W<P<Q...>
+                     , template_bound<F...>
+                     , template_bound<G...> , T...>,S<dotfmap_type,I...>>>
+     : dotfmap_type<W<size_seq<X...>,W<P<Q...>
+                    , template_bound<F...,G...> , T...>,S<I...>>>
+{};
+
+
 
 template< std::size_t... X
         , std::size_t A
@@ -316,9 +432,6 @@ private:
     static constexpr atpp_expr<T,M>
     tswap(atpp_expr<Q,M>) noexcept;
 
-
-
-
 public:
 
     template<typename... T>
@@ -376,11 +489,11 @@ public:
 
     template<typename... T>
     constexpr auto operator,(atpp<T...>) const noexcept;
+
+    template< template<typename...> class... F
+            , template<typename...> class W = atpp >
+    constexpr auto operator*(template_bound<F...>) const noexcept;
 };
-
-
-
-
 
 /*~
  * @note The following are the `atpr_expr member function definitions.
@@ -561,6 +674,53 @@ constexpr auto atpp_expr<atpp<atpp<X...>,atpp_inst<I...>>,N>
        tswap<atpp< atpp<X..., atpp<T>>, atpp_inst<I...,subst_type> > >
             (*this);
 }
+
+template<typename... X, template<typename> class... I, std::size_t N>
+template<template<typename...> class... F, template<typename...> class W>
+constexpr auto atpp_expr<atpp<atpp<X...>,atpp_inst<I...>>,N>
+    ::operator*(template_bound<F...>) const noexcept
+{
+     return
+        tswap<atpp< atpp<X..., template_bound<F...>>
+                  , atpp_inst<I...,dotfmap_type> > >(*this);
+}
+
+template<template<typename...> class... F>
+template<template<typename...> class W, typename... X>
+constexpr auto template_bound<F...>
+    ::operator()(W<X...>) const noexcept {
+    return
+       decltype(extype<i3<extype<i2< template_bound<>
+                                   , template_bound<F...>> >,W<X...>>>())();
+}
+
+template<template<typename...> class... F>
+template<template<typename...> class... Q>
+constexpr auto template_bound<F...>
+    ::operator*(template_bound<Q...>) const noexcept
+{ return template_bound<F...,Q...>(); }
+
+template<template<typename...> class W, typename... X>
+constexpr auto template_bound<>
+    ::operator()(W<X...>) const noexcept
+{ return W<X...>(); }
+
+template<template<typename...> class... Q>
+constexpr auto template_bound<>
+    ::operator*(template_bound<Q...>) const noexcept
+{ return template_bound<Q...>(); }
+
+template<template<typename...> class W>
+template<template<typename...> class Q>
+constexpr auto template_bound<W>
+    ::operator*(template_bound<Q>) const noexcept
+{ return template_bound<W,Q>(); }
+
+template<template<typename...> class W>
+template<template<typename...> class G, typename... X>
+constexpr auto template_bound<W>
+    ::operator()(G<X...>) const noexcept
+{ return G<W<X>...>(); }
 
 } /* ample */
 } /* clause */

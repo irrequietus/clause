@@ -153,6 +153,33 @@ template<std::size_t N, typename... T>
 auto e13(T...)
   -> declpack((T...){}[N < sizeof...(T)](N) |= clause::ample::as_template_of<>);
 
+template<typename...>
+struct F {};
+
+template<typename...>
+struct Fx {};
+
+template<typename...>
+struct Gx {};
+
+template<typename... T>
+auto e14(T...)
+  -> declpack(((T...){} * clause::ample::as_template_of<F>)
+              |= clause::ample::as_template_of<std::tuple>);
+
+template<typename... T>
+auto e15(T...)
+  -> templify((std::tuple) ((T...){} * clause::ample::as_template_of<>));
+
+template<typename... T>
+auto e16(T...)
+  -> templify((std::tuple) ((T...){} * clause::ample::as_template_of<Fx,Gx>));
+
+template<typename... T>
+auto e17(T...)
+  -> templify((std::tuple) ((T...){} * clause::ample::as_template_of<Fx>
+                                     * clause::ample::as_template_of<Gx> ));
+
 template<std::size_t N>
 auto e13(...) -> int;
 
@@ -165,7 +192,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(2)(8));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(2));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -332,14 +359,43 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , a1 );
 
     CLAUSE_TEST_TYPE( atpp27
-                    , "decltype((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
+                    , "declpack((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
                     , true
                     , decltype(e13<3>( a1{}, a2{}, a3{}, a4{}, a5{}, a6{} ) )
                     , a4 );
 
     CLAUSE_TEST_TYPE( atpp28
-                    , "decltype((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
+                    , "declpack((T...){}[N < sizeof..(T)](N) |= as_template_of<>)"
                     , true
                     , decltype(e13<30>( a1{}, a2{}, a3{}, a4{}, a5{}, a6{} ) )
                     , int );
+
+    CLAUSE_TEST_TYPE( atpp29
+                    , "declpack(((T...){} * as_template_of<F>)) |= as_template_of<std::tuple>"
+                    , true
+                    , decltype(e14(a1{}, a2{}, a3{}, a4{}, a5{}, a6{}))
+                    , std::tuple<F<a1>,F<a2>,F<a3>,F<a4>,F<a5>,F<a6>>);
+
+    CLAUSE_TEST_TYPE( atpp30
+                    , "templify((std::tuple) ((T...){} * as_template_of<>))"
+                    , true
+                    , decltype(e15(a1{}, a2{}, a3{}, a4{}, a5{}, a6{}))
+                    , std::tuple<a1,a2,a3,a4,a5,a6>);
+
+    CLAUSE_TEST_TYPE( atpp31
+                    , "templify((std::tuple) (((T...){} * as_template_of<Fx,Gx>))"
+                    , true
+                    , decltype(e16(a1{}, a2{}, a3{}, a4{}, a5{}, a6{}))
+                    , std::tuple< Fx<Gx<a1>>
+                                , Fx<Gx<a2>>
+                                , Fx<Gx<a3>>
+                                , Fx<Gx<a4>>
+                                , Fx<Gx<a5>>
+                                , Fx<Gx<a6>> > );
+
+    CLAUSE_TEST_TYPE( atpp32
+                    , "(T...){} * as_template_of<Fx,Gx> == (T...){} * as_template_of<Fx> * as_template_of<Gx>"
+                    , true
+                    , decltype(e16(a1{}, a2{}, a3{}, a4{}, a5{}, a6{}))
+                    , decltype(e17(a1{}, a2{}, a3{}, a4{}, a5{}, a6{})) );
 };
