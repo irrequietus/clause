@@ -180,6 +180,21 @@ auto e17(T...)
   -> templify((std::tuple) ((T...){} * clause::ample::as_template_of<Fx>
                                      * clause::ample::as_template_of<Gx> ));
 
+template<typename... T>
+auto e18(T...)
+   -> decltype( templify((std::tuple) ((T...){} == declpack((a1,a2,a3){})()))()
+              , a1() );
+
+template<typename... T>
+auto e18(T...)
+   -> decltype( templify((std::tuple) ((T...){} == declpack((a1){}^4)()))()
+              , a2() );
+
+template<typename... T>
+auto e19(T...)
+   -> decltype( templify((std::tuple) ((T...){} != declpack((a1){}^4)()))()
+              , a3() );
+
 template<std::size_t N>
 auto e13(...) -> int;
 
@@ -192,7 +207,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(3));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(6));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -406,5 +421,23 @@ CLAUSE_TEST_DEFN( check_all_atppops
                               * clause::ample::as_template_of<std::tuple> )
                     , decltype( clause::ample::as_template_of<std::tuple>
                               * clause::ample::as_template_of<> ) );
+
+    CLAUSE_TEST_TYPE( atpp34
+                    , "checking atpp operator== via templify (1st test)"
+                    , true
+                    , decltype(e18(a1{},a2{},a3{}))
+                    , a1 );
+
+    CLAUSE_TEST_TYPE( atpp35
+                    , "checking atpp operator== via templify (2nd test)"
+                    , true
+                    , decltype(e18(a1{},a1{},a1{},a1{}))
+                    , a2 );
+
+    CLAUSE_TEST_TYPE( atpp36
+                    , "checking atpp operator!= via templify"
+                    , true
+                    , decltype(e19(a1{},a1{},a1{},a1{},a5{}))
+                    , a3 );
 
 };
