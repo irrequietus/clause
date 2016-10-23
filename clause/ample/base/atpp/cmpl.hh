@@ -144,6 +144,9 @@ public:
     template<template<typename...> class... Q>
     constexpr auto operator*(template_bound<Q...>) const noexcept;
 
+    template<typename... T>
+    constexpr auto operator*(atpp<T...> q) const noexcept;
+
 };
 
 template<>
@@ -156,6 +159,9 @@ struct template_bound<> {
 
     template<template<typename...> class... Q>
     constexpr auto operator*(template_bound<Q...>) const noexcept;
+
+    template<typename... T>
+    constexpr auto operator*(atpp<T...> q) const noexcept;
 };
 
 template<template<typename...> class W>
@@ -168,6 +174,12 @@ struct template_bound<W> {
 
     template<template<typename...> class G, typename... X>
     constexpr auto operator()(G<X...>) const noexcept;
+
+    template<typename... T>
+    constexpr auto operator*(atpp<T...>) const noexcept;
+
+    template<template<typename...> class... F>
+    constexpr auto operator*(template_bound<F...>) const noexcept;
 
 };
 
@@ -253,7 +265,6 @@ struct dotfmap_type<W<size_seq<X...>,W<P<Q...>, H, T...>,S<I...>>>
               , S<I...>>>
 {};
 
-
 template< std::size_t... X
         , typename ...Q
         , template<typename...> class W
@@ -268,8 +279,6 @@ struct dotfmap_type<W<size_seq<X...>,W<P<Q...>
      : dotfmap_type<W<size_seq<X...>,W<P<Q...>
                     , template_bound<F...,G...> , T...>,S<I...>>>
 {};
-
-
 
 template< std::size_t... X
         , std::size_t A
@@ -700,6 +709,12 @@ constexpr auto template_bound<F...>
     ::operator*(template_bound<Q...>) const noexcept
 { return template_bound<F...,Q...>(); }
 
+template<template<typename...> class... F>
+template<typename... T>
+constexpr auto template_bound<F...>
+    ::operator*(atpp<T...> q) const noexcept
+{ return q * (*this); }
+
 template<template<typename...> class W, typename... X>
 constexpr auto template_bound<>
     ::operator()(W<X...>) const noexcept
@@ -709,6 +724,11 @@ template<template<typename...> class... Q>
 constexpr auto template_bound<>
     ::operator*(template_bound<Q...>) const noexcept
 { return template_bound<Q...>(); }
+
+template<typename... T>
+constexpr auto template_bound<>
+    ::operator*(atpp<T...> q) const noexcept
+{ return q; }
 
 template<template<typename...> class W>
 template<template<typename...> class Q>
@@ -721,6 +741,18 @@ template<template<typename...> class G, typename... X>
 constexpr auto template_bound<W>
     ::operator()(G<X...>) const noexcept
 { return G<W<X>...>(); }
+
+template<template<typename...> class W>
+template<typename... T>
+constexpr auto template_bound<W>
+    ::operator*(atpp<T...> q) const noexcept
+{ return q * (*this); }
+
+template<template<typename...> class W>
+template<template<typename...> class... F>
+constexpr auto template_bound<W>
+    ::operator*(template_bound<F...>) const noexcept
+{ return template_bound<W,F...>{}; }
 
 } /* ample */
 } /* clause */

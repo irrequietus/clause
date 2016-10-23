@@ -192,7 +192,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(2));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(3));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -398,4 +398,13 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , true
                     , decltype(e16(a1{}, a2{}, a3{}, a4{}, a5{}, a6{}))
                     , decltype(e17(a1{}, a2{}, a3{}, a4{}, a5{}, a6{})) );
+
+    CLAUSE_TEST_TYPE( atpp33
+                    , "as_template_of<> * as_template_of<std::tuple> == as_template_of<std::tuple> * as_template_of<>"
+                    , true
+                    , decltype( clause::ample::as_template_of<>
+                              * clause::ample::as_template_of<std::tuple> )
+                    , decltype( clause::ample::as_template_of<std::tuple>
+                              * clause::ample::as_template_of<> ) );
+
 };
