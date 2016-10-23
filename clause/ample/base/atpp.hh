@@ -601,6 +601,16 @@ struct atpp
     constexpr atpp(std::size_t const &) noexcept;
     constexpr atpp(std::size_t const &, std::size_t const &) noexcept;
 
+    template<typename... Z>
+    constexpr auto operator==(atpp<Z...>) const noexcept;
+
+    template<typename... Z>
+    constexpr auto operator!=(atpp<Z...>) const noexcept;
+
+    constexpr auto operator==(atpp<X...>) const noexcept;
+
+    constexpr auto operator!=(atpp<X...>) const noexcept;
+
     using type = atpp<X...>;
 
     static std::size_t constexpr value = sizeof...(X);
@@ -755,6 +765,28 @@ template<typename... T>
 constexpr atpp<T...>::atpp(std::size_t const &a, std::size_t const &b) noexcept
     : atpp_expr<atpp< atpp<atpp<T...>>,atpp_inst<restriction>>,2>{a, b}
 {}
+
+template<typename... X>
+template<typename... Z>
+constexpr auto atpp<X...>
+    ::operator==(atpp<Z...>) const noexcept
+{ return failure<>{}; }
+
+template<typename... X>
+constexpr auto atpp<X...>
+    ::operator==(atpp<X...>) const noexcept
+{ return atpp<X...>{}; }
+
+template<typename... X>
+template<typename... Z>
+constexpr auto atpp<X...>
+    ::operator!=(atpp<Z...>) const noexcept
+{ return atpp<X...>{}; }
+
+template<typename... X>
+constexpr auto atpp<X...>
+    ::operator!=(atpp<X...>) const noexcept
+{ return failure<>{}; }
 
 namespace atpp_ {
 
