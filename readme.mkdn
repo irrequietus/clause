@@ -64,18 +64,18 @@ for the ease of the developer, resulting in equivalent forms. The use of `{}`
 specifies `sizeof...(T)` restriction *only when immediately following `(T...)`
 and hides the default of* `{0,sizeof...(T)}`.
 
-| |declpack argument(s)       | semantics involved |
-|--|--------------------------|-------------|
-|1| `(T...){} |= X()`        |  Given a pack expanding as `T...`, instantiate to `X`|
-|2|  `(T...){}, X()`         |  Given a pack expanding as `T...`, instantiate to `atpp<T...,X>` |
-|3| `(T...){}[1]`            |  default pattern factor `[1]`, instantiate to `atpp<T...>` |
-|4| `(T...){N,M}[K]`         |  `T...` is a `K`-tuple of a repeating sequence, for `M > N`, `sizeof...(T) E [N,M)`, |
-|5| `(T...){N}[K]`           |  `T...` is a `K`-tuple, `sizeof...(T) == N` |
-|6| `(T...){}[K]`            |  `T...` is a `K`-tuple |
-|7| `(T...){N,M}[K] >>= {A}` |  `T...` is a `K`-tuple, for `M > N`, `sizeof...(T) E [N,M)` expands to`[0,A)` |
-|8| `(T...){N,M}[K] >>= {A,B}` |  when `A < B`, `T...` is `K`-tuple, `M > N`, `sizeof...(T) E [N,M)` to`[A,B)`
-|9|`(T...){N,M}[K] >>= {A,B}` | when `A > B`, `T...` is `K`-tuple, `M > N`, `sizeof...(T) E [N,M)` to`(A,B]` |
-|10|`((T...){N,M}[K] >>= {A,B})^Z` | as previous examples *8,9*, but repeat the resulting pack `Z` times; notice `( )`. |
+|argument(s)           | semantics involved |
+|-------------------------------|-------------|
+|<code>(T...){} &#124;= X()</code>              |  Given a pack expanding as `T...`, instantiate to `X`|
+|`(T...){}, X()`               |  Given a pack expanding as `T...`, instantiate to `T...,X` |
+|`(T...){}[1]`                  |  default pattern factor `[1]`, instantiate to `T...` |
+|`(T...){N,M}[K]`               |  `T...` is a `K`-tuple of a repeating sequence, for `M > N`, `sizeof...(T) E [N,M)`, |
+|`(T...){N}[K]`                 |  `T...` is a `K`-tuple, `sizeof...(T) == N` |
+|`(T...){}[K]`                  |  `T...` is a `K`-tuple |
+|`(T...){N,M}[K] >>= {A}`       |  `T...` is a `K`-tuple, for `M > N`, `sizeof...(T) E [N,M)` expands to`[0,A)` |
+|`(T...){N,M}[K] >>= {A,B}`     |  when `A < B`, `T...` is `K`-tuple, `M > N`, `sizeof...(T) E [N,M)` to`[A,B)`
+|`(T...){N,M}[K] >>= {A,B}`      | when `A > B`, `T...` is `K`-tuple, `M > N`, `sizeof...(T) E [N,M)` to`(A,B]` |
+|`((T...){N,M}[K] >>= {A,B})^Z` | as previous examples, but repeat the resulting pack `Z` times; notice `( )`. |
 
 Testing the code available
 --------------------------
