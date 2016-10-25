@@ -68,6 +68,7 @@ and hides the default of* `{0,sizeof...(T)}`.
 |-------------------------------|-------------|
 |<code>(T...){} &#124;= X()</code>              |  Given a pack expanding as `T...`, instantiate to `X`|
 |`(T...){}, X()`               |  Given a pack expanding as `T...`, instantiate to `T...,X` |
+|`(T...){}(A,B,C,D)`       |  Access type with indices `A,B,C,D` and so on |
 |`(T...){}[1]`                  |  default pattern factor `[1]`, instantiate to `T...` |
 |`(T...){N,M}[K]`               |  `T...` is a `K`-tuple of a repeating sequence, for `M > N`, `sizeof...(T) E [N,M)`, |
 |`(T...){N}[K]`                 |  `T...` is a `K`-tuple, `sizeof...(T) == N` |
