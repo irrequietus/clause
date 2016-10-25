@@ -745,6 +745,13 @@ struct atpp
     using pop_frnt
         = expand<N, sizeof...(X)>;
 
+    template<std::size_t N>
+    using peek_frnt
+        = atpos<sizeof...(X) - N - 1>;
+
+    template<std::size_t N>
+    using peek_back
+        = atpos<N>;
 };
 
 /*~
@@ -817,8 +824,9 @@ using atpp_iprt
  *       integral constant expressions.
  * @note
  */
-#define declpack(...)  ATPP_declpack0(__VA_ARGS__)
+#define declpack(...) ATPP_declpack0(__VA_ARGS__)
 #define templify(...) ATPP_template1(ATPP_template3 __VA_ARGS__)
+#define atppdecl(...) typename declpack(__VA_ARGS__)::template peek_frnt<0>
 
 #define ATPP_getwrap(n,...) (__VA_ARGS__).get(clause::ample::size_seq<n>())
 #define ATPP_declseq_(...)  \

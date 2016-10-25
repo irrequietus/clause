@@ -195,6 +195,13 @@ auto e19(T...)
    -> decltype( templify((std::tuple) ((T...){} != declpack((a1){}^4)()))()
               , a3() );
 
+// rewrite of e19 using atppdecl, simplifying use without templify
+// while the type in the last comma is picked up as the final instantiation
+// step; think "variadic" decltype.
+template<typename... T>
+auto e20(T...)
+  -> atppdecl((T...){} != (declpack((a1){}^4)()), a3() );
+
 template<std::size_t N>
 auto e13(...) -> int;
 
@@ -207,7 +214,7 @@ CLAUSE_TEST_DEFN( check_all_atppops
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(6));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(3)(9));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "templify((std::tuple) (T...){1})"
@@ -440,4 +447,21 @@ CLAUSE_TEST_DEFN( check_all_atppops
                     , decltype(e19(a1{},a1{},a1{},a1{},a5{}))
                     , a3 );
 
+    CLAUSE_TEST_TYPE( atpp37
+                    , "testing atppdecl(...) 1st test"
+                    , true
+                    , atppdecl((a1,a2,a3,a4,a5,a6){})
+                    , a6 );
+
+    CLAUSE_TEST_TYPE( atpp38
+                    , "testing atppdecl(...) 2nd test"
+                    , true
+                    , atppdecl((a1,a2,a3,a4,a5,a6){},a7())
+                    , a7 );
+
+    CLAUSE_TEST_TYPE( atpp39
+                    , "atppdecl((T...){} != declpack((a1){}^4)(), a3() )"
+                    , true
+                    , decltype(e20(a1{},a1{},a1{},a1{},a5{}))
+                    , a3 );
 };

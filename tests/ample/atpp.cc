@@ -66,7 +66,7 @@ CLAUSE_TEST_DEFN( check_all_atpp
      * It is based on the macros defined in <clause/ppmpf/spexp.hh> and
      * CLAUSE_TEST_INDX itself is defined in <clause/ample/test.hh>.
      */
-    CLAUSE_TEST_INDX(atpp, (0)(0)(4)(0));
+    CLAUSE_TEST_INDX(atpp, (0)(0)(4)(2));
 
     CLAUSE_TEST_TYPE( atpp0
                     , "atpp<X...>::type"
@@ -403,5 +403,15 @@ CLAUSE_TEST_DEFN( check_all_atpp
                     , clause::ample::atpp<a,b,c,d,e,f,g,h,i,j,k>::pop_back<5>
                     , clause::ample::atpp<a,b,c,d,e,f> );
 
+    CLAUSE_TEST_TYPE( atpp41
+                    , "atpp<X...>::peek_frnt<N>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g,h,i,j,k>::peek_frnt<5>
+                    , f );
 
+    CLAUSE_TEST_TYPE( atpp42
+                    , "atpp<X...>::peek_back<N>"
+                    , true
+                    , clause::ample::atpp<a,b,c,d,e,f,g,h,i,j,k>::peek_back<0>
+                    , a );
 };
