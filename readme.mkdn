@@ -46,6 +46,37 @@ int main() {
 }
 ```
 
+Pack operator semantics
+-----------------------
+For a given type template parameter pack expanding as `T...` the `atpp<T...>`
+class template provides the basic abstraction upon which pack operators are
+implemented through a combination of *constexpr, template and preprocessor
+metaprogramming*. Non-type and template template type parameter packs are under
+implementation for use with `atpp`, however they can already be used by
+wrapping them into type parameters properly in a `atpp` expression. There are
+**3** (*three*) macros wrapping around it, namely `declpack`, `templify` and
+`atppdecl` and the basic argument preceding all expressions for a given pack
+`T...` is always a variation of `(T...){N,M}[K]` where `N,M,K` are integral
+constant expressions specifying range/size/expansion index restrictions
+(i.e. `N,M`) and underlying patterns resulting by the factorization `K` of the
+`sizeof...(T)` primitive. These integral constant expressions may be omitted
+for the ease of the developer, resulting in equivalent forms. The use of `{}`
+specifies `sizeof...(T)` restriction *only when immediately following `(T...)`
+and hides the default of* `{0,sizeof...(T)}`.
+
+| |declpack argument(s)       | semantics involved |
+|--|--------------------------|-------------|
+|1| `(T...){} |= X()`        |  Given a pack expanding as `T...`, instantiate to `X`|
+|2|  `(T...){}, X()`         |  Given a pack expanding as `T...`, instantiate to `atpp<T...,X>` |
+|3| `(T...){}[1]`            |  default pattern factor `[1]`, instantiate to `atpp<T...>` |
+|4| `(T...){N,M}[K]`         |  `T...` is a `K`-tuple of a repeating sequence, for `M > N`, `sizeof...(T) E [N,M)`, |
+|5| `(T...){N}[K]`           |  `T...` is a `K`-tuple, `sizeof...(T) == N` |
+|6| `(T...){}[K]`            |  `T...` is a `K`-tuple |
+|7| `(T...){N,M}[K] >>= {A}` |  `T...` is a `K`-tuple, for `M > N`, `sizeof...(T) E [N,M)` expands to`[0,A)` |
+|8| `(T...){N,M}[K] >>= {A,B}` |  when `A < B`, `T...` is `K`-tuple, `M > N`, `sizeof...(T) E [N,M)` to`[A,B)`
+|9|`(T...){N,M}[K] >>= {A,B}` | when `A > B`, `T...` is `K`-tuple, `M > N`, `sizeof...(T) E [N,M)` to`(A,B]` |
+|10|`((T...){N,M}[K] >>= {A,B})^Z` | as previous examples *8,9*, but repeat the resulting pack `Z` times; notice `( )`. |
+
 Testing the code available
 --------------------------
 
